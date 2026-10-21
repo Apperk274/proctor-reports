@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Characters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --plate: #ffffff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    --plate: #f4f6f7; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  --plate: #f4f6f7; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.solo { max-width: 760px; }
+.figs.small { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+.ledger { display: grid; gap: 10px; }
+.bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
+.bar span { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.9rem; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.sub { display: grid; gap: 12px; margin-top: 8px; }
+
+.group { display: grid; gap: 14px; }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.pose { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); background: var(--accent-soft);
+  padding: 2px 8px; border-radius: 4px; }
+
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+
+.posetable { display: grid; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.posetable > div { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 2fr); gap: 4px 16px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 0.92rem; }
+.posetable > div:first-child { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.posetable .p { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); overflow-wrap: anywhere; }
+.posetable .c { font-family: var(--mono); font-size: 0.8rem; overflow-wrap: anywhere; }
+.posetable .d { color: var(--muted); }
+@media (max-width: 640px) {
+  .posetable > div { grid-template-columns: 1fr; }
+  .posetable > div:first-child { display: none; }
+}
+
+.mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.mclip { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.mclip video { width: 100%; aspect-ratio: 4 / 3; display: block; background: var(--plate); object-fit: cover; }
+.mclip .meta { padding: 10px 12px 14px; display: grid; gap: 6px; align-content: start; }
+.mclip .facts2 { display: flex; flex-wrap: wrap; gap: 4px 12px; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.tag.limit { color: var(--warn); border: 1px solid var(--warn); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · students and their animations</span>
+    <h1>Student Characters</h1>
+    <p class="lede">The classroom is now filled with real students instead of block figures. Each student is one shared body,
+      male or female, dressed from who they are and what they wore today: hair, skin, eyes, glasses and a top. They write,
+      read, glance, whisper, reach, raise a hand, hold things up, think, stretch and walk, with clips fitted to the game's
+      own desk and chair. About one in ten is left-handed and does everything the other way round. Every image and video
+      below is from this project.</p>
+    <div class="ledger" aria-label="Meshy credits">
+      <div><span class="num" style="font-size:1.6rem;font-weight:500">642</span>
+        <span class="muted"> Meshy credits left of 1000 · 358 spent</span></div>
+      <div class="bar" role="img" aria-label="Of 1000 credits: 20 on a Meshy body, 5 on rigging, 9 on library animations, 214 on custom motions, 50 on hair, 60 on reach and thinking attempts, 642 left">
+        <span style="width:2%;background:var(--bad)"></span><span style="width:0.5%;background:var(--warn)"></span><span style="width:0.9%;background:var(--accent)"></span><span style="width:21.4%;background:var(--good)"></span><span style="width:5%;background:var(--muted)"></span><span style="width:6%;background:var(--ink)"></span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--bad)"></i>20 · Meshy body (not used: wrong pose)</span>
+        <span><i style="background:var(--warn)"></i>5 · auto-rig of our body</span>
+        <span><i style="background:var(--accent)"></i>9 · three library animations</span>
+        <span><i style="background:var(--good)"></i>214 · 17 text-to-motion clips</span>
+        <span><i style="background:var(--muted)"></i>50 · hair tests and five hairstyles</span>
+        <span><i style="background:var(--ink)"></i>60 · six reach and thinking attempts (one reach used)</span>
+        <span><i style="background:var(--line)"></i>642 · left</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="classroom">
+    <div class="section-head">
+      <h2>The students in the classroom</h2>
+      <p class="muted">The game spawns the skinned students in its own Classroom scene. What a student does is still decided
+        only by what the player could see; the body shows it with a clip. These frames are from Play mode.</p>
+    </div>
+    <figure><img src="img/final/final_room_game.png" alt="The classroom from above, six students at desks doing different things" loading="lazy">
+      <figcaption>The overview camera, mid-exam.</figcaption></figure>
+    <div class="figs">
+      <figure><img src="img/final/final_room_close.png" alt="The classroom from the front, students holding a phone, raising a hand, thinking and reaching" loading="lazy">
+        <figcaption>Closer, from the front: holding a phone (front left), a hand up (front right), thinking hard (middle left),
+          reaching to a bag (middle right), working at the desk (back).</figcaption></figure>
+      <figure><img src="img/before/03-classroom.png" alt="The classroom with the old block figures" loading="lazy">
+        <figcaption>Before: the block placeholder students, on the phone camera.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="who">
+    <div class="section-head">
+      <h2>Who a student is</h2>
+      <p class="muted">A student's look comes in two parts. The person in the seat is always the person the admission card
+        describes.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Who they are</h3>
+        <p>Gender, skin, eyes, hair and glasses. The same in every exam, and checked against the admission photo. Skin and
+          eyes on the photo always match the holder. Hair and glasses on the photo can be out of date (a haircut since), so
+          a different face settles it and a different haircut is only a question.</p></div>
+      <div class="card"><h3>What they wore today</h3>
+        <p>The top's style and colour. New for each exam, never on the photo, never compared.</p></div>
+      <div class="card"><h3>Which hand they use</h3>
+        <p>About one in ten students is left-handed, for life. It is never on the admission document and changes nothing in
+          play. Left-handers play mirrored clips and hold things in the left hand.</p></div>
+    </div>
+
+    <div class="sub">
+      <h3>Women and men, one skeleton</h3>
+      <p class="muted">Gender picks the body, the first name (eight male and eight female first names) and the hairstyles:
+        short, cropped and curly for men; wavy, long and tied-back for women. The female body is the male one reshaped
+        (chest, waist, hips, shoulders, neck, jaw) on the same joints, so every animation, hairstyle and pair of glasses
+        works on both. Both are the same height, so both fit the chair and desk.</p>
+      <figure><img src="img/lineup_gender.png" alt="Six women and six men seated at desks, animated" loading="lazy">
+        <figcaption>Six women and six men, alternating seats, in Play mode.</figcaption></figure>
+      <figure><img src="img/lineup_gender_close.png" alt="Closer view of the mixed front rows" loading="lazy">
+        <figcaption>Front rows, closer: hoodies on the two front students, hoods down on their backs.</figcaption></figure>
+      <div class="figs small">
+        <figure><img src="img/gender_male_bare_front.png" alt="Male body, front" loading="lazy"><figcaption>male, front</figcaption></figure>
+        <figure><img src="img/gender_female_bare_front.png" alt="Female body, front" loading="lazy"><figcaption>female, front</figcaption></figure>
+        <figure><img src="img/gender_male_bare_side.png" alt="Male body, side" loading="lazy"><figcaption>male, side</figcaption></figure>
+        <figure><img src="img/gender_female_bare_side.png" alt="Female body, side" loading="lazy"><figcaption>female, side</figcaption></figure>
+        <figure><img src="img/gender_male_top_front.png" alt="Male in a short-sleeve t-shirt" loading="lazy"><figcaption>male, short-sleeve t-shirt</figcaption></figure>
+        <figure><img src="img/gender_female_top_three.png" alt="Female in a short-sleeve t-shirt, three-quarter" loading="lazy"><figcaption>female, short-sleeve t-shirt</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Six hairstyles</h3>
+      <p class="muted">Five from Meshy. Tied-back is the cropped cap with a ponytail built in Blender. Hair is cut clear of
+        the eyes, because eye colour is checked at the door.</p>
+      <div class="figs small">
+        <figure><img src="img/hair2_short_side.png" alt="Short hair" loading="lazy"><figcaption>short</figcaption></figure>
+        <figure><img src="img/hair2_cropped_side.png" alt="Cropped hair" loading="lazy"><figcaption>cropped</figcaption></figure>
+        <figure><img src="img/hair2_curly_front.png" alt="Curly hair" loading="lazy"><figcaption>curly</figcaption></figure>
+        <figure><img src="img/hair2_wavy_side.png" alt="Wavy hair" loading="lazy"><figcaption>wavy</figcaption></figure>
+        <figure><img src="img/hair2_long_side.png" alt="Long hair" loading="lazy"><figcaption>long</figcaption></figure>
+        <figure><img src="img/hair2_tied-back_back.png" alt="Tied-back hair from behind" loading="lazy"><figcaption>tied-back</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Left-handed students</h3>
+      <p class="muted">Left-handers write, erase, hold things, check a watch, raise a hand, stretch, think, stand, walk and
+        hold out a document on the other side. Gestures aimed at a place (a neighbour, a bag, the clock) still turn toward
+        that place, whichever hand the student uses.</p>
+      <figure class="solo"><img src="img/game/lefty_writing_close.png" alt="Four students writing, two of them left-handed" loading="lazy">
+        <figcaption>Writing. Kaan (front left) and the red-haired student (back right) are left-handed and play the mirrored
+          clip; the other two are right-handed.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="wardrobe">
+    <div class="section-head">
+      <h2>Wardrobe: three tops on both bodies</h2>
+      <p class="muted">Short-sleeve t-shirt, long-sleeve t-shirt and a hoodie with a real hood lying on the back, a rolled
+        rim, a kangaroo pocket and drawstrings. Each top is cut from its body's own torso and stands off the skin by
+        1.2, 1.8 or 2.6 cm. Front, side, back and from above (roughly the supervisor's angle), in the rest pose. The colours
+        here are two palette entries; in the game the colour changes with what the student wore that day.</p>
+    </div>
+    <div id="wardrobeRows" style="display:grid;gap:22px"></div>
+    <div class="group-head" style="margin-top:6px"><h3>Hoodie, seated and leaning</h3><span class="pose">writing pose</span></div>
+    <div class="figs">
+      <figure><img src="img/clothes/male_Hoodie_seated.png" alt="Hoodie on a seated, leaning man, from behind and above" loading="lazy"><figcaption>Men: the hood stays on the back.</figcaption></figure>
+      <figure><img src="img/clothes/female_Hoodie_seated.png" alt="Hoodie on a seated, leaning woman, from behind and above" loading="lazy"><figcaption>Women: long hair covers most of the hood.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="motions">
+    <div class="section-head">
+      <h2>What students do</h2>
+      <p class="muted">Every pose the game asks for, and the clips that show it. Handed clips have a mirror for left-handers;
+        aimed clips have a mirror so they can turn either way. When a held gesture ends, the clip's own wind-down plays while
+        the next pose fades in, so hands come down instead of snapping.</p>
+    </div>
+
+    <div class="posetable" role="table" aria-label="Game poses and their clips">
+      <div role="row"><span role="columnheader">Game pose</span><span role="columnheader">Clips</span><span role="columnheader">What you see</span></div>
+      <div role="row"><span class="p">Writing</span><span class="c">Writing, WritingLoop, Erasing</span><span class="d">Cycled; each student starts at a different point.</span></div>
+      <div role="row"><span class="p">Idle</span><span class="c">IdleCalm, Reading, ReadingElbows</span><span class="d">Cycled, like writing.</span></div>
+      <div role="row"><span class="p">ReactingToApproach</span><span class="c">IdleCalm</span><span class="d">One calm pose, whatever the reason.</span></div>
+      <div role="row"><span class="p">Glancing</span><span class="c">GlanceNeighbour + mirror</span><span class="d">Head turns toward the target neighbour.</span></div>
+      <div role="row"><span class="p">LeaningToNeighbour</span><span class="c">WhisperLeft + mirror</span><span class="d">Leans toward the target neighbour (looking, copying, passing).</span></div>
+      <div role="row"><span class="p">CheckingClock</span><span class="c">CheckClock or CheckWatch, taking turns</span><span class="d">A look toward the clock's side, or a look at a wristwatch; either one plays to its end.</span></div>
+      <div role="row"><span class="p">ReachingPocket · ReachingBag · UnderDesk</span><span class="c">ReachBag + mirror</span><span class="d">One reach for all three, toward the bag's side.</span></div>
+      <div role="row"><span class="p">HandRaised</span><span class="c">HandRaised</span><span class="d">The dominant hand goes up and stays up; head to the front.</span></div>
+      <div role="row"><span class="p">HoldingItem</span><span class="c">HoldItem</span><span class="d">A phone, paper or tissue in the palm, facing the holder.</span></div>
+      <div role="row"><span class="p">Fidgeting</span><span class="c">ThinkingHard</span><span class="d">Jaw in one hand, head bowed to the paper, a tap at the temple.</span></div>
+      <div role="row"><span class="p">Stretching</span><span class="c">Stretch</span><span class="d">Arms up, rubs the neck.</span></div>
+      <div role="row"><span class="p">Standing · Walking · PresentingDocument</span><span class="c">Standing, Walking, PresentDocument</span><span class="d">In front of the chair, along the path, at the door.</span></div>
+    </div>
+
+    <div id="motionGroups" style="display:grid;gap:44px;margin-top:12px"></div>
+  </section>
+
+  <section id="built">
+    <div class="section-head">
+      <h2>How it's built</h2>
+      <p class="muted">One body built by a Blender script and rigged by Meshy's auto-rig, in a male and a female shape on the
+        same skeleton, with hair, glasses and tops as swappable parts on that skeleton, tinted per student. The motions are
+        Meshy text-to-motion clips seated on the game's chair and pinned to the real desk in Blender, plus clips made by hand
+        there: 41 in all, including the mirrors for left-handers. The game drives the body through the existing pose
+        contract: each pose maps to a clip, changes fade smoothly, held gestures wind down with their own motion, and the
+        game's own clock drives it all, so it stays deterministic and testable.</p>
+    </div>
+  </section>
+
+  <section id="quality">
+    <div class="section-head">
+      <h2>Quality</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="big">~1,660</span><span>EditMode tests passing, none failing</span></div>
+      <div class="stat"><span class="big">41/41</span><span>PlayMode tests passing</span></div>
+      <div class="stat"><span class="big">4.8 min</span><span>for the PlayMode suite, down from 19.5</span></div>
+    </div>
+    <p class="muted">Before the doors open, students no longer flicker in and out of the room: two systems were hiding and
+      showing them every frame, and each now restores only what it hid.</p>
+  </section>
+
+  <section id="limits">
+    <div class="section-head">
+      <h2>Known limitations</h2>
+    </div>
+    <ul class="limits">
+      <li><b>The clock is on the back wall,</b> behind the students. Checking the clock is aimed at its side but reads as a
+        look at the front wall. Parked until the room's layout is revisited.</li>
+      <li><b>Innocent gestures can outlast their signal.</b> A clock check, a watch check or a stretch plays to its natural end
+        before the student settles back to writing, so the body can lag the simulation by up to about 4 s. Any cue interrupts at once.</li>
+      <li><b>Thinking hard can read as head-in-hands</b> from the front while the dominant hand taps the temple (about
+        1.5 s of each 6 s loop).</li>
+      <li><b>The propping elbow in thinking hard floats</b> in front of the body: the rig's arm can't reach the desk from an
+        upright seat.</li>
+      <li><b>Short and cropped hair look alike.</b> One may want regenerating.</li>
+      <li><b>A held phone is small from the overview camera,</b> about 10 px across at 1600×900. The coral case and lit blue
+        screen make it stand out, but less than when it was tilted toward the camera.</li>
+      <li><b>A held paper reads greyer</b> than the sheet on the desk, because it faces the holder, away from the light.</li>
+      <li><b>Mirrors are within 1–2 cm</b> of a perfect reflection, because the rig is slightly lopsided: one forearm is
+        1.4 cm shorter than the other.</li>
+      <li><b>A writing student sits back for a moment before reaching out,</b> because the reach starts upright with the
+        hands on the thighs.</li>
+      <li><b>Holding an item and thinking hard loop inside the gesture,</b> so getting into and out of them is covered by
+        the fade alone.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const MOTION_GROUPS = [
+  { title: "Working at the desk", pose: "Writing · Idle · ReactingToApproach",
+    note: "What a student does for most of the exam. Hands are pinned to the real desk and the paper.",
+    figs: [
+      ["img/game/lefty_writing_front.png", "Four students writing, seen from the front of the room", "Writing, from the front of the room."],
+    ],
+    clips: [
+      ["writing", "Writing", "", "Head down, the writing hand on the paper, the other hand holding it.", "6.4 s"],
+      ["writing_mirror", "Writing, left-handed", "", "The same, mirrored.", "8 s"],
+      ["writing_loop", "Writing, pausing to read back", "", "Writes, stops to read what was written, carries on.", "10 s"],
+      ["erasing", "Erasing", "", "Head down, the hand scrubs at the paper.", "4 s"],
+      ["reading", "Reading the paper", "", "Head bowed over the paper, hands at the desk edge.", "8 s"],
+      ["reading_elbows", "Reading, forearms on the desk", "", "A calmer way to read.", "8 s"],
+      ["idle_calm", "Waiting calmly", "", "Upright, hands folded. Also the reaction when the supervisor comes close.", "8 s"],
+    ]},
+  { title: "Glancing and whispering", pose: "Glancing · LeaningToNeighbour",
+    note: "Aimed at the actual neighbour the behaviour targets, worked out from the seats. If the target is straight ahead or behind, the student leans toward the aisle.",
+    figs: [
+      ["img/game/lefty_whisper_top.png", "Four students whispering, seen straight from above", "From straight above: the front pair lean and turn toward each other."],
+      ["img/game/lefty_whisper_close.png", "Four students whispering, from the front", "Whispering, from the front."],
+    ],
+    clips: [
+      ["glance_neighbour", "Glancing to the right", "", "The head turns to the neighbour on the right, then back to the paper.", "4 s"],
+      ["glance_mirror", "Glancing to the left", "", "The same turn to the left.", "4 s"],
+      ["whisper_left", "Whispering to the left", "", "Leans and turns toward the neighbour on the left.", "4 s"],
+      ["whisper_mirror", "Whispering to the right", "", "The same lean to the right.", "4 s"],
+    ]},
+  { title: "Checking the time", pose: "CheckingClock",
+    note: "Each check is either a look up toward the clock's side of the room or a look at a wristwatch (raise, about two and a half seconds with the back of the wrist to the eyes, lower). The two take turns, and a short check still plays to its natural end.",
+    figs: [
+      ["img/game/lefty_clock_close.png", "Four students looking up toward the clock", "Looking up toward the clock's side."],
+      ["img/final/final_watch_close.png", "A right-handed student looking at the watch on her left wrist", "A right-hander checks the left wrist."],
+      ["img/final/final_watch_close_lefty.png", "A left-handed student looking at the watch on his right wrist", "A left-hander checks the right wrist."],
+    ],
+    clips: [
+      ["check_clock", "Looking up at the clock", "clock on back wall", "Looks up and about 30° to the side, toward the clock.", "4 s"],
+      ["check_watch_v2", "Checking a watch", "","The watch wrist comes across the chest; the head turns to it.", "4.5 s"],
+      ["check_watch_v2_mirror", "Checking a watch, left-handed", "", "The same, mirrored.", "4.5 s"],
+      ["check_watch_v2_game", "Checking a watch, game camera", "", "As the player sees it.", "4.5 s"],
+    ]},
+  { title: "Reaching into a bag, a pocket or under the desk", pose: "ReachingPocket · ReachingBag · UnderDesk",
+    note: "One reach for all three, so the body never says what for. It goes toward the side this student's bag is on in this exam, or the writing hand's side if there is no bag. The game holds it at full reach, the hand down at the bag about 0.3 m beside the chair, the free hand on the thigh.",
+    figs: [
+      ["img/game/reach2_close.png", "Two front-row students leaning out to bags in the aisle", "Front row: each student leans out and reaches down into the bag on their side. The back row is paused in other gestures for the shot."],
+      ["img/game/reach2_game.png", "Students reaching into bags, seen from the phone camera", "The same, on the phone camera."],
+    ],
+    clips: [
+      ["reach_bag_v2", "Reaching to the left", "", "Leans out, reaches down into the bag, rummages, comes back.", "6 s"],
+      ["reach_bag_v2_mirror", "Reaching to the right", "", "The same reach to the other side.", "6 s"],
+    ]},
+  { title: "Raising a hand", pose: "HandRaised",
+    note: "The dominant hand goes up and stays up while the pose lasts. The head faces the front.",
+    figs: [
+      ["img/final/final_handraise_close.png", "Two front-row students raising a hand", "The woman (right-handed) raises her right hand, the man (left-handed) his left."],
+      ["img/final/final_handraise_game.png", "Students raising a hand, seen from the overview camera", "The same, from the overview camera."],
+    ],
+    windDown: [
+      ["img/final/final_handdown_1.png", "Hands up", "Hand up."],
+      ["img/final/final_handdown_2.png", "Hands coming down", "Coming down."],
+      ["img/final/final_handdown_3.png", "Hands back near the desk", "Back at the desk."],
+      ["img/final/final_handdown_4.png", "Settled into the next pose", "Settled into the next pose."],
+    ],
+    clips: [
+      ["hand_raised_v2_mirror", "Raising a hand, right-handed", "", "The right hand goes up and holds; the other stays on the desk.", "6 s"],
+      ["hand_raised_v2", "Raising a hand, left-handed", "", "The left hand goes up.", "6 s"],
+      ["hand_raised_v2_mirror_game", "Raising a hand, game camera", "", "Right-handed, as the player sees it.", "6 s"],
+    ]},
+  { title: "Holding a phone, paper or tissue", pose: "HoldingItem",
+    note: "One pose for all three, like looking at a phone: elbow by the waist, the item in the palm in front of the belly, its face turned to the holder's eyes, head bowed to it. The phone has a coral case and a self-lit blue screen, so it reads from the raised camera from either side and is never mistaken for the paper or a tissue.",
+    figs: [
+      ["img/final/final_phone_detail.png", "A student holding a phone in the palm, screen toward the eyes", "A phone in the palm, the screen toward the eyes."],
+      ["img/final/final_paper_detail.png", "A student holding a sheet of paper in the palm", "A paper, held the same way."],
+      ["img/final/final_phone_gamezoom.png", "Two students from above, one holding a phone, one a paper", "From above, zoomed: a phone (left), blue with a red rim, and a paper (right)."],
+      ["img/final/final_tissue_paper_gamezoom.png", "Two students from above, one holding a tissue, one a paper", "A tissue (left) and a paper (right)."],
+    ],
+    clips: [
+      ["hold_item_v2", "Holding something, right-handed", "", "The right hand lifts the item in front of the belly; the head bows to it.", "4 s"],
+      ["hold_item_v2_mirror", "Holding something, left-handed", "", "The same, in the left hand.", "4 s"],
+      ["hold_item_v2_game", "Holding something, game camera", "small from overview", "As the player sees it.", "4 s"],
+    ]},
+  { title: "Thinking hard", pose: "Fidgeting",
+    note: "Plays for the fidgeting signal, which also covers innocent nerves. Sitting up, the jaw cupped in the non-dominant hand, the head bowed to the paper. The dominant hand rests on the paper, comes up to tap the temple three times, and goes back.",
+    figs: [
+      ["img/final/final_thinking_close_paperhand.png", "Two front-row students, jaw in one hand, the other hand on the paper", "Resting: right-handed (left) and left-handed (right)."],
+      ["img/final/final_thinking_close.png", "Two front-row students with both hands at the head", "During the tap both hands are at the head."],
+      ["img/final/final_thinking_side.png", "A student thinking hard, seen from the side", "From the side: upright, head bowed toward the paper."],
+      ["img/final/final_thinking_game.png", "Students thinking hard, seen from the overview camera", "From the overview camera (front row)."],
+    ],
+    clips: [
+      ["thinking_hard_v2", "Thinking hard, right-handed", "head-in-hands at tap", "Jaw in the left hand; the right hand taps the temple.", "6 s"],
+      ["thinking_hard_v2_mirror", "Thinking hard, left-handed", "", "The same, mirrored.", "6 s"],
+      ["thinking_hard_v2_game", "Thinking hard, game camera", "", "As the player sees it.", "6 s"],
+    ]},
+  { title: "Stretching, standing, walking, at the door", pose: "Stretching · Standing · Walking · PresentingDocument",
+    note: "Standing students step 0.25 m in front of the chair, not inside it. The walk plays in place while the game moves the body along the path, at 1.5× speed.",
+    figs: [
+      ["img/game/actions_game.png", "The classroom with students standing, walking, writing and stretching", "Stretching (back), writing (middle right), holding out a document (middle left), standing and walking (front)."],
+      ["img/game/actions_close.png", "Closer view of standing, walking, writing and stretching", "The same, closer."],
+    ],
+    clips: [
+      ["stretch", "Stretch and yawn", "", "Both arms up, rubs the neck, settles back.", "6 s"],
+      ["standing", "Standing", "", "Arms down, a little weight shift.", "4 s"],
+      ["walking", "Walking", "", "A walk in place; the game moves the body.", "1 s loop"],
+      ["present_document", "Holding out a document", "", "At the door: the document held out in front of the chest.", "3 s"],
+    ]},
+];
+
+const WARDROBE_TOPS = [["ShortSleeve", "Short-sleeve t-shirt"], ["LongSleeve", "Long-sleeve t-shirt"], ["Hoodie", "Hoodie"]];
+const WARDROBE_VIEWS = [["front", "Front"], ["side", "Side"], ["back", "Back"], ["above", "From above"]];
+const whost = document.getElementById("wardrobeRows");
+for (const [top, topLabel] of WARDROBE_TOPS) {
+  for (const [g, gLabel] of [["male", "Men"], ["female", "Women"]]) {
+    const row = document.createElement("div");
+    row.style.cssText = "display:grid;gap:8px";
+    row.innerHTML = `<div class="group-head"><h3>${topLabel}</h3><span class="pose">${gLabel}</span></div>
+      <div class="figs small">
+        ${WARDROBE_VIEWS.map(([v, vLabel]) => `<figure><img src="img/clothes/${g}_${top}_${v}.png"
+          alt="${topLabel} on the ${g} body, ${vLabel.toLowerCase()}" loading="lazy"><figcaption>${vLabel}</figcaption></figure>`).join("")}
+      </div>`;
+    whost.appendChild(row);
+  }
+}
+
+const figHtml = ([src, alt, cap]) =>
+  `<figure><img src="${src}" alt="${alt}" loading="lazy"><figcaption>${cap}</figcaption></figure>`;
+
+const mhost = document.getElementById("motionGroups");
+for (const g of MOTION_GROUPS) {
+  const wrap = document.createElement("div");
+  wrap.className = "group";
+  let html = `<div class="group-head"><h3>${g.title}</h3><span class="pose">${g.pose}</span></div>
+    <p class="muted" style="font-size:0.95rem">${g.note}</p>`;
+  if (g.figs) html += `<div class="figs${g.figs.length === 1 ? " solo" : ""}">${g.figs.map(figHtml).join("")}</div>`;
+  if (g.windDown) html += `<p class="muted" style="font-size:0.95rem">When the pose ends, the hand comes down the way the clip brings it down while the next pose fades in:</p>
+    <div class="figs small">${g.windDown.map(figHtml).join("")}</div>`;
+  wrap.innerHTML = html;
+  const grid = document.createElement("div");
+  grid.className = "mgrid";
+  for (const [file, title, limit, note, len] of g.clips) {
+    const card = document.createElement("article");
+    card.className = "mclip";
+    card.innerHTML = `
+      <video src="vid/${file}.mp4" autoplay muted loop playsinline preload="metadata" aria-label="${title}"></video>
+      <div class="meta">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap">
+          <span style="font-weight:600">${title}</span>${limit ? `<span class="tag limit">${limit}</span>` : ""}</div>
+        <div style="font-size:0.9rem;color:var(--muted)">${note}</div>
+        <div class="facts2"><span>${len}</span></div>
+      </div>`;
+    grid.appendChild(card);
+  }
+  wrap.appendChild(grid);
+  mhost.appendChild(wrap);
+}
+</script>
+</body>
+</html>
