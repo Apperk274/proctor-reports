@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Feel</title>
+<meta name="description" content="How the game shows a payday, a result and an action landing: the reward motion in Exam Supervisor Simulator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+.moment { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.moment .clip { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.moment .clip img { border-radius: 0; width: 100%; }
+.moment .text { display: grid; gap: 12px; align-content: start; }
+.moment ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); max-width: 70ch; }
+.moment ul b { color: var(--ink); font-weight: 600; }
+.moment figure { margin: 0; display: grid; gap: 6px; }
+.moment figcaption { font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 720px) { .moment { grid-template-columns: 1fr; } .moment .clip { max-width: 320px; } }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+
+.tokens { display: grid; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.tokens > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr) minmax(0, 2fr); gap: 4px 16px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 0.92rem; }
+.tokens > div:first-child { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tokens .k { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); overflow-wrap: anywhere; }
+.tokens .v { font-family: var(--mono); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.tokens .d { color: var(--muted); }
+@media (max-width: 640px) { .tokens > div { grid-template-columns: 1fr; } .tokens > div:first-child { display: none; } }
+
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · reward motion</span>
+    <h1>Game Feel</h1>
+    <p class="lede">When something good happens, the game now shows it arriving instead of swapping a number. A salary
+      flies into your balance as coins, a result card counts up what you earned, and every action you take in the room
+      says that it landed. The motion is short and plays once, so it never makes you wait. All clips below are from Play
+      mode in the editor at phone resolution.</p>
+  </header>
+
+  <section id="moments">
+    <div class="section-head">
+      <h2>What moves</h2>
+      <p class="muted">The moments in the order a player meets them: an action in the room, the result, payday, then the
+        milestones and decisions between exams.</p>
+    </div>
+
+    <article class="moment">
+      <div class="clip"><img src="vid/action-toast.webp" alt="Exam HUD: a toast reading 'You warned Ceren Yalçın. They look up, confused.' appears under the clock and fades" loading="lazy"></div>
+      <div class="text">
+        <h3>An action lands</h3>
+        <p class="muted">Warning, confiscating or removing someone shows one short line under the clock for about
+          2.6 seconds. It settles in and fades out.</p>
+        <ul>
+          <li><b>It says that you acted, never whether you were right.</b> The wording comes from the game's existing
+            feedback text, which deliberately leaves judgement to later consequences.</li>
+          <li><b>Restored, not new.</b> The game already wrote this line after every action, but nothing had drawn it
+            since the old IMGUI HUD was removed. Players only heard a chime.</li>
+          <li>It takes no taps, so it never blocks a press meant for a student.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="clip"><img src="vid/result-card.webp" alt="Exam complete card: rows arrive one after another and the salary counts from +0 ¢ to +80 ¢" loading="lazy"></div>
+      <div class="text">
+        <h3>The result card counts what you earned</h3>
+        <p class="muted">Money used to be a line of text under the rows. Each payment is now its own row, for example
+          <code>Salary +80 ¢</code>. When the card opens, the rows arrive one after another, and the salary and
+          reputation numbers count up from zero. A gain gets a single pop on its icon when the count finishes.</p>
+        <ul>
+          <li><b>It plays only when the card opens.</b> A redraw shows the final numbers, so the card never flickers.</li>
+          <li>Costs, such as monthly expenses, show as they are: in red and without counting.</li>
+        </ul>
+        <figure><img src="img/result-card-final.png" alt="The settled result card" loading="lazy" style="max-width:300px">
+          <figcaption>Where it settles.</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="clip"><img src="vid/payday.webp" alt="Home hub: green coins fly from the middle of the screen to the coin readout, which climbs from 0 ¢ to 80 ¢ while reputation rolls from 40 to 42" loading="lazy"></div>
+      <div class="text">
+        <h3>Payday: coins fly to your balance</h3>
+        <p class="muted">The status bar is hidden during the exam and on the result card, so the salary is always
+          earned while it is away. When you return to the hub, the difference is paid in: three to eight coins fly
+          from the middle of the screen to the balance. The balance counts up as each coin lands, and the bar pops once
+          when the last one arrives.</p>
+        <ul>
+          <li><b>Reputation rolls too.</b> The number counts to its new value, its colour fades across, and a gain
+            pops once.</li>
+          <li><b>Losses stay calm.</b> Spending in the Store, or a fine, rolls the number down with no coins and no
+            pop.</li>
+          <li><b>A new or continued career shows its balance as it is</b> rather than "earning" it on the first
+            screen. The first salary of a new career still flies.</li>
+        </ul>
+        <figure><img src="img/payday-midflight.png" alt="Coins in flight over the hub, heading for the 0 ¢ readout" loading="lazy">
+          <figcaption>Mid-flight: the balance waits for the coins.</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="clip"><img src="vid/promotion.webp" alt="The hub showing Elite Academy: the picture arrives, then a band of brass light sweeps across it once" loading="lazy"></div>
+      <div class="text">
+        <h3>A promotion is marked once</h3>
+        <p class="muted">The first time the hub shows a better posting, one soft band of brass light crosses its picture
+          and the picture pops once. A distinction at the top posting gets the same mark.</p>
+        <ul>
+          <li><b>One sweep, never again.</b> It plays on the first hub that shows the new posting and not on later
+            visits.</li>
+          <li><b>A demotion gets nothing.</b> The new building says enough.</li>
+          <li>The light passes under the words, inside the picture's frame, and takes no taps.</li>
+        </ul>
+        <figure><img src="img/promotion-sweep.png" alt="The brass band halfway across the Elite Academy picture" loading="lazy">
+          <figcaption>Halfway across.</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="clip"><img src="vid/career-ring.webp" alt="The Career tab: cards arrive one after another and the progress ring sweeps round to full" loading="lazy"></div>
+      <div class="text">
+        <h3>The career ring moves from where you last saw it</h3>
+        <p class="muted">The progress ring on the Career tab sweeps from the value it showed last time to the value it
+          has now. After a bad stretch it goes down as readily as up.</p>
+        <ul>
+          <li><b>Redraws stay still.</b> Once you have seen a value, it is drawn where it is.</li>
+          <li><b>Tabs now arrive too.</b> Career, Store, Settings and the Manual share one screen shell, so switching
+            between them used to swap the cards in a single frame. They now arrive with the same entrance as the
+            hub.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="text" style="grid-column: 1 / -1">
+        <h3>Decisions and purchases</h3>
+        <ul>
+          <li><b>An event answer lands.</b> The answer you chose stays lit and stamps once. The others fade out where
+            they stand instead of disappearing, so the chosen button no longer jumps up the card while you are
+            looking at it.</li>
+          <li><b>A purchase pops.</b> In the Store, the item you just bought pops once in its new, owned state, while
+            the balance rolls down.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="rules">
+    <div class="section-head">
+      <h2>The rules it follows</h2>
+      <p class="muted">These are written into the design system guide (<code>Docs/Design/UI-DESIGN-SYSTEM.md</code>,
+        §Motion), and the tests check them.</p>
+    </div>
+    <div class="rules">
+      <div class="card"><h3>State first</h3><p>The game has already applied the change before anything moves.
+        Animation only shows it. Nothing waits for it, and taps always go through.</p></div>
+      <div class="card"><h3>Once, then still</h3><p>A gain rolls, pops or flies once. Nothing loops or pulses, and
+        nothing glows on its own.</p></div>
+      <div class="card"><h3>Warm for gains, calm for losses</h3><p>Only gains get coins and a pop. A cost rolls down
+        quietly: no shake, no red flash.</p></div>
+      <div class="card"><h3>Reduce motion</h3><p>A new switch in Settings → Display and help. With it on, every number
+        simply shows its new value.</p></div>
+    </div>
+  </section>
+
+  <section id="tuning">
+    <div class="section-head">
+      <h2>How it is tuned</h2>
+      <p class="muted">All timings are theme tokens in <code>GameTheme.cs</code>. No screen hardcodes any of them.</p>
+    </div>
+    <div class="tokens">
+      <div><span>Token</span><span>Value</span><span>What it controls</span></div>
+      <div><span class="k">CountUpSeconds</span><span class="v">0.6 s</span><span class="d">How long a number takes to roll to its new value</span></div>
+      <div><span class="k">FlySeconds</span><span class="v">0.55 s</span><span class="d">One coin's trip to the balance</span></div>
+      <div><span class="k">FlyStagger</span><span class="v">0.07 s</span><span class="d">Gap between coins leaving</span></div>
+      <div><span class="k">FlyMaxIcons</span><span class="v">8</span><span class="d">Most coins in one payday (one per ~15 earned, at least 3)</span></div>
+      <div><span class="k">FlyIconSize</span><span class="v">72</span><span class="d">Coin size on a 1080-wide screen</span></div>
+      <div><span class="k">PunchScale / PunchSeconds</span><span class="v">1.12 / 0.24 s</span><span class="d">The single pop when something lands</span></div>
+      <div><span class="k">MeterFillSeconds</span><span class="v">0.7 s</span><span class="d">The Career ring's sweep</span></div>
+      <div><span class="k">ShimmerSeconds</span><span class="v">0.9 s</span><span class="d">The promotion's band of light crossing the picture</span></div>
+      <div><span class="k">ToastSeconds</span><span class="v">2.6 s</span><span class="d">How long the action line and the admission line stay</span></div>
+      <div><span class="k">ClockWarnSeconds</span><span class="v">30 s</span><span class="d">Time left when the clock turns warm</span></div>
+    </div>
+  </section>
+
+  <section id="exam">
+    <div class="section-head">
+      <h2>During the exam</h2>
+      <p class="muted">Kept to the minimum, because the room has to stay readable. Nothing here says whether a decision
+        was right.</p>
+    </div>
+    <div class="moment">
+      <figure><img src="img/clock-warms.png" alt="The exam clock strip, frame by frame: blue at 0:38 to 0:40, then amber from 0:41 of 1:10" loading="lazy">
+        <figcaption>The clock in the last 30 seconds, frame by frame (exam shortened to 1:10 for the capture).</figcaption></figure>
+      <div class="text">
+        <h3>The clock turns warm for the last 30 seconds</h3>
+        <p class="muted">The bar and the time ease once from blue to amber and stay there. It never pulses or
+          flashes: it says "not long now" without blinking while you are deciding about a student.</p>
+        <figure><img src="img/admission-stamp.png" alt="The admission desk: 'Admitted: Mehmet Öztürk' above the Reject and Admit buttons" loading="lazy">
+          <figcaption>At the door, each decision is named just above the buttons and fades while the next person
+            walks up.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="room">
+    <div class="section-head">
+      <h2>In the room</h2>
+    </div>
+    <article class="moment">
+      <div class="clip"><img src="vid/walkout.webp" alt="Top-down classroom: a removed student stands up, walks up the aisle and leaves through the door at the top left while the others keep working" loading="lazy"></div>
+      <div class="text">
+        <h3>A removed student walks out</h3>
+        <p class="muted">Removing someone used to make them vanish from their chair. They now stand, walk up the
+          aisle and leave through the door, in about four seconds.</p>
+        <ul>
+          <li><b>Removed still means removed.</b> The moment you remove them, they can no longer be tapped, and once
+            they are through the door they are gone exactly as before.</li>
+          <li><b>Everyone leaves the same way</b>, at the same pace, so the walk says nothing about whether they were
+            guilty.</li>
+          <li>It plays only at the moment of removal: never again after loading a save, and not at all with Reduce
+            motion on. If the bell rings mid-walk, they are simply gone.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="next">
+    <div class="section-head">
+      <h2>Left out on purpose</h2>
+    </div>
+    <ul class="next">
+      <li><b>No "Time is up" banner.</b> The bell ends the exam and the result card opens in the same moment, so there
+        is nothing to show it over.</li>
+      <li><b>No extra reaction to a warning.</b> A student already turns to face the supervisor who walks up to them,
+        which is the moment a warning happens.</li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>
