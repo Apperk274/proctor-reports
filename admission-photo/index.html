@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admission Photo Check</title>
-<meta name="description" content="The admission photo check as pictures: the document photo beside a still, live camera on the person at the door, with a readability verdict for every case.">
+<meta name="description" content="The admission photo check as pictures: the document photo beside a still, live camera on the person at the door, a readability verdict for every case, and the queue at the open door.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -137,8 +137,8 @@ figcaption b { color: var(--ink); font-weight: 600; }
           wears the same grey top, so clothing never enters the comparison. Rendered once per face and cached.</li>
         <li><b>At the door.</b> A live camera that never moves. It is placed once from the spot where the room walks each
           student to be checked, at standing eye height, a little in front of them and 26° to the side the room's sun lights.
-          It does not follow anyone. The person being checked fills the right of the frame; the queue, the walk in and the
-          way out show behind and beside them.</li>
+          It does not follow anyone. The person being checked fills the right of the frame. The open door at the back of the
+          room is behind them, so the walk in and the way out show behind and beside them.</li>
         <li><b>The rest of the card is unchanged.</b> The "Photo" row keeps its label and the pictures replace its two value
           cells.</li>
       </ul>
@@ -158,6 +158,58 @@ figcaption b { color: var(--ink); font-weight: 600; }
       <figure><img src="img/seq_reject.jpg" width="1316" height="400" alt="Four frames: a student at the door, then the next student walking up while the rejected one walks away to the back door, then the new student at the door with the rejected one leaving behind them">
         <figcaption><b>Rejected.</b> The rejected student turns and walks back out through the door at the back of the room,
           passing behind the next student as they arrive.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="queue">
+    <div class="section-head">
+      <h2>The queue at the door</h2>
+      <p class="muted">The students waiting to be checked stand in one evenly spaced line. It starts at the back of the room,
+        runs along the back wall and goes out through the open door. Nobody stands in a desk or on top of anybody else.
+        Captured in Play mode at 1080×2340 with six students, with the card hidden to show the room.</p>
+    </div>
+    <div class="lead-row">
+      <figure>
+        <img src="img/queue_room.jpg" width="540" height="1170" alt="The classroom from the supervisor's camera: an open door on the back wall at the left, four students standing in a line along the back wall from the door, and one student at the inspection spot in the centre aisle">
+        <figcaption>The door phase with six students: one at the inspection spot, four in the line, and one waiting out of
+          sight in the corridor.</figcaption>
+      </figure>
+      <ul class="notes">
+        <li><b>One line, evenly spaced.</b> The places are 0.75 m apart. The head of the line stands at the back of the room
+          and faces the inspection spot. Everyone else faces the person ahead of them.</li>
+        <li><b>Out of the door.</b> Four places fit inside the room. The last one is just beside the door. Anyone after the
+          fourth waits in the corridor behind the wall, each in their own place. Cohorts are 3 to 6 students, so with 4 or 5
+          waiting the line reaches the door.</li>
+        <li><b>Clear of the furniture.</b> The line is 1.1 m behind the back-row chairs and 0.5 m in front of the wall.
+          Before, the queue lane ran through the back-left desk. Everyone past the second place stood on one point.</li>
+        <li><b>The body is where the place is.</b> The animated students stand 0.25 m in front of their own root, so that
+          a student who stands up at their seat stands in front of the chair. The old queue spots ignored this, which pushed
+          each body further into the desk. Each root is now placed 0.25 m behind the body it carries.</li>
+        <li><b>The door opens for admission.</b> The door moved from the left edge of the frame to fully inside it. It now
+          has a frame, a dark doorway and a leaf on a hinge. The leaf swings into the room against the left side when
+          admission starts and closes when the exam begins.</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/queue_step.jpg" width="1092" height="972" alt="Four frames of the room after a rejection: the rejected student walking up the left of the aisle while the head of the line walks down the right; the rejected student going through the door; a student from the corridor coming in through the doorway; the same student joining the end of the line">
+      <figcaption><b>Moving up.</b> After a rejection, slowed down. The rejected student walks up the left of the aisle and out
+        through the door. The head of the line walks down the right of the aisle to be checked, and the others move up one
+        place. Once the doorway is clear, the student waiting in the corridor comes in and joins the end of the line.</figcaption>
+    </figure>
+    <div class="figs">
+      <figure>
+        <img src="img/queue_closeup.jpg" width="320" height="400" alt="The At the door picture: a student in a red hoodie in front of the open door, with the last student in line visible beside their head">
+        <figcaption><b>At the door.</b> The open doorway is right behind the person being checked. With a full room, the last
+          student in line shows beside their head. The rest of the line is off the right edge of this still camera.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/queue_closed.jpg" width="540" height="500" alt="The room during the exam: the door is closed, with its frame, brown leaf and handle, and the students are at their desks">
+        <figcaption><b>During the exam.</b> The door is closed again and reads as a door.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/queue_screen.jpg" width="540" height="1170" alt="The full admission screen with six students: the comparison card with the document photo and the At the door picture">
+        <figcaption>The same moment as the player sees it, shown at half size.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -239,9 +291,9 @@ figcaption b { color: var(--ink); font-weight: 600; }
         also changes how everyone looks in the room, or it could stay as the hard case. A device playtest should decide.</li>
       <li><b>Cost on the phone.</b> The live picture renders the room a second time while the door is open, at 320×400 with
         no shadows or post-processing. That has not been measured on the Galaxy A15 yet.</li>
-      <li><b>Faces in the background.</b> The next student in line is usually visible behind the one being checked, smaller
-        and further back. That is the intent, but a playtest should confirm nobody compares the photo with the wrong
-        face.</li>
+      <li><b>Faces in the background.</b> With a full room, the last student in line shows beside the head of the one being
+        checked, smaller and further back, and a rejected student can be seen leaving through the door behind them. That is
+        the intent, but a playtest should confirm nobody compares the photo with the wrong face.</li>
       <li><b>The admitted student passes close to the camera.</b> For a fraction of a second their head fills part of the
         frame as they walk to their seat. It reads as someone walking past; the camera does not react.</li>
     </ul>
