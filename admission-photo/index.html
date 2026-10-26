@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admission Photo Check</title>
-<meta name="description" content="The admission photo check as pictures: the document photo beside a live close-up of the person at the door, with a readability verdict for every case.">
+<meta name="description" content="The admission photo check as pictures: the document photo beside a still, live camera on the person at the door, with a readability verdict for every case.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -63,7 +63,7 @@ figure { margin: 0; display: grid; gap: 8px; align-content: start; }
 figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 4px; }
 figcaption b { color: var(--ink); font-weight: 600; }
 .figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 760px; }
+.seq { display: grid; gap: 16px; }
 
 .lead-row { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start; }
 @media (max-width: 720px) { .lead-row { grid-template-columns: 1fr; } .lead-row figure { max-width: 300px; } }
@@ -90,17 +90,19 @@ figcaption b { color: var(--ink); font-weight: 600; }
     <h1>Admission Photo Check</h1>
     <p class="lede">At the door, the player compares the photo on a candidate's document with the person in front of them.
       This used to be four lines of words per side. It is now two pictures: the document photo, rendered from the photo's
-      traits in a plain booth, and a live close-up of the actual student the room has walked to the door. Everything below
-      is a capture of the real admission screen at 1080×2340 portrait. The photos were forced to each case on a
-      fixed-seed career.</p>
+      traits in a plain booth, and a still, live camera on the spot where the room walks each student to the door. The
+      player compares faces, not words: the person's look is no longer written under their name. Everything below is a
+      capture of the real admission screen at 1080×2340 portrait. The photos were forced to each case on a fixed-seed
+      career.</p>
   </header>
 
   <section>
     <div class="section-head">
       <h2>Verdict</h2>
-      <p class="muted">Every impostor change is visible at phone size. Hair and glasses read at a glance. Eyes and skin need a
-        real look, which is the judgement the door is meant to ask for. Two pairs are close enough that a player could miss
-        them.</p>
+      <p class="muted">Every impostor change is visible at phone size, with the camera now fixed in place. The face at the door
+        is about as large as it was when the camera followed the person, and it is seen a little more from the side (26°
+        instead of 22°). Hair and glasses read at a glance. Eyes and skin need a real look, which is the judgement the door
+        is meant to ask for. Two pairs are close enough that a player could miss them.</p>
     </div>
     <div class="verdicts">
       <div class="card"><span class="tag glance">at a glance</span><h3>Haircut, hair colour, glasses</h3>
@@ -112,7 +114,8 @@ figcaption b { color: var(--ink); font-weight: 600; }
         <p>Medium against tan, tan against dark, and anything two steps apart are clear.</p></div>
       <div class="card"><span class="tag care">with care</span><h3>Skin, light against medium</h3>
         <p>The weakest case. The photo's even light and the room's warm light shift both tones a little. It reads, but only
-          if you compare the lit cheeks.</p></div>
+          if you compare the lit cheeks. The camera stays on the side of the face the room's sun lights, so a light face
+          does not turn grey.</p></div>
     </div>
   </section>
 
@@ -126,15 +129,35 @@ figcaption b { color: var(--ink); font-weight: 600; }
         <figcaption>The whole door at 1080×2340, shown at half size.</figcaption>
       </figure>
       <ul class="notes">
+        <li><b>No look in words.</b> The line under the name used to print "long auburn hair, brown eyes, light skin,
+          glasses". It is hidden whenever the pictures show. It comes back only in the game's developer debug mode
+          (the same switch as the ground-truth labels, which a release build cannot turn on), and when the pictures
+          cannot render, where the card falls back to words.</li>
         <li><b>Document photo.</b> Head and shoulders, dead on, an even frontal light, a pale backdrop. The sitter always
           wears the same grey top, so clothing never enters the comparison. Rendered once per face and cached.</li>
-        <li><b>At the door.</b> A live camera on the real student standing at the door, about 20° to the side and a little
-          above eye height, lit by the room. The player sees them walk into frame.</li>
+        <li><b>At the door.</b> A live camera that never moves. It is placed once from the spot where the room walks each
+          student to be checked, at standing eye height, a little in front of them and 26° to the side the room's sun lights.
+          It does not follow anyone. The person being checked fills the right of the frame; the queue, the walk in and the
+          way out show behind and beside them.</li>
         <li><b>The rest of the card is unchanged.</b> The "Photo" row keeps its label and the pictures replace its two value
-          cells. When nothing can render (tests, headless) the card falls back to the old words.</li>
-        <li><b>Still on screen:</b> the line under the name repeats the person's look in words. This slice left it alone,
-          and it gives the comparison away. See the open questions.</li>
+          cells.</li>
       </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Coming and going</h2>
+      <p class="muted">Four frames from the live picture after a decision, camera untouched. Captured with the game slowed
+        to a quarter speed so the walk shows in four frames; at full speed the change-over takes about a second.</p>
+    </div>
+    <div class="seq">
+      <figure><img src="img/seq_admit.jpg" width="1316" height="400" alt="Four frames: a student at the door, then walking past the camera to a seat, the next student walking up, then standing at the door">
+        <figcaption><b>Admitted.</b> The student at the door walks past the camera toward the seats while the next one in
+          the queue walks up and stops at the same spot.</figcaption></figure>
+      <figure><img src="img/seq_reject.jpg" width="1316" height="400" alt="Four frames: a student at the door, then the next student walking up while the rejected one walks away to the back door, then the new student at the door with the rejected one leaving behind them">
+        <figcaption><b>Rejected.</b> The rejected student turns and walks back out through the door at the back of the room,
+          passing behind the next student as they arrive.</figcaption></figure>
     </div>
   </section>
 
@@ -209,38 +232,18 @@ figcaption b { color: var(--ink); font-weight: 600; }
 
   <section>
     <div class="section-head">
-      <h2>One tweak: the close-up looks at the lit side</h2>
-      <p class="muted">The room's sun lights one side of the face. The first close-up looked from the other side, which turned a
-        light face grey and a medium one tan, so skin could not be compared fairly. The camera now looks from the lit side.
-        Same student and photos before and after.</p>
-    </div>
-    <div class="pair">
-      <figure><img src="img/before_genuine.jpg" width="920" height="510" alt="Before: genuine light-skinned holder, close-up on the shadowed side">
-        <figcaption><b>Before</b> · genuine, light skin: the face at the door is in shade and reads darker than the photo.</figcaption></figure>
-      <figure><img src="img/after_genuine.jpg" width="920" height="510" alt="After: genuine light-skinned holder, close-up on the lit side">
-        <figcaption><b>After</b> · genuine, light skin: both read light.</figcaption></figure>
-      <figure><img src="img/before_medium.jpg" width="920" height="510" alt="Before: medium-skin photo against a light-skinned holder in shade">
-        <figcaption><b>Before</b> · medium photo, light holder: the shade hides the difference.</figcaption></figure>
-      <figure><img src="img/after_medium.jpg" width="920" height="510" alt="After: medium-skin photo against a light-skinned holder in light">
-        <figcaption><b>After</b> · medium photo, light holder: the photo reads warmer and darker.</figcaption></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
       <h2>Open questions</h2>
     </div>
     <ul class="notes">
-      <li><b>The look in words, under the name.</b> The identity card still prints "long auburn hair, brown eyes, light skin,
-        glasses". With pictures on the card, that line turns the check back into reading. Recommendation: hide it when the
-        pictures show.</li>
-      <li><b>The queue behind the person.</b> The next candidate in line sometimes stands in the background of the close-up.
-        It reads as a corridor, but a second face in the frame could confuse. A tighter framing would remove it.</li>
       <li><b>Light against medium skin.</b> It is the smallest step in the skin palette. The steps could be evened out, which
         also changes how everyone looks in the room, or it could stay as the hard case. A device playtest should decide.</li>
-      <li><b>Cost on the phone.</b> The close-up renders the room a second time while the door is open, at 320×400 with no
-        shadows. That has not been measured on the Galaxy A15 yet. The main camera still draws the full room under the
-        opaque card, and switching it off at the door would more than pay for the close-up.</li>
+      <li><b>Cost on the phone.</b> The live picture renders the room a second time while the door is open, at 320×400 with
+        no shadows or post-processing. That has not been measured on the Galaxy A15 yet.</li>
+      <li><b>Faces in the background.</b> The next student in line is usually visible behind the one being checked, smaller
+        and further back. That is the intent, but a playtest should confirm nobody compares the photo with the wrong
+        face.</li>
+      <li><b>The admitted student passes close to the camera.</b> For a fraction of a second their head fills part of the
+        frame as they walk to their seat. It reads as someone walking past; the camera does not react.</li>
     </ul>
   </section>
 </div>
