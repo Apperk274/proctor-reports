@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admission Photo Check</title>
+<meta name="description" content="The admission photo check as pictures: the document photo beside a live close-up of the person at the door, with a readability verdict for every case.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+figure { margin: 0; display: grid; gap: 8px; align-content: start; }
+figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 4px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 760px; }
+
+.lead-row { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 720px) { .lead-row { grid-template-columns: 1fr; } .lead-row figure { max-width: 300px; } }
+
+.verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; justify-self: start; }
+.tag.glance { color: var(--good); border: 1px solid var(--good); }
+.tag.look { color: var(--accent); border: 1px solid var(--accent); }
+.tag.care { color: var(--warn); border: 1px solid var(--warn); }
+
+.notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.notes li { color: var(--muted); }
+.notes b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · admission check</span>
+    <h1>Admission Photo Check</h1>
+    <p class="lede">At the door, the player compares the photo on a candidate's document with the person in front of them.
+      This used to be four lines of words per side. It is now two pictures: the document photo, rendered from the photo's
+      traits in a plain booth, and a live close-up of the actual student the room has walked to the door. Everything below
+      is a capture of the real admission screen at 1080×2340 portrait. The photos were forced to each case on a
+      fixed-seed career.</p>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Verdict</h2>
+      <p class="muted">Every impostor change is visible at phone size. Hair and glasses read at a glance. Eyes and skin need a
+        real look, which is the judgement the door is meant to ask for. Two pairs are close enough that a player could miss
+        them.</p>
+    </div>
+    <div class="verdicts">
+      <div class="card"><span class="tag glance">at a glance</span><h3>Haircut, hair colour, glasses</h3>
+        <p>Obvious every time. These are the ordinary changes a genuine holder can show.</p></div>
+      <div class="card"><span class="tag look">with a look</span><h3>Eyes</h3>
+        <p>The eyes are large painted discs. Green, blue and hazel stand apart. Brown against hazel is the subtlest, more so
+          behind glasses or on darker skin.</p></div>
+      <div class="card"><span class="tag look">with a look</span><h3>Skin, most pairs</h3>
+        <p>Medium against tan, tan against dark, and anything two steps apart are clear.</p></div>
+      <div class="card"><span class="tag care">with care</span><h3>Skin, light against medium</h3>
+        <p>The weakest case. The photo's even light and the room's warm light shift both tones a little. It reads, but only
+          if you compare the lit cheeks.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>The screen</h2>
+    </div>
+    <div class="lead-row">
+      <figure>
+        <img src="img/screen.jpg" width="540" height="1170" alt="The full admission screen on a phone, with the document photo and the close-up side by side in the comparison card">
+        <figcaption>The whole door at 1080×2340, shown at half size.</figcaption>
+      </figure>
+      <ul class="notes">
+        <li><b>Document photo.</b> Head and shoulders, dead on, an even frontal light, a pale backdrop. The sitter always
+          wears the same grey top, so clothing never enters the comparison. Rendered once per face and cached.</li>
+        <li><b>At the door.</b> A live camera on the real student standing at the door, about 20° to the side and a little
+          above eye height, lit by the room. The player sees them walk into frame.</li>
+        <li><b>The rest of the card is unchanged.</b> The "Photo" row keeps its label and the pictures replace its two value
+          cells. When nothing can render (tests, headless) the card falls back to the old words.</li>
+        <li><b>Still on screen:</b> the line under the name repeats the person's look in words. This slice left it alone,
+          and it gives the comparison away. See the open questions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Genuine</h2>
+      <p class="muted">The photo matches the holder. Different angle and light, same face.</p>
+    </div>
+    <div class="figs">
+      <figure><img src="img/a_genuine.jpg" width="1000" height="1140" alt="Genuine match, short black hair, green eyes, medium skin">
+        <figcaption><span class="tag glance">same person</span>Short black hair, green eyes, medium skin.</figcaption></figure>
+      <figure><img src="img/b_genuine.jpg" width="1000" height="1140" alt="Genuine match, long auburn hair, brown eyes, light skin, glasses">
+        <figcaption><span class="tag glance">same person</span>Long auburn hair, brown eyes, light skin, glasses.</figcaption></figure>
+      <figure><img src="img/c_genuine.jpg" width="1000" height="1140" alt="Genuine match, tied-back fair hair, hazel eyes, tan skin">
+        <figcaption><span class="tag glance">same person</span>Tied-back fair hair, hazel eyes, tan skin.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Drifted photos</h2>
+      <p class="muted">The holder, photographed before one ordinary change. A question, not an answer: the face still
+        matches.</p>
+    </div>
+    <div class="figs">
+      <figure><img src="img/a_drift_haircut.jpg" width="1000" height="1140" alt="Drifted photo, curly hair in the photo, short hair today">
+        <figcaption><span class="tag glance">at a glance</span>Haircut: curly in the photo, short today.</figcaption></figure>
+      <figure><img src="img/b_drift_noglasses.jpg" width="1000" height="1140" alt="Drifted photo, no glasses in the photo, glasses today">
+        <figcaption><span class="tag glance">at a glance</span>Glasses on: none in the photo, wearing them today.</figcaption></figure>
+      <figure><img src="img/c_drift_glasses.jpg" width="1000" height="1140" alt="Drifted photo, glasses in the photo, none today">
+        <figcaption><span class="tag glance">at a glance</span>Glasses off: in the photo, not today.</figcaption></figure>
+      <figure><img src="img/c_drift_haircolour.jpg" width="1000" height="1140" alt="Drifted photo, black hair in the photo, fair hair today">
+        <figcaption><span class="tag glance">at a glance</span>Hair colour: black in the photo, fair today.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Impostors: eyes</h2>
+      <p class="muted">Somebody else whose eye colour differs from the holder's, sometimes with a restyle on top.</p>
+    </div>
+    <div class="figs">
+      <figure><img src="img/a_natural_impostor.jpg" width="1000" height="1140" alt="Impostor as dealt by the game, hazel eyes and curly hair in the photo, green eyes and short hair at the door">
+        <figcaption><span class="tag look">with a look</span>As the game dealt it: hazel eyes and curly hair in the photo; green eyes, short hair at the door.</figcaption></figure>
+      <figure><img src="img/a_imp_eyes_hazel.jpg" width="1000" height="1140" alt="Impostor, hazel eyes in the photo, green at the door">
+        <figcaption><span class="tag look">with a look</span>Hazel in the photo, green at the door.</figcaption></figure>
+      <figure><img src="img/a_imp_eyes_blue.jpg" width="1000" height="1140" alt="Impostor, blue eyes in the photo, green at the door">
+        <figcaption><span class="tag look">with a look</span>Blue in the photo, green at the door.</figcaption></figure>
+      <figure><img src="img/b_imp_eyes_hazel.jpg" width="1000" height="1140" alt="Impostor, hazel eyes in the photo, brown at the door, both wearing glasses">
+        <figcaption><span class="tag care">with care</span>Hazel in the photo, brown at the door, behind glasses. The subtlest eye pair.</figcaption></figure>
+      <figure><img src="img/c_imp_eyes_brown.jpg" width="1000" height="1140" alt="Impostor, brown eyes in the photo, hazel at the door, tan skin">
+        <figcaption><span class="tag look">with a look</span>Brown in the photo, hazel at the door, on tan skin.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Impostors: skin</h2>
+      <p class="muted">Somebody else whose skin tone differs from the holder's by one step.</p>
+    </div>
+    <div class="figs">
+      <figure><img src="img/a_imp_skin_light.jpg" width="1000" height="1140" alt="Impostor, light skin in the photo, medium at the door">
+        <figcaption><span class="tag care">with care</span>Light in the photo, medium at the door.</figcaption></figure>
+      <figure><img src="img/b_imp_skin_medium.jpg" width="1000" height="1140" alt="Impostor, medium skin in the photo, light at the door">
+        <figcaption><span class="tag care">with care</span>Medium in the photo, light at the door. The weakest case on this page.</figcaption></figure>
+      <figure><img src="img/a_imp_skin_tan.jpg" width="1000" height="1140" alt="Impostor, tan skin in the photo, medium at the door">
+        <figcaption><span class="tag look">with a look</span>Tan in the photo, medium at the door.</figcaption></figure>
+      <figure><img src="img/c_imp_skin_dark.jpg" width="1000" height="1140" alt="Impostor, dark skin in the photo, tan at the door">
+        <figcaption><span class="tag look">with a look</span>Dark in the photo, tan at the door.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>One tweak: the close-up looks at the lit side</h2>
+      <p class="muted">The room's sun lights one side of the face. The first close-up looked from the other side, which turned a
+        light face grey and a medium one tan, so skin could not be compared fairly. The camera now looks from the lit side.
+        Same student and photos before and after.</p>
+    </div>
+    <div class="pair">
+      <figure><img src="img/before_genuine.jpg" width="920" height="510" alt="Before: genuine light-skinned holder, close-up on the shadowed side">
+        <figcaption><b>Before</b> · genuine, light skin: the face at the door is in shade and reads darker than the photo.</figcaption></figure>
+      <figure><img src="img/after_genuine.jpg" width="920" height="510" alt="After: genuine light-skinned holder, close-up on the lit side">
+        <figcaption><b>After</b> · genuine, light skin: both read light.</figcaption></figure>
+      <figure><img src="img/before_medium.jpg" width="920" height="510" alt="Before: medium-skin photo against a light-skinned holder in shade">
+        <figcaption><b>Before</b> · medium photo, light holder: the shade hides the difference.</figcaption></figure>
+      <figure><img src="img/after_medium.jpg" width="920" height="510" alt="After: medium-skin photo against a light-skinned holder in light">
+        <figcaption><b>After</b> · medium photo, light holder: the photo reads warmer and darker.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Open questions</h2>
+    </div>
+    <ul class="notes">
+      <li><b>The look in words, under the name.</b> The identity card still prints "long auburn hair, brown eyes, light skin,
+        glasses". With pictures on the card, that line turns the check back into reading. Recommendation: hide it when the
+        pictures show.</li>
+      <li><b>The queue behind the person.</b> The next candidate in line sometimes stands in the background of the close-up.
+        It reads as a corridor, but a second face in the frame could confuse. A tighter framing would remove it.</li>
+      <li><b>Light against medium skin.</b> It is the smallest step in the skin palette. The steps could be evened out, which
+        also changes how everyone looks in the room, or it could stay as the hard case. A device playtest should decide.</li>
+      <li><b>Cost on the phone.</b> The close-up renders the room a second time while the door is open, at 320×400 with no
+        shadows. That has not been measured on the Galaxy A15 yet. The main camera still draws the full room under the
+        opaque card, and switching it off at the door would more than pay for the close-up.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
