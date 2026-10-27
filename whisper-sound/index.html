@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Whisper Sound</title>
+<meta name="description" content="Real CC0 whisper recordings to replace the generated whisper noise: listen, compare the measurements, and pick a set.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --plate: #ffffff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    --plate: #f4f6f7; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  --plate: #f4f6f7; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; background: var(--plate); }
+audio { width: 100%; display: block; }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+.vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+figure { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 4px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.who { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.who.b { color: var(--accent); }
+.who.m { color: var(--warn); }
+.who.x { color: var(--bad); }
+.stats { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.credit { font-size: 0.82rem; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 0.95rem; }
+
+.verdict { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 10px; padding: 16px 18px; display: grid; gap: 8px; }
+.verdict h3 { color: var(--accent); font-weight: 700; }
+.verdict ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 760px; }
+th, td { padding: 8px 10px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); border-top: 0; font-weight: 500; }
+td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+tr.good td:first-child { color: var(--accent); }
+tr.bad td:first-child { color: var(--bad); }
+tr.now td:first-child { color: var(--warn); }
+td.hit { color: var(--good); }
+td.miss { color: var(--bad); }
+</style>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · whisper sound</span>
+    <h1>Whisper Sound</h1>
+    <p class="lede">The whisper in the game is made in code from noise. It sounds like hiss. Here are real whispers from
+      public-domain (CC0) recordings, cut to one short phrase each and set to the same loudness. The placeholder comes
+      first, so you can hear the difference. Each clip has a spectrogram and a few measurements. They show why it does
+      or does not sound like a person whispering.</p>
+  </header>
+
+  <main class="wrap" style="gap:56px">
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Now</span>
+        <h2>The placeholder</h2>
+        <p class="muted">Rendered exactly as <span class="num">RoomSoundPresenter</span> builds it: 0.55 s of white noise
+          with a light smoothing filter and a fade. Played here at its in-game level.</p>
+      </div>
+      <div class="vs">
+        <figure>
+          <audio controls preload="none" src="audio/placeholder.wav"></audio>
+          <img src="img/placeholder.png" width="768" height="288" alt="Spectrogram of the placeholder: even noise from 0 to 12 kHz" loading="lazy">
+          <figcaption><span class="who m">Generated · in the game today</span>
+            <span>Most of its energy is above 6 kHz, it has no syllables, and it fades smoothly once. It sounds like
+              steam or tape hiss, not a person.</span>
+            <span class="stats">0.55 s · −28.3 LUFS · 58% above 6 kHz · 0% pitched · 0 syllables</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Recommended set</span>
+        <h2>Real whispers</h2>
+        <p class="muted">Every clip is one phrase, mono, 44.1 kHz WAV, normalised to −26 LUFS. Two speakers. Dashed lines
+          on the spectrograms mark 300 Hz and 6 kHz: a whisper's energy should sit between them.</p>
+      </div>
+      <div class="vs">
+        <figure>
+          <audio controls preload="none" src="audio/whisper-a.wav"></audio>
+          <img src="img/whisper-a.png" width="768" height="288" alt="Spectrogram of whisper A: three bursts, energy below 4 kHz, no pitch lines" loading="lazy">
+          <figcaption><span class="who b">A · voice 1</span>
+            <span>Breath only, no pitch at all. Three syllables at five per second end in an "s"-like hiss. This is what
+              a quick whispered phrase looks like.</span>
+            <span class="stats">1.16 s · 98% in 0.3–6 kHz · 0% pitched · 5.1 syll/s</span>
+            <span class="credit">"Whispering Midnight.wav" by <a href="https://freesound.org/people/balloonhead/sounds/362503/">balloonhead</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/whisper-b.wav"></audio>
+          <img src="img/whisper-b.png" width="768" height="288" alt="Spectrogram of whisper B" loading="lazy">
+          <figcaption><span class="who b">B · voice 1</span>
+            <span>Four syllables at about five per second, almost no pitch. Clearly whispered words.</span>
+            <span class="stats">1.52 s · 99% in 0.3–6 kHz · 10% pitched · 4.8 syll/s</span>
+            <span class="credit">"Whispering Midnight.wav" by <a href="https://freesound.org/people/balloonhead/sounds/362503/">balloonhead</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/whisper-c.wav"></audio>
+          <img src="img/whisper-c.png" width="768" height="288" alt="Spectrogram of whisper C" loading="lazy">
+          <figcaption><span class="who b">C · voice 1</span>
+            <span>A short breathy fragment of three syllables. It varies the set without changing the speaker.</span>
+            <span class="stats">1.38 s · 99% in 0.3–6 kHz · 8% pitched · 4.3 syll/s</span>
+            <span class="credit">"Whispering Midnight.wav" by <a href="https://freesound.org/people/balloonhead/sounds/362503/">balloonhead</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/whisper-d.wav"></audio>
+          <img src="img/whisper-d.png" width="768" height="288" alt="Spectrogram of whisper D: fast bursts and sharp click lines" loading="lazy">
+          <figcaption><span class="who b">D · voice 2</span>
+            <span>A second voice, fast and hurried, with lip and tongue clicks. It is unpitched and a little closer to
+              the microphone.</span>
+            <span class="stats">1.76 s · 68% in 0.3–6 kHz · 6% pitched · 8.2 syll/s · −27.1 LUFS</span>
+            <span class="credit">"Whisper.wav" by <a href="https://freesound.org/people/AlexMiller2000/sounds/620041/">AlexMiller2000</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/whisper-hey.wav"></audio>
+          <img src="img/whisper-hey.png" width="768" height="288" alt="Spectrogram of the short 'hey' whisper" loading="lazy">
+          <figcaption><span class="who b">Short · voice 3</span>
+            <span>A single whispered "hey", 0.35 s long. Use it as a short opener now and then, so not every whisper is
+              a full phrase.</span>
+            <span class="stats">0.35 s · 100% in 0.3–6 kHz · 7% pitched · 1 syllable</span>
+            <span class="credit">"Hey Whisper" by <a href="https://freesound.org/people/qubodup/sounds/849127/">qubodup</a>, CC0</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">At the invigilator's ear</span>
+        <h2>How it would sound in the room</h2>
+        <p class="muted">The game plays the whisper as a 3D one-shot (linear roll-off, 1 to 24 m) at the effects volume.
+          These two use a whisperer 4 m away. That means the game's distance drop (×0.87), a soft cut above 6.5 kHz for
+          distance, and a small hard-walled room tail (0.5 s, 13 dB under the voice). The game has no reverb today. The
+          tail is a suggestion and could be baked into the clips.
+          Today the sound plays from the centre of the sector, 1 m above the floor. When it is integrated, it will play
+          from the student who is whispering.</p>
+      </div>
+      <div class="vs">
+        <figure>
+          <audio controls preload="none" src="audio/room-a.wav"></audio>
+          <figcaption><b>A, 4 m away in the exam hall</b>
+            <span class="stats">−27.9 LUFS</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/room-d.wav"></audio>
+          <figcaption><b>D, 4 m away in the exam hall</b>
+            <span class="stats">−28.9 LUFS</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Measurements</span>
+        <h2>The numbers</h2>
+        <p class="muted">A real whisper has four signs. Its energy sits mostly in the speech band (0.3–6 kHz). It has no
+          pitch, because the vocal cords do not vibrate. Its loudness rises and falls in syllables, about 3–6 per second.
+          It lasts about as long as a phrase. "Pitched" is the share of frames with a clear pitch period: a normal spoken
+          sentence scores 65%, the same sentence whispered 4%, and noise 0%. Green values pass, red values fail.</p>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Clip</th><th>Length s</th><th>LUFS</th><th>Peak dBFS</th><th>Centre Hz</th><th>&lt;300 Hz</th><th>0.3–6 kHz</th><th>&gt;6 kHz</th><th>Pitched</th><th>Syllables</th><th>Syll/s</th></tr></thead>
+          <tbody>
+            <tr class="now"><td>Placeholder</td><td>0.55</td><td>−28.3</td><td>−21.2</td><td>8644</td><td>3%</td><td class="miss">40%</td><td class="miss">58%</td><td class="hit">0%</td><td class="miss">0</td><td class="miss">0.0</td></tr>
+            <tr class="good"><td>A</td><td>1.16</td><td>−26.0</td><td>−3.2</td><td>1634</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">0%</td><td>3</td><td class="hit">5.1</td></tr>
+            <tr class="good"><td>B</td><td>1.52</td><td>−26.0</td><td>−8.3</td><td>1108</td><td>1%</td><td class="hit">99%</td><td>0%</td><td class="hit">10%</td><td>4</td><td class="hit">4.8</td></tr>
+            <tr class="good"><td>C</td><td>1.38</td><td>−26.0</td><td>−7.7</td><td>1165</td><td>1%</td><td class="hit">99%</td><td>0%</td><td class="hit">8%</td><td>3</td><td class="hit">4.3</td></tr>
+            <tr class="good"><td>D</td><td>1.76</td><td>−27.1</td><td>−3.2</td><td>1464</td><td>23%</td><td>68%</td><td>9%</td><td class="hit">6%</td><td>8</td><td>8.2</td></tr>
+            <tr class="good"><td>Short "hey"</td><td>0.35</td><td>−26.0</td><td>−10.3</td><td>1456</td><td>0%</td><td class="hit">100%</td><td>0%</td><td class="hit">7%</td><td>1</td><td>3.3</td></tr>
+            <tr class="bad"><td>377743</td><td>2.00</td><td>−26.0</td><td>−11.6</td><td>712</td><td class="miss">54%</td><td>44%</td><td>1%</td><td class="miss">76%</td><td>5</td><td>2.6</td></tr>
+            <tr class="bad"><td>446580</td><td>2.50</td><td>−27.5</td><td>−10.1</td><td>523</td><td>13%</td><td>87%</td><td>0%</td><td class="miss">69%</td><td>8</td><td>4.1</td></tr>
+            <tr class="bad"><td>540060</td><td>2.00</td><td>−26.0</td><td>−8.1</td><td>764</td><td>15%</td><td>84%</td><td>2%</td><td>18%</td><td>2</td><td class="miss">1.0</td></tr>
+            <tr class="bad"><td>143902</td><td>2.00</td><td>−26.0</td><td>−9.1</td><td>5814</td><td>0%</td><td>61%</td><td class="miss">39%</td><td>0%</td><td>6</td><td>3.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">Every clip was cut to one phrase. Each then went through a 220 Hz high-pass (removes rumble, hum
+        and breath pops; a whisper has no pitch to lose) and a 12 kHz low-pass (removes preview-encoding fizz). It got a
+        20 ms fade in and a 50–80 ms fade out, was mixed to mono at 44.1 kHz and set to −26 LUFS (ITU BS.1770). Single
+        clicks above −3 dBFS were held down by a 5 ms limiter. D keeps the most clicks, so it sits 1 LU lower. The
+        sources are Freesound's public MP3 previews. Before shipping, swap in the original WAVs (a free login, same
+        CC0 licence) and apply the same edits.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Not used</span>
+        <h2>Tried and dropped</h2>
+        <p class="muted">All CC0 and all labelled "whisper". The measurements show why each one does not fit.</p>
+      </div>
+      <div class="vs">
+        <figure>
+          <audio controls preload="none" src="audio/reject-377743.wav"></audio>
+          <img src="img/reject-377743.png" width="768" height="288" alt="Spectrogram of 377743 with low pitched energy" loading="lazy">
+          <figcaption><span class="who x">Murmur, not whisper</span>
+            <span>76% of frames are pitched and half the energy is below 300 Hz. This is soft spoken murmuring.</span>
+            <span class="credit">"indistinctwhispering.wav" by <a href="https://freesound.org/people/BlueSiren/sounds/377743/">BlueSiren</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/reject-446580.wav"></audio>
+          <img src="img/reject-446580.png" width="768" height="288" alt="Spectrogram of 446580" loading="lazy">
+          <figcaption><span class="who x">Pitched and very quiet</span>
+            <span>69% pitched. It was recorded very quietly (peak −48 dBFS), so raising it lifts the room noise
+              too.</span>
+            <span class="credit">"Whispers" by <a href="https://freesound.org/people/Nicolas4677/sounds/446580/">Nicolas4677</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/reject-540060.wav"></audio>
+          <img src="img/reject-540060.png" width="768" height="288" alt="Spectrogram of 540060 with steady horizontal tone lines" loading="lazy">
+          <figcaption><span class="who x">Slow, over a hum</span>
+            <span>About one syllable a second, drawn out over a steady tonal background (the horizontal lines). It
+              sounds like a horror effect.</span>
+            <span class="credit">"Whispering Man" by <a href="https://freesound.org/people/szegvari/sounds/540060/">szegvari</a>, CC0</span></figcaption>
+        </figure>
+        <figure>
+          <audio controls preload="none" src="audio/reject-143902.wav"></audio>
+          <img src="img/reject-143902.png" width="768" height="288" alt="Spectrogram of 143902, dense and bright" loading="lazy">
+          <figcaption><span class="who x">A crowd, not two students</span>
+            <span>Four voices layered together, with 39% of the energy above 6 kHz. It is a wash of hissing.</span>
+            <span class="credit">"Four_Voices_Whispering.wav" by <a href="https://freesound.org/people/geoneo0/sounds/143902/">geoneo0</a>, CC0</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="verdict">
+        <h3>Recommendation</h3>
+        <ul>
+          <li>Ship <b>A, B, C and D</b> as a set of four. Pick one at random each time, never the same one twice in a
+            row. Add a small random pitch change (±4%) so four clips feel like more.</li>
+          <li>Now and then (about 1 in 5), use the short <b>"hey"</b> instead.</li>
+          <li>If one clip has to stand alone, use <b>A</b>. It has no pitch at all, its syllables come at a natural
+            speed, and it is short.</li>
+          <li>Keep them at −26 LUFS. That is 2 dB above the placeholder, so the effects mix may need a small trim.</li>
+          <li>Play from the whispering student, not the sector centre. Consider baking in the small room tail
+            (see "in the room").</li>
+          <li>These were measured, not listened to. Check by ear that no word is clear enough to understand.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Sources</span>
+        <h2>Licence</h2>
+        <p class="muted">Every recording is <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>
+          (public domain), so it ships with no credit required. The credits here are a courtesy.</p>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Used as</th><th>Freesound file</th><th>Author</th><th>Cut (s)</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td><a href="https://freesound.org/people/balloonhead/sounds/362503/">362503 Whispering Midnight.wav</a></td><td>balloonhead</td><td>5.92–7.08</td></tr>
+            <tr><td>B</td><td><a href="https://freesound.org/people/balloonhead/sounds/362503/">362503 Whispering Midnight.wav</a></td><td>balloonhead</td><td>1.90–3.42</td></tr>
+            <tr><td>C</td><td><a href="https://freesound.org/people/balloonhead/sounds/362503/">362503 Whispering Midnight.wav</a></td><td>balloonhead</td><td>7.60–8.98</td></tr>
+            <tr><td>D</td><td><a href="https://freesound.org/people/AlexMiller2000/sounds/620041/">620041 Whisper.wav</a></td><td>AlexMiller2000</td><td>0.36–2.12</td></tr>
+            <tr><td>Short</td><td><a href="https://freesound.org/people/qubodup/sounds/849127/">849127 Hey Whisper</a></td><td>qubodup</td><td>whole</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
