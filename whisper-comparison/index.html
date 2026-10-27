@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Whispering, Two Ways</title>
+<meta name="description" content="Two new seated clips, a whisperer and a listener, made by hand in Blender and with Meshy text-to-motion, compared at the game's camera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --plate: #ffffff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    --plate: #f4f6f7; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  --plate: #f4f6f7; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; background: var(--plate); }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+.ledger { display: grid; gap: 10px; }
+.bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
+.bar span { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.9rem; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+.vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+figure { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 2px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.who { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.who.b { color: var(--accent); }
+.who.m { color: var(--warn); }
+.who.c { color: var(--muted); }
+.native { display: flex; justify-content: center; background: var(--plate); border-radius: 8px; }
+.native img { width: 480px; max-width: 100%; }
+.orient { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); background: var(--accent-soft);
+  padding: 2px 8px; border-radius: 4px; justify-self: start; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 0.95rem; }
+.card li.plus::marker { content: "+  "; color: var(--good); font-weight: 700; }
+.card li.minus::marker { content: "−  "; color: var(--bad); font-weight: 700; }
+
+.verdict { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 10px; padding: 16px 18px; display: grid; gap: 8px; }
+.verdict h3 { color: var(--accent); font-weight: 700; }
+
+.table { display: grid; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.table > div { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.6fr) minmax(0, 2.2fr); gap: 4px 16px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 0.92rem; }
+.table > div:first-child { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.table .c { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); overflow-wrap: anywhere; }
+.table .l { font-family: var(--mono); font-size: 0.8rem; }
+.table .d { color: var(--muted); }
+@media (max-width: 640px) {
+  .table > div { grid-template-columns: 1fr; }
+  .table > div:first-child { display: none; }
+}
+.stills { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.stills figure { padding: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · whispering students</span>
+    <h1>Whispering, Two Ways</h1>
+    <p class="lede">Whispering did not read on screen: today one student sits back with the hands in the lap and the
+      neighbour does nothing. These are two new seated clips, one for the student who whispers and one for the
+      student who listens, each made two ways: by hand in Blender (free) and with Meshy text-to-motion (paid credits).
+      Every picture is the game's own student body, on the game's desk and chair, with two desks 3 m apart as in the
+      classroom.</p>
+    <div class="ledger" aria-label="Meshy credits for this comparison">
+      <div><span class="num" style="font-size:1.6rem;font-weight:500">40</span>
+        <span class="muted"> Meshy credits spent of the 80 allowed · balance 642 → 602</span></div>
+      <div class="bar" role="img" aria-label="Of 80 allowed credits: 20 on a first try that was unusable, 20 on the second try shown here, 40 not spent">
+        <span style="width:25%;background:var(--bad)"></span><span style="width:25%;background:var(--warn)"></span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--bad)"></i>20 · first try, both clips (barely moved; not used)</span>
+        <span><i style="background:var(--warn)"></i>20 · second try, both clips (shown below)</span>
+        <span><i style="background:var(--line)"></i>40 · not spent</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="gap:56px">
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Phone size</span>
+        <h2>At the game's camera</h2>
+        <p class="muted">The game's fixed camera: 50° down, 42° field of view, about 15 m from a middle-row seat. These
+          loops keep the phone's own pixel size (a 1080-pixel-tall screen), so the two students are as small as they
+          are in the game. Whisperer in blue on the left, listener in yellow on the right.</p>
+      </div>
+      <figure style="max-width:520px">
+        <div class="native"><img src="vid/current_game.webp" width="480" height="300" alt="Today's whisper clip at phone size: the left student sits back, the right one reads." loading="lazy"></div>
+        <figcaption><span class="who c">Today in the game</span>
+          <span>WhisperLeft beside a reading neighbour. Nothing says "talking to the next desk".</span></figcaption>
+      </figure>
+      <div class="vs">
+        <figure>
+          <div class="native"><img src="vid/blender_ab_game.webp" width="480" height="300" alt="Blender pair at phone size" loading="lazy"></div>
+          <figcaption><span class="who b">Blender · by hand</span>
+            <span>Hand up at the face, body leaning over; the listener tips the head toward them.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="native"><img src="vid/meshy_ab_game.webp" width="480" height="300" alt="Meshy pair at phone size" loading="lazy"></div>
+          <figcaption><span class="who m">Meshy · text-to-motion</span>
+            <span>A bigger lean, hand at the face; the listener tilts strongly but sits back with hands in the lap.</span></figcaption>
+        </figure>
+      </div>
+      <div class="vs">
+        <figure>
+          <div class="native"><img src="vid/blender_ba_game.webp" width="480" height="300" alt="Blender pair mirrored at phone size" loading="lazy"></div>
+          <figcaption><span class="who b">Blender · mirrored</span>
+            <span>Whisperer on the right (yellow), listener on the left.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="native"><img src="vid/meshy_ba_game.webp" width="480" height="300" alt="Meshy pair mirrored at phone size" loading="lazy"></div>
+          <figcaption><span class="who m">Meshy · mirrored</span>
+            <span>Whisperer on the right (yellow), listener on the left.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Same camera, twice the pixels</span>
+        <h2>Both directions, enlarged</h2>
+        <p class="muted">The same framing at twice the resolution, to see what is happening. Each clip comes in a left and a
+          right version: the right one is the left one mirrored, so a pair works whichever side the neighbour sits on.</p>
+      </div>
+      <span class="orient">Whisperer on the left, listener on the right</span>
+      <div class="vs">
+        <figure>
+          <img src="vid/blender_ab_game2x.webp" width="960" height="600" alt="Blender pair, whisperer left, enlarged game camera" loading="lazy">
+          <figcaption><span class="who b">Blender</span><b>WhisperTalkLeft + WhisperListenRight</b></figcaption>
+        </figure>
+        <figure>
+          <img src="vid/meshy_ab_game2x.webp" width="960" height="600" alt="Meshy pair, whisperer left, enlarged game camera" loading="lazy">
+          <figcaption><span class="who m">Meshy</span><b>WhisperTalkLeft + WhisperListenRight</b></figcaption>
+        </figure>
+      </div>
+      <span class="orient">Whisperer on the right, listener on the left</span>
+      <div class="vs">
+        <figure>
+          <img src="vid/blender_ba_game2x.webp" width="960" height="600" alt="Blender pair, whisperer right, enlarged game camera" loading="lazy">
+          <figcaption><span class="who b">Blender</span><b>WhisperListenLeft + WhisperTalkRight</b></figcaption>
+        </figure>
+        <figure>
+          <img src="vid/meshy_ba_game2x.webp" width="960" height="600" alt="Meshy pair, whisperer right, enlarged game camera" loading="lazy">
+          <figcaption><span class="who m">Meshy</span><b>WhisperListenLeft + WhisperTalkRight</b></figcaption>
+        </figure>
+      </div>
+      <figure style="max-width:560px">
+        <img src="vid/current_game2x.webp" width="960" height="600" alt="Today's whisper clip, enlarged game camera" loading="lazy">
+        <figcaption><span class="who c">Today, for reference</span><b>WhisperLeft + Reading</b></figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Closer look</span>
+        <h2>Three-quarter view</h2>
+        <p class="muted">From the front corner of the room, closer, to judge the motion itself: the hand, the head, the
+          desk and the chair.</p>
+      </div>
+      <span class="orient">Whisperer on the left</span>
+      <div class="vs">
+        <figure>
+          <img src="vid/blender_ab_tq.webp" width="640" height="400" alt="Blender pair, three-quarter view" loading="lazy">
+          <figcaption><span class="who b">Blender</span>
+            <span>The cupped left hand sits beside the mouth on the side the room sees, palm to the mouth. Small talking
+              nods in two bursts. The right hand stays on the paper.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="vid/meshy_ab_tq.webp" width="640" height="400" alt="Meshy pair, three-quarter view" loading="lazy">
+          <figcaption><span class="who m">Meshy</span>
+            <span>Softer, more human sway, but the whisperer reclines and the hand rests against the cheek, more like
+              "thinking" than "whispering". Both students' hands are in the lap, away from the desk.</span></figcaption>
+        </figure>
+      </div>
+      <span class="orient">Whisperer on the right</span>
+      <div class="vs">
+        <figure>
+          <img src="vid/blender_ba_tq.webp" width="640" height="400" alt="Blender pair mirrored, three-quarter view" loading="lazy">
+          <figcaption><span class="who b">Blender</span><span>The mirrored pair.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="vid/meshy_ba_tq.webp" width="640" height="400" alt="Meshy pair mirrored, three-quarter view" loading="lazy">
+          <figcaption><span class="who m">Meshy</span><span>The mirrored pair.</span></figcaption>
+        </figure>
+      </div>
+      <figure style="max-width:560px">
+        <img src="vid/current_tq.webp" width="640" height="400" alt="Today's whisper clip, three-quarter view" loading="lazy">
+        <figcaption><span class="who c">Today, for reference</span>
+          <span>WhisperLeft: sits back, hands in the lap, a small head turn.</span></figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Stills</span>
+        <h2>One frame each</h2>
+      </div>
+      <div class="stills">
+        <figure><img src="img/current_game2x.jpg" width="960" height="600" alt="Today, still" loading="lazy"><figcaption><span class="who c">Today</span></figcaption></figure>
+        <figure><img src="img/blender_ab_game2x.jpg" width="960" height="600" alt="Blender, whisperer left, still" loading="lazy"><figcaption><span class="who b">Blender · left</span></figcaption></figure>
+        <figure><img src="img/blender_ba_game2x.jpg" width="960" height="600" alt="Blender, whisperer right, still" loading="lazy"><figcaption><span class="who b">Blender · right</span></figcaption></figure>
+        <figure><img src="img/meshy_ab_game2x.jpg" width="960" height="600" alt="Meshy, whisperer left, still" loading="lazy"><figcaption><span class="who m">Meshy · left</span></figcaption></figure>
+        <figure><img src="img/meshy_ba_game2x.jpg" width="960" height="600" alt="Meshy, whisperer right, still" loading="lazy"><figcaption><span class="who m">Meshy · right</span></figcaption></figure>
+      </div>
+      <div class="vs">
+        <figure>
+          <img src="img/meshy_v1_tq.jpg" width="640" height="400" alt="Meshy first try, three-quarter view" loading="lazy">
+          <figcaption><span class="who m">Meshy · first try (not used)</span>
+            <span>The first prompts ("stays seated", "right hand rests on the desk") came back almost still: no hand to
+              the mouth, the listener just sits back. 20 credits. The second prompts led with the action and dropped
+              the desk, which is why those clips have the hands in the lap.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="img/meshy_v1_game2x.jpg" width="960" height="600" alt="Meshy first try, enlarged game camera" loading="lazy">
+          <figcaption><span class="who m">Meshy · first try at the game camera</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Judgement</span>
+        <h2>What each does well and badly</h2>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h3>Blender, by hand</h3>
+          <ul>
+            <li class="plus">The hand is clearly cupped at the mouth, on the side the invigilator sees.</li>
+            <li class="plus">Hands stay on the desk, like every other exam clip, so blending in and out of writing or reading looks natural.</li>
+            <li class="plus">Nothing passes through the chair or desk (checked every third frame).</li>
+            <li class="plus">Every amount is a number in a script: lean, head turn, hand height, nod speed. Easy to push further after a look on the phone.</li>
+            <li class="plus">Free. A clean 4-second loop.</li>
+            <li class="minus">Motion is tidier and a little mechanical up close; the body holds still apart from the head and hand.</li>
+            <li class="minus">The listener's far arm stays long, reaching to the paper.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Meshy, text-to-motion</h3>
+          <ul>
+            <li class="plus">Softer, more natural body movement.</li>
+            <li class="plus">A big sideways lean that reads strongly from above.</li>
+            <li class="minus">Hands rest in the lap. Fitting them to the desk failed: the generated body leans back, so the wrists stayed 28–35 cm short.</li>
+            <li class="minus">It reclined through the chair back; it had to be slid 12 cm forward on the seat to clear it.</li>
+            <li class="minus">The whisperer's hand rests on the cheek, which can read as thinking.</li>
+            <li class="minus">Prompts are hit and miss: the first try (20 credits) was unusable. Any change means paying again.</li>
+            <li class="minus">40 credits for these two clips.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="verdict">
+        <h3>Recommendation: the Blender pair</h3>
+        <p>From the game camera both versions read as two students talking across the gap. The hand-made pair does it with
+          the hand at the mouth and the hands on the desk, fits the furniture with nothing passing through, and can be
+          adjusted for free after it has been seen on the phone. Meshy's bigger lean is its one real advantage, and the
+          Blender lean is a single number if more is wanted. Meshy's clips would need more paid attempts to get the hands
+          onto the desk.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">For the next step</span>
+        <h2>Clip names</h2>
+        <p class="muted">"Left" means toward the neighbour on the student's own left, as with today's WhisperLeft (aimed
+          +1). The Right clips are exact mirrors. Not in the game yet.</p>
+      </div>
+      <div class="table">
+        <div><span>clip</span><span>aim</span><span>what it is</span></div>
+        <div><span class="c">WhisperTalkLeft</span><span class="l">+1</span><span class="d">the whisperer, neighbour on own left; replaces WhisperLeft</span></div>
+        <div><span class="c">WhisperTalkRight</span><span class="l">−1</span><span class="d">the whisperer, neighbour on own right; replaces WhisperMirror</span></div>
+        <div><span class="c">WhisperListenLeft</span><span class="l">+1</span><span class="d">the listener, whisperer on own left; new</span></div>
+        <div><span class="c">WhisperListenRight</span><span class="l">−1</span><span class="d">the listener, whisperer on own right; new</span></div>
+      </div>
+      <p class="muted">Blender: four loops of 4 s (120 frames at 30 fps). Meshy: four loops of 3.2 s (96 frames). Both held loops, like
+        today's whisper.</p>
+    </section>
+  </main>
+</div>
+</body>
+</html>
