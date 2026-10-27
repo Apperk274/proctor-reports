@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Quality Candidates</title>
+<meta name="description" content="Every 2D image in Exam Supervisor Simulator, and candidate replacements for the school buildings, the title screen, the exam hall, the event objects and the weakest icons, shown side by side with the current art at phone size.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --star: #b7791f; --warn: #9a3412; --warn-soft: #fde8dc;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; --warn: #f0a27a; --warn-soft: #3a2218; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; --warn: #f0a27a; --warn-soft: #3a2218; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+a { color: var(--accent); }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+figure { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+figure .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+figure .shot img { border-radius: 0; width: 100%; }
+a.shot { display: block; }
+figcaption { font-size: 0.9rem; color: var(--muted); display: grid; gap: 4px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); justify-self: start; }
+.tag.cur { background: var(--line); color: var(--muted); }
+.tag.worse { background: var(--warn-soft); color: var(--warn); }
+.school { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
+.school .trio figure { background: var(--bg); }
+.verdict { border-left: 3px solid var(--accent); padding-left: 12px; max-width: 80ch; }
+.verdict b { color: var(--ink); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.nowrap { white-space: nowrap; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.35rem; font-weight: 700; color: var(--accent); }
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { font-size: 0.9rem; text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 4px 10px; border-radius: 999px; }
+.toc a:hover, .toc a:focus-visible { border-color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · Art review</span>
+    <h1>Image Quality Candidates</h1>
+    <p class="lede">An inventory of every 2D image in the game. For the images players see most, there are candidate
+      replacements side by side with the current art, at the size a phone in portrait (1080 × 2340) shows them. Nothing
+      here is in the game yet; this page is for choosing a direction.</p>
+    <p class="muted">The two directions are <b>B</b>, low-poly 3D scenes rendered in Blender, and <b>C</b>, flat vector
+      art drawn by hand in code, in the shipped style but at the size the phone displays. The planned third direction,
+      <b>A</b> (Meshy image generation), was not produced; see <a href="#method">How these were made</a>. Hub pictures
+      are mock-ups: the art is framed the way <code>Ui.Hero</code> frames it (cover fit, rounded mask, scrim, rank, name
+      and stars). The mock-up was checked against a device screenshot (below), so the hero's crop, size and text
+      position match the phone.</p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#summary">Recommendation</a><a href="#inventory">Inventory</a><a href="#schools">The eight schools</a>
+      <a href="#title">Title screen</a><a href="#hall">Exam hall banner</a><a href="#props">Event objects</a>
+      <a href="#icons">Icons</a><a href="#uncovered">Not covered</a><a href="#method">How these were made</a>
+    </nav>
+  </header>
+
+  <section id="summary">
+    <div class="section-head">
+      <h2>Recommendation</h2>
+      <p class="muted">The short version, per image family.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="big">Schools → C</span><p>Hand-built vector, one building per school. All
+        eight are distinct and each shows its name: a maple, a river, an evening gate, a shopfront. They are
+        sharp at hub size and stay in the shipped style. B is a coherent set but looks like a toy diorama, and the
+        buildings come out small.</p></div>
+      <div class="card"><span class="big">Title + exam hall → B</span><p>The Blender classroom is the closest thing
+        here to the approved reference's title screen: a real room with depth and evening light. The flat vector room
+        (C) is fine but reads as a diagram.</p></div>
+      <div class="card"><span class="big">Event objects → keep, sharpen</span><p>B is better on the document, the coins
+        and the medal, about level on the envelope and note, and worse on the person. The cheaper win is drawing the
+        current objects at display size (704 → 890 px wide).</p></div>
+      <div class="card"><span class="big">Icons → fix five</span><p>The icon family is good apart from Coin, Hand,
+        Question, Music and Gavel, which do not read at icon size. Redraws in the same stroke family are shown
+        below.</p></div>
+    </div>
+    <p class="muted"><b>Implementation note.</b> The current art is generated from <code>GameTheme.Current</code>, so a
+      theme swap restyles it (see <code>Scenery.cs</code>). If C is chosen, it should be ported into <code>Scenery</code>
+      as drawing code at the hero's display size, not shipped as PNGs. The Python prototypes use the same primitives
+      (boxes, triangles, discs, glows) plus polygon and ellipse fills that <code>Painter</code> would need. Baked PNGs
+      (B, or C as images) would give up that rule. That would have to be a deliberate decision recorded in
+      UI-DESIGN-SYSTEM.md. The candidates here are dark-theme only.</p>
+  </section>
+
+  <section id="inventory">
+    <div class="section-head">
+      <h2>Inventory: every 2D image in the game</h2>
+      <p class="muted">The player-facing UI art is almost all drawn in code. Only the app icon is a file the player
+        sees. Sizes are reference pixels on the 1080-wide canvas, which is device pixels on a 1080 × 2340 phone.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Image</th><th>Where it shows</th><th>Source</th><th>Rendered at → shown at</th><th>Problem</th></tr></thead>
+        <tbody>
+          <tr><td>Hub hero: <b>School</b> scene</td><td>Home hub, for Maple, Riverside, City High and Brightpath</td><td><code>Scenery.School</code> (code)</td><td class="nowrap">704 × 304 → 996 × 618 (cover: <b>2.0× upscale</b>, sides cropped)</td><td>Soft on the phone. One clock-tower building stands in for four different schools, so nothing says "maple", "river" or "prep centre". The rank line sits on the lit windows.</td></tr>
+          <tr><td>Hub hero: <b>Professional</b> scene</td><td>Home hub, Eastgate</td><td><code>Scenery.Professional</code></td><td class="nowrap">704 × 304 → 996 × 618 (2.0×)</td><td>A generic office skyline, with no college and no evening class.</td></tr>
+          <tr><td>Hub hero: <b>University</b> scene</td><td>Home hub, for Kingsley, State University and National</td><td><code>Scenery.University</code></td><td class="nowrap">704 × 304 → 996 × 618 (2.0×)</td><td>A selective academy, a university and a national exams body all get one colonnade, so the top three schools look the same.</td></tr>
+          <tr><td>Title wordmark hero</td><td>Title / boundary screen</td><td><code>Scenery.School</code> via <code>BoundaryView</code></td><td class="nowrap">704 × 304 → 996 × 806 (<b>2.65×</b>, centre 43% only)</td><td>The worst upscale in the game: the first image a player sees is the clock tower's middle, enlarged 2.65×.</td></tr>
+          <tr><td>Exam hall</td><td>Pre-exam brief and post-exam summary cards</td><td><code>Scenery.ExamHall</code></td><td class="nowrap">704 × 304 → 890 × 384 (1.26×)</td><td>Readable but flat. Desks are bars, and the room is dark blue with little light.</td></tr>
+          <tr><td>Event objects ×6 (envelope, document, note, commendation, coins, person)</td><td>Top band of career event cards</td><td><code>Props</code> (code)</td><td class="nowrap">704 × 200 → 890 × 253 (1.26×)</td><td>Small object in a wide dark band. The person is a silhouette placeholder (M106 portraits pending).</td></tr>
+          <tr><td>Shop items ×6 (detector, replay, lens, analyzer, shirt, badge)</td><td>Store tiles</td><td><code>Props</code>, tile frame</td><td class="nowrap">330 × 220 → ~490 × 180 (≈1.5×)</td><td>Simple glyph-like objects. The shirt and the badge are the weakest. <i>Not covered here.</i></td></tr>
+          <tr><td>Icon family ×30</td><td>Everywhere: rows, buttons, tiles</td><td><code>Icons</code> (code, 96 px line glyphs)</td><td class="nowrap">96 → ~40–90</td><td>Coherent family. Five glyphs are hard to read (see <a href="#icons">Icons</a>).</td></tr>
+          <tr><td>App icon</td><td>Launcher</td><td><code>Assets/Art/Branding/AppIcon*.png</code></td><td class="nowrap">1024 × 1024</td><td>Fine technically: a document and a magnifier. <i>Not covered here.</i></td></tr>
+          <tr><td>Rounded surfaces, glows, rings, the promotion shimmer</td><td>All UI chrome</td><td><code>UiSprites</code>, <code>Shimmer</code></td><td>generated per radius</td><td>Chrome rather than illustration, and out of scope.</td></tr>
+          <tr><td><code>Resources/UI/ev_*.png</code> ×6, <code>ui_round.png</code>, <code>ui_round_gloss.png</code>, <code>ui_shadow.png</code></td><td><b>Nowhere</b></td><td>baked files (M105 and earlier)</td><td>256² / 128²</td><td>Dead: nothing loads them and no scene, prefab or asset references their GUIDs. They still ship inside <code>Resources</code>.</td></tr>
+          <tr><td>Admission document photo, 3D classroom</td><td>Exam room</td><td>3D renders</td><td>n/a</td><td>3D world: outside the UI design system and outside this review.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="duo">
+      <figure><div class="shot"><img src="img/device-hub-maple.jpg" alt="Device screenshot of the Maple hub hero: the generic clock-tower school, slightly soft, with the rank overlapping lit windows" loading="lazy"></div>
+        <figcaption><span class="tag cur">Device</span><b>Calibration: the real hub at 1080 × 2340</b> (from the Schools report). The
+          mock-ups below reproduce this frame. The art is soft, and "ASSISTANT SUPERVISOR" runs across lit windows.</figcaption></figure>
+      <div class="duo">
+        <figure><div class="shot"><img src="img/schools/maple-detail-cur.png" alt="400 by 300 device-pixel crop of the current hub art: soft edges from upscaling" loading="lazy"></div>
+          <figcaption><span class="tag cur">Current</span>400 × 300 device pixels, 1:1. Edges are smeared by the 2× upscale.</figcaption></figure>
+        <figure><div class="shot"><img src="img/schools/maple-detail-c.png" alt="Same crop of candidate C: crisp edges" loading="lazy"></div>
+          <figcaption><span class="tag">C</span>Same crop. Drawn at 1600 × 1000, so it is downscaled into the frame and stays crisp.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="schools">
+    <div class="section-head">
+      <h2>The eight schools (hub hero)</h2>
+      <p class="muted">These follow M129's eight schools (branch <code>m129-school-offers</code>). The current column is
+        what M129 shows: the building follows the school's kind, so four schools share the School scene and three
+        share the colonnade. Each candidate is one picture per school. Select a picture to open the full art at
+        1600 × 1000.</p>
+    </div>
+
+    <article class="school" id="maple">
+      <h3>Maple Elementary School <span class="muted">· ★ · elementary</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/maple-hub-cur.jpg" alt="Current: generic clock-tower school" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The shared School scene: no maple, and soft.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/maple-art-b.jpg"><img src="img/schools/maple-hub-b.jpg" alt="B: low-poly single-storey school with a faceted autumn maple" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>A low single-storey school, a red-orange maple and leaves on the lawn. The maple's faceted crown reads as a toy, and the building is small in the frame.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/maple-art-c.jpg"><img src="img/schools/maple-hub-c.jpg" alt="C: brick school with a big autumn maple, maple-leaf crest in the gable, swings" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The maple is the subject: a crown of leaf shapes, falling leaves, a maple-leaf crest in the gable, children's paintings in the windows and a swing set.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> It is the only one where the name is visible before the title is read, and it is the friendliest first posting.</p>
+    </article>
+
+    <article class="school" id="riverside">
+      <h3>Riverside Middle School <span class="muted">· ★★ · middle school</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/riverside-hub-cur.jpg" alt="Current: generic clock-tower school" loading="lazy"></div><figcaption><span class="tag cur">Current</span>Same picture as Maple.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/riverside-art-b.jpg"><img src="img/schools/riverside-hub-b.jpg" alt="B: two-storey brick school across a river, reflections, footbridge" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>The camera is raised to see the water. Real reflections. The willows look like green crystals, and the river falls mostly under the scrim.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/riverside-art-c.jpg"><img src="img/schools/riverside-hub-c.jpg" alt="C: school on the far bank, arched footbridge, willows, reflected windows" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The school on the far bank, the river carrying its lit windows and the moon, an arched footbridge, weeping willows and reeds.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> The bridge and reflections sit right at the top of the scrim, so they stay visible in the hero.</p>
+    </article>
+
+    <article class="school" id="eastgate">
+      <h3>Eastgate Evening College <span class="muted">· ★★ · adult evening and vocational</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/eastgate-hub-cur.jpg" alt="Current: office tower skyline" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The Professional skyline: offices, with no college.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/eastgate-art-b.jpg"><img src="img/schools/eastgate-hub-b.jpg" alt="B: three-storey block with ribbon windows, brick gate piers and an iron arch" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>It is later in the evening than at the other schools. A college block, nearly every room lit, and the east gate with lanterns. The bus shelter is a plain white box.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/eastgate-art-c.jpg"><img src="img/schools/eastgate-hub-c.jpg" alt="C: lit college block with people at desks, east gate arch, bus shelter, crescent moon" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The same idea, plus heads at desks in the windows (an evening class in session), a lit bus shelter with someone waiting, and a crescent moon.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C, narrowly.</b> B is close. Both say "evening" through a violet sky with no brass band. C's figures in the windows say "adults studying after work".</p>
+    </article>
+
+    <article class="school" id="cityhigh">
+      <h3>City High School <span class="muted">· ★★★ · high school</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/cityhigh-hub-cur.jpg" alt="Current: generic clock-tower school" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The School scene, which was drawn for City High.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/cityhigh-art-b.jpg"><img src="img/schools/cityhigh-hub-b.jpg" alt="B: three-storey brick high school with clock tower, flag, city skyline" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>Three storeys of brick, a clock tower, a flag and the city behind. Framing the tower forces the camera back, so the school is small.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/cityhigh-art-c.jpg"><img src="img/schools/cityhigh-hub-c.jpg" alt="C: big brick high school with lit clock tower, flag, skyline" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The same programme, larger in the frame: a lit clock face, arched tower windows and the school flag.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> It keeps the current clock-tower identity, so City High still looks like the school players know, just bigger, in the city, and sharper.</p>
+    </article>
+
+    <article class="school" id="brightpath">
+      <h3>Brightpath Prep Centre <span class="muted">· ★★ · private exam-prep centre</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/brightpath-hub-cur.jpg" alt="Current: generic clock-tower school" loading="lazy"></div><figcaption><span class="tag cur">Current</span>Drawn as a school, so the "worse school that pays more" looks like City High.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/brightpath-art-b.jpg"><img src="img/schools/brightpath-hub-b.jpg" alt="B: high-street terrace, blue prep-centre storefront with glowing fascia and awning" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>A shop on a high street: a glowing fascia, a striped awning, a big lit window and dim neighbours. It reads as commercial at once.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/brightpath-art-c.jpg"><img src="img/schools/brightpath-hub-c.jpg" alt="C: storefront with sun logo on fascia, awning, desks and whiteboard in the window, A-board" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The same shop with more story: a sun-over-a-path logo, rows of desks and a timetable on the whiteboard behind the glass, posters upstairs, an A-board on the pavement, and shuttered shops either side.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> B is a strong second. Either one finally makes the prep centre look like the trade it is: a business, not a school.</p>
+    </article>
+
+    <article class="school" id="kingsley">
+      <h3>Kingsley Academy <span class="muted">· ★★★★ · selective academy</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/kingsley-hub-cur.jpg" alt="Current: blue colonnade with dome" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The University colonnade.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/kingsley-art-b.jpg"><img src="img/schools/kingsley-hub-b.jpg" alt="B: collegiate gothic gatehouse with crenellated towers, railings, yews" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>A collegiate gothic gatehouse with twin crenellated towers, pointed windows, iron railings, a crest and clipped yews. One of B's best.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/kingsley-art-c.jpg"><img src="img/schools/kingsley-hub-c.jpg" alt="C: gothic gatehouse with glowing arch, shield crest, railings and yews" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>The same building in vector: a great arch lit from the quad, a chevron shield, open gates and a striped lawn.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>Tie; pick C for consistency.</b> "Selective" comes across in both: walls, railings, a gate.</p>
+    </article>
+
+    <article class="school" id="stateuni">
+      <h3>State University <span class="muted">· ★★★★ · university</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/stateuni-hub-cur.jpg" alt="Current: blue colonnade with dome" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The colonnade, which suits a university best of the three it serves.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/stateuni-art-b.jpg"><img src="img/schools/stateuni-hub-b.jpg" alt="B: domed portico with lit colonnade, wings, wide steps" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>A portico of eight columns lit from inside, wings and wide steps. The dome is dark against the sky.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/stateuni-art-c.jpg"><img src="img/schools/stateuni-hub-c.jpg" alt="C: verdigris dome on a drum, lit portico, wings, trees" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>A verdigris dome on a colonnaded drum with a lit lantern, the portico glowing between the columns, wings, trees and lamps.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> It is the current idea done properly, and the dome now separates it from the academy and the exam centre.</p>
+    </article>
+
+    <article class="school" id="national">
+      <h3>National Examination Centre <span class="muted">· ★★★★★ · national examinations body</span></h3>
+      <div class="trio">
+        <figure><div class="shot"><img src="img/schools/national-hub-cur.jpg" alt="Current: blue colonnade with dome" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The colonnade again: the top of the career looks like the middle of it.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/national-art-b.jpg"><img src="img/schools/national-hub-b.jpg" alt="B: modernist civic block with stone fins, flags, seen at three-quarter view" loading="lazy"></a><figcaption><span class="tag">B · Blender</span>A modern civic block with stone fins, a podium and a row of flags. Correct, but far away and rather cold.</figcaption></figure>
+        <figure><a class="shot" href="img/schools/national-art-c.jpg"><img src="img/schools/national-hub-c.jpg" alt="C: monumental glass hall behind stone fins, rows of exam desks inside, seal, flags" loading="lazy"></a><figcaption><span class="tag">C · Vector</span>A monumental hall behind stone fins, with an exam hall of desks visible inside, a great seal over the entrance, flags and a broad stair.</figcaption></figure>
+      </div>
+      <p class="verdict"><b>C.</b> The desks inside tell the player what this building is for. It is the brightest picture of the eight, which fits the top rung. The atrium's glow stops above the rank line.</p>
+    </article>
+  </section>
+
+  <section id="title">
+    <div class="section-head">
+      <h2>Title screen hero</h2>
+      <p class="muted"><code>BoundaryView</code> shows the School scene in a 996 × 806 frame. Cover fit takes the centre
+        43% of a 704-px-wide texture and enlarges it 2.65×. The approved reference opens on a photograph of an exam room
+        in evening light. The candidates are shown in the frame with the hero scrim; the wordmark goes on top.</p>
+    </div>
+    <div class="trio">
+      <figure><div class="shot"><img src="img/title-cur.jpg" alt="Current title hero: enlarged centre of the clock-tower school" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The clock tower, cropped and enlarged 2.65×.</figcaption></figure>
+      <figure><div class="shot"><img src="img/title-b.jpg" alt="B: Blender exam room with rows of desks and papers, blackboard, evening light through the window" loading="lazy"></div><figcaption><span class="tag">B · Blender</span>An exam room set out for an exam: paper on every desk, chairs pushed in, the blackboard and clock, and evening sun across the floor. The nearest thing here to the reference.</figcaption></figure>
+      <figure><div class="shot"><img src="img/title-c.jpg" alt="C: flat vector exam room in one-point perspective" loading="lazy"></div><figcaption><span class="tag">C · Vector</span>The same room as flat vector in one-point perspective. Clean, but it reads as a diagram of a room.</figcaption></figure>
+    </div>
+    <p class="verdict"><b>B</b> for the title, and the same render for the exam hall banner below. A possible D, not made here: a
+      staged still of the game's own 3D classroom, so the title shows the room the player is about to sit in.</p>
+  </section>
+
+  <section id="hall">
+    <div class="section-head">
+      <h2>Exam hall banner</h2>
+      <p class="muted">This banner shows on the pre-exam brief and the post-exam summary, 890 × 384 inside the card. The
+        current one is drawn at 704 px.</p>
+    </div>
+    <div class="trio">
+      <figure><div class="shot"><img src="img/hall-cur.jpg" alt="Current flat exam hall" loading="lazy"></div><figcaption><span class="tag cur">Current</span>Desks as bars, one window, a dark blue room.</figcaption></figure>
+      <figure><div class="shot"><img src="img/hall-b.jpg" alt="B: Blender exam room, wide" loading="lazy"></div><figcaption><span class="tag">B · Blender</span>The title render, reframed wide.</figcaption></figure>
+      <figure><div class="shot"><img src="img/hall-c.jpg" alt="C: vector exam room, wide" loading="lazy"></div><figcaption><span class="tag">C · Vector</span>The vector room, wide. Clearer than the current one, but it still looks drawn by rule.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="props">
+    <div class="section-head">
+      <h2>Event objects (career event cards)</h2>
+      <p class="muted">The band across the top of a career event card is 890 × 253 and currently drawn at 704 × 200.
+        Only direction B was made for these. A vector redraw would be a sharper version of the current objects, which
+        is the cheaper option recommended above.</p>
+    </div>
+    <div class="duo">
+      <figure><div class="shot"><img src="img/prop-envelope-cur.jpg" alt="Current envelope" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Envelope</b> (money offered quietly)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-envelope-b.jpg" alt="B envelope with banknotes" loading="lazy"></div><figcaption><span class="tag">B</span>An open envelope with notes. About level: the notes read as green card.</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-document-cur.jpg" alt="Current document" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Document</b> (the institution in writing)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-document-b.jpg" alt="B document with letterhead, wax seal and pen" loading="lazy"></div><figcaption><span class="tag">B</span>Letterhead, a wax seal with ribbon and a pen. <b>Better</b>: it is plainly official.</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-note-cur.jpg" alt="Current torn note" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Note</b> (nobody's signature)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-note-b.jpg" alt="B torn note lying crooked" loading="lazy"></div><figcaption><span class="tag">B</span>A torn scrap lying crooked. About level, and small in the band.</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-commendation-cur.jpg" alt="Current rosette" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Commendation</b> (earned)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-commendation-b.jpg" alt="B brass medal with star" loading="lazy"></div><figcaption><span class="tag">B</span>A brass medal with a star. <b>Better</b> as an object, but the ribbon lies under the medal instead of hanging from it.</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-coins-cur.jpg" alt="Current coins" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Coins</b> (money leaving)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-coins-b.jpg" alt="B stacks of gold coins" loading="lazy"></div><figcaption><span class="tag">B</span>Stacks of coins with a few spilled. <b>Better</b>: it has weight.</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-person-cur.jpg" alt="Current person silhouette" loading="lazy"></div><figcaption><span class="tag cur">Current</span><b>Person</b> (somebody in front of you)</figcaption></figure>
+      <figure><div class="shot"><img src="img/prop-person-b.jpg" alt="B mannequin-like bust" loading="lazy"></div><figcaption><span class="tag worse">B · worse</span>A faceless mannequin bust: worse than the honest silhouette. The real answer is M106's portraits.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="icons">
+    <div class="section-head">
+      <h2>Icons</h2>
+      <p class="muted">All 30 glyphs from <code>Icons.cs</code> at their native 96 px. The family holds together, but five
+        do not read: <b>Coin</b> (a hash mark in a ring), <b>Hand</b> (reads as a comb), <b>Question</b> (the hook breaks
+        apart), <b>Music</b> (two rings and a box) and <b>Gavel</b> (a slash and a square). <b>Gear</b> is borderline;
+        it reads as a sun.</p>
+    </div>
+    <figure><div class="shot"><img src="img/icons-cur.png" alt="All 30 current icons, white on navy" loading="lazy"></div><figcaption><span class="tag cur">Current</span>The family as shipped (alphabetical by enum name).</figcaption></figure>
+    <figure><div class="shot"><img src="img/icons-compare.png" alt="Top row current Coin, Hand, Question, Music, Gavel; bottom row redrawn versions" loading="lazy"></div><figcaption><span class="tag">C</span>Top: current. Bottom: redrawn in the same rounded single-weight stroke. Coin is now a stack of coins, then a raised palm, a whole question mark, a beamed pair of notes, and a gavel over its block. These are proposals, to be ported into <code>Icons.cs</code>.</figcaption></figure>
+  </section>
+
+  <section id="uncovered">
+    <div class="section-head"><h2>Not covered</h2></div>
+    <ul class="next">
+      <li><b>Direction A (Meshy).</b> Not produced; see below.</li>
+      <li><b>Shop items</b> (detector, replay, lens, analyzer, shirt, badge): inventoried only. The current tiles are below.</li>
+      <li><b>App icon</b>: inventoried only. It is a clear document-and-magnifier mark at 1024 px.</li>
+      <li><b>The other 25 icons</b> were judged fine and not redrawn.</li>
+      <li><b>Light theme.</b> Every candidate is dark-theme only. The current art follows the theme; a baked image would not.</li>
+      <li><b>On the phone.</b> Nothing was installed; the phone is shared with other sessions. The hub frames are calibrated mock-ups.</li>
+      <li><b>Dead files.</b> The nine unreferenced PNGs in <code>Resources/UI</code> could be deleted. Left alone, because this task changes no game files.</li>
+    </ul>
+    <div class="duo">
+      <figure><div class="shot"><img src="img/shop-tiles-cur.jpg" alt="Current shop tiles: detector, replay, lens, analyzer, shirt, badge" loading="lazy"></div><figcaption><span class="tag cur">Current</span>Shop tiles at their 330 × 220 texture size.</figcaption></figure>
+      <figure><div class="shot" style="background:#ffffff00"><img src="img/appicon.png" alt="App icon: a document with a magnifying glass on navy" loading="lazy" style="max-width:256px"></div><figcaption><span class="tag cur">Current</span>The app icon.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="method">
+    <div class="section-head"><h2>How these were made</h2></div>
+    <ul class="next">
+      <li><b>Current art</b> was rendered from the game's own code (<code>Scenery</code>, <code>Props</code>,
+        <code>Icons</code>) inside the Unity editor, with the shipped dark theme and each school's M129 accent.</li>
+      <li><b>B: Blender.</b> Scenes are built from primitives by script, with flat materials in the theme palette
+        (navy ground, brass horizon, warm emissive windows). They are rendered in Eevee at 1600 × 1000 (schools),
+        1600 × 1300 (title) and 1408 × 400 (objects), about 2 seconds each. Each was built in its own temporary scene
+        and removed afterwards.</li>
+      <li><b>C: Vector.</b> Flat shapes drawn in Python at 3200 × 2000, downsampled to 1600 × 1000, with additive
+        blurred glows. They use the same vocabulary as <code>Scenery.cs</code>, so they can be ported to it.</li>
+      <li><b>A: Meshy (not produced).</b> One test image for Maple was generated with Meshy's text-to-image model
+        (3 credits). It was not retrieved, and no further Meshy jobs were run in this session. Generation needs the
+        owner's go-ahead. At 3 credits an image, three variants for each of the eight schools would cost about 72 of
+        the 599 credits left.</li>
+      <li><b>Credits:</b> 602 before, 599 after (3 spent). Game repository: no files changed and nothing committed.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
