@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Whisper Sound</title>
-<meta name="description" content="Real CC0 whispers, reshuffled and reversed so no words come through, against the generated placeholder: listen, see the measurements, pick a set.">
+<meta name="description" content="The whisper in the game: real CC0 whispers cut up so no word survives, a male and a female voice matched to the student, played from the student who is whispering.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -100,172 +100,214 @@ td.miss { color: var(--bad); }
   <header>
     <span class="eyebrow">Exam Supervisor Simulator · whisper sound</span>
     <h1>Whisper Sound</h1>
-    <p class="lede">The whisper in the game is made in code from noise, and it sounds like hiss. These are real whispers
-      from public-domain (CC0) recordings, reworked so no words can be made out: some are played backwards, others are
-      rebuilt from single syllables in a new order. The placeholder comes first, for contrast. A few exam-style phrases
-      (one real, three synthetic) follow as an option.</p>
+    <p class="lede">When two students whisper, the game now plays a real whisper from public-domain (CC0) recordings,
+      cut up so that no word survives. There are two voices, a male one and a female one, and each student whispers in
+      the voice that matches how they look. The sound comes from the head of the student who is whispering.</p>
   </header>
 
   <main class="wrap" style="gap:56px">
     <section>
       <div class="section-head">
-        <span class="eyebrow">Now</span>
-        <h2>The placeholder</h2>
-        <p class="muted">Rendered exactly as <span class="num">RoomSoundPresenter</span> builds it: 0.55 s of white noise
-          with a light smoothing filter and a fade. Played at its in-game level.</p>
+        <span class="eyebrow">In the game</span>
+        <h2>How a whisper plays</h2>
       </div>
-      <div class="vs">
-        <figure>
-          <audio controls preload="none" src="audio/placeholder.wav"></audio>
-          <img src="img/placeholder.png" width="768" height="288" alt="Spectrogram of the placeholder: even noise from 0 to 12 kHz" loading="lazy">
-          <figcaption><span class="who m">Generated · in the game today</span>
-            <span>Most of its energy is above 6 kHz, it has no syllables, and it fades smoothly once. It sounds like
-              steam or tape hiss, not a person.</span>
-            <span class="stats">0.55 s · −28.3 LUFS · 58% above 6 kHz · 0% pitched · 0 syllables</span></figcaption>
-        </figure>
+      <div class="cards">
+        <div class="card">
+          <h3>When</h3>
+          <ul>
+            <li>Only from two people talking: the student who starts a whisper or a hand-over, once the neighbour
+              beside them has leaned in. A lone glance or lean makes no sound.</li>
+            <li>Only if the invigilator is close enough to hear it. The simulation decides that; the sound only
+              decides what it sounds like.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Whose voice</h3>
+          <ul>
+            <li>A student drawn as a man whispers from the male pool, a student drawn as a woman from the female pool.
+              The choice comes from the body the room shows, the same one the name and admission card describe.
+              Nothing hidden is read.</li>
+            <li>A female student never gets a male clip, and the other way round. Tests check both.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Variety</h3>
+          <ul>
+            <li>A random phrase from the pool, never the same one twice in a row.</li>
+            <li>A small random pitch change, up to ±4%, so a repeated phrase is not the same take.</li>
+            <li>About one male whisper in five starts with a real whispered "hey". There is no female "hey", so
+              female whispers never use it.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Where and how loud</h3>
+          <ul>
+            <li>From the whispering student's head, as a 3D sound (linear fall-off from 1 to 24 m). Other room noises
+              (a dropped pencil, a chair, a call) still play from the centre of their part of the room.</li>
+            <li>At 0.7 × the effects volume. The clips are mastered at −26 LUFS; this puts a whisper just under the old
+              placeholder and never louder than a student calling out.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <section>
       <div class="section-head">
-        <span class="eyebrow">Recommended · no words</span>
-        <h2>Syllables in a new order</h2>
-        <p class="muted">Each recording is split into single syllables (bursts of 70–400 ms, cut at the dips in loudness).
-          Any burst with a pitch is left out. New phrases are built from 4–5 bursts of one voice, with gaps of 40–90 ms.
-          Two bursts that were neighbours in the recording are never placed next to each other, so no word can survive.
-          The recording's own background sound fills the gaps, so it never drops to digital silence.</p>
+        <span class="eyebrow">Checked in Play mode</span>
+        <h2>Heard in a real exam</h2>
+        <p class="muted">A first exam with four students, with passing made much more frequent for the check. Each row
+          is a whisper the game played: who whispered, how the room draws them, the clip, and where the sound came
+          from (their seat is shown for comparison).</p>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Student</th><th>Drawn as</th><th>Clip played</th><th>Pitch</th><th>Sound from (x, y, z)</th><th>Seat (x, z)</th></tr></thead>
+          <tbody>
+            <tr><td>Ayşe Koç</td><td>Female</td><td>Female · Shuffled 5</td><td>0.973</td><td>−2.38, 1.09, 5.40</td><td>−2.5, 5.5</td></tr>
+            <tr><td>Tolga Şahin</td><td>Male</td><td>Male · Reversed B</td><td>1.036</td><td>−2.43, 1.08, 2.22</td><td>−2.5, 2.5</td></tr>
+            <tr><td>Emre Koç</td><td>Male</td><td>Male · Shuffled 2</td><td>0.992</td><td>0.37, 1.09, 5.41</td><td>0.5, 5.5</td></tr>
+            <tr><td>Emre Koç</td><td>Male</td><td>"hey", then Male · Shuffled 2</td><td>0.985</td><td>0.37, 1.09, 5.41</td><td>0.5, 5.5</td></tr>
+            <tr><td>Ayşe Koç</td><td>Female</td><td>Female · Reversed E</td><td>1.013</td><td>−2.38, 1.09, 5.40</td><td>−2.5, 5.5</td></tr>
+            <tr><td>Ceren Ergün</td><td>Female</td><td>Female · Shuffled 5</td><td>1.002</td><td>0.37, 1.08, 2.41</td><td>0.5, 2.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">The height of about 1.1 m is a seated student's head; the small sideways offset is the lean
+        toward the neighbour.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Male voice · 6 phrases + "hey"</span>
+        <h2>The male pool</h2>
+        <p class="muted">"Whispering Midnight" by balloonhead, plus "Hey Whisper" by qubodup, both tagged male.</p>
       </div>
       <div class="vs">
         <figure>
           <audio controls preload="none" src="audio/shuf-1.wav"></audio>
-          <img src="img/shuf-1.png" width="768" height="288" alt="Spectrogram of shuffled phrase 1" loading="lazy">
-          <figcaption><span class="who b">Shuffled 1 · voice 1</span>
+          <img src="img/shuf-1.png" width="768" height="288" alt="Spectrogram of male Shuffled 1" loading="lazy">
+          <figcaption><span class="who b">Shuffled 1 · male</span>
             <span>Four bursts taken from four different places in the recording.</span>
             <span class="stats">0.92 s · 86% in 0.3–6 kHz · 9% pitched · 6.2 syll/s</span></figcaption>
         </figure>
         <figure>
           <audio controls preload="none" src="audio/shuf-2.wav"></audio>
-          <img src="img/shuf-2.png" width="768" height="288" alt="Spectrogram of shuffled phrase 2" loading="lazy">
-          <figcaption><span class="who b">Shuffled 2 · voice 1</span>
+          <img src="img/shuf-2.png" width="768" height="288" alt="Spectrogram of male Shuffled 2" loading="lazy">
+          <figcaption><span class="who b">Shuffled 2 · male</span>
             <span>The cleanest of the set: almost all of its energy is in the speech band.</span>
             <span class="stats">1.08 s · 97% in 0.3–6 kHz · 8% pitched · 5.2 syll/s</span></figcaption>
         </figure>
         <figure>
           <audio controls preload="none" src="audio/shuf-3.wav"></audio>
-          <img src="img/shuf-3.png" width="768" height="288" alt="Spectrogram of shuffled phrase 3" loading="lazy">
-          <figcaption><span class="who b">Shuffled 3 · voice 1</span>
+          <img src="img/shuf-3.png" width="768" height="288" alt="Spectrogram of male Shuffled 3" loading="lazy">
+          <figcaption><span class="who b">Shuffled 3 · male</span>
             <span>Five bursts, slightly longer, so not every whisper is the same length.</span>
             <span class="stats">1.15 s · 96% in 0.3–6 kHz · 5% pitched · 6.2 syll/s</span></figcaption>
         </figure>
         <figure>
-          <audio controls preload="none" src="audio/shuf-5.wav"></audio>
-          <img src="img/shuf-5.png" width="768" height="288" alt="Spectrogram of shuffled phrase 5" loading="lazy">
-          <figcaption><span class="who b">Shuffled 4 · voice 2</span>
-            <span>The second, quicker voice, with its mouth clicks. Five bursts.</span>
-            <span class="stats">1.21 s · 68% in 0.3–6 kHz · 2% pitched · 6.2 syll/s</span></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <span class="eyebrow">Recommended · no words</span>
-        <h2>Played backwards</h2>
-        <p class="muted">Played backwards, every syllable would swell up and stop dead, which is the usual "reverse"
-          effect. To avoid that, each clip keeps the forward loudness shape: the waveform runs backwards, but every burst
-          still starts sharply and fades away. The correction is capped at ±12 dB. Then the edges are trimmed and the
-          clip gets fresh fades.</p>
-      </div>
-      <div class="vs">
-        <figure>
           <audio controls preload="none" src="audio/rev-a.wav"></audio>
-          <img src="img/rev-a.png" width="768" height="288" alt="Spectrogram of reversed A" loading="lazy">
-          <figcaption><span class="who b">Reversed A · voice 1</span>
+          <img src="img/rev-a.png" width="768" height="288" alt="Spectrogram of male Reversed A" loading="lazy">
+          <figcaption><span class="who b">Reversed A · male</span>
             <span>No pitch at all, four bursts.</span>
             <span class="stats">1.10 s · 98% in 0.3–6 kHz · 0% pitched · 6.2 syll/s</span></figcaption>
         </figure>
         <figure>
           <audio controls preload="none" src="audio/rev-b.wav"></audio>
-          <img src="img/rev-b.png" width="768" height="288" alt="Spectrogram of reversed B" loading="lazy">
-          <figcaption><span class="who b">Reversed B · voice 1</span>
-            <span>Five bursts at a natural pace.</span>
+          <img src="img/rev-b.png" width="768" height="288" alt="Spectrogram of male Reversed B" loading="lazy">
+          <figcaption><span class="who b">Reversed B · male</span>
+            <span>Five bursts at a natural pace. The longest clip.</span>
             <span class="stats">1.39 s · 98% in 0.3–6 kHz · 9% pitched · 5.3 syll/s</span></figcaption>
         </figure>
         <figure>
           <audio controls preload="none" src="audio/rev-c.wav"></audio>
-          <img src="img/rev-c.png" width="768" height="288" alt="Spectrogram of reversed C" loading="lazy">
-          <figcaption><span class="who b">Reversed C · voice 1</span>
+          <img src="img/rev-c.png" width="768" height="288" alt="Spectrogram of male Reversed C" loading="lazy">
+          <figcaption><span class="who b">Reversed C · male</span>
             <span>Short, three bursts.</span>
             <span class="stats">1.12 s · 98% in 0.3–6 kHz · 3% pitched · 4.3 syll/s</span></figcaption>
         </figure>
         <figure>
-          <audio controls preload="none" src="audio/rev-d.wav"></audio>
-          <img src="img/rev-d.png" width="768" height="288" alt="Spectrogram of reversed D" loading="lazy">
-          <figcaption><span class="who b">Reversed D · voice 2</span>
-            <span>The quicker voice, nine bursts. The busiest clip.</span>
-            <span class="stats">1.76 s · 75% in 0.3–6 kHz · 4% pitched · 5.9 syll/s</span></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <span class="eyebrow">At the invigilator's ear</span>
-        <h2>How it would sound in the room</h2>
-        <p class="muted">The game plays the whisper as a 3D one-shot (linear roll-off, 1 to 24 m) at the effects volume.
-          These two use a whisperer 4 m away. That means the game's distance drop (×0.87), a soft cut above 6.5 kHz for
-          distance, and a small hard-walled room tail (0.5 s, 13 dB under the voice). The game has no reverb today. The
-          tail is a suggestion and could be baked into the clips. Today the sound plays from the centre of the sector,
-          1 m above the floor. When it is integrated, it will play from the student who is whispering.</p>
-      </div>
-      <div class="vs">
-        <figure>
-          <audio controls preload="none" src="audio/room-shuf-2.wav"></audio>
-          <figcaption><b>Shuffled 2, 4 m away in the exam hall</b><span class="stats">−28.5 LUFS</span></figcaption>
-        </figure>
-        <figure>
-          <audio controls preload="none" src="audio/room-shuf-5.wav"></audio>
-          <figcaption><b>Shuffled 4, 4 m away in the exam hall</b><span class="stats">−28.5 LUFS</span></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <span class="eyebrow">Option · words that fit an exam</span>
-        <h2>Exam phrases</h2>
-        <p class="muted">The other way to deal with words is to make them fit the exam. The three phrases below are
-          <b>synthetic</b>: macOS's built-in Whisper voice (<span class="num">say -v Whisper</span>), prepared the same
-          way. They are cleanly unpitched but sound like a machine, and they are brighter than a real whisper, with
-          13–24% of their energy above 6 kHz. Only "hey" is a real recording. Apple's terms for shipping macOS voice output in a game are unclear, so check them before using these.</p>
-      </div>
-      <div class="vs">
-        <figure>
           <audio controls preload="none" src="audio/hey.wav"></audio>
-          <img src="img/hey.png" width="768" height="288" alt="Spectrogram of the real whispered hey" loading="lazy">
-          <figcaption><span class="who b">Real · "hey"</span>
-            <span>One real whispered word, 0.35 s. It fits the exam: a student getting a neighbour's attention.</span>
-            <span class="stats">0.35 s · 100% in 0.3–6 kHz · 7% pitched</span>
-            <span class="credit">"Hey Whisper" by <a href="https://freesound.org/people/qubodup/sounds/849127/">qubodup</a>, CC0</span></figcaption>
+          <img src="img/hey.png" width="768" height="288" alt="Spectrogram of the whispered hey" loading="lazy">
+          <figcaption><span class="who b">"hey" · male opener</span>
+            <span>One real whispered word, 0.35 s, played just before a phrase about one time in five.</span>
+            <span class="stats">0.35 s · 100% in 0.3–6 kHz · 7% pitched</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Female voice · 5 phrases</span>
+        <h2>The female pool</h2>
+        <p class="muted">"Whisper.wav" by AlexMiller2000, tagged girl. The recording is short (8 usable bursts), so the
+          pool was grown from it with the same rules: three new shuffles that share no neighbouring pair of bursts and
+          no opening burst with another female phrase, and a shortened reversal.</p>
+      </div>
+      <div class="vs">
+        <figure>
+          <audio controls preload="none" src="audio/shuf-5.wav"></audio>
+          <img src="img/shuf-5.png" width="768" height="288" alt="Spectrogram of female Shuffled 4" loading="lazy">
+          <figcaption><span class="who m">Shuffled 4 · female</span>
+            <span>Five bursts, with the voice's small mouth clicks.</span>
+            <span class="stats">1.21 s · 68% in 0.3–6 kHz · 2% pitched · 6.2 syll/s</span></figcaption>
         </figure>
         <figure>
-          <audio controls preload="none" src="audio/say-which.wav"></audio>
-          <img src="img/say-which.png" width="768" height="288" alt="Spectrogram of synthetic which one" loading="lazy">
-          <figcaption><span class="who m">Synthetic · "which one?"</span>
-            <span class="stats">0.65 s · 77% in 0.3–6 kHz · 4% pitched</span></figcaption>
+          <audio controls preload="none" src="audio/shuf-6.wav"></audio>
+          <img src="img/shuf-6.png" width="768" height="288" alt="Spectrogram of female Shuffled 5" loading="lazy">
+          <figcaption><span class="who m">Shuffled 5 · female</span>
+            <span>Four bursts. New: opens on a different burst from every other female phrase.</span>
+            <span class="stats">0.92 s · 70% in 0.3–6 kHz · 3% pitched · 6.0 syll/s</span></figcaption>
         </figure>
         <figure>
-          <audio controls preload="none" src="audio/say-five.wav"></audio>
-          <img src="img/say-five.png" width="768" height="288" alt="Spectrogram of synthetic question five" loading="lazy">
-          <figcaption><span class="who m">Synthetic · "question five?"</span>
-            <span class="stats">1.05 s · 87% in 0.3–6 kHz · 2% pitched</span></figcaption>
+          <audio controls preload="none" src="audio/shuf-7.wav"></audio>
+          <img src="img/shuf-7.png" width="768" height="288" alt="Spectrogram of female Shuffled 6" loading="lazy">
+          <figcaption><span class="who m">Shuffled 6 · female</span>
+            <span>Five bursts, the brightest of the voice.</span>
+            <span class="stats">1.04 s · 54% in 0.3–6 kHz · 5% pitched · 6.5 syll/s</span></figcaption>
         </figure>
         <figure>
-          <audio controls preload="none" src="audio/say-put.wav"></audio>
-          <img src="img/say-put.png" width="768" height="288" alt="Spectrogram of synthetic what did you put" loading="lazy">
-          <figcaption><span class="who m">Synthetic · "what did you put?"</span>
-            <span class="stats">0.94 s · 76% in 0.3–6 kHz · 0% pitched</span></figcaption>
+          <audio controls preload="none" src="audio/shuf-8.wav"></audio>
+          <img src="img/shuf-8.png" width="768" height="288" alt="Spectrogram of female Shuffled 7" loading="lazy">
+          <figcaption><span class="who m">Shuffled 7 · female</span>
+            <span>Four short bursts, quick.</span>
+            <span class="stats">0.87 s · 70% in 0.3–6 kHz · 7% pitched · 7.7 syll/s</span></figcaption>
         </figure>
+        <figure>
+          <audio controls preload="none" src="audio/rev-e.wav"></audio>
+          <img src="img/rev-e.png" width="768" height="288" alt="Spectrogram of female Reversed E" loading="lazy">
+          <figcaption><span class="who m">Reversed E · female</span>
+            <span>A 0.95 s reversal from the start of the recording, replacing the long, busy 1.76 s one.</span>
+            <span class="stats">0.95 s · 86% in 0.3–6 kHz · 0% pitched · 5.1 syll/s</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <span class="eyebrow">Words</span>
+        <h2>How the words were removed</h2>
+        <p class="muted">The plain cuts were dropped after listening: whole words ("midnight") came through. Every
+          phrase in the game is rebuilt one of two ways.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h3>Shuffled</h3>
+          <ul>
+            <li>The recording is split into single bursts of 70–400 ms at the dips in loudness. Longer bursts, which
+              could hold a whole word, and bursts with a pitch are left out.</li>
+            <li>A phrase is 4–5 bursts of one voice. Two bursts that were neighbours in the recording are never placed
+              next to each other (male: at least 3 bursts apart; female, 8 bursts only: at least 2).</li>
+            <li>Gaps of 40–90 ms, filled with the recording's own room sound, so it never drops to digital silence.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Reversed</h3>
+          <ul>
+            <li>The sound runs backwards, but each burst keeps its forward loudness shape (correction capped at
+              ±12 dB), so syllables still start sharply and fade, instead of the usual swelling "reverse" effect.</li>
+            <li>Cuts of 1.1–1.4 s for the male voice and 0.95 s for the female one.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -273,104 +315,52 @@ td.miss { color: var(--bad); }
       <div class="section-head">
         <span class="eyebrow">Measurements</span>
         <h2>The numbers</h2>
-        <p class="muted">A real whisper has four signs. Its energy sits mostly in the speech band (0.3–6 kHz). It has no
-          pitch, because the vocal cords do not vibrate. Its loudness rises and falls in syllables, about 3–6 per second.
-          It lasts about as long as a phrase. "Pitched" is the share of frames with a clear pitch period: a normal spoken
-          sentence scores 65%, the same sentence whispered 4%, and noise 0%. Green values pass, red values fail.</p>
+        <p class="muted">A real whisper has its energy mostly in the speech band (0.3–6 kHz), no pitch, and loudness
+          that rises and falls in syllables. "Pitched" is the share of frames with a clear pitch period: a spoken
+          sentence scores 65%, the same sentence whispered 4%, noise 0%. All shipped clips are 10% or under. The
+          female voice is brighter and has more low thump from mouth sounds, so less of it sits in the speech band.</p>
       </div>
       <div class="scroll">
         <table>
           <thead><tr><th>Clip</th><th>Length s</th><th>LUFS</th><th>Peak dBFS</th><th>Centre Hz</th><th>&lt;300 Hz</th><th>0.3–6 kHz</th><th>&gt;6 kHz</th><th>Pitched</th><th>Syllables</th><th>Syll/s</th></tr></thead>
           <tbody>
-            <tr class="now"><td>Placeholder</td><td>0.55</td><td>−28.3</td><td>−21.2</td><td>8644</td><td>3%</td><td class="miss">40%</td><td class="miss">58%</td><td class="hit">0%</td><td class="miss">0</td><td class="miss">0.0</td></tr>
-            <tr class="good"><td>Shuffled 1</td><td>0.92</td><td>−26.0</td><td>−10.4</td><td>1671</td><td>12%</td><td class="hit">86%</td><td>2%</td><td class="hit">9%</td><td>4</td><td>6.2</td></tr>
-            <tr class="good"><td>Shuffled 2</td><td>1.08</td><td>−26.0</td><td>−11.0</td><td>1616</td><td>2%</td><td class="hit">97%</td><td>0%</td><td class="hit">8%</td><td>4</td><td class="hit">5.2</td></tr>
-            <tr class="good"><td>Shuffled 3</td><td>1.15</td><td>−26.0</td><td>−7.7</td><td>1755</td><td>3%</td><td class="hit">96%</td><td>1%</td><td class="hit">5%</td><td>5</td><td>6.2</td></tr>
-            <tr class="good"><td>Shuffled 4</td><td>1.21</td><td>−26.0</td><td>−7.2</td><td>1847</td><td>20%</td><td>68%</td><td>12%</td><td class="hit">2%</td><td>5</td><td>6.2</td></tr>
-            <tr class="good"><td>Reversed A</td><td>1.10</td><td>−26.0</td><td>−7.7</td><td>1560</td><td>2%</td><td class="hit">98%</td><td>1%</td><td class="hit">0%</td><td>4</td><td>6.2</td></tr>
-            <tr class="good"><td>Reversed B</td><td>1.39</td><td>−26.0</td><td>−8.5</td><td>1116</td><td>1%</td><td class="hit">98%</td><td>1%</td><td class="hit">9%</td><td>5</td><td class="hit">5.3</td></tr>
-            <tr class="good"><td>Reversed C</td><td>1.12</td><td>−26.0</td><td>−6.3</td><td>1180</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">3%</td><td>3</td><td class="hit">4.3</td></tr>
-            <tr class="good"><td>Reversed D</td><td>1.76</td><td>−26.0</td><td>−8.3</td><td>1778</td><td>17%</td><td>75%</td><td>9%</td><td class="hit">4%</td><td>9</td><td class="hit">5.9</td></tr>
-            <tr><td>Real "hey"</td><td>0.35</td><td>−26.0</td><td>−10.3</td><td>1456</td><td>0%</td><td class="hit">100%</td><td>0%</td><td class="hit">7%</td><td>1</td><td>3.3</td></tr>
-            <tr><td>Synth "which one?"</td><td>0.65</td><td>−26.0</td><td>−9.3</td><td>3938</td><td>0%</td><td>77%</td><td class="miss">23%</td><td class="hit">4%</td><td>2</td><td class="hit">3.6</td></tr>
-            <tr><td>Synth "question five?"</td><td>1.05</td><td>−26.0</td><td>−11.6</td><td>3056</td><td>0%</td><td class="hit">87%</td><td>13%</td><td class="hit">2%</td><td>3</td><td class="hit">3.2</td></tr>
-            <tr><td>Synth "what did you put?"</td><td>0.94</td><td>−26.0</td><td>−7.0</td><td>4196</td><td>0%</td><td>76%</td><td class="miss">24%</td><td class="hit">0%</td><td>5</td><td>7.7</td></tr>
-            <tr class="bad"><td>Original A (words)</td><td>1.16</td><td>−26.0</td><td>−3.2</td><td>1634</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">0%</td><td>3</td><td class="hit">5.1</td></tr>
+            <tr class="good"><td>Male · Shuffled 1</td><td>0.92</td><td>−26.0</td><td>−10.4</td><td>1671</td><td>12%</td><td class="hit">86%</td><td>2%</td><td class="hit">9%</td><td>4</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Shuffled 2</td><td>1.08</td><td>−26.0</td><td>−11.0</td><td>1616</td><td>2%</td><td class="hit">97%</td><td>0%</td><td class="hit">8%</td><td>4</td><td>5.2</td></tr>
+            <tr class="good"><td>Male · Shuffled 3</td><td>1.15</td><td>−26.0</td><td>−7.7</td><td>1755</td><td>2%</td><td class="hit">96%</td><td>1%</td><td class="hit">5%</td><td>5</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Reversed A</td><td>1.10</td><td>−26.0</td><td>−7.7</td><td>1560</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">0%</td><td>4</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Reversed B</td><td>1.39</td><td>−26.0</td><td>−8.5</td><td>1116</td><td>1%</td><td class="hit">98%</td><td>1%</td><td class="hit">9%</td><td>5</td><td>5.3</td></tr>
+            <tr class="good"><td>Male · Reversed C</td><td>1.12</td><td>−26.0</td><td>−6.3</td><td>1180</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">3%</td><td>3</td><td>4.3</td></tr>
+            <tr class="good"><td>Male · "hey" (opener)</td><td>0.35</td><td>−26.0</td><td>−10.3</td><td>1456</td><td>0%</td><td class="hit">100%</td><td>0%</td><td class="hit">7%</td><td>1</td><td>3.3</td></tr>
+            <tr class="good"><td>Female · Shuffled 4</td><td>1.21</td><td>−26.0</td><td>−7.2</td><td>1847</td><td>20%</td><td class="hit">68%</td><td>12%</td><td class="hit">2%</td><td>5</td><td>6.2</td></tr>
+            <tr class="good"><td>Female · Shuffled 5</td><td>0.92</td><td>−26.0</td><td>−9.6</td><td>2438</td><td>14%</td><td class="hit">70%</td><td>16%</td><td class="hit">3%</td><td>4</td><td>6.0</td></tr>
+            <tr class="good"><td>Female · Shuffled 6</td><td>1.04</td><td>−26.0</td><td>−10.1</td><td>2997</td><td>19%</td><td class="hit">54%</td><td>27%</td><td class="hit">5%</td><td>5</td><td>6.5</td></tr>
+            <tr class="good"><td>Female · Shuffled 7</td><td>0.87</td><td>−26.0</td><td>−6.5</td><td>1111</td><td>25%</td><td class="hit">70%</td><td>5%</td><td class="hit">7%</td><td>4</td><td>7.7</td></tr>
+            <tr class="good"><td>Female · Reversed E</td><td>0.95</td><td>−26.2</td><td>−3.2</td><td>1671</td><td>10%</td><td class="hit">86%</td><td>5%</td><td class="hit">0%</td><td>4</td><td>5.1</td></tr>
+            <tr class="now"><td>Old placeholder (removed)</td><td>0.55</td><td>−28.3</td><td>−21.2</td><td>8644</td><td>2%</td><td class="miss">40%</td><td>58%</td><td class="hit">0%</td><td>0</td><td>0.0</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="muted">The reworked clips keep the measurements of the originals: no pitch, speech-band energy, and
-        syllables at 4–6 per second. Only the order of the sounds has changed. A clip running faster than 6 a second
-        has been flagged as quick rather than wrong.</p>
+      <p class="muted">The old placeholder was 0.55 s of filtered white noise, most of it above 6 kHz, with no syllables:
+        it sounded like hiss. It is gone from the game.</p>
     </section>
 
     <section>
       <div class="section-head">
-        <span class="eyebrow">Words</span>
-        <h2>Why no words should get through</h2>
-        <p class="muted">These clips have not been checked by ear yet: they were measured, not listened to. Here is what
-          the construction guarantees.</p>
+        <span class="eyebrow">Still open</span>
+        <h2>Known limits</h2>
       </div>
       <div class="cards">
         <div class="card">
-          <h3>Shuffled</h3>
           <ul>
-            <li>Each piece is a single burst of at most 400 ms. Longer bursts, which could hold a whole word like
-              "midnight", were left out.</li>
-            <li>No two pieces next to each other came from next to each other in the recording. In voice 1 they are at
-              least 3 bursts apart; in voice 2, which has only 8 bursts, at least 2.</li>
-            <li>So no sequence of two original syllables survives. A single syllable can still be heard on its own.</li>
+            <li>The four new female clips were measured, not yet listened to. Any clip can be rebuilt with a different
+              burst order.</li>
+            <li>The clips are made from Freesound's MP3 previews. The original WAVs (free login, same licence) would
+              give a slightly cleaner top end; the tools rebuild everything from them unchanged.</li>
+            <li>With headphones, a whisper can now be placed on a desk, while the on-screen line names only a part of
+              the room. The phone buzz already worked this way. A whisper only happens between two students already
+              leaning together, which the player can see.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>Reversed</h3>
-          <ul>
-            <li>Every sound, and the order of the sounds, runs backwards. Only the loudness shape runs forwards.</li>
-            <li>Backward speech is a standard way to make speech that cannot be understood but still sounds like
-              speech.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <span class="eyebrow">Dropped</span>
-        <h2>Not used</h2>
-      </div>
-      <div class="vs">
-        <figure>
-          <audio controls preload="none" src="audio/original-a.wav"></audio>
-          <figcaption><span class="who x">Original cut A, for reference</span>
-            <span>The untouched phrase that Shuffled and Reversed A are made from. As whispers, the four original cuts
-              (A–D) measured well, but on listening the words were clear ("midnight"). Nobody says that in an exam, so
-              all four are dropped.</span></figcaption>
-        </figure>
-      </div>
-      <ul class="muted" style="margin:0;padding-left:18px;display:grid;gap:4px;max-width:68ch">
-        <li>377743 "indistinctwhispering" (BlueSiren): 76% pitched. It is murmured speech, not a whisper.</li>
-        <li>446580 "Whispers" (Nicolas4677): 69% pitched, and recorded very quietly (peak −48 dBFS).</li>
-        <li>540060 "Whispering Man" (szegvari): one syllable a second over a steady hum. It sounds like a horror effect.</li>
-        <li>143902 "Four_Voices_Whispering" (geoneo0): four voices layered, with 39% of the energy above 6 kHz. A crowd, not two students.</li>
-      </ul>
-    </section>
-
-    <section>
-      <div class="verdict">
-        <h3>Recommendation</h3>
-        <ul>
-          <li>Ship <b>Shuffled 1–4 and Reversed A–C</b> as one pool of seven. Pick one at random each time, never the
-            same one twice in a row. Add a small random pitch change (±4%). Shuffled 4 is a second voice, so the room
-            is not one person.</li>
-          <li>If the backwards ones sound odd to you, use only the four shuffled clips.</li>
-          <li>Leave out Reversed D: at 1.76 s with nine bursts it is long and busy.</li>
-          <li>Optional: add the real <b>"hey"</b> about 1 time in 5, as an exam-plausible opener. The synthetic phrases are
-            here only for comparison. They sound like a machine, so I would not ship them.</li>
-          <li>All clips are at −26 LUFS, about 2 dB above the placeholder. Play them from the whispering student, and
-            consider baking in the small room tail.</li>
-          <li>Please listen once more for any syllable that still sounds like a word. Any clip can be rebuilt with a
-            different order.</li>
-        </ul>
       </div>
     </section>
 
@@ -379,19 +369,17 @@ td.miss { color: var(--bad); }
         <span class="eyebrow">Sources</span>
         <h2>Licence and edits</h2>
         <p class="muted">Every recording is <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>
-          (public domain), so it ships with no credit required. The credits here are a courtesy. The inputs were
-          Freesound's public MP3 previews. Before shipping, swap in the original WAVs (a free login, same licence) and
-          rerun the same steps. All clips: 220 Hz high-pass, 12 kHz low-pass, mono 44.1 kHz 16-bit, −26 LUFS
-          (ITU BS.1770), single clicks held under −3 dBFS.</p>
+          (public domain), so no credit is required. The credits here are a courtesy. All clips: 220 Hz high-pass,
+          12 kHz low-pass, mono 44.1 kHz 16-bit, −26 LUFS (ITU BS.1770), single clicks held under −3 dBFS. The
+          provenance, edits and processing scripts are kept with the game's source art.</p>
       </div>
       <div class="scroll">
         <table>
-          <thead><tr><th>Used in</th><th>Freesound file</th><th>Author</th><th>Material</th></tr></thead>
+          <thead><tr><th>Voice</th><th>Freesound file</th><th>Author</th><th>Material</th></tr></thead>
           <tbody>
-            <tr><td>Shuffled 1–3, Reversed A–C</td><td><a href="https://freesound.org/people/balloonhead/sounds/362503/">362503 Whispering Midnight.wav</a></td><td>balloonhead</td><td>10 bursts; cuts 5.92–7.08, 1.90–3.42, 7.60–8.98 s</td></tr>
-            <tr><td>Shuffled 4, Reversed D</td><td><a href="https://freesound.org/people/AlexMiller2000/sounds/620041/">620041 Whisper.wav</a></td><td>AlexMiller2000</td><td>8 bursts; cut 0.36–2.12 s</td></tr>
-            <tr><td>"hey"</td><td><a href="https://freesound.org/people/qubodup/sounds/849127/">849127 Hey Whisper</a></td><td>qubodup</td><td>whole</td></tr>
-            <tr><td>Synthetic phrases</td><td>macOS <span class="num">say -v Whisper -r 190</span></td><td>(generated)</td><td>3 phrases</td></tr>
+            <tr><td>Male: Shuffled 1–3, Reversed A–C</td><td><a href="https://freesound.org/people/balloonhead/sounds/362503/">362503 Whispering Midnight.wav</a></td><td>balloonhead</td><td>10 bursts; cuts 5.92–7.08, 1.90–3.42, 7.60–8.98 s</td></tr>
+            <tr><td>Male: "hey"</td><td><a href="https://freesound.org/people/qubodup/sounds/849127/">849127 Hey Whisper</a></td><td>qubodup</td><td>whole</td></tr>
+            <tr><td>Female: Shuffled 4–7, Reversed E</td><td><a href="https://freesound.org/people/AlexMiller2000/sounds/620041/">620041 Whisper.wav</a></td><td>AlexMiller2000</td><td>8 bursts; cut 0.50–1.45 s</td></tr>
           </tbody>
         </table>
       </div>
