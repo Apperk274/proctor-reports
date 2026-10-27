@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schools and Offers</title>
+<meta name="description" content="Eight schools with fixed star ratings, offers that compare rating and salary, and the lower-rated school that pays more, in Exam Supervisor Simulator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --star: #b7791f;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.moment { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.moment .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.moment .shot img { border-radius: 0; width: 100%; }
+.moment .text { display: grid; gap: 12px; align-content: start; }
+.moment ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); max-width: 70ch; }
+.moment ul b { color: var(--ink); font-weight: 600; }
+@media (max-width: 720px) { .moment { grid-template-columns: 1fr; } .moment .shot { max-width: 320px; } }
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.trio figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.trio figcaption { font-size: 0.85rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); white-space: nowrap; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+td.stars { color: var(--star); letter-spacing: 1px; }
+tr.hi td { background: var(--accent-soft); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.8rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · M129</span>
+    <h1>Schools and Offers</h1>
+    <p class="lede">A career now runs through eight schools instead of three postings. Each school has a fixed star rating
+      that the player can see. A move between schools arrives as an offer, and the offer compares the school you hold
+      with the one offered, on both rating and salary. Usually one school writes. Sometimes two write at once, and then
+      a better-rated school competes with a lower-rated one that pays more. The screenshots are from Play mode at a
+      phone's portrait size (1080 × 2340).</p>
+  </header>
+
+  <section id="schools">
+    <div class="section-head">
+      <h2>The schools</h2>
+      <p class="muted">A career starts at Maple at standing 40. "Offered at" is the standing a school asks for. "Lost
+        below" is the standing under which you are reassigned. The two numbers are kept apart so that a career does not
+        bounce between schools. Brightpath, highlighted, is the lower-rated school that pays more.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>School</th><th>Kind</th><th>Rating</th><th>Salary</th><th>Offered at</th><th>Lost below</th></tr></thead>
+        <tbody>
+          <tr><td>Maple Elementary School</td><td>Elementary</td><td class="stars">★☆☆☆☆</td><td class="num">50</td><td class="num">start</td><td>final warning, then dismissal</td></tr>
+          <tr><td>Riverside Middle School</td><td>Middle school</td><td class="stars">★★☆☆☆</td><td class="num">60</td><td class="num">44</td><td class="num">34</td></tr>
+          <tr><td>Eastgate Evening College</td><td>Adult evening and vocational</td><td class="stars">★★☆☆☆</td><td class="num">70</td><td class="num">47</td><td class="num">37</td></tr>
+          <tr><td>City High School</td><td>High school</td><td class="stars">★★★☆☆</td><td class="num">80</td><td class="num">52</td><td class="num">40</td></tr>
+          <tr class="hi"><td>Brightpath Prep Centre</td><td>Private exam-prep centre</td><td class="stars">★★☆☆☆</td><td class="num">120</td><td class="num">50</td><td class="num">40</td></tr>
+          <tr><td>Kingsley Academy</td><td>Selective academy</td><td class="stars">★★★★☆</td><td class="num">140</td><td class="num">60</td><td class="num">48</td></tr>
+          <tr><td>State University</td><td>University</td><td class="stars">★★★★☆</td><td class="num">160</td><td class="num">72</td><td class="num">60</td></tr>
+          <tr><td>National Examination Centre</td><td>National examinations body</td><td class="stars">★★★★★</td><td class="num">190</td><td class="num">85</td><td class="num">72</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">At Brightpath a good exam earns 1 standing instead of 2, so the extra money costs a slower climb.
+      Every school that pays more than a better-rated one has to carry a cost like this, and a test checks that.</p>
+  </section>
+
+  <section id="offers">
+    <div class="section-head">
+      <h2>The offer card</h2>
+      <p class="muted">Each school offered gets its own panel. It shows the rating as stars now › stars offered, and the
+        salary as now › offered with the change. The buttons name the school.</p>
+    </div>
+
+    <article class="moment">
+      <div class="shot"><img src="img/01-two-offers.png" alt="Two-offer card: City High School, rating 2 to 3 stars, salary 60 to 80 (+20); Brightpath Prep Centre, rating 2 to 2 stars, salary 60 to 120 (+60), with a note that good exams count for less there; buttons Join City High School, Join Brightpath Prep Centre, Decline both" loading="lazy"></div>
+      <div class="text">
+        <h3>Two schools at once</h3>
+        <ul>
+          <li><b>Two offers arrive on one card, as one decision.</b> The player takes one school or declines both, so
+            taking one can never leave the other open.</li>
+          <li><b>The second school is rated lower and pays more.</b> It appears beside a promotion only when such a school
+            is open to the player: City High (better rated) against Brightpath (better paid).</li>
+          <li><b>How often:</b> about one card in thirteen in a careful career.</li>
+          <li><b>The cost of the money is printed on the card,</b> not hidden in the rules.</li>
+          <li><b>Without a banner.</b> The comparison stands in for the picture, so the three answers fit on the
+            screen.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="moment">
+      <div class="shot"><img src="img/03-money-offer.png" alt="Single offer card: More money elsewhere; Brightpath Prep Centre, rating 3 to 2 stars, salary 80 to 120 (+40); buttons Join Brightpath Prep Centre, Stay where you are" loading="lazy"></div>
+      <div class="text">
+        <h3>A worse school that pays more</h3>
+        <ul>
+          <li><b>When no promotion is due,</b> a school rated no higher may ask on its own for more money. Here the
+            rating goes down from three stars to two, and the salary goes up by 40.</li>
+          <li><b>Rarer than a promotion:</b> a 25% chance, with at least six exams between offers.</li>
+          <li><b>In 22 of 24 careful careers,</b> the better-paid, lower-rated option appeared at least once.</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="trio">
+      <figure><img src="img/02-promotion.png" alt="Promotion card: Riverside Middle School, 1 to 2 stars, 50 to 60" loading="lazy"><figcaption>A move up: Maple to Riverside, one star to two.</figcaption></figure>
+      <figure><img src="img/04-top-promotion.png" alt="Promotion card: National Examination Centre, 4 to 5 stars, 160 to 190" loading="lazy"><figcaption>The longest name, at the top: it wraps instead of being cut.</figcaption></figure>
+      <figure><img src="img/05-demotion.png" alt="Reassignment card: Eastgate Evening College, 3 to 2 stars, 80 to 70 (-10)" loading="lazy"><figcaption>A demotion uses the same comparison. The move goes to the best lower-rated school the standing can still hold.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="hub">
+    <div class="section-head">
+      <h2>Where you work</h2>
+      <p class="muted">The hub shows the school's stars and kind under its name. The building follows the kind of
+        school: schools are drawn as a school, the evening college as the professional building, and the academy,
+        university and examination centre as the colonnade.</p>
+    </div>
+    <div class="trio">
+      <figure><img src="img/06-hub-maple.png" alt="Hub hero: Assistant Supervisor, Maple Elementary School, 1 star, Elementary school" loading="lazy"><figcaption>Maple, where careers begin.</figcaption></figure>
+      <figure><img src="img/06-hub-brightpath.png" alt="Hub hero: Supervisor, Brightpath Prep Centre, 2 stars, Private exam-prep centre" loading="lazy"><figcaption>Brightpath.</figcaption></figure>
+      <figure><img src="img/06-hub-national.png" alt="Hub hero: Senior Supervisor, National Examination Centre, 5 stars" loading="lazy"><figcaption>National Examination Centre: the longest name fits on one line.</figcaption></figure>
+    </div>
+    <div class="trio">
+      <figure><img src="img/07-career-top.png" alt="Career tab: Supervisor, City High School, 3 of 5 stars; progression ring, 5 more to reach Kingsley Academy, 4 stars" loading="lazy"><figcaption>Career tab: your school's rating, and the next school's.</figcaption></figure>
+      <figure><img src="img/08-career-schools.png" alt="Career tab Schools card: every school with stars, standing required and salary; City High marked You are here" loading="lazy"><figcaption>Every school with its stars, the standing it asks for and its pay. Your school is marked.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="measured">
+    <div class="section-head">
+      <h2>Measured over whole careers</h2>
+      <p class="muted">The measurement covers 24 careers of 50 exams for each player, with onboarding on and the real
+        career settings. It compares a careful player who takes the better school, the same player taking the money
+        whenever it is offered, and an error-prone player.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="big">0.94</span><p>The correlation between standing and school rating within a career.
+        A better-regarded supervisor works at a better-rated school.</p></div>
+      <div class="card"><span class="big">3.3 vs 4.0</span><p>The mean rating at exam 15 for the player who took the money,
+        against the one who took the better school. The money option is a real trade.</p></div>
+      <div class="card"><span class="big">7014 vs 7092</span><p>Coins after 50 exams for those two players. Taking the money
+        pays early, then the slower climb uses it up. It does not dominate.</p></div>
+      <div class="card"><span class="big">24 / 24</span><p>Error-prone careers dismissed. That is the same as at M126 from the
+        old start: the bottom school keeps the final warning and dismissal unchanged.</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Careful player, takes the better school</th><th>Exam 5</th><th>10</th><th>15</th><th>20</th><th>30</th></tr></thead>
+        <tbody>
+          <tr><td>Median standing</td><td class="num">50</td><td class="num">58</td><td class="num">69</td><td class="num">78</td><td class="num">100</td></tr>
+          <tr><td>Mean school rating</td><td class="num">2.2</td><td class="num">3.4</td><td class="num">4.0</td><td class="num">4.2</td><td class="num">4.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="open">
+    <div class="section-head"><h2>Open points</h2></div>
+    <ul class="next">
+      <li><b>Not yet seen on the phone.</b> These frames come from the editor at phone resolution. The device build was
+        not reinstalled, because the phone is shared with other sessions.</li>
+      <li><b>The hub's banner is crowded.</b> With the star line added, the rank sits lower and overlaps the steps of the
+        colonnade building. It is still readable, but the art might want more room.</li>
+      <li><b>Eastgate Evening College is rarely visited by a careful player.</b> Riverside's 44 leads straight on to City
+        High's 52. Eastgate is mostly a place a reassignment lands, or where an older save that was at the Vocational
+        Annex now loads.</li>
+      <li><b>The error-prone player is still always dismissed</b> (M126). That is unchanged and remains its own open
+        question.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
