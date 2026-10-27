@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>School Rooms</title>
+<meta name="description" content="Each of the eight schools in Exam Supervisor Simulator has its own exam room. Rooms grow with the school's rating and are bigger on tablets, and the camera zooms out to show the whole class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --star: #b7791f;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.moment { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.moment .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.moment .shot img { border-radius: 0; width: 100%; }
+.moment .text { display: grid; gap: 12px; align-content: start; }
+.moment ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); max-width: 70ch; }
+.moment ul b { color: var(--ink); font-weight: 600; }
+@media (max-width: 720px) { .moment { grid-template-columns: 1fr; } .moment .shot { max-width: 320px; } }
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.trio figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.trio figcaption { font-size: 0.85rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); white-space: nowrap; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+td.stars { color: var(--star); letter-spacing: 1px; }
+tr.hi td { background: var(--accent-soft); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.8rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+.gallery.wide { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.gallery figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; align-content: start; }
+.gallery figcaption { font-size: 0.85rem; color: var(--muted); }
+.gallery figcaption b { color: var(--ink); font-weight: 600; display: block; }
+.gallery a { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Exam Supervisor Simulator · M130</span>
+    <h1>School Rooms</h1>
+    <p class="lede">Every school now has its own exam room, dressed for the kind of place it is. Better-rated schools have more desks.
+      A tablet gets a bigger room than a phone. The camera zooms out until the whole class is in view, so in a bigger room
+      the people look smaller, and that is where the extra difficulty comes from. One desk is always left free, so a
+      student can be moved. Each capture below shows a full room: every desk except the free one is taken. They come
+      from Play mode with the real HUD, at a phone size (1080 × 2340) and two tablet sizes (1620 × 2160 and 2048 × 2732).</p>
+  </header>
+
+  <section id="table">
+    <div class="section-head">
+      <h2>The rooms</h2>
+      <p class="muted">The students column is for a school exam, which fills 75–100% of the room's capacity (desks − 1).
+        An entrance exam fills 60–85% and a certification 45–70%. The largest cohort is always at most desks − 1. Code
+        enforces this, and tests check every school × exam × device.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>School</th><th>Rating</th><th>Room</th><th>Desks</th><th>Phone desks</th><th>Tablet desks</th><th>Students, phone</th><th>Students, tablet</th></tr></thead>
+      <tbody>
+<tr><td>Maple Elementary School</td><td class="stars">★☆☆☆☆</td><td>Bright primary classroom</td><td>small desks, bright chairs</td><td class="num">2×3 = 6</td><td class="num">3×3 = 9</td><td class="num">4–5</td><td class="num">6–8</td></tr>
+<tr><td>Riverside Middle School</td><td class="stars">★★☆☆☆</td><td>Ordinary classroom</td><td>single desks</td><td class="num">2×5 = 10</td><td class="num">3×5 = 15</td><td class="num">7–9</td><td class="num">11–14</td></tr>
+<tr><td>Eastgate Evening College</td><td class="stars">★★☆☆☆</td><td>Evening adult classroom</td><td>tables of two</td><td class="num">2×5 = 10</td><td class="num">4×4 = 16</td><td class="num">7–9</td><td class="num">11–15</td></tr>
+<tr><td>City High School</td><td class="stars">★★★☆☆</td><td>High-school classroom</td><td>single desks</td><td class="num">3×5 = 15</td><td class="num">4×6 = 24</td><td class="num">11–14</td><td class="num">17–23</td></tr>
+<tr><td>Brightpath Prep Centre</td><td class="stars">★★☆☆☆</td><td>Rented office floor</td><td>office tables of two</td><td class="num">2×5 = 10</td><td class="num">4×4 = 16</td><td class="num">7–9</td><td class="num">11–15</td></tr>
+<tr><td>Kingsley Academy</td><td class="stars">★★★★☆</td><td>Wood-panelled room</td><td>dark wooden desks</td><td class="num">3×6 = 18</td><td class="num">5×6 = 30</td><td class="num">13–17</td><td class="num">22–29</td></tr>
+<tr><td>State University</td><td class="stars">★★★★☆</td><td>Lecture hall</td><td>benches of three, aisles</td><td class="num">3×6 = 18</td><td class="num">6×5 = 30</td><td class="num">13–17</td><td class="num">22–29</td></tr>
+<tr><td>National Examination Centre</td><td class="stars">★★★★★</td><td>Sports-hall exam room</td><td>small exam desks in rows</td><td class="num">3×7 = 21</td><td class="num">5×7 = 35</td><td class="num">15–20</td><td class="num">26–34</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <section id="phone">
+    <div class="section-head"><h2>On a phone</h2><p class="muted">1080 × 2340. From 6 desks at Maple up to 21 at the National Examination Centre.</p></div>
+    <div class="gallery">
+<figure><a href="img/phone-1080x2340-maple.jpg"><img src="img/phone-1080x2340-maple.jpg" alt="Maple Elementary School exam room, 2×3 = 6 desks, on a phone" loading="lazy"></a><figcaption><b>Maple Elementary School</b>Bright primary classroom · 2×3 = 6 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-riverside.jpg"><img src="img/phone-1080x2340-riverside.jpg" alt="Riverside Middle School exam room, 2×5 = 10 desks, on a phone" loading="lazy"></a><figcaption><b>Riverside Middle School</b>Ordinary classroom · 2×5 = 10 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-vocational.jpg"><img src="img/phone-1080x2340-vocational.jpg" alt="Eastgate Evening College exam room, 2×5 = 10 desks, on a phone" loading="lazy"></a><figcaption><b>Eastgate Evening College</b>Evening adult classroom · 2×5 = 10 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-standard.jpg"><img src="img/phone-1080x2340-standard.jpg" alt="City High School exam room, 3×5 = 15 desks, on a phone" loading="lazy"></a><figcaption><b>City High School</b>High-school classroom · 3×5 = 15 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-brightpath.jpg"><img src="img/phone-1080x2340-brightpath.jpg" alt="Brightpath Prep Centre exam room, 2×5 = 10 desks, on a phone" loading="lazy"></a><figcaption><b>Brightpath Prep Centre</b>Rented office floor · 2×5 = 10 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-elite.jpg"><img src="img/phone-1080x2340-elite.jpg" alt="Kingsley Academy exam room, 3×6 = 18 desks, on a phone" loading="lazy"></a><figcaption><b>Kingsley Academy</b>Wood-panelled room · 3×6 = 18 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-state-university.jpg"><img src="img/phone-1080x2340-state-university.jpg" alt="State University exam room, 3×6 = 18 desks, on a phone" loading="lazy"></a><figcaption><b>State University</b>Lecture hall · 3×6 = 18 desks</figcaption></figure>
+<figure><a href="img/phone-1080x2340-national.jpg"><img src="img/phone-1080x2340-national.jpg" alt="National Examination Centre exam room, 3×7 = 21 desks, on a phone" loading="lazy"></a><figcaption><b>National Examination Centre</b>Sports-hall exam room · 3×7 = 21 desks</figcaption></figure>
+</div>
+  </section>
+
+  <section id="tablet">
+    <div class="section-head"><h2>On a tablet</h2><p class="muted">1620 × 2160, a 10.2-inch iPad-class screen. From 9 desks up to 35. A wider screen holds more columns, and a bigger screen keeps people readable.</p></div>
+    <div class="gallery wide">
+<figure><a href="img/tablet-1620x2160-maple.jpg"><img src="img/tablet-1620x2160-maple.jpg" alt="Maple Elementary School exam room, 3×3 = 9 desks, on a tablet" loading="lazy"></a><figcaption><b>Maple Elementary School</b>Bright primary classroom · 3×3 = 9 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-riverside.jpg"><img src="img/tablet-1620x2160-riverside.jpg" alt="Riverside Middle School exam room, 3×5 = 15 desks, on a tablet" loading="lazy"></a><figcaption><b>Riverside Middle School</b>Ordinary classroom · 3×5 = 15 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-vocational.jpg"><img src="img/tablet-1620x2160-vocational.jpg" alt="Eastgate Evening College exam room, 4×4 = 16 desks, on a tablet" loading="lazy"></a><figcaption><b>Eastgate Evening College</b>Evening adult classroom · 4×4 = 16 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-standard.jpg"><img src="img/tablet-1620x2160-standard.jpg" alt="City High School exam room, 4×6 = 24 desks, on a tablet" loading="lazy"></a><figcaption><b>City High School</b>High-school classroom · 4×6 = 24 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-brightpath.jpg"><img src="img/tablet-1620x2160-brightpath.jpg" alt="Brightpath Prep Centre exam room, 4×4 = 16 desks, on a tablet" loading="lazy"></a><figcaption><b>Brightpath Prep Centre</b>Rented office floor · 4×4 = 16 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-elite.jpg"><img src="img/tablet-1620x2160-elite.jpg" alt="Kingsley Academy exam room, 5×6 = 30 desks, on a tablet" loading="lazy"></a><figcaption><b>Kingsley Academy</b>Wood-panelled room · 5×6 = 30 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-state-university.jpg"><img src="img/tablet-1620x2160-state-university.jpg" alt="State University exam room, 6×5 = 30 desks, on a tablet" loading="lazy"></a><figcaption><b>State University</b>Lecture hall · 6×5 = 30 desks</figcaption></figure>
+<figure><a href="img/tablet-1620x2160-national.jpg"><img src="img/tablet-1620x2160-national.jpg" alt="National Examination Centre exam room, 5×7 = 35 desks, on a tablet" loading="lazy"></a><figcaption><b>National Examination Centre</b>Sports-hall exam room · 5×7 = 35 desks</figcaption></figure>
+</div>
+    <p class="muted">The same rooms at 2048 × 2732 (12.9-inch) look the same and slightly larger, because the screen has the same shape and more pixels.</p>
+    <div class="gallery wide">
+<figure><a href="img/tablet-2048x2732-maple.jpg"><img src="img/tablet-2048x2732-maple.jpg" alt="Maple Elementary School exam room, 3×3 = 9 desks, on a tablet" loading="lazy"></a><figcaption><b>Maple Elementary School</b>Bright primary classroom · 3×3 = 9 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-riverside.jpg"><img src="img/tablet-2048x2732-riverside.jpg" alt="Riverside Middle School exam room, 3×5 = 15 desks, on a tablet" loading="lazy"></a><figcaption><b>Riverside Middle School</b>Ordinary classroom · 3×5 = 15 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-vocational.jpg"><img src="img/tablet-2048x2732-vocational.jpg" alt="Eastgate Evening College exam room, 4×4 = 16 desks, on a tablet" loading="lazy"></a><figcaption><b>Eastgate Evening College</b>Evening adult classroom · 4×4 = 16 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-standard.jpg"><img src="img/tablet-2048x2732-standard.jpg" alt="City High School exam room, 4×6 = 24 desks, on a tablet" loading="lazy"></a><figcaption><b>City High School</b>High-school classroom · 4×6 = 24 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-brightpath.jpg"><img src="img/tablet-2048x2732-brightpath.jpg" alt="Brightpath Prep Centre exam room, 4×4 = 16 desks, on a tablet" loading="lazy"></a><figcaption><b>Brightpath Prep Centre</b>Rented office floor · 4×4 = 16 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-elite.jpg"><img src="img/tablet-2048x2732-elite.jpg" alt="Kingsley Academy exam room, 5×6 = 30 desks, on a tablet" loading="lazy"></a><figcaption><b>Kingsley Academy</b>Wood-panelled room · 5×6 = 30 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-state-university.jpg"><img src="img/tablet-2048x2732-state-university.jpg" alt="State University exam room, 6×5 = 30 desks, on a tablet" loading="lazy"></a><figcaption><b>State University</b>Lecture hall · 6×5 = 30 desks</figcaption></figure>
+<figure><a href="img/tablet-2048x2732-national.jpg"><img src="img/tablet-2048x2732-national.jpg" alt="National Examination Centre exam room, 5×7 = 35 desks, on a tablet" loading="lazy"></a><figcaption><b>National Examination Centre</b>Sports-hall exam room · 5×7 = 35 desks</figcaption></figure>
+</div>
+  </section>
+
+  <section id="focus">
+    <div class="section-head"><h2>Leaning in still works</h2>
+      <p class="muted">The M113.1 interaction focus is unchanged. When you walk to a candidate, the camera leans in on them from the
+        zoomed-out view, in any room. In the National hall the farthest candidate grows from 156 to 545 px on a phone and from
+        131 to 517 px on a 10.2-inch tablet, and sits at 0.62 of the screen height, above the action card.</p></div>
+    <div class="trio">
+      <figure><a href="img/phone-1080x2340-focus-national.jpg"><img src="img/phone-1080x2340-focus-national.jpg" alt="Phone: the camera leaning in on a back-row candidate in the National hall" loading="lazy"></a><figcaption>Phone, National hall, leaning in on the back row</figcaption></figure>
+      <figure><a href="img/tablet-1620x2160-focus-national.jpg"><img src="img/tablet-1620x2160-focus-national.jpg" alt="Tablet: the camera leaning in on a back-row candidate in the National hall" loading="lazy"></a><figcaption>Tablet, National hall, leaning in on the back row</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="calibration">
+    <div class="section-head"><h2>How the sizes were chosen</h2></div>
+    <div class="cards">
+      <div class="card"><span class="eyebrow">Readability floor</span><span class="big">95 / 84 px</span><p>The minimum height of the farthest seated body: 95 px on a 1080 × 2340 phone and 84 px on a 1620 × 2160 tablet. Both are the same visual angle, about 1.15°: 6 mm at 30 cm on a phone, 8 mm at 40 cm on a tablet.</p></div>
+      <div class="card"><span class="eyebrow">Largest room</span><span class="big">21 / 35</span><p>The largest exam hall that stays above the floor, as calibrated: 3 × 7 desks on a phone and 5 × 7 on a tablet. One more row or column falls below the floor, and a test checks that.</p></div>
+      <div class="card"><span class="eyebrow">Camera</span><span class="big">fit all</span><p>The camera position is solved exactly from the room and the screen shape. Every desk and body is in frame, clear of the HUD, from as close as possible. It is re-solved only when the room or the screen shape changes.</p></div>
+      <div class="card"><span class="eyebrow">Device class</span><span class="big">shape + size</span><p>The device class is decided from the screen's shape and physical size, not the platform. A screen counts as a tablet if it is at most 1.8:1 and at least 7 inches across. That covers Android tablets, unfolded foldables and iPads alike.</p></div>
+    </div>
+  </section>
+
+  <section id="difficulty">
+    <div class="section-head"><h2>What it does to difficulty</h2>
+      <p class="muted">A careful bot played 16 careers held at each school. The same seeds were played in the old six-seat room, the phone room and the tablet room. Only exams actually held at that school are counted.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>School</th><th>Missed per exam: old / phone / tablet</th><th>Good exams: old / phone / tablet</th><th>Standing per exam</th></tr></thead>
+      <tbody>
+        <tr><td>Maple</td><td class="num">0.19 / 0.15 / 0.21</td><td class="num">83% / 86% / 81%</td><td class="num">+1.7 / +1.9 / +2.0</td></tr>
+        <tr><td>Riverside</td><td class="num">0.23 / 0.26 / 0.59</td><td class="num">81% / 74% / 52%</td><td class="num">+1.6 / +1.3 / +1.2</td></tr>
+        <tr><td>City High</td><td class="num">0.10 / 0.73 / 0.82</td><td class="num">92% / 58% / 45%</td><td class="num">+2.0 / +1.7 / +1.2</td></tr>
+        <tr><td>Kingsley</td><td class="num">0.18 / 1.11 / 1.42</td><td class="num">87% / 37% / 22%</td><td class="num">+2.2 / +1.2 / +0.2</td></tr>
+        <tr><td>State University</td><td class="num">0.13 / 0.84 / 1.36</td><td class="num">89% / 44% / 30%</td><td class="num">+2.2 / +1.0 / +1.7</td></tr>
+        <tr><td>National</td><td class="num">0.16 / 1.03 / 1.47</td><td class="num">87% / 39% / 23%</td><td class="num">+1.4 / +0.6 / +0.7</td></tr>
+      </tbody></table></div>
+    <p class="muted">The room is now where the difficulty comes from. Maple is as easy as before, and the top schools are much harder,
+      more so on a tablet. Standing still rises at every school. A careful 21-exam career ends with less money: about 730 coins
+      instead of about 1,300 (median). That is worth a design decision.</p>
+  </section>
+
+  <section id="perf">
+    <div class="section-head"><h2>Cost</h2></div>
+    <ul class="next">
+      <li><b>Simulation:</b> 0.5 µs per step with 5 candidates, 1.9 µs with 20 and 3.6 µs with 34 (headless benchmark). Negligible.</li>
+      <li><b>Rendering in the editor:</b> 0.7 ms per frame with 5 candidates, 1.3 ms with 20 and 2.3 ms with 34. It grows roughly linearly with the number of bodies. This is not a device measurement.</li>
+      <li><b>Not yet verified:</b> the frame rate on a real phone or tablet, and how readable the smallest rooms' signals are to a human in a playtest.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
