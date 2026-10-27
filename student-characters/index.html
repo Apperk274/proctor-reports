@@ -252,7 +252,9 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">Idle</span><span class="c">IdleCalm, Reading, ReadingElbows</span><span class="d">Cycled, like writing.</span></div>
       <div role="row"><span class="p">ReactingToApproach</span><span class="c">IdleCalm</span><span class="d">One calm pose, whatever the reason.</span></div>
       <div role="row"><span class="p">Glancing</span><span class="c">GlanceNeighbour + mirror</span><span class="d">Head turns toward the target neighbour.</span></div>
-      <div role="row"><span class="p">LeaningToNeighbour</span><span class="c">WhisperLeft + mirror</span><span class="d">Leans toward the target neighbour (looking, copying, passing).</span></div>
+      <div role="row"><span class="p">LeaningToNeighbour</span><span class="c">WhisperLeft + mirror</span><span class="d">Leans toward the target neighbour on their own: looking at their paper, copying.</span></div>
+      <div role="row"><span class="p">Whispering</span><span class="c">Whisperer + mirror</span><span class="d">The one who starts a whisper or hand-over, once the person beside them leans back: turned to them, a hand cupped at the mouth, talking nods.</span></div>
+      <div role="row"><span class="p">Listening</span><span class="c">Listener + mirror</span><span class="d">The person beside them, who joins in: leans in, face turned to the whisperer, two small nods.</span></div>
       <div role="row"><span class="p">CheckingClock</span><span class="c">CheckClock or CheckWatch, taking turns</span><span class="d">A look toward the clock's side, or a look at a wristwatch; either one plays to its end.</span></div>
       <div role="row"><span class="p">ReachingPocket · ReachingBag · UnderDesk</span><span class="c">ReachBag + mirror</span><span class="d">One reach for all three, toward the bag's side.</span></div>
       <div role="row"><span class="p">HandRaised</span><span class="c">HandRaised</span><span class="d">The dominant hand goes up and stays up; head to the front.</span></div>
@@ -271,7 +273,7 @@ section { display: grid; gap: 20px; }
       <p class="muted">One body built by a Blender script and rigged by Meshy's auto-rig, in a male and a female shape on the
         same skeleton, with hair, glasses and tops as swappable parts on that skeleton, tinted per student. The motions are
         Meshy text-to-motion clips seated on the game's chair and pinned to the real desk in Blender, plus clips made by hand
-        there: 41 in all, including the mirrors for left-handers. The game drives the body through the existing pose
+        there: 44 in all, including the mirrors for left-handers and the hand-made whisperer and listener. The game drives the body through the existing pose
         contract: each pose maps to a clip, changes fade smoothly, held gestures wind down with their own motion, and the
         game's own clock drives it all, so it stays deterministic and testable.</p>
     </div>
@@ -282,9 +284,9 @@ section { display: grid; gap: 20px; }
       <h2>Quality</h2>
     </div>
     <div class="stats">
-      <div class="stat"><span class="big">~1,660</span><span>EditMode tests passing, none failing</span></div>
+      <div class="stat"><span class="big">1,819</span><span>EditMode tests passing, none failing (197 skipped by design)</span></div>
       <div class="stat"><span class="big">41/41</span><span>PlayMode tests passing</span></div>
-      <div class="stat"><span class="big">4.8 min</span><span>for the PlayMode suite, down from 19.5</span></div>
+      <div class="stat"><span class="big">4.8 min</span><span>for the PlayMode suite</span></div>
     </div>
     <p class="muted">Before the doors open, students no longer flicker in and out of the room: two systems were hiding and
       showing them every frame, and each now restores only what it hid.</p>
@@ -295,6 +297,8 @@ section { display: grid; gap: 20px; }
       <h2>Known limitations</h2>
     </div>
     <ul class="limits">
+      <li><b>Neighbours sit 3 m apart,</b> so a whispering pair lean and turn to each other but stay well apart; from the
+        overview camera the listener's lean is small.</li>
       <li><b>The clock is on the back wall,</b> behind the students. Checking the clock is aimed at its side but reads as a
         look at the front wall. Parked until the room's layout is revisited.</li>
       <li><b>Innocent gestures can outlast their signal.</b> A clock check, a watch check or a stretch plays to its natural end
@@ -333,18 +337,23 @@ const MOTION_GROUPS = [
       ["reading_elbows", "Reading, forearms on the desk", "", "A calmer way to read.", "8 s"],
       ["idle_calm", "Waiting calmly", "", "Upright, hands folded. Also the reaction when the supervisor comes close.", "8 s"],
     ]},
-  { title: "Glancing and whispering", pose: "Glancing · LeaningToNeighbour",
-    note: "Aimed at the actual neighbour the behaviour targets, worked out from the seats. If the target is straight ahead or behind, the student leans toward the aisle.",
-    figs: [
-      ["img/game/lefty_whisper_top.png", "Four students whispering, seen straight from above", "From straight above: the front pair lean and turn toward each other."],
-      ["img/game/lefty_whisper_close.png", "Four students whispering, from the front", "Whispering, from the front."],
-    ],
+  { title: "Glancing and leaning over", pose: "Glancing · LeaningToNeighbour",
+    note: "One student on their own: a look around, a look at a neighbour's paper, copying. Aimed at the neighbour the behaviour targets, worked out from the seats; if the target is straight ahead or behind, the student leans toward the aisle. Nobody leans back, and nothing is heard.",
     clips: [
       ["glance_neighbour", "Glancing to the right", "", "The head turns to the neighbour on the right, then back to the paper.", "4 s"],
       ["glance_mirror", "Glancing to the left", "", "The same turn to the left.", "4 s"],
-      ["whisper_left", "Whispering to the left", "", "Leans and turns toward the neighbour on the left.", "4 s"],
-      ["whisper_mirror", "Whispering to the right", "", "The same lean to the right.", "4 s"],
+      ["whisper_left", "Leaning over to the left", "", "Leans and turns toward the neighbour on the left.", "4 s"],
+      ["whisper_mirror", "Leaning over to the right", "", "The same lean to the right.", "4 s"],
     ]},
+  { title: "Whispering and passing: two people", pose: "Whispering · Listening",
+    note: "Talking and passing something (an eraser, scratch paper, notes) happen only with the person directly beside the student in the same row, left or right; never in front, behind or diagonally, and never across an empty seat. That person takes part: they stop what they were doing, lean in and turn to the whisperer, and both go back to work in the same moment, whoever stops first. The whisperer plays Whisperer, the listener Listener, each aimed at the other; the plain clip leans toward the student's own left and the mirror toward their right. A whisper sound can only come from such a pair, never from someone glancing on their own. Both clips were made by hand in Blender and chosen over Meshy takes: see <a href=\"../whisper-comparison/\">Whispering Students</a> for the comparison. Frames from Play mode during a real exam, with the pass behaviours made more frequent for the capture.",
+    figs: [
+      ["vid/whisper_pair_plusx.webp", "Front row: the student on the left whispers to the one on the right, who leans in and listens", "Whisperer on the left, turned to their own left; Listener (mirror) on the right, turned to their own right."],
+      ["vid/whisper_pair_minusx.webp", "Front row: the student on the right whispers to the one on the left, who leans in and listens", "The other way round: Whisperer (mirror) on the right, Listener on the left. Both stop together."],
+      ["img/whisper/pair_front.jpg", "Middle row from the front: one student with a hand cupped at the mouth, the neighbour leaning in", "From the front: hand at the mouth on the side the room sees; the listener turned to them."],
+      ["img/whisper/game_camera.jpg", "The same kind of pair from the game's overview camera", "As the player sees it, from the overview camera."],
+    ],
+    clips: []},
   { title: "Checking the time", pose: "CheckingClock",
     note: "Each check is either a look up toward the clock's side of the room or a look at a wristwatch (raise, about two and a half seconds with the back of the wrist to the eyes, lower). The two take turns, and a short check still plays to its natural end.",
     figs: [
