@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Phone Check</title>
-<meta name="description" content="Main (bf08cc4) on a real Galaxy A15 phone: the eight schools and their offers, the baked art, and a room per school. One blocking bug: the camera goes blank when it leans in on a front-row student at the National Examination Centre.">
+<meta name="description" content="Exam Supervisor Simulator on a real Galaxy A15 phone: the eight schools, offers, baked art and a room per school, and the M130.1 fixes for what the phone found, checked again on the same phone.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -50,18 +50,15 @@ thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-s
 td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .pass { background: var(--accent-soft); color: var(--accent); }
-.fail { background: var(--bad-soft); color: var(--bad); }
-.minor { background: var(--warn-soft); color: var(--warn); }
 .na { background: var(--line); color: var(--muted); }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .card p { font-size: 0.95rem; color: var(--muted); }
 .card .big { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
-.callout { background: var(--bad-soft); border: 1px solid var(--bad); border-radius: 10px; padding: 16px 18px; display: grid; gap: 10px; }
-.callout h3 { color: var(--bad); }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
 .gallery figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; align-content: start; }
 .gallery figure.bad { border-color: var(--bad); }
+.gallery figure.good { border-color: var(--accent); }
 .gallery figcaption { font-size: 0.85rem; color: var(--muted); }
 .gallery figcaption b { color: var(--ink); font-weight: 600; display: block; }
 .gallery a { display: block; }
@@ -73,178 +70,151 @@ ul.list b { color: var(--ink); font-weight: 600; }
 <body>
 <div class="wrap">
   <header>
-    <span class="eyebrow">Exam Supervisor Simulator · device check · bf08cc4</span>
+    <span class="eyebrow">Exam Supervisor Simulator · device check · m130-1-device-fixes 5e8957b</span>
     <h1>Phone Check</h1>
-    <p class="lede">Main at <code>bf08cc4</code> (M129 schools and offers, the baked Blender art, M130 rooms), built as a development APK
-      and played on a real Galaxy A15 (SM-S156V, Android 16, 1080 × 2340, 450 dpi, 90 Hz). The game classified the screen as a phone, and every
-      school's room had the right number of desks, with at least one left free. Most of it works. One bug blocks play:
-      at the National Examination Centre, leaning in on a front-row student leaves the screen blank.</p>
+    <p class="lede">The game on a real Galaxy A15 (SM-S156V, Android 16, 1080 × 2340, 450 dpi, 90 Hz). The first pass, on main at
+      <code>bf08cc4</code>, found one blocking bug and four smaller ones. They are fixed on branch <code>m130-1-device-fixes</code>
+      (three commits on <code>881d1cf</code>, not merged). That build was installed on the same phone and every case was
+      checked again. The game still classifies the screen as a phone, and every room has the right number of desks with at least one free.</p>
   </header>
 
-  <section id="bug">
-    <div class="callout">
-      <h3>Blocking: the camera goes blank on a front-row student at the National Examination Centre</h3>
-      <p>Tap a front-row student in the National hall. The supervisor walks over and the camera leans in. It ends up outside the room,
-        looking at the back of the front wall. Only the HUD and the action panel are left on a flat grey screen. It stays like that:
-        Back does nothing, and with no room on screen the player cannot tap anyone else.</p>
-      <p class="muted">Likely cause: the focus pose in <code>FixedCameraRig.FocusPosition()</code> puts the camera about 5.4 m in front of the
-        student (7 m at 46°, plus the screen-height bias). Front-row seats are 4 m from the front wall (<code>RoomLayout.FrontClearance</code>),
-        so the camera lands about 1.4 m outside the room. The exam hall's front wall is 5.0 m tall (<code>RoomDresser</code>, ExamHall
-        <code>WallHeight = 5.0f</code>), which is higher than the line from the camera to the student. The 3.0 m and 3.6 m walls in the other rooms are
-        low enough. On the State University front row (3.6 m wall) the wall only covers the bottom of the frame, behind the action panel.
-        The code has not been changed; the fix needs approval.</p>
-    </div>
-    <div class="gallery">
-      <figure><a href="img/room-national.jpg"><img src="img/room-national.jpg" alt="National Examination Centre room overview, 12 desks" loading="lazy"></a><figcaption><b>1 · The hall</b>12 desks, 8 students.</figcaption></figure>
-      <figure><a href="img/walk-national-front.jpg"><img src="img/walk-national-front.jpg" alt="Camera leaning toward a front-row student; front wall covers the bottom" loading="lazy"></a><figcaption><b>2 · Leaning in</b>The front wall (white band) starts to cover the frame.</figcaption></figure>
-      <figure class="bad"><a href="img/focus-national-front-blank.jpg"><img src="img/focus-national-front-blank.jpg" alt="Blank grey screen with only HUD and the candidate panel" loading="lazy"></a><figcaption><b>3 · Focused: blank</b>Nothing of the room is visible. It stays like this.</figcaption></figure>
-      <figure><a href="img/focus-stateuni-front.jpg"><img src="img/focus-stateuni-front.jpg" alt="State University front-row focus, student visible" loading="lazy"></a><figcaption><b>For comparison</b>State University front row, 3.6 m wall: the student is visible.</figcaption></figure>
-    </div>
-  </section>
-
   <section id="summary">
-    <div class="section-head"><h2>The device and the build</h2></div>
+    <div class="section-head"><h2>Where it stands</h2></div>
     <div class="cards">
-      <div class="card"><span class="eyebrow">Device</span><div class="big">SM-S156V</div><p>Galaxy A15 5G, Android 16, 1080 × 2340 at 450 dpi, Mali-G57 MC2 on Vulkan, 90 Hz panel.</p></div>
-      <div class="card"><span class="eyebrow">Device class</span><div class="big">Phone</div><p>The game logged <code>Screen 1080x2340 @450 dpi: rooms sized for a Phone</code>. The 2.17 aspect ratio makes it a phone whatever the dpi.</p></div>
-      <div class="card"><span class="eyebrow">Build</span><div class="big">bf08cc4</div><p>Development APK, 111,059,665 bytes (106 MB). Batchmode IL2CPP, 0 compile errors, built in 6 min 38 s.</p></div>
-      <div class="card"><span class="eyebrow">In the room</span><div class="big">63–70 fps</div><p>Median per room while the exam runs, from the in-app frame probe (target 90). The National hall is no slower than Maple. Details below.</p></div>
+      <div class="card"><span class="eyebrow">Blocker</span><div class="big">Fixed</div><p>Leaning in on a front-row student at the National Examination Centre shows the student. It used to leave a grey screen.</p></div>
+      <div class="card"><span class="eyebrow">Build on the phone</span><div class="big">5e8957b</div><p>Development APK, 114,759,057 bytes. Batchmode build: 0 compile errors, built in 4 min 5 s.</p></div>
+      <div class="card"><span class="eyebrow">Tests</span><div class="big">1911 + 46</div><p>EditMode 1911 passed, 0 failed, 201 skipped (2112 in all). PlayMode 46 passed, 0 failed, 4 skipped (50 in all).</p></div>
+      <div class="card"><span class="eyebrow">Device class</span><div class="big">Phone</div><p>Logged on every launch: <code>Screen 1080x2340 @450 dpi: rooms sized for a Phone</code>.</p></div>
     </div>
   </section>
 
-  <section id="checklist">
-    <div class="section-head"><h2>What was checked</h2></div>
+  <section id="fixes">
+    <div class="section-head"><h2>What the phone found, and what changed</h2></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Item</th><th>Result</th><th>What the phone showed</th></tr></thead>
+      <thead><tr><th>Found on bf08cc4</th><th>Now</th><th>Change</th></tr></thead>
       <tbody>
-        <tr><td>Title screen art</td><td><span class="pill pass">pass</span></td><td>Sharp, correctly cropped. The title over the image is readable and the buttons fit.</td></tr>
-        <tr><td>Hub hero per school (dusk)</td><td><span class="pill pass">pass</span></td><td>All 8 checked. Each shows its own building, sharp and not stretched, and the name and stars match the school. Long names (National Examination Centre, Eastgate Evening College) fit on one line.</td></tr>
-        <tr><td>Hub hero, day variant</td><td><span class="pill na">not reachable</span></td><td>Day renders appear only with a light theme. A player build has no way to switch theme (Settings has none, and <code>GameTheme.Use</code> has no in-game caller), so they cannot be seen on a device.</td></tr>
-        <tr><td>Exam hall banner (results)</td><td><span class="pill pass">pass</span></td><td>Sharp. It is the same generic exam-room render at every school.</td></tr>
-        <tr><td>Event-card objects</td><td><span class="pill minor">minor</span></td><td>All sharp. Some pictures do not fit their card: a gold medal on an audit penalty, a sealed document on "You are not well", coins on "Car trouble".</td></tr>
-        <tr><td>8 schools, ratings</td><td><span class="pill pass">pass</span></td><td>Stars, kinds and names are right in the hub and on the offer cards.</td></tr>
-        <tr><td>Single offer</td><td><span class="pill pass">pass</span></td><td>"More money elsewhere" compares the rating and salary now against the school offered. Nothing is cut.</td></tr>
-        <tr><td>Two offers</td><td><span class="pill pass">pass</span></td><td>"Two schools want you": both schools are compared, with the Brightpath note. Join X / Join Y / Decline both all fit. Joining Brightpath moved the career and changed the hub.</td></tr>
-        <tr><td>Desks per school (phone)</td><td><span class="pill pass">pass</span></td><td>Maple 5, Riverside 7, Eastgate 7, City High 9, Brightpath 7, Kingsley 10, State University 10, National 12. Every room had at least one free desk.</td></tr>
-        <tr><td>Front-first seating</td><td><span class="pill pass">pass</span></td><td>In every room the empty desks were at the back, away from the supervisor's desk.</td></tr>
-        <tr><td>Camera fits the room</td><td><span class="pill pass">pass</span></td><td>The whole class is on screen in every room. The top HUD covers only the back wall, never a desk.</td></tr>
-        <tr><td>Interaction focus</td><td><span class="pill fail">blocking at National</span></td><td>Kingsley (middle row), City High (back row) and State University (front row) lean in well. National front row goes blank (above).</td></tr>
-        <tr><td>Walk to a student</td><td><span class="pill pass">pass</span></td><td>"Walking over to …" appears and the supervisor arrives every time.</td></tr>
-        <tr><td>Students readable</td><td><span class="pill pass">pass</span></td><td>Raised hands, a phone in hand and bags are readable even in the 12-desk hall. On white desks (Brightpath, National) the exam papers barely show.</td></tr>
-        <tr><td>Text truncation</td><td><span class="pill pass">pass</span></td><td>No text was cut on any screen captured. Long lines wrap.</td></tr>
-        <tr><td>Crashes / exceptions</td><td><span class="pill pass">pass</span></td><td>10 launches, no crash and no managed exception. Notes in the logcat section.</td></tr>
+        <tr><td><b>Blocking:</b> National front-row focus showed only grey</td><td><span class="pill pass">fixed</span></td>
+          <td>The front wall is a 2.4 m cutaway in every room. It was 5 m in the hall. The focus pose is now solved in Core (<code>RoomFraming.FocusPosition</code>). If the front wall would ever hide the student, the camera moves along its own line into the room, so the aim stays the same. A new test checks, for every school, both device classes and every seat, that the student is visible over the front wall from both the focus camera and the overview.</td></tr>
+        <tr><td><b>Medium:</b> the supervisor started behind the front wall, at the screen edge, or inside the desk</td><td><span class="pill pass">fixed</span></td>
+          <td>The supervisor now starts beside their desk, inside the room and in the overview's frame. Before, the start was 1.5 m outside the front wall. The supervisor's desk is also part of the navmesh now, so nobody can stand inside it. EditMode and PlayMode tests check that the start is inside the room, clear of every desk, chair and wall, on the navmesh, above the HUD, and not behind the wall.</td></tr>
+        <tr><td><b>Minor:</b> a gold medal on an audit penalty; a sealed document on "You are not well"</td><td><span class="pill pass">fixed</span></td>
+          <td>"Seal" now shows the sealed letter. The medal is only for something earned: a move up, a commendation, the national assignment. Illness has no picture, because no baked render fits it. The full event-to-picture table is below and is locked by a test.</td></tr>
+        <tr><td><b>Minor:</b> white papers almost invisible on white desks</td><td><span class="pill pass">fixed</span></td>
+          <td>Brightpath has grey laminate, National blue-grey desks and Maple pale-blue tops. Paper-to-desk contrast is now at least 1.5 in every style, and a test enforces 1.4 or more.</td></tr>
+        <tr><td><b>Minor:</b> "Monthly expenses −280" had no ¢</td><td><span class="pill pass">fixed</span></td>
+          <td>It now reads −280 ¢. Every money row goes through one formatter (<code>GameText.CoinDelta</code>).</td></tr>
+        <tr><td>Boot warning "no valid NavMesh"</td><td><span class="pill na">unchanged</span></td>
+          <td>This is the known start-up ordering race, documented in <code>PlayerMover.Start</code>. Start re-places the agent and logs <code>Navigation ready</code> right after. It is harmless and was left alone.</td></tr>
+        <tr><td>Admit taps dropped 2.5–5 s apart</td><td><span class="pill na">by design</span></td>
+          <td>The Admit and Reject buttons unlock only once the person on the card is standing at the desk (<code>HudRouter</code>, M34). A tap during their walk-in is ignored. Nothing was changed.</td></tr>
       </tbody></table></div>
+    <p class="muted">A further bug was found during the fixes. With the supervisor starting beside the desk, an existing test caught the player walking 2.2 m on to an empty chair after the student they were walking to had left the room. The old start, far away, hid this. The walk now stops when its target leaves. Balance bots keep the old start, because moving them changes every balance fingerprint. That is a balance decision, not a framing fix.</p>
   </section>
 
-  <section id="issues">
-    <div class="section-head"><h2>Other issues</h2></div>
-    <ul class="list">
-      <li><b>Medium: the supervisor is often off screen when the exam starts.</b> At Kingsley, City High and National the supervisor stands at the
-        front wall and is hidden by it. Only the top of the head shows at City High (<a href="img/room-cityhigh.jpg">room-cityhigh</a>, bottom centre),
-        and at Maple the figure is cut by the screen edge. At Eastgate the supervisor is visible but stands inside the supervisor's desk. This is probably the same cause as the blocking bug: the room's front edge is very close to the camera's frame.</li>
-      <li><b>Minor: event pictures do not always fit the event.</b> A medal for an admissions-audit penalty (<a href="img/event-audit.jpg">event-audit</a>), a sealed document for a headache
-        (<a href="img/event-unwell.jpg">event-unwell</a>).</li>
-      <li><b>Minor: exam papers on white desks.</b> At Brightpath and National the papers are white on white and almost disappear.</li>
-      <li><b>Minor: the results card mixes currency formats.</b> "Monthly expenses −280" has no ¢, while the lines above it do (<a href="img/results.jpg">results</a>).</li>
-      <li><b>Minor: a NavMesh warning at boot.</b> Every launch logs <code>Failed to create agent because there is no valid NavMesh</code> about 0.7 s before
-        <code>Navigation ready</code>. Walking works, so this is a start-up ordering warning.</li>
-      <li><b>Note: admission taps are sometimes dropped.</b> Taps on Admit sent 2.5–5 s apart were often ignored (8 taps admitted 4 at National). With one tap every 7 s, each tap worked.
-        This may be a deliberate input lock while the student walks in, but a player tapping quickly will notice it.</li>
-    </ul>
-  </section>
-
-  <section id="hubs">
-    <div class="section-head"><h2>Hubs</h2><p class="muted">Each school's dusk render. The title screen is first.</p></div>
+  <section id="blocker">
+    <div class="section-head"><h2>The blocker, before and after</h2><p class="muted">National Examination Centre, a front-row student, on the phone.</p></div>
     <div class="gallery">
-      <figure><a href="img/title.jpg"><img src="img/title.jpg" alt="Title screen" loading="lazy"></a><figcaption><b>Title screen</b>Exam-room render</figcaption></figure>
-      <figure><a href="img/hub-maple.jpg"><img src="img/hub-maple.jpg" alt="Maple Elementary hub" loading="lazy"></a><figcaption><b>Maple Elementary School</b>★☆☆☆☆</figcaption></figure>
-      <figure><a href="img/hub-riverside.jpg"><img src="img/hub-riverside.jpg" alt="Riverside Middle hub" loading="lazy"></a><figcaption><b>Riverside Middle School</b>★★☆☆☆</figcaption></figure>
-      <figure><a href="img/hub-eastgate.jpg"><img src="img/hub-eastgate.jpg" alt="Eastgate Evening College hub" loading="lazy"></a><figcaption><b>Eastgate Evening College</b>★★☆☆☆</figcaption></figure>
-      <figure><a href="img/hub-cityhigh.jpg"><img src="img/hub-cityhigh.jpg" alt="City High hub" loading="lazy"></a><figcaption><b>City High School</b>★★★☆☆</figcaption></figure>
-      <figure><a href="img/hub-brightpath.jpg"><img src="img/hub-brightpath.jpg" alt="Brightpath Prep hub" loading="lazy"></a><figcaption><b>Brightpath Prep Centre</b>★★☆☆☆, reached by accepting an offer</figcaption></figure>
-      <figure><a href="img/hub-kingsley.jpg"><img src="img/hub-kingsley.jpg" alt="Kingsley Academy hub" loading="lazy"></a><figcaption><b>Kingsley Academy</b>★★★★☆ (the user's own save)</figcaption></figure>
-      <figure><a href="img/hub-stateuni.jpg"><img src="img/hub-stateuni.jpg" alt="State University hub" loading="lazy"></a><figcaption><b>State University</b>★★★★☆</figcaption></figure>
-      <figure><a href="img/hub-national.jpg"><img src="img/hub-national.jpg" alt="National Examination Centre hub" loading="lazy"></a><figcaption><b>National Examination Centre</b>★★★★★</figcaption></figure>
+      <figure class="bad"><a href="img/focus-national-front-blank.jpg"><img src="img/focus-national-front-blank.jpg" alt="Before: blank grey screen with only the HUD and the candidate panel" loading="lazy"></a><figcaption><b>Before (bf08cc4)</b>Grey: the camera is looking at the back of the 5 m front wall.</figcaption></figure>
+      <figure class="good"><a href="img/v2-focus-national-right.jpg"><img src="img/v2-focus-national-right.jpg" alt="After: front-row student on the right, leaned in and visible" loading="lazy"></a><figcaption><b>After · front right</b>The student and their desk are in view, with the supervisor beside them.</figcaption></figure>
+      <figure class="good"><a href="img/v2-focus-national-left.jpg"><img src="img/v2-focus-national-left.jpg" alt="After: front-row student on the left, leaned in and visible" loading="lazy"></a><figcaption><b>After · front left</b>A raised hand is readable.</figcaption></figure>
     </div>
   </section>
 
-  <section id="rooms">
-    <div class="section-head"><h2>Rooms on the phone</h2><p class="muted">Each room just after admission ended, with all students seated.</p></div>
+  <section id="starts">
+    <div class="section-head"><h2>Exam start in every room</h2><p class="muted">Each room just after admission ends. The supervisor (green) stands beside the desk at the front, fully in view.</p></div>
     <div class="gallery">
-      <figure><a href="img/room-maple.jpg"><img src="img/room-maple.jpg" alt="Maple room" loading="lazy"></a><figcaption><b>Maple</b>5 desks · 4 seated · 1 free</figcaption></figure>
-      <figure><a href="img/room-riverside.jpg"><img src="img/room-riverside.jpg" alt="Riverside room" loading="lazy"></a><figcaption><b>Riverside</b>7 desks · 6 seated · 1 free</figcaption></figure>
-      <figure><a href="img/room-eastgate.jpg"><img src="img/room-eastgate.jpg" alt="Eastgate room" loading="lazy"></a><figcaption><b>Eastgate</b>7 seats · 6 seated · 1 free</figcaption></figure>
-      <figure><a href="img/room-cityhigh.jpg"><img src="img/room-cityhigh.jpg" alt="City High room" loading="lazy"></a><figcaption><b>City High</b>9 desks · 7 seated · 2 free</figcaption></figure>
-      <figure><a href="img/room-brightpath.jpg"><img src="img/room-brightpath.jpg" alt="Brightpath room" loading="lazy"></a><figcaption><b>Brightpath</b>7 seats · 5 seated · 2 free</figcaption></figure>
-      <figure><a href="img/room-kingsley.jpg"><img src="img/room-kingsley.jpg" alt="Kingsley room" loading="lazy"></a><figcaption><b>Kingsley</b>10 desks · 7 seated · 3 free</figcaption></figure>
-      <figure><a href="img/room-stateuni.jpg"><img src="img/room-stateuni.jpg" alt="State University room" loading="lazy"></a><figcaption><b>State University</b>10 seats · 7 seated · 3 free</figcaption></figure>
-      <figure><a href="img/room-national.jpg"><img src="img/room-national.jpg" alt="National room" loading="lazy"></a><figcaption><b>National</b>12 desks · 8 seated · 4 free</figcaption></figure>
+      <figure><a href="img/v2-start-maple.jpg"><img src="img/v2-start-maple.jpg" alt="Maple room at exam start" loading="lazy"></a><figcaption><b>Maple</b>5 desks · 4 seated · pale-blue tops</figcaption></figure>
+      <figure><a href="img/v2-start-riverside.jpg"><img src="img/v2-start-riverside.jpg" alt="Riverside room at exam start" loading="lazy"></a><figcaption><b>Riverside</b>7 desks · 6 seated</figcaption></figure>
+      <figure><a href="img/v2-start-eastgate.jpg"><img src="img/v2-start-eastgate.jpg" alt="Eastgate room at exam start" loading="lazy"></a><figcaption><b>Eastgate</b>7 seats · 6 seated · beside the desk, not in it</figcaption></figure>
+      <figure><a href="img/v2-start-cityhigh.jpg"><img src="img/v2-start-cityhigh.jpg" alt="City High room at exam start" loading="lazy"></a><figcaption><b>City High</b>9 desks · 7 seated</figcaption></figure>
+      <figure><a href="img/v2-start-brightpath.jpg"><img src="img/v2-start-brightpath.jpg" alt="Brightpath room at exam start" loading="lazy"></a><figcaption><b>Brightpath</b>7 seats · 5 seated · grey tables</figcaption></figure>
+      <figure><a href="img/v2-start-kingsley.jpg"><img src="img/v2-start-kingsley.jpg" alt="Kingsley room at exam start" loading="lazy"></a><figcaption><b>Kingsley</b>10 desks · 7 seated</figcaption></figure>
+      <figure><a href="img/v2-start-stateuni.jpg"><img src="img/v2-start-stateuni.jpg" alt="State University room at exam start" loading="lazy"></a><figcaption><b>State University</b>10 seats · 7 seated</figcaption></figure>
+      <figure><a href="img/v2-start-national.jpg"><img src="img/v2-start-national.jpg" alt="National room at exam start" loading="lazy"></a><figcaption><b>National</b>12 desks · 8 seated · blue-grey desks</figcaption></figure>
     </div>
   </section>
 
   <section id="focus">
-    <div class="section-head"><h2>Walking over and leaning in</h2></div>
+    <div class="section-head"><h2>Leaning in on a front-row student, every room</h2></div>
     <div class="gallery">
-      <figure><a href="img/focus-kingsley.jpg"><img src="img/focus-kingsley.jpg" alt="Kingsley focus" loading="lazy"></a><figcaption><b>Kingsley, middle row</b>Leans in cleanly</figcaption></figure>
-      <figure><a href="img/walk-cityhigh.jpg"><img src="img/walk-cityhigh.jpg" alt="City High walking" loading="lazy"></a><figcaption><b>City High, back row</b>Walking over</figcaption></figure>
-      <figure><a href="img/focus-cityhigh.jpg"><img src="img/focus-cityhigh.jpg" alt="City High focus" loading="lazy"></a><figcaption><b>City High, back row</b>Arrived; Talk / Warn / Remove</figcaption></figure>
-      <figure><a href="img/focus-stateuni-front.jpg"><img src="img/focus-stateuni-front.jpg" alt="State University focus" loading="lazy"></a><figcaption><b>State University, front row</b>Visible; the wall shows only behind the panel</figcaption></figure>
-      <figure class="bad"><a href="img/focus-national-front-blank.jpg"><img src="img/focus-national-front-blank.jpg" alt="National blank focus" loading="lazy"></a><figcaption><b>National, front row</b>Blank (blocking)</figcaption></figure>
+      <figure><a href="img/v2-focus-maple.jpg"><img src="img/v2-focus-maple.jpg" alt="Maple front-row focus" loading="lazy"></a><figcaption><b>Maple</b></figcaption></figure>
+      <figure><a href="img/v2-focus-riverside.jpg"><img src="img/v2-focus-riverside.jpg" alt="Riverside front-row focus" loading="lazy"></a><figcaption><b>Riverside</b></figcaption></figure>
+      <figure><a href="img/v2-focus-eastgate.jpg"><img src="img/v2-focus-eastgate.jpg" alt="Eastgate front-row focus" loading="lazy"></a><figcaption><b>Eastgate</b></figcaption></figure>
+      <figure><a href="img/v2-focus-cityhigh.jpg"><img src="img/v2-focus-cityhigh.jpg" alt="City High front-row focus" loading="lazy"></a><figcaption><b>City High</b></figcaption></figure>
+      <figure><a href="img/v2-focus-brightpath.jpg"><img src="img/v2-focus-brightpath.jpg" alt="Brightpath front-row focus" loading="lazy"></a><figcaption><b>Brightpath</b></figcaption></figure>
+      <figure><a href="img/v2-focus-kingsley.jpg"><img src="img/v2-focus-kingsley.jpg" alt="Kingsley front-row focus" loading="lazy"></a><figcaption><b>Kingsley</b></figcaption></figure>
+      <figure><a href="img/v2-focus-stateuni.jpg"><img src="img/v2-focus-stateuni.jpg" alt="State University front-row focus" loading="lazy"></a><figcaption><b>State University</b></figcaption></figure>
+      <figure><a href="img/v2-focus-national-right.jpg"><img src="img/v2-focus-national-right.jpg" alt="National front-row focus" loading="lazy"></a><figcaption><b>National</b></figcaption></figure>
     </div>
+    <p class="muted">In every room the supervisor's desk is in the lower part of the frame. That is the desk at the front, now visible because the front wall no longer hides it. It sits under the action panel and does not cover the student.</p>
   </section>
 
   <section id="cards">
-    <div class="section-head"><h2>Offers, events and results</h2></div>
+    <div class="section-head"><h2>Event cards, offers and results</h2></div>
     <div class="gallery">
-      <figure><a href="img/offer-two.jpg"><img src="img/offer-two.jpg" alt="Two-offer card" loading="lazy"></a><figcaption><b>Two offers</b>City High or Brightpath, from Eastgate</figcaption></figure>
-      <figure><a href="img/offer-single.jpg"><img src="img/offer-single.jpg" alt="Single offer card" loading="lazy"></a><figcaption><b>One offer</b>State University, from Kingsley</figcaption></figure>
-      <figure><a href="img/event-car.jpg"><img src="img/event-car.jpg" alt="Car trouble event" loading="lazy"></a><figcaption><b>Car trouble</b>Coins</figcaption></figure>
-      <figure><a href="img/event-unwell.jpg"><img src="img/event-unwell.jpg" alt="Unwell event" loading="lazy"></a><figcaption><b>You are not well</b>Sealed document</figcaption></figure>
-      <figure><a href="img/event-audit.jpg"><img src="img/event-audit.jpg" alt="Audit event" loading="lazy"></a><figcaption><b>Admissions audit</b>Medal on a penalty</figcaption></figure>
-      <figure><a href="img/results.jpg"><img src="img/results.jpg" alt="Exam complete results" loading="lazy"></a><figcaption><b>Exam complete</b>Exam-hall banner</figcaption></figure>
+      <figure><a href="img/v2-event-audit.jpg"><img src="img/v2-event-audit.jpg" alt="Admissions audit card with a sealed letter" loading="lazy"></a><figcaption><b>Admissions audit</b>A sealed letter, not a medal</figcaption></figure>
+      <figure><a href="img/v2-event-unwell.jpg"><img src="img/v2-event-unwell.jpg" alt="You are not well card with no picture" loading="lazy"></a><figcaption><b>You are not well</b>No picture</figcaption></figure>
+      <figure><a href="img/v2-event-car.jpg"><img src="img/v2-event-car.jpg" alt="Car trouble card with coins" loading="lazy"></a><figcaption><b>Car trouble</b>Coins</figcaption></figure>
+      <figure><a href="img/v2-offer-moveup.jpg"><img src="img/v2-offer-moveup.jpg" alt="A move up offer with the medal" loading="lazy"></a><figcaption><b>A move up</b>The medal, for something earned</figcaption></figure>
+      <figure><a href="img/v2-offer-money.jpg"><img src="img/v2-offer-money.jpg" alt="More money elsewhere offer with a sealed letter" loading="lazy"></a><figcaption><b>More money elsewhere</b>A letter</figcaption></figure>
+      <figure><a href="img/offer-two.jpg"><img src="img/offer-two.jpg" alt="Two-offer card" loading="lazy"></a><figcaption><b>Two offers</b>No banner, by design (bf08cc4 capture; unchanged)</figcaption></figure>
+      <figure><a href="img/v2-results.jpg"><img src="img/v2-results.jpg" alt="Exam complete card with monthly expenses -280 ¢" loading="lazy"></a><figcaption><b>Results</b>Monthly expenses −280 ¢</figcaption></figure>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Event</th><th>Picture</th></tr></thead>
+      <tbody>
+        <tr><td>Bribe offer</td><td>Envelope</td></tr>
+        <tr><td>Refund demand, career reward, performance bonus, monthly expenses, car trouble</td><td>Coins</td></tr>
+        <tr><td>Threatening message, blackmail, corruption exposure</td><td>Torn note</td></tr>
+        <tr><td>All complaints, admissions audit, review finding, witness statement, restraint noted, debt notice, dismissal, final warning, reassignment, identity check, parking fine</td><td>Sealed letter</td></tr>
+        <tr><td>Money offer, two offers</td><td>Sealed letter (two-offer cards hide the banner)</td></tr>
+        <tr><td>Move up, commendation, national assignment</td><td>Medal</td></tr>
+        <tr><td>Manager meeting, cover shift, favour returned, coworker favour</td><td>Person in a doorway</td></tr>
+        <tr><td>Illness</td><td>None (no baked render fits)</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <section id="hubs">
+    <div class="section-head"><h2>Title and hubs</h2><p class="muted">The M130.1 fixes do not touch these. Captured on bf08cc4.</p></div>
+    <div class="gallery">
+      <figure><a href="img/title.jpg"><img src="img/title.jpg" alt="Title screen" loading="lazy"></a><figcaption><b>Title screen</b></figcaption></figure>
+      <figure><a href="img/hub-maple.jpg"><img src="img/hub-maple.jpg" alt="Maple hub" loading="lazy"></a><figcaption><b>Maple Elementary</b>★☆☆☆☆</figcaption></figure>
+      <figure><a href="img/hub-riverside.jpg"><img src="img/hub-riverside.jpg" alt="Riverside hub" loading="lazy"></a><figcaption><b>Riverside Middle</b>★★☆☆☆</figcaption></figure>
+      <figure><a href="img/hub-eastgate.jpg"><img src="img/hub-eastgate.jpg" alt="Eastgate hub" loading="lazy"></a><figcaption><b>Eastgate Evening College</b>★★☆☆☆</figcaption></figure>
+      <figure><a href="img/hub-cityhigh.jpg"><img src="img/hub-cityhigh.jpg" alt="City High hub" loading="lazy"></a><figcaption><b>City High</b>★★★☆☆</figcaption></figure>
+      <figure><a href="img/hub-brightpath.jpg"><img src="img/hub-brightpath.jpg" alt="Brightpath hub" loading="lazy"></a><figcaption><b>Brightpath Prep</b>★★☆☆☆</figcaption></figure>
+      <figure><a href="img/hub-kingsley.jpg"><img src="img/hub-kingsley.jpg" alt="Kingsley hub" loading="lazy"></a><figcaption><b>Kingsley Academy</b>★★★★☆</figcaption></figure>
+      <figure><a href="img/hub-stateuni.jpg"><img src="img/hub-stateuni.jpg" alt="State University hub" loading="lazy"></a><figcaption><b>State University</b>★★★★☆</figcaption></figure>
+      <figure><a href="img/hub-national.jpg"><img src="img/hub-national.jpg" alt="National hub" loading="lazy"></a><figcaption><b>National Examination Centre</b>★★★★★</figcaption></figure>
     </div>
   </section>
 
   <section id="perf">
     <div class="section-head"><h2>Frame rate</h2>
-      <p class="muted">This phone gives no frame data to <code>dumpsys</code>, because Unity draws into its own SurfaceView. The numbers are from the game's own
-        <code>FrameTimeProbe</code>, switched on with <code>perf_probe.flag</code> and logged to logcat (tag ProctorPerf) every 5 s. Target 90 fps, vSync off.
-        The table shows the median of the 5-second windows in each room and phase.</p></div>
+      <p class="muted">Measured on bf08cc4 with the game's own <code>FrameTimeProbe</code>, logged to logcat every 5 s. <code>dumpsys</code> has no frame data for Unity's SurfaceView on this phone.
+        The numbers are medians of the 5-second windows. The target is 90 fps with vSync off. The probe was not switched on for the re-check.</p></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Room</th><th>Admission</th><th>Exam running</th><th>Windows (running)</th></tr></thead>
+      <thead><tr><th>Room</th><th>Admission</th><th>Exam running</th></tr></thead>
       <tbody>
-        <tr><td>Maple (5)</td><td class="num">52.2</td><td class="num">69.0</td><td class="num">4</td></tr>
-        <tr><td>Riverside (7)</td><td class="num">51.3</td><td class="num">66.1</td><td class="num">4</td></tr>
-        <tr><td>Eastgate (7)</td><td class="num">50.9</td><td class="num">65.7</td><td class="num">5</td></tr>
-        <tr><td>City High (9)</td><td class="num">56.7</td><td class="num">70.2</td><td class="num">7</td></tr>
-        <tr><td>Brightpath (7)</td><td class="num">50.7</td><td class="num">67.0</td><td class="num">4</td></tr>
-        <tr><td>Kingsley (10)</td><td class="num">54.3</td><td class="num">65.5</td><td class="num">11</td></tr>
-        <tr><td>State University (10)</td><td class="num">50.0</td><td class="num">63.3</td><td class="num">7</td></tr>
-        <tr><td>National (12)</td><td class="num">55.3</td><td class="num">69.2</td><td class="num">24</td></tr>
+        <tr><td>Maple (5)</td><td class="num">52.2</td><td class="num">69.0</td></tr>
+        <tr><td>Riverside (7)</td><td class="num">51.3</td><td class="num">66.1</td></tr>
+        <tr><td>Eastgate (7)</td><td class="num">50.9</td><td class="num">65.7</td></tr>
+        <tr><td>City High (9)</td><td class="num">56.7</td><td class="num">70.2</td></tr>
+        <tr><td>Brightpath (7)</td><td class="num">50.7</td><td class="num">67.0</td></tr>
+        <tr><td>Kingsley (10)</td><td class="num">54.3</td><td class="num">65.5</td></tr>
+        <tr><td>State University (10)</td><td class="num">50.0</td><td class="num">63.3</td></tr>
+        <tr><td>National (12)</td><td class="num">55.3</td><td class="num">69.2</td></tr>
       </tbody></table></div>
-    <p class="muted">Frame times alternate between 11.1 ms and 22.2 ms (p50 11.1, p95 22.3). This is a 90 Hz display missing every other vsync, not slowdown caused by room size.
-      Each room start and each results screen has one hitch, which lasted 430–760 ms in this run.</p>
+    <p class="muted">Frame times alternate between 11.1 ms and 22.2 ms. That means the 90 Hz panel is missing every other vsync; it is not slowdown from room size. Each room start and results screen had one hitch of 430–760 ms.</p>
   </section>
 
-  <section id="logcat">
-    <div class="section-head"><h2>Logcat</h2></div>
+  <section id="notes">
+    <div class="section-head"><h2>Notes</h2></div>
     <ul class="list">
-      <li><b>No crash, no ANR, no managed exception</b> from the game in 10 launches.</li>
-      <li>Each launch: <code>Unable to setup multicast socket for player connection</code> / <code>Socket: Failed to set blocking mode</code>. These are the development build's profiler socket and are harmless.</li>
-      <li>Each launch: <code>Failed to create agent because there is no valid NavMesh</code>, then <code>Navigation ready</code>. Listed as a minor issue above.</li>
-      <li>Everything else in the log came from other apps (Google auth, Nearby, a React Native app).</li>
-    </ul>
-  </section>
-
-  <section id="method">
-    <div class="section-head"><h2>How the schools were reached</h2></div>
-    <ul class="list">
-      <li>There is no developer setting for the school (GameBootstrap only has a device-class override). Copies of the save were edited on the computer, setting
-        <code>State.Career.InstitutionId</code> to each school, and pushed as the save. The offer cards came from copies with a scheduled <code>PromotionOffer</code> event
-        added, so they show the real card for a made-up offer.</li>
-      <li>The user's own save (at Kingsley Academy) was copied off the phone and checksummed before installing. At the end, the same files were pushed back and the checksums
-        matched. No save file is published here.</li>
-      <li>Not checked: the day hero renders (no light theme in game), a tablet (no tablet attached), the 5 redrawn icons one by one (they appear in the Career/Store/Manual tab bar but were not opened), and offers produced by real play.</li>
+      <li><b>Logcat.</b> In both passes, 20 launches in total, there were no crashes, no ANRs and no managed exceptions. The development build always logs profiler-socket messages, and every launch logs the NavMesh warning described above.</li>
+      <li><b>How the schools were reached.</b> Local copies of the save were edited, setting <code>State.Career.InstitutionId</code>, or adding a scheduled offer event for the offer cards, and pushed to the phone. The user's own save was backed up and checksummed first, then restored at the end with matching checksums. No save file is published here.</li>
+      <li><b>Merge.</b> Main gained three commits after the fix branch was cut (sound rows, Phone Detector, Pills). A trial merge is textually clean but has not been built or tested. Main's new Pills art is a drawn shop tile, which could later be the Illness picture.</li>
+      <li><b>Not checked.</b> The day hero renders (there is no light theme in the game), a tablet (none attached), and offers produced by real play.</li>
     </ul>
   </section>
 </div>
