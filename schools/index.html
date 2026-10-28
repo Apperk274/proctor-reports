@@ -68,11 +68,15 @@ tr.hi td { background: var(--accent-soft); }
 .next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
 .next li { color: var(--muted); }
 .next b { color: var(--ink); font-weight: 600; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · M129</span>
     <h1>Schools and Offers</h1>
     <p class="lede">A career now runs through eight schools instead of three postings. Each school has a fixed star rating

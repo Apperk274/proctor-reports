@@ -51,19 +51,14 @@ const claimSlug = (slug, where) => {
 const usedCategories = new Set();
 reports.forEach((r, i) => {
   const where = `reports.json: reports[${i}]${isText(r?.slug) ? ` (${r.slug})` : ""}`;
-  for (const field of ["slug", "title", "category", "updated", "summary"]) {
+  for (const field of ["slug", "title", "category", "summary"]) {
     if (!isText(r?.[field])) fail(`${where}: missing "${field}"`);
   }
+  if (r?.updated !== undefined) fail(`${where}: remove "updated"; the date comes from the report's newest entry in history.json`);
   if (isText(r?.slug)) claimSlug(r.slug, where);
   if (isText(r?.category)) {
     if (!categoryIds.has(r.category)) fail(`${where}: unknown category "${r.category}"`);
     usedCategories.add(r.category);
-  }
-  if (isText(r?.updated)) {
-    const d = new Date(`${r.updated}T00:00:00Z`);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(r.updated) || Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== r.updated) {
-      fail(`${where}: "updated" must be a real date as YYYY-MM-DD, got "${r.updated}"`);
-    }
   }
   if (isText(r?.summary)) {
     const words = r.summary.trim().split(/\s+/).length;
@@ -75,11 +70,13 @@ for (const id of categoryIds) if (!usedCategories.has(id)) warn(`reports.json: c
 redirects.forEach((r, i) => {
   const where = `reports.json: redirects[${i}]${isText(r?.slug) ? ` (${r.slug})` : ""}`;
   if (!isText(r?.slug) || !isText(r?.to)) return fail(`${where}: needs "slug" and "to"`);
+  if (r.title !== undefined && !isText(r.title)) fail(`${where}: "title" must be text when given`);
   claimSlug(r.slug, where);
 });
 
+const SITE_FOLDERS = new Set(["history"]);
 const folders = readdirSync(root, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && !d.name.startsWith("."))
+  .filter((d) => d.isDirectory() && !d.name.startsWith(".") && !SITE_FOLDERS.has(d.name))
   .map((d) => d.name);
 for (const folder of folders) {
   if (!slugs.has(folder)) fail(`${folder}/: folder has no entry in reports.json (add it to "reports", or to "redirects" if it is a stub)`);
@@ -144,6 +141,84 @@ for (const page of pages) {
   }
 }
 
+const BACK = /<a\s[^>]*\bhref\s*=\s*["']\.\.\/(?:index\.html)?["']/i;
+for (const page of [...reports.filter((r) => isText(r?.slug)).map((r) => `${r.slug}/index.html`), "history/index.html"]) {
+  if (!existsSync(join(root, page))) continue;
+  const html = readFileSync(join(root, page), "utf8").replace(/<!--[\s\S]*?-->/g, "");
+  if (!BACK.test(html)) fail(`${page}: no link back to the index; add <a class="back" href="../">← All reports</a> at the top of the header`);
+}
+
+const isDate = (v) => {
+  if (typeof v !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
+  const d = new Date(`${v}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
+};
+const now = new Date();
+const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+const historySlugs = new Set([...reports, ...redirects].map((r) => r?.slug).filter(isText));
+const HISTORY_KEYS = ["date", "author", "slug", "change"];
+const entryKey = (e) => JSON.stringify(HISTORY_KEYS.map((k) => e?.[k]));
+const git = (...args) => execFileSync("git", args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+const readHistory = (text, label) => {
+  const list = JSON.parse(text);
+  if (!Array.isArray(list)) throw new Error(`${label} must be a list`);
+  return list;
+};
+
+let history = [];
+if (!tracked.has("history.json")) fail("history.json is missing or not tracked by git");
+try {
+  history = readHistory(readFileSync(join(root, "history.json"), "utf8"), "history.json");
+} catch (e) {
+  fail(`history.json: ${e.message}`);
+}
+const covered = new Set();
+history.forEach((e, i) => {
+  const where = `history.json: entry ${i}${isText(e?.slug) ? ` (${e.slug})` : ""}`;
+  if (!e || typeof e !== "object" || Array.isArray(e)) return fail(`${where}: must be an object`);
+  const extra = Object.keys(e).filter((k) => !HISTORY_KEYS.includes(k));
+  if (extra.length) fail(`${where}: unknown field(s) ${extra.map((k) => `"${k}"`).join(", ")}`);
+  if (!isDate(e.date)) fail(`${where}: "date" must be a real date as YYYY-MM-DD, got ${JSON.stringify(e.date)}`);
+  else if (e.date > today) fail(`${where}: "date" ${e.date} is in the future (today is ${today})`);
+  if (!isText(e.author)) fail(`${where}: missing "author" (your git config user.name)`);
+  if (!isText(e.change)) fail(`${where}: missing "change" (one plain sentence)`);
+  if (e.slug === null) return;
+  if (!isText(e.slug)) return fail(`${where}: "slug" must be a report slug, or null for a site-wide change`);
+  if (!historySlugs.has(e.slug)) return fail(`${where}: unknown slug "${e.slug}"`);
+  covered.add(e.slug);
+});
+for (const r of reports) {
+  if (isText(r?.slug) && !covered.has(r.slug)) fail(`reports.json: report "${r.slug}" has no entry in history.json`);
+}
+
+const staged = git("diff", "--cached", "--name-only", "-z").split("\0").filter(Boolean);
+const stagedSlugs = new Set(staged.map((f) => f.split("/")).filter((p) => p.length > 1 && historySlugs.has(p[0])).map((p) => p[0]));
+if (stagedSlugs.size) {
+  let before = [];
+  let after = [];
+  try { before = readHistory(git("show", "HEAD:history.json"), "HEAD:history.json"); } catch {}
+  try { after = readHistory(git("show", ":history.json"), "staged history.json"); } catch {}
+  const remaining = new Map();
+  for (const e of before) remaining.set(entryKey(e), (remaining.get(entryKey(e)) ?? 0) + 1);
+  const added = after.filter((e) => {
+    const n = remaining.get(entryKey(e)) ?? 0;
+    if (n) remaining.set(entryKey(e), n - 1);
+    return !n;
+  });
+  let me = "";
+  try { me = git("config", "user.name").trim(); } catch {}
+  for (const slug of stagedSlugs) {
+    const mine = added.filter((e) => e?.slug === slug);
+    if (!mine.length) {
+      fail(`${slug}/: files are staged but the staged history.json has no new entry for "${slug}" (add one with today's date, your git user.name and one sentence, then git add history.json)`);
+      continue;
+    }
+    if (me && !mine.some((e) => e.author === me)) {
+      warn(`history.json: new entry for "${slug}" is by ${[...new Set(mine.map((e) => `"${e.author}"`))].join(", ")} but git config user.name is "${me}"`);
+    }
+  }
+}
+
 for (const r of redirects) {
   if (!isText(r?.slug) || !isText(r?.to)) continue;
   const stub = `${r.slug}/index.html`;
@@ -166,7 +241,7 @@ for (const [folder, files] of unreferenced) {
   warn(`${folder}/: ${files.length} file(s) not referenced statically (fine if a script builds the path, otherwise delete): ${files.join(", ")}`);
 }
 
-console.log(`Checked ${pages.length} pages, ${refCount} references, ${reports.length} reports in ${categoryIds.size} categories, ${redirects.length} redirect(s).`);
+console.log(`Checked ${pages.length} pages, ${refCount} references, ${reports.length} reports in ${categoryIds.size} categories, ${redirects.length} redirect(s), ${history.length} history entries${stagedSlugs.size ? ` (staged: ${[...stagedSlugs].join(", ")})` : ""}.`);
 for (const w of warnings) console.log(`WARN ${w}`);
 for (const e of errors) console.log(`FAIL ${e}`);
 if (errors.size) {

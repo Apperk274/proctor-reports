@@ -106,11 +106,15 @@ figcaption b { color: var(--ink); font-weight: 600; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.9rem; color: var(--muted); }
 .legend span::before { content: ""; display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; border-top: 3px solid var(--accent); }
 .legend span.alt::before { border-top: 2px dashed var(--warn); }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · during the exam</span>
     <h1>Classroom Door</h1>
     <p class="lede">When the supervisor removes a student during the exam, the student stands up and walks out. The owner saw

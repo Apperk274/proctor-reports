@@ -94,11 +94,15 @@ th { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; text-
 td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 th:first-child, td:first-child { text-align: left; }
 tr.good td:first-child { color: var(--accent); }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · exam bell</span>
     <h1>Exam Bell Sounds</h1>
     <p class="lede">When exam time runs out, a bell rings once. It used to be a single sine tone sliding down, which sounded

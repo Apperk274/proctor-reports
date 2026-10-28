@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proctor Simulator — History</title>
+<meta name="description" content="Every change to the Exam Supervisor Simulator review reports, newest first.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: clamp(16px, 3vw, 40px); padding-block: 0 48px; margin: 0;
+}
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+
+header {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px;
+  padding-block: 22px 18px; margin-bottom: 16px; border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; min-width: 0; }
+.backrow { flex-basis: 100%; }
+.back {
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); text-decoration: none; border-radius: 3px;
+}
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1 { font-family: var(--display); font-size: clamp(1.4rem, 2.4vw, 1.75rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.eyebrow, .stats { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stats { font-variant-numeric: tabular-nums; }
+.stats b { font-weight: 500; color: var(--accent); }
+.stats > span { white-space: nowrap; }
+
+.filters { display: grid; gap: 8px; margin-bottom: 18px; }
+.group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+.group-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); min-width: 6.5rem; }
+.chip {
+  font: inherit; font-size: 0.9rem; line-height: 1.2; padding: 5px 11px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chip .n { font-family: var(--mono); font-size: 0.72rem; margin-left: 6px; opacity: 0.75; font-variant-numeric: tabular-nums; }
+
+.days { display: grid; gap: 14px; }
+.day { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+.day > h2 {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  padding: 10px 14px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums;
+}
+.day > h2 .count { color: var(--accent); }
+.entries { list-style: none; margin: 0; padding: 4px 6px; display: grid; }
+.entry {
+  display: grid; grid-template-columns: 8.5rem minmax(10rem, 15rem) minmax(0, 1fr) auto; gap: 2px 16px; align-items: baseline;
+  padding: 6px 8px; border-radius: 6px; min-width: 0;
+}
+.entry + .entry { border-top: 1px solid var(--line); }
+.entry:hover { background: var(--accent-soft); }
+.author { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); overflow-wrap: anywhere; }
+.report { font-family: var(--display); font-weight: 700; line-height: 1.3; min-width: 0; overflow-wrap: anywhere; }
+.report a { color: var(--accent); text-decoration: none; border-radius: 3px; }
+.report a:hover { text-decoration: underline; }
+.report a:focus-visible, .log:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.report .site { color: var(--muted); }
+.change { min-width: 0; overflow-wrap: anywhere; }
+.log { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); white-space: nowrap; border-radius: 3px; }
+.log:hover { color: var(--accent); }
+.empty { padding: 16px 18px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .entry { grid-template-columns: minmax(0, 1fr) auto; padding-block: 8px; }
+  .report { grid-column: 1; grid-row: 1; }
+  .author { grid-column: 2; grid-row: 1; text-align: right; }
+  .change { grid-column: 1 / -1; }
+  .log { grid-column: 1 / -1; }
+  .group-label { min-width: 0; flex-basis: 100%; }
+}
+
+.notice { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
+.notice a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="backrow"><a class="back" href="../">← All reports</a></div>
+  <div class="brand">
+    <h1>Change history</h1>
+    <span class="eyebrow">Exam Supervisor Simulator · reports</span>
+  </div>
+  <p class="stats" id="stats"></p>
+</header>
+<main>
+  <div class="filters" id="filters" hidden>
+    <div class="group" role="group" aria-labelledby="by-author"><span class="group-label" id="by-author">Author</span></div>
+    <div class="group" role="group" aria-labelledby="by-category"><span class="group-label" id="by-category">Category</span></div>
+  </div>
+  <div class="days" id="days">
+    <p class="notice">Loading the change history…</p>
+  </div>
+  <noscript><p class="notice">The history needs JavaScript. The raw list is in <a href="../history.json">history.json</a>.</p></noscript>
+</main>
+<script>
+(() => {
+  const REPO = "https://github.com/Apperk274/proctor-reports/commits/main";
+  const host = document.getElementById("days");
+  const filtersBox = document.getElementById("filters");
+  const [authorGroup, categoryGroup] = filtersBox.querySelectorAll(".group");
+  const el = (tag, props = {}, ...children) => {
+    const node = Object.assign(document.createElement(tag), props);
+    node.append(...children);
+    return node;
+  };
+  const getJson = (url) => fetch(url, { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  const fail = () => {
+    filtersBox.hidden = true;
+    host.replaceChildren(el("p", { className: "notice" },
+      "The change history could not be loaded. Try reloading, or open ",
+      el("a", { href: "../history.json", textContent: "the raw list" }), " directly."));
+  };
+
+  const render = ([{ categories, reports, redirects = [] }, history]) => {
+    if (!history.length) throw new Error("empty");
+    const info = new Map(reports.map((r) => [r.slug, { title: r.title, category: r.category }]));
+    for (const r of redirects) {
+      const target = info.get(r.to.split(/[/#]/)[0]);
+      info.set(r.slug, { title: r.title ?? r.slug, category: target?.category ?? null });
+    }
+    const SITE = "site";
+    const entries = history.map((e, i) => ({ ...e, i, category: e.slug === null ? SITE : info.get(e.slug)?.category ?? null }))
+      .sort((a, b) => b.date.localeCompare(a.date) || a.i - b.i);
+
+    const count = (key, value) => entries.filter((e) => e[key] === value).length;
+    const authors = [...new Set(entries.map((e) => e.author))].sort((a, b) => a.localeCompare(b));
+    const cats = [...categories.map((c) => ({ id: c.id, title: c.title })), { id: SITE, title: "Site" }]
+      .filter((c) => count("category", c.id));
+    const state = { author: null, category: null };
+
+    const chipSet = (group, key, options) => {
+      const chips = [{ id: null, title: "All", n: entries.length }, ...options].map((o) => {
+        const chip = el("button", { type: "button", className: "chip" }, o.title, el("span", { className: "n", textContent: String(o.n) }));
+        chip.setAttribute("aria-pressed", String(o.id === null));
+        chip.addEventListener("click", () => {
+          state[key] = o.id;
+          for (const [c, id] of chips) c.setAttribute("aria-pressed", String(id === o.id));
+          draw();
+        });
+        return [chip, o.id];
+      });
+      group.append(...chips.map(([c]) => c));
+    };
+    chipSet(authorGroup, "author", authors.map((a) => ({ id: a, title: a, n: count("author", a) })));
+    chipSet(categoryGroup, "category", cats.map((c) => ({ id: c.id, title: c.title, n: count("category", c.id) })));
+    filtersBox.hidden = false;
+
+    const row = (e) => {
+      const report = e.slug === null
+        ? el("span", { className: "report" }, el("span", { className: "site", textContent: "Site" }))
+        : el("span", { className: "report" }, el("a", { href: `../${e.slug}/`, textContent: info.get(e.slug)?.title ?? e.slug }));
+      const log = el("a", { className: "log", href: e.slug === null ? REPO : `${REPO}/${e.slug}`, textContent: "git log ↗" });
+      log.setAttribute("aria-label", e.slug === null ? "Full git log of the site" : `Git log of ${info.get(e.slug)?.title ?? e.slug}`);
+      return el("li", { className: "entry" },
+        el("span", { className: "author", textContent: e.author }), report,
+        el("span", { className: "change", textContent: e.change }), log);
+    };
+
+    const stats = document.getElementById("stats");
+    const draw = () => {
+      const shown = entries.filter((e) => (state.author === null || e.author === state.author)
+        && (state.category === null || e.category === state.category));
+      stats.replaceChildren(
+        el("span", {}, el("b", { textContent: String(shown.length) }), shown.length === entries.length ? " changes" : ` of ${entries.length} changes`),
+        " · ",
+        el("span", {}, "since ", el("time", { dateTime: entries.at(-1).date, textContent: entries.at(-1).date })));
+      if (!shown.length) {
+        host.replaceChildren(el("p", { className: "notice", textContent: "No changes match these filters." }));
+        return;
+      }
+      const days = new Map();
+      for (const e of shown) {
+        if (!days.has(e.date)) days.set(e.date, []);
+        days.get(e.date).push(e);
+      }
+      host.replaceChildren(...[...days].map(([date, list]) => {
+        const section = el("section", { className: "day" },
+          el("h2", { id: `d-${date}` }, el("time", { dateTime: date, textContent: date }),
+            el("span", { className: "count", textContent: String(list.length) })),
+          el("ul", { className: "entries" }, ...list.map(row)));
+        section.setAttribute("aria-labelledby", `d-${date}`);
+        return section;
+      }));
+    };
+    draw();
+  };
+
+  Promise.all([getJson("../reports.json"), getJson("../history.json")])
+    .then(render)
+    .catch(fail);
+})();
+</script>
+</body>
+</html>

@@ -101,10 +101,14 @@ td.miss { color: var(--bad); }
 .ab .row span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
 .ab .row.now span { color: var(--accent); }
 .ab audio { height: 36px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · whisper sound</span>
     <h1>Whisper Sound</h1>
     <p class="lede">When two students whisper, the game now plays a real whisper from public-domain (CC0) recordings,

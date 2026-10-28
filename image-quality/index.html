@@ -71,11 +71,15 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: now
 .toc a { font-size: 0.9rem; text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 4px 10px; border-radius: 999px; }
 .toc a:hover, .toc a:focus-visible { border-color: var(--accent); }
 @media (max-width: 520px) { .pair { grid-template-columns: 1fr; } }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · Art</span>
     <h1>Baked Game Art</h1>
     <p class="lede">The game's pictures are now Blender renders. Each of the eight schools has its own building on

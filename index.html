@@ -17,6 +17,7 @@
   --line: #d3dcdf;
   --accent: #0f766e;
   --accent-soft: #d6efec;
+  --shadow: 0 10px 30px -12px rgba(21, 32, 36, 0.28);
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -24,100 +25,255 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
-    --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+    --accent: #3fb8ae; --accent-soft: #163b38; --shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.7); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
-  --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+  --accent: #3fb8ae; --accent-soft: #163b38; --shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.7); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
+html { overflow-x: hidden; }
 body {
   background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
-  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+  padding-inline: clamp(16px, 3vw, 40px); padding-block: 0 48px; margin: 0;
 }
-.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
-h1, h2 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
-h2 { font-size: 1.25rem; font-weight: 700; }
-p { margin: 0; max-width: 68ch; }
-.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-header { padding-block: 40px 0; display: grid; gap: 16px; }
-.lede { color: var(--muted); font-size: 1.1rem; }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.categories { display: grid; gap: 36px; }
-.category { display: grid; gap: 12px; }
-.category > h2 { font-size: 0.8rem; font-family: var(--mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
-  display: flex; align-items: baseline; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
-.category > h2 .count { color: var(--accent); font-variant-numeric: tabular-nums; }
-.reports { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.report { min-width: 0; }
-.report a {
-  display: grid; gap: 6px; padding: 16px 18px; text-decoration: none; color: inherit;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-  transition: border-color 120ms ease;
+header {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px;
+  padding-block: 22px 18px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
 }
-.report a:hover, .report a:focus-visible { border-color: var(--accent); }
-.report a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.report h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; color: var(--accent); overflow-wrap: anywhere; }
-.report p { color: var(--muted); font-size: 0.95rem; }
-.report .updated { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; min-width: 0; }
+h1 { font-family: var(--display); font-size: clamp(1.4rem, 2.4vw, 1.75rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.eyebrow, .stats { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stats { font-variant-numeric: tabular-nums; }
+.stats b { font-weight: 500; color: var(--accent); }
+.stats > span { white-space: nowrap; }
+.stats .who { text-transform: none; letter-spacing: 0.02em; color: var(--ink); }
+.meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; min-width: 0; }
+.history-link {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); text-decoration: none; white-space: nowrap;
+  padding: 5px 10px; border: 1px solid var(--accent); border-radius: 999px; background: var(--surface);
+}
+.history-link:hover { background: var(--accent-soft); }
+.history-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.board {
+  display: grid; gap: 16px; align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 232px), 1fr));
+}
+.col { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+.col > h2 {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  padding: 12px 14px 10px; border-bottom: 1px solid var(--line);
+}
+.col > h2 .count { color: var(--accent); font-variant-numeric: tabular-nums; }
+.list { list-style: none; margin: 0; padding: 6px; display: grid; gap: 1px; }
+.item { min-width: 0; }
+.row { display: flex; align-items: center; gap: 4px; border-radius: 6px; }
+.row:hover, .row:focus-within { background: var(--accent-soft); }
+.row a {
+  flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 10px; padding: 6px 8px;
+  text-decoration: none; color: inherit; border-radius: 6px;
+}
+.row a:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+.title {
+  flex: 1; min-width: 0; font-family: var(--display); font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--accent);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.date { flex: none; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item.fresh .date { color: var(--accent); }
+
+.info {
+  display: none; flex: none; width: 32px; height: 32px; margin-right: 2px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+  font-family: var(--mono); font-size: 0.8rem; line-height: 1; cursor: pointer;
+}
+.info[aria-expanded="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.info:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.more { display: none; padding: 2px 8px 10px; color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+.more .updated { display: block; margin-top: 4px; font-family: var(--mono); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+
+@media (hover: none) {
+  .info { display: inline-grid; place-items: center; }
+  .row a { padding-block: 9px; }
+  .item.open .more { display: block; }
+  .tip { display: none !important; }
+}
+
+.tip {
+  position: fixed; top: 0; left: 0; z-index: 10; width: max-content; max-width: min(340px, calc(100vw - 24px));
+  padding: 12px 14px; display: grid; gap: 6px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--accent); border-radius: 10px; box-shadow: var(--shadow);
+  pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 110ms ease, visibility 0s linear 110ms;
+}
+.tip.show { opacity: 1; visibility: visible; transition: opacity 110ms ease, visibility 0s; }
+.tip-title { font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.2; color: var(--accent); }
+.tip-summary { font-size: 0.95rem; color: var(--ink); line-height: 1.45; }
+.tip-updated { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
 .notice { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
 .notice a { color: var(--accent); }
-@media (prefers-reduced-motion: reduce) { .report a { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tip, .tip.show { transition: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <span class="eyebrow">Exam Supervisor Simulator</span>
+<header>
+  <div class="brand">
     <h1>Proctor Simulator — Reports</h1>
-    <p class="lede">Visual review reports from the game's development.</p>
-  </header>
-  <main>
-    <div class="categories" id="categories">
-      <p class="notice">Loading the report list…</p>
-    </div>
-    <noscript><p class="notice">The report list needs JavaScript. The raw list is in <a href="reports.json">reports.json</a>.</p></noscript>
-  </main>
+    <span class="eyebrow">Exam Supervisor Simulator</span>
+  </div>
+  <div class="meta">
+    <p class="stats" id="stats"></p>
+    <a class="history-link" href="history/">History</a>
+  </div>
+</header>
+<main>
+  <div class="board" id="board">
+    <p class="notice">Loading the report list…</p>
+  </div>
+  <noscript><p class="notice">The report list needs JavaScript. The raw list is in <a href="reports.json">reports.json</a>, the changes in <a href="history.json">history.json</a>.</p></noscript>
+</main>
+<div class="tip" id="tip" aria-hidden="true">
+  <span class="tip-title" id="tip-title"></span>
+  <p class="tip-summary" id="tip-summary"></p>
+  <span class="tip-updated" id="tip-updated"></span>
 </div>
 <script>
 (() => {
-  const host = document.getElementById("categories");
+  const host = document.getElementById("board");
+  const tip = document.getElementById("tip");
+  const tipTitle = document.getElementById("tip-title");
+  const tipSummary = document.getElementById("tip-summary");
+  const tipUpdated = document.getElementById("tip-updated");
   const el = (tag, props = {}, ...children) => {
     const node = Object.assign(document.createElement(tag), props);
     node.append(...children);
     return node;
   };
+  const getJson = (url) => fetch(url, { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
   const fail = () => {
     host.replaceChildren(el("p", { className: "notice" },
       "The report list could not be loaded. Try reloading, or open ",
       el("a", { href: "reports.json", textContent: "reports.json" }), " directly."));
   };
-  fetch("reports.json", { cache: "no-cache" })
-    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(({ categories, reports }) => {
-      const sections = categories.map((cat) => {
-        const items = reports
-          .filter((r) => r.category === cat.id)
-          .sort((a, b) => b.updated.localeCompare(a.updated));
-        if (!items.length) return null;
-        const section = el("section", { className: "category", id: cat.id },
-          el("h2", { id: `cat-${cat.id}` }, cat.title,
-            el("span", { className: "count", textContent: String(items.length) })),
-          el("ul", { className: "reports" }, ...items.map((r) => el("li", { className: "report" },
-            el("a", { href: `${r.slug}/` },
-              el("span", { className: "updated" }, "Updated ",
-                el("time", { dateTime: r.updated, textContent: r.updated })),
-              el("h3", { textContent: r.title }),
-              el("p", { textContent: r.summary }))))));
-        section.setAttribute("aria-labelledby", `cat-${cat.id}`);
-        return section;
-      }).filter(Boolean);
-      if (!sections.length) throw new Error("empty");
-      host.replaceChildren(...sections);
-    })
+  const updatedLine = (r) => ["Updated ", el("time", { dateTime: r.updated, textContent: r.updated }), ` by ${r.author}`];
+
+  const render = ([{ categories, reports: raw }, history]) => {
+    const newest = new Map();
+    for (const e of history) {
+      const key = e.slug ?? "";
+      const seen = newest.get(key);
+      if (!seen || e.date > seen.date) newest.set(key, e);
+    }
+    const reports = raw.filter((r) => newest.has(r.slug))
+      .map((r) => ({ ...r, updated: newest.get(r.slug).date, author: newest.get(r.slug).author }));
+    const last = history.reduce((m, e) => (!m || e.date > m.date ? e : m), null);
+    const latest = reports.reduce((m, r) => (r.updated > m ? r.updated : m), "");
+
+    const byLink = new Map();
+    const columns = categories.map((cat) => {
+      const items = reports
+        .filter((r) => r.category === cat.id)
+        .sort((a, b) => b.updated.localeCompare(a.updated) || a.title.localeCompare(b.title));
+      if (!items.length) return null;
+      const list = el("ul", { className: "list" }, ...items.map((r) => {
+        const sumId = `sum-${r.slug}`;
+        const link = el("a", { href: `${r.slug}/` },
+          el("span", { className: "title", textContent: r.title }),
+          el("time", { className: "date", dateTime: r.updated, textContent: r.updated.slice(5) }));
+        link.setAttribute("aria-describedby", sumId);
+        const more = el("p", { className: "more", id: sumId }, r.summary,
+          el("span", { className: "updated" }, ...updatedLine(r)));
+        const li = el("li", { className: r.updated === latest ? "item fresh" : "item" });
+        const btn = el("button", { type: "button", className: "info", textContent: "i" });
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-controls", sumId);
+        btn.setAttribute("aria-label", `Summary of ${r.title}`);
+        btn.addEventListener("click", () => {
+          const open = li.classList.toggle("open");
+          btn.setAttribute("aria-expanded", String(open));
+        });
+        li.append(el("div", { className: "row" }, link, btn), more);
+        byLink.set(link, r);
+        return li;
+      }));
+      const section = el("section", { className: "col", id: cat.id },
+        el("h2", { id: `cat-${cat.id}` }, cat.title, el("span", { className: "count", textContent: String(items.length) })),
+        list);
+      section.setAttribute("aria-labelledby", `cat-${cat.id}`);
+      return section;
+    }).filter(Boolean);
+    if (!columns.length) throw new Error("empty");
+    host.replaceChildren(...columns);
+
+    const stats = document.getElementById("stats");
+    stats.append(
+      el("span", {}, el("b", { textContent: String(reports.length) }), " reports"), " · ",
+      el("span", {}, el("b", { textContent: String(columns.length) }), " categories"));
+    if (last) {
+      stats.append(" · ", el("span", {}, "last change ", el("time", { dateTime: last.date, textContent: last.date }),
+        " by ", el("span", { className: "who", textContent: last.author })));
+    }
+
+    const canHover = matchMedia("(hover: hover)");
+    const GAP = 10, EDGE = 12;
+    let current = null;
+
+    const place = (link) => {
+      const row = link.getBoundingClientRect();
+      const col = link.closest(".col").getBoundingClientRect();
+      const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      let x, y;
+      if (col.right + GAP + w <= vw - EDGE) {
+        x = col.right + GAP; y = row.top + row.height / 2 - h / 2;
+      } else if (col.left - GAP - w >= EDGE) {
+        x = col.left - GAP - w; y = row.top + row.height / 2 - h / 2;
+      } else {
+        x = row.left;
+        y = row.bottom + GAP + h <= vh - EDGE ? row.bottom + 6 : row.top - 6 - h;
+      }
+      x = Math.max(EDGE, Math.min(x, vw - EDGE - w));
+      y = Math.max(EDGE, Math.min(y, vh - EDGE - h));
+      tip.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
+    };
+    const show = (link) => {
+      if (!canHover.matches) return;
+      const r = byLink.get(link);
+      if (!r) return;
+      current = link;
+      tipTitle.textContent = r.title;
+      tipSummary.textContent = r.summary;
+      tipUpdated.replaceChildren(...updatedLine(r));
+      place(link);
+      tip.classList.add("show");
+    };
+    const hide = () => { current = null; tip.classList.remove("show"); };
+
+    host.addEventListener("pointerover", (e) => {
+      const link = e.target.closest(".row a");
+      if (link && link !== current) show(link);
+    });
+    host.addEventListener("pointerout", (e) => {
+      const link = e.target.closest(".row a");
+      if (link && !link.contains(e.relatedTarget)) hide();
+    });
+    host.addEventListener("focusin", (e) => { if (e.target.matches(".row a")) show(e.target); });
+    host.addEventListener("focusout", (e) => { if (e.target.matches(".row a")) hide(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") hide(); });
+    window.addEventListener("scroll", () => { if (current) place(current); }, { passive: true });
+    window.addEventListener("resize", () => { if (current) place(current); });
+  };
+
+  Promise.all([getJson("reports.json"), getJson("history.json")])
+    .then(render)
     .catch(fail);
 })();
 </script>

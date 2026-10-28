@@ -74,11 +74,15 @@ tr.hi td { background: var(--accent-soft); }
 .gallery figcaption { font-size: 0.85rem; color: var(--muted); }
 .gallery figcaption b { color: var(--ink); font-weight: 600; display: block; }
 .gallery a { display: block; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · M130</span>
     <h1>School Rooms</h1>
     <p class="lede">Every school now has its own exam room, dressed for the kind of place it is. Better-rated schools have more desks.
