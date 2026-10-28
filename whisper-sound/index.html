@@ -94,6 +94,13 @@ tr.bad td:first-child { color: var(--bad); }
 tr.now td:first-child { color: var(--warn); }
 td.hit { color: var(--good); }
 td.miss { color: var(--bad); }
+
+.ab { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ab .card { gap: 6px; }
+.ab .row { display: grid; grid-template-columns: 5.5em 1fr; align-items: center; gap: 8px; }
+.ab .row span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.ab .row.now span { color: var(--accent); }
+.ab audio { height: 36px; }
 </style>
 <body>
 <div class="wrap">
@@ -102,7 +109,8 @@ td.miss { color: var(--bad); }
     <h1>Whisper Sound</h1>
     <p class="lede">When two students whisper, the game now plays a real whisper from public-domain (CC0) recordings,
       cut up so that no word survives. There are two voices, a male one and a female one, and each student whispers in
-      the voice that matches how they look. The sound comes from the head of the student who is whispering.</p>
+      the voice that matches how they look. The sound comes from the head of the student who is whispering. Every clip
+      is built from the original full-quality recordings.</p>
   </header>
 
   <main class="wrap" style="gap:56px">
@@ -223,7 +231,7 @@ td.miss { color: var(--bad); }
           <img src="img/rev-c.png" width="768" height="288" alt="Spectrogram of male Reversed C" loading="lazy">
           <figcaption><span class="who b">Reversed C · male</span>
             <span>Short, three bursts.</span>
-            <span class="stats">1.12 s · 98% in 0.3–6 kHz · 3% pitched · 4.3 syll/s</span></figcaption>
+            <span class="stats">1.12 s · 98% in 0.3–6 kHz · 3% pitched · 4.4 syll/s</span></figcaption>
         </figure>
         <figure>
           <audio controls preload="none" src="audio/hey.wav"></audio>
@@ -284,6 +292,93 @@ td.miss { color: var(--bad); }
 
     <section>
       <div class="section-head">
+        <span class="eyebrow">Source quality</span>
+        <h2>MP3 preview against the original</h2>
+        <p class="muted">The clips were first built from Freesound's public MP3 previews; they are now built from the
+          original WAV uploads with exactly the same cuts, bursts and order. The preview lines up with its original to
+          the sample, so every phrase holds the same syllables: only the MP3 coding noise is gone. That noise sat about
+          16–26 dB under the whisper between 6 and 12 kHz (the "s" and breath hiss) and 27–48 dB under it overall, so the
+          difference is small: a slightly cleaner, less swirly top end, best heard on headphones. Loudness, pitch,
+          syllables and band shares are unchanged.</p>
+      </div>
+      <div class="ab">
+        <div class="card">
+          <h3>Male · Shuffled 1</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-1.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-1.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 20.2 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · Shuffled 2</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-2.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-2.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 16.3 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · Shuffled 3</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-3.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-3.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 18.6 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · Reversed A</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/rev-a.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/rev-a.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 17.1 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · Reversed B</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/rev-b.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/rev-b.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 21.4 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · Reversed C</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/rev-c.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/rev-c.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 17.3 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Male · "hey"</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/hey.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/hey.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 25.7 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Female · Shuffled 4</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-5.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-5.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 22.6 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Female · Shuffled 5</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-6.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-6.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 23.0 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Female · Shuffled 6</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-7.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-7.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 23.4 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Female · Shuffled 7</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/shuf-8.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/shuf-8.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 22.5 dB under the whisper at 6–12 kHz</span>
+        </div>
+        <div class="card">
+          <h3>Female · Reversed E</h3>
+          <div class="row"><span>Before</span><audio controls preload="none" src="audio/previous/rev-e.wav"></audio></div>
+          <div class="row now"><span>Now</span><audio controls preload="none" src="audio/rev-e.wav"></audio></div>
+          <span class="stats">MP3 noise removed: 22.2 dB under the whisper at 6–12 kHz</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
         <span class="eyebrow">Words</span>
         <h2>How the words were removed</h2>
         <p class="muted">The plain cuts were dropped after listening: whole words ("midnight") came through. Every
@@ -324,18 +419,18 @@ td.miss { color: var(--bad); }
         <table>
           <thead><tr><th>Clip</th><th>Length s</th><th>LUFS</th><th>Peak dBFS</th><th>Centre Hz</th><th>&lt;300 Hz</th><th>0.3–6 kHz</th><th>&gt;6 kHz</th><th>Pitched</th><th>Syllables</th><th>Syll/s</th></tr></thead>
           <tbody>
-            <tr class="good"><td>Male · Shuffled 1</td><td>0.92</td><td>−26.0</td><td>−10.4</td><td>1671</td><td>12%</td><td class="hit">86%</td><td>2%</td><td class="hit">9%</td><td>4</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Shuffled 1</td><td>0.92</td><td>−26.0</td><td>−10.4</td><td>1669</td><td>12%</td><td class="hit">86%</td><td>2%</td><td class="hit">9%</td><td>4</td><td>6.2</td></tr>
             <tr class="good"><td>Male · Shuffled 2</td><td>1.08</td><td>−26.0</td><td>−11.0</td><td>1616</td><td>2%</td><td class="hit">97%</td><td>0%</td><td class="hit">8%</td><td>4</td><td>5.2</td></tr>
-            <tr class="good"><td>Male · Shuffled 3</td><td>1.15</td><td>−26.0</td><td>−7.7</td><td>1755</td><td>2%</td><td class="hit">96%</td><td>1%</td><td class="hit">5%</td><td>5</td><td>6.2</td></tr>
-            <tr class="good"><td>Male · Reversed A</td><td>1.10</td><td>−26.0</td><td>−7.7</td><td>1560</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">0%</td><td>4</td><td>6.2</td></tr>
-            <tr class="good"><td>Male · Reversed B</td><td>1.39</td><td>−26.0</td><td>−8.5</td><td>1116</td><td>1%</td><td class="hit">98%</td><td>1%</td><td class="hit">9%</td><td>5</td><td>5.3</td></tr>
-            <tr class="good"><td>Male · Reversed C</td><td>1.12</td><td>−26.0</td><td>−6.3</td><td>1180</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">3%</td><td>3</td><td>4.3</td></tr>
+            <tr class="good"><td>Male · Shuffled 3</td><td>1.15</td><td>−26.0</td><td>−7.7</td><td>1754</td><td>2%</td><td class="hit">96%</td><td>1%</td><td class="hit">5%</td><td>5</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Reversed A</td><td>1.10</td><td>−26.0</td><td>−7.7</td><td>1559</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">0%</td><td>4</td><td>6.2</td></tr>
+            <tr class="good"><td>Male · Reversed B</td><td>1.39</td><td>−26.0</td><td>−8.6</td><td>1117</td><td>1%</td><td class="hit">98%</td><td>1%</td><td class="hit">9%</td><td>5</td><td>5.3</td></tr>
+            <tr class="good"><td>Male · Reversed C</td><td>1.12</td><td>−26.0</td><td>−6.3</td><td>1179</td><td>2%</td><td class="hit">98%</td><td>0%</td><td class="hit">3%</td><td>3</td><td>4.4</td></tr>
             <tr class="good"><td>Male · "hey" (opener)</td><td>0.35</td><td>−26.0</td><td>−10.3</td><td>1456</td><td>0%</td><td class="hit">100%</td><td>0%</td><td class="hit">7%</td><td>1</td><td>3.3</td></tr>
-            <tr class="good"><td>Female · Shuffled 4</td><td>1.21</td><td>−26.0</td><td>−7.2</td><td>1847</td><td>20%</td><td class="hit">68%</td><td>12%</td><td class="hit">2%</td><td>5</td><td>6.2</td></tr>
-            <tr class="good"><td>Female · Shuffled 5</td><td>0.92</td><td>−26.0</td><td>−9.6</td><td>2438</td><td>14%</td><td class="hit">70%</td><td>16%</td><td class="hit">3%</td><td>4</td><td>6.0</td></tr>
-            <tr class="good"><td>Female · Shuffled 6</td><td>1.04</td><td>−26.0</td><td>−10.1</td><td>2997</td><td>19%</td><td class="hit">54%</td><td>27%</td><td class="hit">5%</td><td>5</td><td>6.5</td></tr>
-            <tr class="good"><td>Female · Shuffled 7</td><td>0.87</td><td>−26.0</td><td>−6.5</td><td>1111</td><td>25%</td><td class="hit">70%</td><td>5%</td><td class="hit">7%</td><td>4</td><td>7.7</td></tr>
-            <tr class="good"><td>Female · Reversed E</td><td>0.95</td><td>−26.2</td><td>−3.2</td><td>1671</td><td>10%</td><td class="hit">86%</td><td>5%</td><td class="hit">0%</td><td>4</td><td>5.1</td></tr>
+            <tr class="good"><td>Female · Shuffled 4</td><td>1.21</td><td>−26.0</td><td>−7.2</td><td>1845</td><td>20%</td><td class="hit">68%</td><td>12%</td><td class="hit">2%</td><td>5</td><td>6.2</td></tr>
+            <tr class="good"><td>Female · Shuffled 5</td><td>0.92</td><td>−26.0</td><td>−9.5</td><td>2405</td><td>14%</td><td class="hit">70%</td><td>16%</td><td class="hit">3%</td><td>4</td><td>6.0</td></tr>
+            <tr class="good"><td>Female · Shuffled 6</td><td>1.04</td><td>−26.0</td><td>−10.2</td><td>2997</td><td>19%</td><td class="hit">54%</td><td>27%</td><td class="hit">5%</td><td>5</td><td>6.5</td></tr>
+            <tr class="good"><td>Female · Shuffled 7</td><td>0.87</td><td>−26.0</td><td>−6.5</td><td>1112</td><td>25%</td><td class="hit">70%</td><td>5%</td><td class="hit">7%</td><td>4</td><td>7.7</td></tr>
+            <tr class="good"><td>Female · Reversed E</td><td>0.95</td><td>−26.2</td><td>−3.2</td><td>1668</td><td>10%</td><td class="hit">86%</td><td>5%</td><td class="hit">0%</td><td>4</td><td>5.1</td></tr>
             <tr class="now"><td>Old placeholder (removed)</td><td>0.55</td><td>−28.3</td><td>−21.2</td><td>8644</td><td>2%</td><td class="miss">40%</td><td>58%</td><td class="hit">0%</td><td>0</td><td>0.0</td></tr>
           </tbody>
         </table>
@@ -354,8 +449,6 @@ td.miss { color: var(--bad); }
           <ul>
             <li>The four new female clips were measured, not yet listened to. Any clip can be rebuilt with a different
               burst order.</li>
-            <li>The clips are made from Freesound's MP3 previews. The original WAVs (free login, same licence) would
-              give a slightly cleaner top end; the tools rebuild everything from them unchanged.</li>
             <li>With headphones, a whisper can now be placed on a desk, while the on-screen line names only a part of
               the room. The phone buzz already worked this way. A whisper only happens between two students already
               leaning together, which the player can see.</li>
@@ -369,7 +462,8 @@ td.miss { color: var(--bad); }
         <span class="eyebrow">Sources</span>
         <h2>Licence and edits</h2>
         <p class="muted">Every recording is <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>
-          (public domain), so no credit is required. The credits here are a courtesy. All clips: 220 Hz high-pass,
+          (public domain), so no credit is required. The credits here are a courtesy. The inputs are the original WAV
+          uploads (downloaded from Freesound while logged in), not the public MP3 previews. All clips: 220 Hz high-pass,
           12 kHz low-pass, mono 44.1 kHz 16-bit, −26 LUFS (ITU BS.1770), single clicks held under −3 dBFS. The
           provenance, edits and processing scripts are kept with the game's source art.</p>
       </div>
