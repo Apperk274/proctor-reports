@@ -345,13 +345,15 @@ const MOTION_GROUPS = [
       ["whisper_left", "Leaning over to the left", "", "Leans and turns toward the neighbour on the left.", "4 s"],
       ["whisper_mirror", "Leaning over to the right", "", "The same lean to the right.", "4 s"],
     ]},
-  { title: "Whispering and passing: two people", pose: "Whispering · Listening",
-    note: "Talking and passing something (an eraser, scratch paper, notes) happen only with the person directly beside the student in the same row, left or right; never in front, behind or diagonally, and never across an empty seat. That person takes part: they stop what they were doing, lean in and turn to the whisperer, and both go back to work in the same moment, whoever stops first. The whisperer plays Whisperer, the listener Listener, each aimed at the other; the plain clip leans toward the student's own left and the mirror toward their right. A whisper sound can only come from such a pair, never from someone glancing on their own. It plays from the whisperer's head, in a recorded voice that matches how they look: a male student whispers in a male voice, a female student in a female one (<a href=\"../whisper-sound/\">Whisper Sound</a>). Both clips were made by hand in Blender and chosen over Meshy takes: see <a href=\"../whisper-comparison/\">Whispering Students</a> for the comparison. Frames from Play mode during a real exam, with the pass behaviours made more frequent for the capture.",
+  { id: "whispering", title: "Whispering and passing: two people", pose: "Whispering · Listening",
+    note: "Talking and passing something (an eraser, scratch paper, notes) happen only with the person directly beside the student in the same row, left or right; never in front, behind or diagonally, and never across an empty seat. That person takes part: they stop what they were doing, lean in and turn to the whisperer, and both go back to work in the same moment, whoever stops first. The whisperer plays Whisperer, the listener Listener, each aimed at the other; the plain clip leans toward the student's own left and the mirror toward their right. A whisper sound can only come from such a pair, never from someone glancing on their own. It plays from the whisperer's head, in a recorded voice that matches how they look: a male student whispers in a male voice, a female student in a female one (<a href=\"../whisper-sound/\">Whisper Sound</a>). Both clips are made by hand in Blender, so the hands stay on the desk like in every other exam clip and nothing passes through the chair or desk. The first four pictures are from Play mode during a real exam, with the pass behaviours made more frequent for the capture; the last two show the two clips on their own, with the game's body, desk and chair.",
     figs: [
       ["vid/whisper_pair_plusx.webp", "Front row: the student on the left whispers to the one on the right, who leans in and listens", "Whisperer on the left, turned to their own left; Listener (mirror) on the right, turned to their own right."],
       ["vid/whisper_pair_minusx.webp", "Front row: the student on the right whispers to the one on the left, who leans in and listens", "The other way round: Whisperer (mirror) on the right, Listener on the left. Both stop together."],
       ["img/whisper/pair_front.jpg", "Middle row from the front: one student with a hand cupped at the mouth, the neighbour leaning in", "From the front: hand at the mouth on the side the room sees; the listener turned to them."],
       ["img/whisper/game_camera.jpg", "The same kind of pair from the game's overview camera", "As the player sees it, from the overview camera."],
+      ["vid/whisper_clips_game.webp", "The whisperer and the listener on their own at the game's camera, enlarged", "The two clips at the game's camera, at twice the phone's pixels: the whisperer (left) cups a hand at the mouth; the listener leans in and nods."],
+      ["vid/whisper_clips_close.webp", "The whisperer and the listener on their own, closer, from the front corner of the room", "Closer: the whisperer leans 16° and turns the face about 62°; the listener leans 12°, face turned about 55°, both hands on the desk."],
     ],
     clips: []},
   { title: "Checking the time", pose: "CheckingClock",
@@ -457,6 +459,7 @@ const mhost = document.getElementById("motionGroups");
 for (const g of MOTION_GROUPS) {
   const wrap = document.createElement("div");
   wrap.className = "group";
+  if (g.id) wrap.id = g.id;
   let html = `<div class="group-head"><h3>${g.title}</h3><span class="pose">${g.pose}</span></div>
     <p class="muted" style="font-size:0.95rem">${g.note}</p>`;
   if (g.figs) html += `<div class="figs${g.figs.length === 1 ? " solo" : ""}">${g.figs.map(figHtml).join("")}</div>`;

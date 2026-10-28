@@ -1,0 +1,84 @@
+{
+  "categories": [
+    { "id": "classroom", "title": "Classroom" },
+    { "id": "sound", "title": "Sound" },
+    { "id": "look-and-feel", "title": "Look & feel" },
+    { "id": "career", "title": "Career" },
+    { "id": "device-testing", "title": "Device testing" }
+  ],
+  "reports": [
+    {
+      "slug": "school-rooms",
+      "title": "School Rooms",
+      "category": "classroom",
+      "updated": "2026-10-27",
+      "summary": "The eight schools' exam rooms on a phone and two tablets, with desk counts by rating and how room size sets pace and difficulty."
+    },
+    {
+      "slug": "student-characters",
+      "title": "Student Characters",
+      "category": "classroom",
+      "updated": "2026-10-28",
+      "summary": "The exam students' bodies, hair, clothes and left-handers, every animation clip, the whispering pair in a real exam, and the known limits."
+    },
+    {
+      "slug": "classroom-door",
+      "title": "Classroom Door",
+      "category": "classroom",
+      "updated": "2026-10-27",
+      "summary": "A student removed during the exam walks the aisle and leaves through the classroom door, which opens and closes behind them, from every seat."
+    },
+    {
+      "slug": "admission-photo",
+      "title": "Admission Photo Check",
+      "category": "classroom",
+      "updated": "2026-10-27",
+      "summary": "The photo check at the door: the document photo beside a live camera still, every case on a phone screen, and the waiting queue."
+    },
+    {
+      "slug": "whisper-sound",
+      "title": "Whisper Sound",
+      "category": "sound",
+      "updated": "2026-10-27",
+      "summary": "The whisper in the game: real recordings made wordless, in male and female voices matched to the student, with audio and measurements."
+    },
+    {
+      "slug": "exam-bell-sounds",
+      "title": "Exam Bell Sounds",
+      "category": "sound",
+      "updated": "2026-10-27",
+      "summary": "Fifteen bells synthesized in code for the end of exam time, each playable with its parameters, including the electric bell now in the game."
+    },
+    {
+      "slug": "image-quality",
+      "title": "Baked Game Art",
+      "category": "look-and-feel",
+      "updated": "2026-10-27",
+      "summary": "The game's Blender-rendered art: a building per school, the exam room on the title and brief, event objects and icons, in both themes."
+    },
+    {
+      "slug": "game-feel",
+      "title": "Game Feel",
+      "category": "look-and-feel",
+      "updated": "2026-10-25",
+      "summary": "The reward motion: coins flying to the balance on payday, a result card that counts up, a lit promotion and a toast for each action."
+    },
+    {
+      "slug": "schools",
+      "title": "Schools and Offers",
+      "category": "career",
+      "updated": "2026-10-26",
+      "summary": "Eight schools with fixed star ratings, how job offers compare rating and salary, and how school rating follows standing across whole careers."
+    },
+    {
+      "slug": "device-check",
+      "title": "Phone Check",
+      "category": "device-testing",
+      "updated": "2026-10-28",
+      "summary": "The game on a real Galaxy A15: every school hub and room, offers, event art and frame rates, with the issues it found now fixed."
+    }
+  ],
+  "redirects": [
+    { "slug": "whisper-comparison", "to": "student-characters/#whispering" }
+  ]
+}

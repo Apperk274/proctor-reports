@@ -46,7 +46,13 @@ p { margin: 0; max-width: 68ch; }
 header { padding-block: 40px 0; display: grid; gap: 16px; }
 .lede { color: var(--muted); font-size: 1.1rem; }
 
+.categories { display: grid; gap: 36px; }
+.category { display: grid; gap: 12px; }
+.category > h2 { font-size: 0.8rem; font-family: var(--mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: baseline; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.category > h2 .count { color: var(--accent); font-variant-numeric: tabular-nums; }
 .reports { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.report { min-width: 0; }
 .report a {
   display: grid; gap: 6px; padding: 16px 18px; text-decoration: none; color: inherit;
   background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
@@ -54,9 +60,11 @@ header { padding-block: 40px 0; display: grid; gap: 16px; }
 }
 .report a:hover, .report a:focus-visible { border-color: var(--accent); }
 .report a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.report h2 { color: var(--accent); }
+.report h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; color: var(--accent); overflow-wrap: anywhere; }
 .report p { color: var(--muted); font-size: 0.95rem; }
-.report time { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.report .updated { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.notice { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
+.notice a { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .report a { transition: none; } }
 </style>
 </head>
@@ -68,86 +76,50 @@ header { padding-block: 40px 0; display: grid; gap: 16px; }
     <p class="lede">Visual review reports from the game's development.</p>
   </header>
   <main>
-    <ul class="reports">
-      <li class="report">
-        <a href="device-check/">
-          <time datetime="2026-10-28">2026-10-28</time>
-          <h2>Phone Check</h2>
-          <p>The game on a real Galaxy A15: all eight school hubs and rooms, offers, event art and in-app frame rates. What the phone found is fixed and checked again on the same phone: a grey screen when leaning in on a front-row student in the exam hall, the supervisor starting out of view, event pictures that didn't fit, papers invisible on white desks, and a missing ¢.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="exam-bell-sounds/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Exam Bell Sounds</h2>
-          <p>Fifteen bells for the moment exam time runs out, all synthesized in code: electric school bells, a large struck bell, a shaken hand bell, PA chimes, a tubular bell, a Westminster phrase, a digital chime and a desk bell. Listen to each, with its parameters and measurements; the one in the game now is an electric bell with a small, high gong struck 18 times a second.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="school-rooms/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>School Rooms</h2>
-          <p>Each of the eight schools has its own exam room, dressed for the kind of place it is. Rooms grow with the school's rating (5 to 12 desks on a phone, 6 to 16 on a tablet), the camera zooms out to show the whole class, and the room's pace scales with its size. Captures on a phone and two tablet sizes, how the sizes were chosen, and what it does to difficulty.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="whisper-sound/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Whisper Sound</h2>
-          <p>The whisper in the game: real public-domain whispers, rebuilt so no words come through, in a male and a female voice matched to the student and played from the one who is whispering. Both pools with audio, how it plays, the measurements, and the old MP3-preview clips against the ones now built from the original recordings.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="image-quality/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Baked Game Art</h2>
-          <p>The game's pictures as Blender renders: a building for each of the eight schools, the exam room on the title screen and brief, rendered event objects and five redrawn icons, in the dark and light themes at phone size.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="schools/">
-          <time datetime="2026-10-26">2026-10-26</time>
-          <h2>Schools and Offers</h2>
-          <p>Eight schools with fixed star ratings, offers that compare rating and salary now against the school offered, two schools on one card, the lower-rated school that pays more, and how school rating follows standing over whole careers.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="whisper-comparison/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Whispering Students</h2>
-          <p>Two seated clips, a student who whispers and a neighbour who listens, leaning in and turning to each other, shown at the game's camera and up close; and the Blender against Meshy comparison that led to the choice.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="classroom-door/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>The Way Out</h2>
-          <p>A student removed during the exam walks the aisle and goes out through the door, which opens for them and closes behind them, instead of walking inside the back wall. Before and after, and the route from every seat.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="admission-photo/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Admission Photo Check</h2>
-          <p>The photo check at the door as pictures: the document photo beside a still, live camera on the person standing there, every case captured on the phone screen, how readable each one is, and the line of students waiting at the open door.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="game-feel/">
-          <time datetime="2026-10-25">2026-10-25</time>
-          <h2>Game Feel</h2>
-          <p>The reward motion: coins flying to your balance on payday, a result card that counts up, a promotion marked with light, and a line confirming each action in the room.</p>
-        </a>
-      </li>
-      <li class="report">
-        <a href="student-characters/">
-          <time datetime="2026-10-27">2026-10-27</time>
-          <h2>Student Characters</h2>
-          <p>The exam students' models and animations: who they are, what they wear, every gesture, the whispering pair beside each other in a real exam, and the known limits.</p>
-        </a>
-      </li>
-    </ul>
+    <div class="categories" id="categories">
+      <p class="notice">Loading the report list…</p>
+    </div>
+    <noscript><p class="notice">The report list needs JavaScript. The raw list is in <a href="reports.json">reports.json</a>.</p></noscript>
   </main>
 </div>
+<script>
+(() => {
+  const host = document.getElementById("categories");
+  const el = (tag, props = {}, ...children) => {
+    const node = Object.assign(document.createElement(tag), props);
+    node.append(...children);
+    return node;
+  };
+  const fail = () => {
+    host.replaceChildren(el("p", { className: "notice" },
+      "The report list could not be loaded. Try reloading, or open ",
+      el("a", { href: "reports.json", textContent: "reports.json" }), " directly."));
+  };
+  fetch("reports.json", { cache: "no-cache" })
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(({ categories, reports }) => {
+      const sections = categories.map((cat) => {
+        const items = reports
+          .filter((r) => r.category === cat.id)
+          .sort((a, b) => b.updated.localeCompare(a.updated));
+        if (!items.length) return null;
+        const section = el("section", { className: "category", id: cat.id },
+          el("h2", { id: `cat-${cat.id}` }, cat.title,
+            el("span", { className: "count", textContent: String(items.length) })),
+          el("ul", { className: "reports" }, ...items.map((r) => el("li", { className: "report" },
+            el("a", { href: `${r.slug}/` },
+              el("span", { className: "updated" }, "Updated ",
+                el("time", { dateTime: r.updated, textContent: r.updated })),
+              el("h3", { textContent: r.title }),
+              el("p", { textContent: r.summary }))))));
+        section.setAttribute("aria-labelledby", `cat-${cat.id}`);
+        return section;
+      }).filter(Boolean);
+      if (!sections.length) throw new Error("empty");
+      host.replaceChildren(...sections);
+    })
+    .catch(fail);
+})();
+</script>
 </body>
 </html>
