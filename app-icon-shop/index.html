@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>App Icon and Shop Art</title>
-<meta name="description" content="Four scene candidates for the Exam Supervisor Simulator launcher icon, tested at launcher sizes and under adaptive masks, and the Blender shop tiles now shipped on the art-icon-shop branch.">
+<meta name="description" content="The new Exam Supervisor Simulator app icon, a calm exam room, at launcher sizes and under adaptive masks, and the Blender shop tiles as the game draws them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -80,111 +80,59 @@ section { display: grid; gap: 20px; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles shipped on a branch · icon is a comparison</span>
+    <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles in the game · icon on a branch</span>
     <h1>App Icon and Shop Art</h1>
-    <p class="lede">Four scene candidates for the launcher icon, judged at the size a phone shows them, and the Blender
-      shop tiles as the game now draws them on the <code>art-icon-shop</code> branch.</p>
-    <p class="muted">Icons: each candidate is one full-bleed 1024 px render, used as the adaptive icon's background layer
-      with an empty foreground. Each is shown through the circle, squircle and rounded-square masks at 192, 96 and 48 px
-      on a light and a dark wallpaper, and in a home-screen row. The game's icon has not changed. Shop: the Store,
-      captured from the game at 1080 × 2340 in both themes.</p>
+    <p class="lede">The game's new launcher icon at the sizes a phone shows it, and the Blender shop tiles as the Store
+      draws them.</p>
+    <p class="muted">Icon: one full-bleed 1024 px render used as the adaptive icon's background layer, with an empty
+      foreground. It is shown through the circle, squircle and rounded-square masks at 192, 96 and 48 px on a light and
+      a dark wallpaper, and in a home-screen row. Shop: the Store, captured from the game at 1080 × 2340 in both
+      themes.</p>
   </header>
 
   <section id="summary">
     <div class="cards">
-      <div class="card"><span class="big">Icon → Top-down</span><p>Four desks seen from above, one lit orange. It is the only
-        candidate whose story survives at 48 px: four squares, one different. The others turn into texture.</p></div>
-      <div class="card"><span class="big">Shop → shipped</span><p>Phone Detector, Pills (an amber bottle), the three shirts
-        (on hangers) and the five badges (shield pins) are now Blender renders in the game. Replay keeps its drawing.</p></div>
-      <div class="card"><span class="big">Tests</span><p>EditMode and PlayMode both pass on the branch. No Meshy credits
-        were used.</p></div>
+      <div class="card"><span class="big">Icon → a calm exam room</span><p>Six students at their desks in three-quarter view,
+        all in the same blue. Nobody is singled out. It is on the <code>app-icon</code> branch.</p></div>
+      <div class="card"><span class="big">Shop → in the game</span><p>Phone Detector, Pills (an amber bottle), the three shirts
+        (on hangers) and the five badges (shield pins) are Blender renders. Replay keeps its drawing.</p></div>
+      <div class="card"><span class="big">Tests</span><p>EditMode and PlayMode both pass. No Meshy credits were used.</p></div>
     </div>
   </section>
 
   <section id="icon">
     <div class="section-head">
-      <h2>App icon: a scene</h2>
-      <p class="muted">The chosen direction is a tiny exam room with one student cheating, singled out. An Android adaptive icon
-        is 108 dp. The launcher shows the central 72 dp through its own mask and guarantees only the central 66 dp circle
-        (green in the layer view), so each subject sits inside that circle while the room runs to the edges.</p>
-      <p class="muted">The first round of concepts (A clipboard, B stopwatch, C ID badge, D eye) was rejected.</p>
+      <h2>App icon</h2>
+      <p class="muted">The user chose the Angled room from four scene candidates, with every student blue: a quiet exam
+        room, with no cheater picked out.</p>
+      <p class="muted">An Android adaptive icon is 108 dp. The launcher shows the central 72 dp through its own mask and
+        guarantees only the central 66 dp circle (green in the layer view). The room runs to the edges, so every mask
+        trims a different part of it and the middle stays whole.</p>
     </div>
 
-    <figure class="item" style="margin:0" id="icon-48"><h3>All four at a true 48 px</h3>
-      <div class="shot"><img src="img/icon/all-48px.png" alt="The shipped icon and the four scene candidates at 48 px on a light and a dark strip, then the same 48 px pixels enlarged four times" loading="lazy"></div>
-      <p class="muted">Left to right: the shipped icon, then Top-down, Angled, Note and Supervisor. The top two strips are
-        actual size. The row below shows the same 48 px pixels enlarged four times without smoothing, so you see only
-        what survived the downscale.</p>
-      <ul class="read">
-        <li><b>Top-down:</b> it reads. Three dark squares and one bright orange one make "one of them" clear even at 1×.</li>
-        <li><b>Angled:</b> the orange student is visible, but six desks and figures merge into a busy blue texture.</li>
-        <li><b>Note:</b> the warm brown stands out among blue icons and the two figures read as a pair. But the note is two
-          pixels and the shadow is a dark bump, so the story is lost.</li>
-        <li><b>Supervisor:</b> the weakest. The dotted glance is a one-pixel line, and the dark shoulder reads as a smudge.</li>
-        <li><b>All except Note</b> are navy, so their edge almost disappears on a dark wallpaper.</li>
-      </ul>
-    </figure>
-
-    <article class="concept" id="icon-current">
-      <div class="concept-top"><img src="img/icon/current-full.png" alt="Current icon: a document with a magnifying glass on navy">
-        <div><h3>Current <span class="tag cur">shipped</span></h3><p class="muted">A document and a magnifying glass, drawn flat.
-          It is clear but generic: it could be any file or search app.</p></div></div>
-      <div class="shot"><img src="img/icon/current-sizes.png" alt="Current icon at 192, 96 and 48 px in circle, squircle and rounded masks" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/current-home-circle.jpg" alt="Current icon in a home-screen row" loading="lazy"></div>
-    </article>
-
-    <article class="concept" id="icon-topdown">
-      <div class="concept-top"><img src="img/icon/topdown-full.png" alt="Top-down: four desks seen from above, one student in orange under a warm spotlight leaning toward a neighbour's paper">
-        <div><h3>1 · Top-down <span class="tag rec">recommended</span></h3><p class="muted">Four big desks seen from straight above. Three students in blue sit still. The fourth, in orange, leans toward the next paper under a tight warm spotlight. There are few shapes and they are large, which is why it holds up when small. The circle mask trims the corners of the outer desks, but the cheater stays inside the safe circle.</p>
-          <p class="verdict"><b>At 48 px:</b> the clearest of the four. Four squares, one of them bright: it says “one of these is cheating” at a glance.</p></div></div>
-      <div class="shot"><img src="img/icon/topdown-layers.png" alt="Top-down: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/topdown-sizes.png" alt="Top-down at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
+    <article class="concept" id="icon-shipped">
+      <div class="concept-top"><img src="img/icon/icon-full.png" alt="The app icon: a three-by-two exam room in three-quarter view, six students in blue at wooden desks with white papers, on a blue floor">
+        <div><h3>The exam room <span class="tag rec">on the app-icon branch</span></h3><p class="muted">Six students from behind, at wooden
+          desks with white papers, on a blue floor. Each of the three layers (floor, desks and papers, students) has its
+          own lightness, so the room survives being shrunk. The floor is lifted off navy so the icon keeps its edge on a
+          dark wallpaper.</p>
+          <p class="verdict"><b>At 48 px:</b> it reads as rows of people at desks, and its edge holds on both wallpapers.
+            Single desks and papers are not distinct at that size; the regular pattern carries it.</p></div></div>
+      <div class="shot"><img src="img/icon/icon-layers.png" alt="The background layer, the empty foreground, and the composite with the 72 dp viewport and the 66 dp safe circle" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/icon-sizes.png" alt="The icon at 192, 96 and 48 px in circle, squircle and rounded masks on a light and a dark wallpaper" loading="lazy"></div>
       <div class="duo">
-        <div class="shot"><img src="img/icon/topdown-home-circle.jpg" alt="Top-down in a home-screen row, circle mask" loading="lazy"></div>
-        <div class="shot"><img src="img/icon/topdown-home-squircle.jpg" alt="Top-down in a home-screen row, squircle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/icon-home-circle.jpg" alt="The icon in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/icon-home-squircle.jpg" alt="The icon in a home-screen row, squircle mask" loading="lazy"></div>
       </div>
-    </article>
-
-    <article class="concept" id="icon-angled">
-      <div class="concept-top"><img src="img/icon/angled-full.png" alt="Angled: a three-by-two exam room in three-quarter view, cool blue, the cheater glowing orange">
-        <div><h3>2 · Angled room</h3><p class="muted">A 3 × 2 room in three-quarter view, in cool blue. The cheater glows orange in the front row and leans toward a neighbour. At full size it looks the most like the game.</p>
-          <p class="verdict"><b>At 48 px:</b> the orange student survives, but the room around it becomes noise.</p></div></div>
-      <div class="shot"><img src="img/icon/angled-layers.png" alt="Angled room: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/angled-sizes.png" alt="Angled room at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
-      <div class="duo">
-        <div class="shot"><img src="img/icon/angled-home-circle.jpg" alt="Angled room in a home-screen row, circle mask" loading="lazy"></div>
-        <div class="shot"><img src="img/icon/angled-home-squircle.jpg" alt="Angled room in a home-screen row, squircle mask" loading="lazy"></div>
-      </div>
-    </article>
-
-    <article class="concept" id="icon-note">
-      <div class="concept-top"><img src="img/icon/note-full.png" alt="The note: two desks close up, a glowing note being passed between two students, a long shadow of the supervisor across the floor">
-        <div><h3>3 · The note</h3><p class="muted">Two desks close up in warm light, with a glowing note being passed between the students. The supervisor is implied by a long shadow that falls across the floor from behind the viewer.</p>
-          <p class="verdict"><b>At 48 px:</b> the colour is distinctive but the story is lost: the note and the shadow are too small to read.</p></div></div>
-      <div class="shot"><img src="img/icon/note-layers.png" alt="The note: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/note-sizes.png" alt="The note at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
-      <div class="duo">
-        <div class="shot"><img src="img/icon/note-home-circle.jpg" alt="The note in a home-screen row, circle mask" loading="lazy"></div>
-        <div class="shot"><img src="img/icon/note-home-squircle.jpg" alt="The note in a home-screen row, squircle mask" loading="lazy"></div>
-      </div>
-    </article>
-
-    <article class="concept" id="icon-supervisor">
-      <div class="concept-top"><img src="img/icon/supervisor-full.png" alt="Over the shoulder: the supervisor's dark shoulder in the corner, a dotted glance line from the cheater to the neighbour's paper">
-        <div><h3>4 · Over the shoulder</h3><p class="muted">The supervisor's view: a dark shoulder and head in the near corner, four desks beyond, and a dotted line tracing the cheater's glance to the next paper.</p>
-          <p class="verdict"><b>At 48 px:</b> the glance line disappears. This is the weakest at launcher size.</p></div></div>
-      <div class="shot"><img src="img/icon/supervisor-layers.png" alt="Over the shoulder: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/supervisor-sizes.png" alt="Over the shoulder at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
-      <div class="duo">
-        <div class="shot"><img src="img/icon/supervisor-home-circle.jpg" alt="Over the shoulder in a home-screen row, circle mask" loading="lazy"></div>
-        <div class="shot"><img src="img/icon/supervisor-home-squircle.jpg" alt="Over the shoulder in a home-screen row, squircle mask" loading="lazy"></div>
-      </div>
+      <figure style="margin:0; display:grid; gap:8px"><div class="shot" style="max-width:260px"><img src="img/icon/icon-48px.png" alt="The icon at a true 48 px on a light and a dark strip, then the same pixels enlarged four times" loading="lazy"></div>
+        <p class="muted">At a true 48 px on light and dark, then the same 48 px pixels enlarged four times without
+          smoothing.</p></figure>
     </article>
   </section>
 
   <section id="shop">
     <div class="section-head">
-      <h2>Shop tiles <span class="tag rec">shipped on the branch</span></h2>
+      <h2>Shop tiles <span class="tag rec">in the game</span></h2>
       <p class="muted">The Store, captured from the game. Phone Detector, Pills, the Navy, Charcoal and Slate shirts and the
         Bronze, Silver, Enamel, Supporter and Regional badges are Blender renders. Replay keeps its current drawing. The
         "You are not well" illness picture is not part of this work.</p>
@@ -221,19 +169,21 @@ section { display: grid; gap: 20px; }
   </section>
 
   <section id="implement">
-    <div class="section-head"><h2>Where things stand</h2></div>
+    <div class="section-head"><h2>Where things live</h2></div>
     <ul class="next">
+      <li><b>App icon.</b> <code>Assets/Art/Branding</code> holds the adaptive background (the whole scene), an empty
+        foreground and the flattened <code>AppIcon.png</code> (the 72 dp view at 1024 px).
+        <code>Proctor.EditorTools.Branding.Apply</code>, run with the Android target, fills the Legacy, Round and Adaptive
+        slots. The 512 px Play Store icon is <code>ArtSource/Branding/PlayStoreIcon512.png</code>.</li>
       <li><b>Shop tiles.</b> <code>Props.TileArt(itemId, …)</code> loads <code>Resources/Art/Props/tile_&lt;id&gt;</code>
         (480 × 230, about 0.06 MB each at ASTC 6×6). An id with no render falls back to the drawn tile without an error,
         so a new cosmetic never shows a blank tile. To add one, add a line to the <code>TILES</code> table in
         <code>shop.py</code> and render it.</li>
-      <li><b>App icon.</b> If Top-down is chosen: render it at 1024 px, replace the files in <code>Assets/Art/Branding</code>,
-        and re-run <code>Proctor.EditorTools.Branding.Apply</code> for Android. The Store listing also needs a 512 px PNG.
-        First, it would help to lift the background off pure navy so the icon keeps an edge on dark wallpapers.</li>
     </ul>
-    <p class="muted">Sources on the <code>art-icon-shop</code> branch: <code>ArtSource/UI/imgq/blender/icon_scene.py</code>
-      and <code>shop.py</code>, composed by <code>compose_icons.py</code> and <code>build_icon_shop_report.py</code>. The Store
-      captures come from the PlayMode test <code>StoreTileCaptures</code>.</p>
+    <p class="muted">Sources: <code>ArtSource/UI/imgq/blender/icon_scene.py</code> (the <code>angled</code> scene) and
+      <code>shop.py</code>; <code>make_branding.py</code>, <code>compose_icons.py</code> and
+      <code>build_icon_shop_report.py</code>. The Store captures come from the PlayMode test
+      <code>StoreTileCaptures</code>.</p>
   </section>
 </div>
 </body>

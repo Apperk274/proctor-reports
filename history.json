@@ -1,5 +1,6 @@
 [
   {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added the Wardrobe report: phase 1, the supervisor on the students' skinned body as a man or a woman, walking at 2.1 m/s."},
+  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Shows the chosen icon, the Angled room with every student blue, in place of the four candidates."},
   {"date": "2026-10-29", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Replaced the rejected icon concepts with four scene candidates tested at 48 px, and showed the shop tiles as shipped in the Store."},
   {"date": "2026-10-28", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Added the App Icon and Shop Art report: four icon concepts at launcher sizes and Blender candidates for the seven shop tiles."},
   {"date": "2026-10-28", "author": "Apperk274", "slug": null, "change": "The index shows one column per category with summaries on hover, and a history page lists every change."},
