@@ -51,6 +51,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: now
 .pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .pass { background: var(--accent-soft); color: var(--accent); }
 .na { background: var(--line); color: var(--muted); }
+.fail { background: var(--bad-soft); color: var(--bad); }
+.minor { background: var(--warn-soft); color: var(--warn); }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .card p { font-size: 0.95rem; color: var(--muted); }
@@ -74,16 +76,54 @@ ul.list b { color: var(--ink); font-weight: 600; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · device check · m130-1-device-fixes 5e8957b</span>
+    <span class="eyebrow">Exam Supervisor Simulator · device check · main 6ac9729</span>
     <h1>Phone Check</h1>
-    <p class="lede">The game on a real Galaxy A15 (SM-S156V, Android 16, 1080 × 2340, 450 dpi, 90 Hz). The first pass, on main at
-      <code>bf08cc4</code>, found one blocking bug and four smaller ones. They are fixed on branch <code>m130-1-device-fixes</code>
-      (three commits on <code>881d1cf</code>, not merged). That build was installed on the same phone and every case was
-      checked again. The game still classifies the screen as a phone, and every room has the right number of desks with at least one free.</p>
+    <p class="lede">The game on a real Galaxy A15 (SM-S156V, Android 16, 1080 × 2340, 450 dpi, 90 Hz). The newest pass is main at
+      <code>6ac9729</code>: the new app icon, the Blender shop tiles and the new Wardrobe. The icon and shop tiles look right.
+      The Wardrobe preview has rendering problems on the device and keeps logging render errors after the store is closed.
+      Further down: the room and camera fixes (M130.1), checked on the same phone before they were merged.</p>
   </header>
 
+  <section id="latest">
+    <div class="section-head"><h2>Icon, store and wardrobe (main 6ac9729)</h2>
+      <p class="muted">Development APK, 112,171,285 bytes, installed with <code>adb install -r</code>. Launched from the new launcher icon.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Item</th><th>Result</th><th>What the phone showed</th></tr></thead>
+      <tbody>
+        <tr><td>App icon</td><td><span class="pill pass">pass</span></td><td>The new calm blue exam room shows in the app drawer as "Proctor Simulator". The launcher crops it to its rounded-square shape; the front-left desk and the right-hand student are cut at the edges. The room and the students still read clearly at launcher size. The app is not on the home screen, only in the drawer.</td></tr>
+        <tr><td>Store tiles</td><td><span class="pill pass">pass</span></td><td>Phone Detector, the Pills bottle, the shirts on hangers and the bronze and silver shield badges are sharp and fit their tiles. Replay keeps its drawing. Nothing is cut off.</td></tr>
+        <tr><td>Dim and check mark</td><td><span class="pill minor">minor</span></td><td>The green check mark shows on the worn Issued Shirt. The dimming on unowned items is very faint: Navy Shirt looks nearly as bright as the owned shirt. The Issued Shirt is a flat drawn shirt, while the bought shirts are renders on hangers, so the two styles don't match.</td></tr>
+        <tr><td>Wardrobe</td><td><span class="pill fail">problems</span></td><td>See the list below.</td></tr>
+        <tr><td>Regression</td><td><span class="pill pass">pass</span></td><td>Title screen, Kingsley hub hero and a full Kingsley exam start all look right; row numbers show on the floor. The phone was detected as a phone on every launch.</td></tr>
+      </tbody></table></div>
+    <h3>Wardrobe findings</h3>
+    <ul class="list">
+      <li><b>Render errors every frame after the Wardrobe is shown, even once the store is closed.</b> Unity logs <code>DrawOpaqueObjects/DrawTransparentObjects: Attachment 0 was created with 1 samples but 2 samples were requested</code> and <code>EndRenderPass: Not inside a Renderpass</code> about twice a frame (30,880 lines of each in this session). The development console pops up over the store, the admission screen and the exam. The errors only appear in launches where the Wardrobe was opened, and they continue through a whole exam until the app is closed. Likely cause: the preview's render texture asks for 2× MSAA (<code>SupervisorPreviewStage</code>, <code>antiAliasing = 2</code>) while the pipeline asset has MSAA off (<code>m_MSAA: 1</code>). The preview also seems not to be released when the store closes.</li>
+      <li><b>The back of the figure renders wrongly.</b> Turned away from the camera, the shirt and trousers show vertical striping, and a skin-coloured band runs across the waist below the shirt. Seen on the man and the woman.</li>
+      <li><b>Try-on doesn't change the figure.</b> Tapping Navy Shirt shows "Trying on: Navy Shirt" and "Back to your outfit", but the figure keeps the green issued shirt; only a thin navy edge shows at one side.</li>
+      <li><b>Turning stops working.</b> The first one or two horizontal drags turn the figure. After that it stays facing away and further drags in either direction do nothing. Leaving the store and coming back does not reset it to the front.</li>
+      <li>Layout, the Man / Woman toggle and the category tabs (All, Tops, Badges) work and nothing is cut off.</li>
+    </ul>
+    <div class="gallery">
+      <figure><a href="img/v3-icon.jpg"><img src="img/v3-icon.jpg" alt="Proctor Simulator launcher icon, close up" loading="lazy"></a><figcaption><b>Launcher icon</b>Crop from the drawer, enlarged</figcaption></figure>
+      <figure><a href="img/v3-drawer.jpg"><img src="img/v3-drawer.jpg" alt="App drawer page with the Proctor Simulator icon" loading="lazy"></a><figcaption><b>App drawer</b>At real size</figcaption></figure>
+      <figure><a href="img/v3-store-tools.jpg"><img src="img/v3-store-tools.jpg" alt="Store equipment tiles" loading="lazy"></a><figcaption><b>Store</b>Phone Detector and Replay</figcaption></figure>
+      <figure><a href="img/v3-store-badges.jpg"><img src="img/v3-store-badges.jpg" alt="Store shirt and badge tiles" loading="lazy"></a><figcaption><b>Store</b>Shirts and badges</figcaption></figure>
+      <figure><a href="img/v3-tiles-owned.jpg"><img src="img/v3-tiles-owned.jpg" alt="Owned and unowned shirt tiles" loading="lazy"></a><figcaption><b>Owned vs not</b>Check mark; faint dimming</figcaption></figure>
+      <figure><a href="img/v3-wardrobe-man.jpg"><img src="img/v3-wardrobe-man.jpg" alt="Wardrobe with the man preview" loading="lazy"></a><figcaption><b>Wardrobe</b>Man, from the front</figcaption></figure>
+      <figure><a href="img/v3-wardrobe-woman.jpg"><img src="img/v3-wardrobe-woman.jpg" alt="Wardrobe with the woman preview" loading="lazy"></a><figcaption><b>Wardrobe</b>Woman, from the front</figcaption></figure>
+      <figure class="bad"><a href="img/v3-wardrobe-back-zoom.jpg"><img src="img/v3-wardrobe-back-zoom.jpg" alt="Back view with striping and a skin band at the waist" loading="lazy"></a><figcaption><b>Back view</b>Striping and a skin band</figcaption></figure>
+      <figure class="bad"><a href="img/v3-tryon-navy.jpg"><img src="img/v3-tryon-navy.jpg" alt="Trying on the Navy Shirt but the figure still wears green" loading="lazy"></a><figcaption><b>Try-on</b>Navy Shirt, still green</figcaption></figure>
+      <figure class="bad"><a href="img/v3-store-pills-console.jpg"><img src="img/v3-store-pills-console.jpg" alt="Development console with red render errors over the store" loading="lazy"></a><figcaption><b>Render errors</b>Over the store</figcaption></figure>
+      <figure class="bad"><a href="img/v3-console-in-exam.jpg"><img src="img/v3-console-in-exam.jpg" alt="Development console with render errors over the admission screen" loading="lazy"></a><figcaption><b>Render errors</b>Still logging at the door</figcaption></figure>
+      <figure><a href="img/v3-title.jpg"><img src="img/v3-title.jpg" alt="Title screen" loading="lazy"></a><figcaption><b>Title</b></figcaption></figure>
+      <figure><a href="img/v3-hub.jpg"><img src="img/v3-hub.jpg" alt="Kingsley hub" loading="lazy"></a><figcaption><b>Hub</b>Kingsley Academy</figcaption></figure>
+      <figure><a href="img/v3-exam-start.jpg"><img src="img/v3-exam-start.jpg" alt="Kingsley exam start with row numbers" loading="lazy"></a><figcaption><b>Exam start</b>Kingsley, row numbers on the floor</figcaption></figure>
+    </div>
+  </section>
+
   <section id="summary">
-    <div class="section-head"><h2>Where it stands</h2></div>
+    <div class="section-head"><h2>Room and camera fixes (M130.1)</h2></div>
     <div class="cards">
       <div class="card"><span class="eyebrow">Blocker</span><div class="big">Fixed</div><p>Leaning in on a front-row student at the National Examination Centre shows the student. It used to leave a grey screen.</p></div>
       <div class="card"><span class="eyebrow">Build on the phone</span><div class="big">5e8957b</div><p>Development APK, 114,759,057 bytes. Batchmode build: 0 compile errors, built in 4 min 5 s.</p></div>
