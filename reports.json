@@ -1,10 +1,25 @@
 {
   "categories": [
-    { "id": "classroom", "title": "Classroom" },
-    { "id": "sound", "title": "Sound" },
-    { "id": "look-and-feel", "title": "Look & feel" },
-    { "id": "career", "title": "Career" },
-    { "id": "device-testing", "title": "Device testing" }
+    {
+      "id": "classroom",
+      "title": "Classroom"
+    },
+    {
+      "id": "sound",
+      "title": "Sound"
+    },
+    {
+      "id": "look-and-feel",
+      "title": "Look & feel"
+    },
+    {
+      "id": "career",
+      "title": "Career"
+    },
+    {
+      "id": "device-testing",
+      "title": "Device testing"
+    }
   ],
   "reports": [
     {
@@ -44,6 +59,12 @@
       "summary": "Fifteen bells synthesized in code for the end of exam time, each playable with its parameters, including the electric bell now in the game."
     },
     {
+      "slug": "app-icon-shop",
+      "title": "App Icon and Shop Art",
+      "category": "look-and-feel",
+      "summary": "Blender-style candidates for the launcher icon at phone sizes and under adaptive masks, and for the seven shop tiles beside the current ones."
+    },
+    {
       "slug": "image-quality",
       "title": "Baked Game Art",
       "category": "look-and-feel",
@@ -69,6 +90,10 @@
     }
   ],
   "redirects": [
-    { "slug": "whisper-comparison", "title": "Whispering Students", "to": "student-characters/#whispering" }
+    {
+      "slug": "whisper-comparison",
+      "title": "Whispering Students",
+      "to": "student-characters/#whispering"
+    }
   ]
 }

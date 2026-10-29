@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Icon and Shop Art</title>
+<meta name="description" content="Candidate Blender-style app icons for Exam Supervisor Simulator at launcher sizes and under adaptive masks, and Blender candidates for the seven shop tiles beside the current ones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --warn: #9a3412; --warn-soft: #fde8dc;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --warn: #f0a27a; --warn-soft: #3a2218; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --warn: #f0a27a; --warn-soft: #3a2218; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+a { color: var(--accent); }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.concept { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
+.concept-top { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 18px; align-items: center; }
+.concept-top img { width: 160px; border-radius: 28px; }
+.concept .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.concept .shot img { border-radius: 0; width: 100%; }
+.duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); }
+.tag.cur { background: var(--line); color: var(--muted); }
+.tag.rec { background: var(--accent); color: var(--surface); }
+.item { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+.item .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.item .shot img { border-radius: 0; width: 100%; }
+.verdict { border-left: 3px solid var(--accent); padding-left: 12px; max-width: 80ch; color: var(--muted); }
+.verdict b { color: var(--ink); }
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+@media (max-width: 560px) { .concept-top { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · Art · comparison, nothing in the game yet</span>
+    <h1>App Icon and Shop Art</h1>
+    <p class="lede">Candidates for the launcher icon and the seven shop tiles, in the Blender style chosen for the
+      game's scenes. Each is shown at the size a phone shows it, beside what the game ships today.</p>
+    <p class="muted">Icons: four concepts. Each is rendered as a 1024 px adaptive-icon foreground on a transparent
+      background and placed on a background layer. Each is then shown through the circle, squircle and rounded-square
+      launcher masks at 192, 96 and 48 px, and in a home-screen row. Shop: each item as a still life on the
+      same desk as the event objects. It is shown in a Store tile at the size StoreScreen draws it (the art panel is
+      376 × 180 px on a 1080-wide screen), with the current tile first.</p>
+  </header>
+
+  <section id="summary">
+    <div class="cards">
+      <div class="card"><span class="big">Icon → D, the eye</span><p>An eye looking through a magnifier at an exam paper.
+        It says "someone is watching the exam", and the eye is still readable at 48 px. C, the supervisor's ID badge, is
+        the runner-up.</p></div>
+      <div class="card"><span class="big">Shop → all seven</span><p>Every Blender tile reads as the object it sells. The current tiles
+        are glyphs on a dark band. Shirts on a hanger beat folded shirts, and the pill bottle beats the blister pack.</p></div>
+      <div class="card"><span class="big">Cost</span><p>About 0.06 MB per shop tile at ASTC 6×6 and about 0.2 MB of launcher
+        images for the icon. No Meshy credits were used.</p></div>
+    </div>
+  </section>
+
+  <section id="icon">
+    <div class="section-head">
+      <h2>App icon</h2>
+      <p class="muted">An Android adaptive icon is two 108 dp layers. The launcher shows the central 72 dp through its
+        own mask and guarantees only a 66 dp circle, so every subject sits inside that circle (green in the layer view).
+        Each concept is shown in the same order: the icon, the two layers, the three masks at three sizes on a light and
+        a dark wallpaper, and the home-screen row.</p>
+    </div>
+
+    <article class="concept" id="icon-current">
+      <div class="concept-top"><img src="img/icon/current-full.png" alt="Current icon: a document with a magnifying glass on navy">
+        <div><h3>Current <span class="tag cur">shipped</span></h3><p class="muted">A document and a magnifying glass, drawn flat.
+          It is clear, but generic: it could be any file or search app.</p></div></div>
+      <div class="shot"><img src="img/icon/current-sizes.png" alt="Current icon at 192, 96 and 48 px in circle, squircle and rounded masks" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/current-home-circle.jpg" alt="Current icon in a home-screen row" loading="lazy"></div>
+    </article>
+
+    <article class="concept" id="icon-a">
+      <div class="concept-top"><img src="img/icon/clipboard-full.png" alt="Concept A: a clipboard with four green ticks and a magnifying glass">
+        <div><h3>A · Clipboard and magnifier</h3><p class="muted">A checklist with four green ticks under a magnifying glass.
+          It is the current idea made solid and given a job: checking. At 48 px the ticks merge into a green stripe, but
+          the shape still reads as a clipboard.</p></div></div>
+      <div class="shot"><img src="img/icon/clipboard-layers.png" alt="Concept A layers: background, foreground, composite with safe zone" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/clipboard-sizes.png" alt="Concept A at 192, 96 and 48 px in three masks" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/clipboard-home-circle.jpg" alt="Concept A in a home-screen row" loading="lazy"></div>
+    </article>
+
+    <article class="concept" id="icon-b">
+      <div class="concept-top"><img src="img/icon/stopwatch-full.png" alt="Concept B: an exam paper with a red tick and a brass stopwatch">
+        <div><h3>B · Exam paper and stopwatch</h3><p class="muted">A marked exam paper with a brass stopwatch in front.
+          It reads as "timed exam" at once, and the brass is the game's prestige accent. It says less about supervising,
+          though: a study-timer app could use the same icon.</p></div></div>
+      <div class="shot"><img src="img/icon/stopwatch-layers.png" alt="Concept B layers" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/stopwatch-sizes.png" alt="Concept B at three sizes in three masks" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/stopwatch-home-circle.jpg" alt="Concept B in a home-screen row" loading="lazy"></div>
+    </article>
+
+    <article class="concept" id="icon-c">
+      <div class="concept-top"><img src="img/icon/badge-full.png" alt="Concept C: a supervisor ID badge on a lanyard with an eye emblem">
+        <div><h3>C · Supervisor's ID badge</h3><p class="muted">The staff badge an invigilator wears: a photo, an eye emblem, a
+          blue band and a lanyard. It is the most "you are the supervisor" of the four, and the white card stands out on any
+          wallpaper. The lanyard runs out of the safe zone on purpose and is cut by every mask, which is fine.</p></div></div>
+      <div class="shot"><img src="img/icon/badge-layers.png" alt="Concept C layers" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/badge-sizes.png" alt="Concept C at three sizes in three masks" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/badge-home-circle.jpg" alt="Concept C in a home-screen row" loading="lazy"></div>
+    </article>
+
+    <article class="concept" id="icon-d">
+      <div class="concept-top"><img src="img/icon/eye-full.png" alt="Concept D: an eye inside a magnifying glass over an exam paper">
+        <div><h3>D · The watchful eye <span class="tag rec">recommended</span></h3><p class="muted">An eye looks through a
+          magnifying glass at an exam paper. It is the one image that says "watching an exam" rather than "an exam" or "a
+          file". The eye is the largest, highest-contrast shape, so it survives at 48 px and under all three masks.</p></div></div>
+      <div class="shot"><img src="img/icon/eye-layers.png" alt="Concept D layers" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/eye-sizes.png" alt="Concept D at three sizes in three masks" loading="lazy"></div>
+      <div class="duo">
+        <div class="shot"><img src="img/icon/eye-home-circle.jpg" alt="Concept D in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/eye-home-squircle.jpg" alt="Concept D in a home-screen row, squircle mask" loading="lazy"></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="shop">
+    <div class="section-head">
+      <h2>Shop tiles</h2>
+      <p class="muted">The coin store sells two tools (Phone Detector, Replay), four cosmetics (Navy Shirt, Charcoal
+        Shirt, Bronze Badge, Silver Badge) and, in its Medicine section, Pills. In each row below, the first tile is the
+        current one and the others are Blender candidates. All are dark theme, with the light theme under each row.
+        The illness event picture is not part of this; another session is replacing it.</p>
+    </div>
+
+    <article class="item"><h3>Phone Detector</h3>
+      <div class="shot"><img src="img/shop/detector.jpg" alt="Phone Detector: current glyph tile, then a Blender handheld scanner with a lit signal-bar screen and antenna" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/detector-light.jpg" alt="Phone Detector, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Blender.</b> A handheld scanner with lit signal bars and an antenna: plainly a detector, where the current one is an icon of a phone.</p></article>
+
+    <article class="item"><h3>Replay</h3>
+      <div class="shot"><img src="img/shop/replay.jpg" alt="Replay: current circular-arrow glyph, then a Blender pocket voice recorder with a waveform screen and red button" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/replay-light.jpg" alt="Replay, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Blender.</b> The tool recalls the last few seconds, sounds included. A pocket recorder with a waveform and rewind
+        keys says that better than a rewind arrow does.</p></article>
+
+    <article class="item"><h3>Navy Shirt</h3>
+      <div class="shot"><img src="img/shop/shirt_navy.jpg" alt="Navy Shirt: current flat shirt glyph, Blender folded shirt, Blender shirt on a hanger" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/shirt_navy-light.jpg" alt="Navy Shirt, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Hanger (third).</b> The folded shirt reads as a box from this angle; on a hanger it is unmistakably a shirt.</p></article>
+
+    <article class="item"><h3>Charcoal Shirt</h3>
+      <div class="shot"><img src="img/shop/shirt_charcoal.jpg" alt="Charcoal Shirt: current, folded, on a hanger" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/shirt_charcoal-light.jpg" alt="Charcoal Shirt, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Hanger.</b> Navy and charcoal stay distinguishable side by side. The render uses each shirt's real colour, lifted a little the way the Store's swatch does.</p></article>
+
+    <article class="item"><h3>Bronze Badge</h3>
+      <div class="shot"><img src="img/shop/badge_bronze.jpg" alt="Bronze Badge: current round star badge, then a Blender bronze shield pin with a blue enamel field and star" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/badge_bronze-light.jpg" alt="Bronze Badge, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Blender.</b> A shield pin in the badge's own metal, with an enamel field and a raised star.</p></article>
+
+    <article class="item"><h3>Silver Badge</h3>
+      <div class="shot"><img src="img/shop/badge_silver.jpg" alt="Silver Badge: current and Blender silver shield pin" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/badge_silver-light.jpg" alt="Silver Badge, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Blender.</b> The same shield in silver, clearly a different metal from the bronze.</p></article>
+
+    <article class="item"><h3>Pills</h3>
+      <div class="shot"><img src="img/shop/pills.jpg" alt="Pills: current green bottle glyph, Blender blister pack, Blender amber pill bottle with a green cross label" loading="lazy"></div>
+      <div class="shot" style="max-width:560px"><img src="img/shop/pills-light.jpg" alt="Pills, light theme" loading="lazy"></div>
+      <p class="verdict"><b>Bottle (third).</b> The amber bottle with a green cross reads as medicine at tile size. The blister pack is fine but small.</p></article>
+
+    <figure class="item" style="margin:0"><h3>The recommended set in a store card</h3>
+      <div class="shot" style="max-width:560px"><img src="img/shop/store-recommended.jpg" alt="All seven recommended Blender tiles laid out two to a row as in the Store" loading="lazy"></div></figure>
+  </section>
+
+  <section id="implement">
+    <div class="section-head"><h2>What implementing the chosen ones involves</h2></div>
+    <ul class="next">
+      <li><b>App icon (Android).</b>
+        <ul class="next">
+          <li>Render the chosen foreground and background layers at 1024 px and replace <code>AppIconForeground.png</code>,
+            <code>AppIconBackground.png</code> and the flattened <code>AppIcon.png</code> in <code>Assets/Art/Branding</code>.</li>
+          <li>Re-run <code>Proctor.EditorTools.Branding.Apply</code> in batchmode with the Android target. It fills the
+            Legacy, Round and Adaptive icon slots and writes them into ProjectSettings.</li>
+          <li>The Store listing needs a 512 px PNG of the same icon.</li>
+          <li>Size: Unity generates the mipmap-density PNGs, about 0.2 MB in total.</li>
+        </ul></li>
+      <li><b>App icon (iOS, later).</b> One flattened 1024 px icon with no transparency. Unity makes the other sizes. The
+        rounded corners come from iOS, so the composite is used as it is.</li>
+      <li><b>Shop tiles.</b>
+        <ul class="next">
+          <li>Render the seven at 480 × 230 into <code>Assets/Resources/Art/Props/</code>. <code>BakedArtImporter</code>
+            already handles that folder (no mipmaps, ASTC 6×6).</li>
+          <li><code>Props.Get(prop, tint, PropFrame.Tile)</code> loads them the way the event banners already do. Each colour
+            of shirt and badge is its own render, so the tile is keyed by the cosmetic id, not by Prop.</li>
+          <li>Size: about 0.06 MB each, roughly 0.45 MB for all seven.</li>
+        </ul></li>
+      <li><b>A design decision for the shop.</b> Today the tile art is tinted to show state: dimmed when not owned, bright
+        when equipped. A render cannot be tinted without muddying it, so state should move to the tile itself, for
+        example a dimmed panel or an "Equipped" chip. The design system already has those components.</li>
+      <li><b>Pack-only cosmetics</b> (Slate Shirt and the Enamel, Supporter and Regional badges) appear only once owned. Each
+        needs a render too: four more, using the same scripts with a colour change.</li>
+    </ul>
+    <p class="muted">Sources: <code>ArtSource/UI/imgq/blender/icon.py</code> and <code>shop.py</code>, composed by
+      <code>compose_icons.py</code>, <code>compose_shop.py</code> and <code>build_icon_shop_report.py</code> (branch
+      <code>art-icon-shop</code>).</p>
+  </section>
+</div>
+</body>
+</html>
