@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>App Icon and Shop Art</title>
-<meta name="description" content="Candidate Blender-style app icons for Exam Supervisor Simulator at launcher sizes and under adaptive masks, and Blender candidates for the seven shop tiles beside the current ones.">
+<meta name="description" content="Four scene candidates for the Exam Supervisor Simulator launcher icon, tested at launcher sizes and under adaptive masks, and the Blender shop tiles now shipped on the art-icon-shop branch.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -69,6 +69,10 @@ section { display: grid; gap: 20px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .card p { font-size: 0.95rem; color: var(--muted); }
 .card .big { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+.phones { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.phones img { border-radius: 10px; border: 1px solid var(--line); }
+.read { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; color: var(--muted); }
+.read b { color: var(--ink); }
 @media (max-width: 560px) { .concept-top { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -76,170 +80,160 @@ section { display: grid; gap: 20px; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · Art · comparison, nothing in the game yet</span>
+    <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles shipped on a branch · icon is a comparison</span>
     <h1>App Icon and Shop Art</h1>
-    <p class="lede">Candidates for the launcher icon and the seven shop tiles, in the Blender style chosen for the
-      game's scenes. Each is shown at the size a phone shows it, beside what the game ships today.</p>
-    <p class="muted">Icons: four concepts. Each is rendered as a 1024 px adaptive-icon foreground on a transparent
-      background and placed on a background layer. Each is then shown through the circle, squircle and rounded-square
-      launcher masks at 192, 96 and 48 px, and in a home-screen row. Shop: each item as a still life on the
-      same desk as the event objects. It is shown in a Store tile at the size StoreScreen draws it (the art panel is
-      376 × 180 px on a 1080-wide screen), with the current tile first.</p>
+    <p class="lede">Four scene candidates for the launcher icon, judged at the size a phone shows them, and the Blender
+      shop tiles as the game now draws them on the <code>art-icon-shop</code> branch.</p>
+    <p class="muted">Icons: each candidate is one full-bleed 1024 px render, used as the adaptive icon's background layer
+      with an empty foreground. Each is shown through the circle, squircle and rounded-square masks at 192, 96 and 48 px
+      on a light and a dark wallpaper, and in a home-screen row. The game's icon has not changed. Shop: the Store,
+      captured from the game at 1080 × 2340 in both themes.</p>
   </header>
 
   <section id="summary">
     <div class="cards">
-      <div class="card"><span class="big">Icon → D, the eye</span><p>An eye looking through a magnifier at an exam paper.
-        It says "someone is watching the exam", and the eye is still readable at 48 px. C, the supervisor's ID badge, is
-        the runner-up.</p></div>
-      <div class="card"><span class="big">Shop → all seven</span><p>Every Blender tile reads as the object it sells. The current tiles
-        are glyphs on a dark band. Shirts on a hanger beat folded shirts, and the pill bottle beats the blister pack.</p></div>
-      <div class="card"><span class="big">Cost</span><p>About 0.06 MB per shop tile at ASTC 6×6 and about 0.2 MB of launcher
-        images for the icon. No Meshy credits were used.</p></div>
+      <div class="card"><span class="big">Icon → Top-down</span><p>Four desks seen from above, one lit orange. It is the only
+        candidate whose story survives at 48 px: four squares, one different. The others turn into texture.</p></div>
+      <div class="card"><span class="big">Shop → shipped</span><p>Phone Detector, Pills (an amber bottle), the three shirts
+        (on hangers) and the five badges (shield pins) are now Blender renders in the game. Replay keeps its drawing.</p></div>
+      <div class="card"><span class="big">Tests</span><p>EditMode and PlayMode both pass on the branch. No Meshy credits
+        were used.</p></div>
     </div>
   </section>
 
   <section id="icon">
     <div class="section-head">
-      <h2>App icon</h2>
-      <p class="muted">An Android adaptive icon is two 108 dp layers. The launcher shows the central 72 dp through its
-        own mask and guarantees only a 66 dp circle, so every subject sits inside that circle (green in the layer view).
-        Each concept is shown in the same order: the icon, the two layers, the three masks at three sizes on a light and
-        a dark wallpaper, and the home-screen row.</p>
+      <h2>App icon: a scene</h2>
+      <p class="muted">The chosen direction is a tiny exam room with one student cheating, singled out. An Android adaptive icon
+        is 108 dp. The launcher shows the central 72 dp through its own mask and guarantees only the central 66 dp circle
+        (green in the layer view), so each subject sits inside that circle while the room runs to the edges.</p>
+      <p class="muted">The first round of concepts (A clipboard, B stopwatch, C ID badge, D eye) was rejected.</p>
     </div>
+
+    <figure class="item" style="margin:0" id="icon-48"><h3>All four at a true 48 px</h3>
+      <div class="shot"><img src="img/icon/all-48px.png" alt="The shipped icon and the four scene candidates at 48 px on a light and a dark strip, then the same 48 px pixels enlarged four times" loading="lazy"></div>
+      <p class="muted">Left to right: the shipped icon, then Top-down, Angled, Note and Supervisor. The top two strips are
+        actual size. The row below shows the same 48 px pixels enlarged four times without smoothing, so you see only
+        what survived the downscale.</p>
+      <ul class="read">
+        <li><b>Top-down:</b> it reads. Three dark squares and one bright orange one make "one of them" clear even at 1×.</li>
+        <li><b>Angled:</b> the orange student is visible, but six desks and figures merge into a busy blue texture.</li>
+        <li><b>Note:</b> the warm brown stands out among blue icons and the two figures read as a pair. But the note is two
+          pixels and the shadow is a dark bump, so the story is lost.</li>
+        <li><b>Supervisor:</b> the weakest. The dotted glance is a one-pixel line, and the dark shoulder reads as a smudge.</li>
+        <li><b>All except Note</b> are navy, so their edge almost disappears on a dark wallpaper.</li>
+      </ul>
+    </figure>
 
     <article class="concept" id="icon-current">
       <div class="concept-top"><img src="img/icon/current-full.png" alt="Current icon: a document with a magnifying glass on navy">
         <div><h3>Current <span class="tag cur">shipped</span></h3><p class="muted">A document and a magnifying glass, drawn flat.
-          It is clear, but generic: it could be any file or search app.</p></div></div>
+          It is clear but generic: it could be any file or search app.</p></div></div>
       <div class="shot"><img src="img/icon/current-sizes.png" alt="Current icon at 192, 96 and 48 px in circle, squircle and rounded masks" loading="lazy"></div>
       <div class="shot"><img src="img/icon/current-home-circle.jpg" alt="Current icon in a home-screen row" loading="lazy"></div>
     </article>
 
-    <article class="concept" id="icon-a">
-      <div class="concept-top"><img src="img/icon/clipboard-full.png" alt="Concept A: a clipboard with four green ticks and a magnifying glass">
-        <div><h3>A · Clipboard and magnifier</h3><p class="muted">A checklist with four green ticks under a magnifying glass.
-          It is the current idea made solid and given a job: checking. At 48 px the ticks merge into a green stripe, but
-          the shape still reads as a clipboard.</p></div></div>
-      <div class="shot"><img src="img/icon/clipboard-layers.png" alt="Concept A layers: background, foreground, composite with safe zone" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/clipboard-sizes.png" alt="Concept A at 192, 96 and 48 px in three masks" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/clipboard-home-circle.jpg" alt="Concept A in a home-screen row" loading="lazy"></div>
-    </article>
-
-    <article class="concept" id="icon-b">
-      <div class="concept-top"><img src="img/icon/stopwatch-full.png" alt="Concept B: an exam paper with a red tick and a brass stopwatch">
-        <div><h3>B · Exam paper and stopwatch</h3><p class="muted">A marked exam paper with a brass stopwatch in front.
-          It reads as "timed exam" at once, and the brass is the game's prestige accent. It says less about supervising,
-          though: a study-timer app could use the same icon.</p></div></div>
-      <div class="shot"><img src="img/icon/stopwatch-layers.png" alt="Concept B layers" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/stopwatch-sizes.png" alt="Concept B at three sizes in three masks" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/stopwatch-home-circle.jpg" alt="Concept B in a home-screen row" loading="lazy"></div>
-    </article>
-
-    <article class="concept" id="icon-c">
-      <div class="concept-top"><img src="img/icon/badge-full.png" alt="Concept C: a supervisor ID badge on a lanyard with an eye emblem">
-        <div><h3>C · Supervisor's ID badge</h3><p class="muted">The staff badge an invigilator wears: a photo, an eye emblem, a
-          blue band and a lanyard. It is the most "you are the supervisor" of the four, and the white card stands out on any
-          wallpaper. The lanyard runs out of the safe zone on purpose and is cut by every mask, which is fine.</p></div></div>
-      <div class="shot"><img src="img/icon/badge-layers.png" alt="Concept C layers" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/badge-sizes.png" alt="Concept C at three sizes in three masks" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/badge-home-circle.jpg" alt="Concept C in a home-screen row" loading="lazy"></div>
-    </article>
-
-    <article class="concept" id="icon-d">
-      <div class="concept-top"><img src="img/icon/eye-full.png" alt="Concept D: an eye inside a magnifying glass over an exam paper">
-        <div><h3>D · The watchful eye <span class="tag rec">recommended</span></h3><p class="muted">An eye looks through a
-          magnifying glass at an exam paper. It is the one image that says "watching an exam" rather than "an exam" or "a
-          file". The eye is the largest, highest-contrast shape, so it survives at 48 px and under all three masks.</p></div></div>
-      <div class="shot"><img src="img/icon/eye-layers.png" alt="Concept D layers" loading="lazy"></div>
-      <div class="shot"><img src="img/icon/eye-sizes.png" alt="Concept D at three sizes in three masks" loading="lazy"></div>
+    <article class="concept" id="icon-topdown">
+      <div class="concept-top"><img src="img/icon/topdown-full.png" alt="Top-down: four desks seen from above, one student in orange under a warm spotlight leaning toward a neighbour's paper">
+        <div><h3>1 · Top-down <span class="tag rec">recommended</span></h3><p class="muted">Four big desks seen from straight above. Three students in blue sit still. The fourth, in orange, leans toward the next paper under a tight warm spotlight. There are few shapes and they are large, which is why it holds up when small. The circle mask trims the corners of the outer desks, but the cheater stays inside the safe circle.</p>
+          <p class="verdict"><b>At 48 px:</b> the clearest of the four. Four squares, one of them bright: it says “one of these is cheating” at a glance.</p></div></div>
+      <div class="shot"><img src="img/icon/topdown-layers.png" alt="Top-down: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/topdown-sizes.png" alt="Top-down at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
       <div class="duo">
-        <div class="shot"><img src="img/icon/eye-home-circle.jpg" alt="Concept D in a home-screen row, circle mask" loading="lazy"></div>
-        <div class="shot"><img src="img/icon/eye-home-squircle.jpg" alt="Concept D in a home-screen row, squircle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/topdown-home-circle.jpg" alt="Top-down in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/topdown-home-squircle.jpg" alt="Top-down in a home-screen row, squircle mask" loading="lazy"></div>
+      </div>
+    </article>
+
+    <article class="concept" id="icon-angled">
+      <div class="concept-top"><img src="img/icon/angled-full.png" alt="Angled: a three-by-two exam room in three-quarter view, cool blue, the cheater glowing orange">
+        <div><h3>2 · Angled room</h3><p class="muted">A 3 × 2 room in three-quarter view, in cool blue. The cheater glows orange in the front row and leans toward a neighbour. At full size it looks the most like the game.</p>
+          <p class="verdict"><b>At 48 px:</b> the orange student survives, but the room around it becomes noise.</p></div></div>
+      <div class="shot"><img src="img/icon/angled-layers.png" alt="Angled room: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/angled-sizes.png" alt="Angled room at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
+      <div class="duo">
+        <div class="shot"><img src="img/icon/angled-home-circle.jpg" alt="Angled room in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/angled-home-squircle.jpg" alt="Angled room in a home-screen row, squircle mask" loading="lazy"></div>
+      </div>
+    </article>
+
+    <article class="concept" id="icon-note">
+      <div class="concept-top"><img src="img/icon/note-full.png" alt="The note: two desks close up, a glowing note being passed between two students, a long shadow of the supervisor across the floor">
+        <div><h3>3 · The note</h3><p class="muted">Two desks close up in warm light, with a glowing note being passed between the students. The supervisor is implied by a long shadow that falls across the floor from behind the viewer.</p>
+          <p class="verdict"><b>At 48 px:</b> the colour is distinctive but the story is lost: the note and the shadow are too small to read.</p></div></div>
+      <div class="shot"><img src="img/icon/note-layers.png" alt="The note: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/note-sizes.png" alt="The note at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
+      <div class="duo">
+        <div class="shot"><img src="img/icon/note-home-circle.jpg" alt="The note in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/note-home-squircle.jpg" alt="The note in a home-screen row, squircle mask" loading="lazy"></div>
+      </div>
+    </article>
+
+    <article class="concept" id="icon-supervisor">
+      <div class="concept-top"><img src="img/icon/supervisor-full.png" alt="Over the shoulder: the supervisor's dark shoulder in the corner, a dotted glance line from the cheater to the neighbour's paper">
+        <div><h3>4 · Over the shoulder</h3><p class="muted">The supervisor's view: a dark shoulder and head in the near corner, four desks beyond, and a dotted line tracing the cheater's glance to the next paper.</p>
+          <p class="verdict"><b>At 48 px:</b> the glance line disappears. This is the weakest at launcher size.</p></div></div>
+      <div class="shot"><img src="img/icon/supervisor-layers.png" alt="Over the shoulder: the single background layer, the empty foreground, and the composite with the 72 dp viewport and 66 dp safe circle" loading="lazy"></div>
+      <div class="shot"><img src="img/icon/supervisor-sizes.png" alt="Over the shoulder at 192, 96 and 48 px in circle, squircle and rounded masks on light and dark wallpaper" loading="lazy"></div>
+      <div class="duo">
+        <div class="shot"><img src="img/icon/supervisor-home-circle.jpg" alt="Over the shoulder in a home-screen row, circle mask" loading="lazy"></div>
+        <div class="shot"><img src="img/icon/supervisor-home-squircle.jpg" alt="Over the shoulder in a home-screen row, squircle mask" loading="lazy"></div>
       </div>
     </article>
   </section>
 
   <section id="shop">
     <div class="section-head">
-      <h2>Shop tiles</h2>
-      <p class="muted">The coin store sells two tools (Phone Detector, Replay), four cosmetics (Navy Shirt, Charcoal
-        Shirt, Bronze Badge, Silver Badge) and, in its Medicine section, Pills. In each row below, the first tile is the
-        current one and the others are Blender candidates. All are dark theme, with the light theme under each row.
-        The illness event picture is not part of this; another session is replacing it.</p>
+      <h2>Shop tiles <span class="tag rec">shipped on the branch</span></h2>
+      <p class="muted">The Store, captured from the game. Phone Detector, Pills, the Navy, Charcoal and Slate shirts and the
+        Bronze, Silver, Enamel, Supporter and Regional badges are Blender renders. Replay keeps its current drawing. The
+        "You are not well" illness picture is not part of this work.</p>
+      <p class="muted">A render can't be tinted without muddying it, so each tile shows its state another way. If you don't own
+        an item, its art is dimmed. If it is carried or worn, a green check sits in the corner of the art, and the word
+        ("Carried", "Worn") is on the button. In these captures the Detector is carried and Replay is not owned. The Navy
+        Shirt is worn. The Charcoal Shirt and Silver Badge are not owned. The Bronze Badge, Slate Shirt and Enamel Badge are
+        owned but not worn.</p>
     </div>
 
-    <article class="item"><h3>Phone Detector</h3>
-      <div class="shot"><img src="img/shop/detector.jpg" alt="Phone Detector: current glyph tile, then a Blender handheld scanner with a lit signal-bar screen and antenna" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/detector-light.jpg" alt="Phone Detector, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Blender.</b> A handheld scanner with lit signal bars and an antenna: plainly a detector, where the current one is an icon of a phone.</p></article>
+    <article class="item"><h3>Dark theme, top to bottom</h3>
+      <div class="phones">
+        <img src="img/shop/store-dark-0.jpg" alt="Store, dark theme, at the top" loading="lazy">
+        <img src="img/shop/store-dark-1.jpg" alt="Store, dark theme, scrolled down, step 1 of 4" loading="lazy">
+        <img src="img/shop/store-dark-2.jpg" alt="Store, dark theme, scrolled down, step 2 of 4" loading="lazy">
+        <img src="img/shop/store-dark-3.jpg" alt="Store, dark theme, scrolled down, step 3 of 4" loading="lazy">
+        <img src="img/shop/store-dark-4.jpg" alt="Store, dark theme, scrolled down, step 4 of 4" loading="lazy">
+      </div></article>
 
-    <article class="item"><h3>Replay</h3>
-      <div class="shot"><img src="img/shop/replay.jpg" alt="Replay: current circular-arrow glyph, then a Blender pocket voice recorder with a waveform screen and red button" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/replay-light.jpg" alt="Replay, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Blender.</b> The tool recalls the last few seconds, sounds included. A pocket recorder with a waveform and rewind
-        keys says that better than a rewind arrow does.</p></article>
+    <article class="item"><h3>Light theme, top to bottom</h3>
+      <div class="phones">
+        <img src="img/shop/store-light-0.jpg" alt="Store, light theme, at the top" loading="lazy">
+        <img src="img/shop/store-light-1.jpg" alt="Store, light theme, scrolled down, step 1 of 4" loading="lazy">
+        <img src="img/shop/store-light-2.jpg" alt="Store, light theme, scrolled down, step 2 of 4" loading="lazy">
+        <img src="img/shop/store-light-3.jpg" alt="Store, light theme, scrolled down, step 3 of 4" loading="lazy">
+        <img src="img/shop/store-light-4.jpg" alt="Store, light theme, scrolled down, step 4 of 4" loading="lazy">
+      </div></article>
 
-    <article class="item"><h3>Navy Shirt</h3>
-      <div class="shot"><img src="img/shop/shirt_navy.jpg" alt="Navy Shirt: current flat shirt glyph, Blender folded shirt, Blender shirt on a hanger" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/shirt_navy-light.jpg" alt="Navy Shirt, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Hanger (third).</b> The folded shirt reads as a box from this angle; on a hanger it is unmistakably a shirt.</p></article>
-
-    <article class="item"><h3>Charcoal Shirt</h3>
-      <div class="shot"><img src="img/shop/shirt_charcoal.jpg" alt="Charcoal Shirt: current, folded, on a hanger" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/shirt_charcoal-light.jpg" alt="Charcoal Shirt, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Hanger.</b> Navy and charcoal stay distinguishable side by side. The render uses each shirt's real colour, lifted a little the way the Store's swatch does.</p></article>
-
-    <article class="item"><h3>Bronze Badge</h3>
-      <div class="shot"><img src="img/shop/badge_bronze.jpg" alt="Bronze Badge: current round star badge, then a Blender bronze shield pin with a blue enamel field and star" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/badge_bronze-light.jpg" alt="Bronze Badge, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Blender.</b> A shield pin in the badge's own metal, with an enamel field and a raised star.</p></article>
-
-    <article class="item"><h3>Silver Badge</h3>
-      <div class="shot"><img src="img/shop/badge_silver.jpg" alt="Silver Badge: current and Blender silver shield pin" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/badge_silver-light.jpg" alt="Silver Badge, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Blender.</b> The same shield in silver, clearly a different metal from the bronze.</p></article>
-
-    <article class="item"><h3>Pills</h3>
-      <div class="shot"><img src="img/shop/pills.jpg" alt="Pills: current green bottle glyph, Blender blister pack, Blender amber pill bottle with a green cross label" loading="lazy"></div>
-      <div class="shot" style="max-width:560px"><img src="img/shop/pills-light.jpg" alt="Pills, light theme" loading="lazy"></div>
-      <p class="verdict"><b>Bottle (third).</b> The amber bottle with a green cross reads as medicine at tile size. The blister pack is fine but small.</p></article>
-
-    <figure class="item" style="margin:0"><h3>The recommended set in a store card</h3>
-      <div class="shot" style="max-width:560px"><img src="img/shop/store-recommended.jpg" alt="All seven recommended Blender tiles laid out two to a row as in the Store" loading="lazy"></div></figure>
+    <figure class="item" style="margin:0"><h3>Close up, at full resolution</h3>
+      <div class="duo">
+        <div class="shot"><img src="img/shop/equipment-dark-full.jpg" alt="Equipment, dark theme: the carried Phone Detector render with a green check, beside the drawn Replay tile" loading="lazy"></div>
+        <div class="shot"><img src="img/shop/appearance-light-full.jpg" alt="Appearance, light theme: the worn Navy Shirt with a check, the dimmed Charcoal Shirt, bronze and silver badges, the Slate Shirt and the Enamel Badge" loading="lazy"></div>
+      </div></figure>
   </section>
 
   <section id="implement">
-    <div class="section-head"><h2>What implementing the chosen ones involves</h2></div>
+    <div class="section-head"><h2>Where things stand</h2></div>
     <ul class="next">
-      <li><b>App icon (Android).</b>
-        <ul class="next">
-          <li>Render the chosen foreground and background layers at 1024 px and replace <code>AppIconForeground.png</code>,
-            <code>AppIconBackground.png</code> and the flattened <code>AppIcon.png</code> in <code>Assets/Art/Branding</code>.</li>
-          <li>Re-run <code>Proctor.EditorTools.Branding.Apply</code> in batchmode with the Android target. It fills the
-            Legacy, Round and Adaptive icon slots and writes them into ProjectSettings.</li>
-          <li>The Store listing needs a 512 px PNG of the same icon.</li>
-          <li>Size: Unity generates the mipmap-density PNGs, about 0.2 MB in total.</li>
-        </ul></li>
-      <li><b>App icon (iOS, later).</b> One flattened 1024 px icon with no transparency. Unity makes the other sizes. The
-        rounded corners come from iOS, so the composite is used as it is.</li>
-      <li><b>Shop tiles.</b>
-        <ul class="next">
-          <li>Render the seven at 480 × 230 into <code>Assets/Resources/Art/Props/</code>. <code>BakedArtImporter</code>
-            already handles that folder (no mipmaps, ASTC 6×6).</li>
-          <li><code>Props.Get(prop, tint, PropFrame.Tile)</code> loads them the way the event banners already do. Each colour
-            of shirt and badge is its own render, so the tile is keyed by the cosmetic id, not by Prop.</li>
-          <li>Size: about 0.06 MB each, roughly 0.45 MB for all seven.</li>
-        </ul></li>
-      <li><b>A design decision for the shop.</b> Today the tile art is tinted to show state: dimmed when not owned, bright
-        when equipped. A render cannot be tinted without muddying it, so state should move to the tile itself, for
-        example a dimmed panel or an "Equipped" chip. The design system already has those components.</li>
-      <li><b>Pack-only cosmetics</b> (Slate Shirt and the Enamel, Supporter and Regional badges) appear only once owned. Each
-        needs a render too: four more, using the same scripts with a colour change.</li>
+      <li><b>Shop tiles.</b> <code>Props.TileArt(itemId, …)</code> loads <code>Resources/Art/Props/tile_&lt;id&gt;</code>
+        (480 × 230, about 0.06 MB each at ASTC 6×6). An id with no render falls back to the drawn tile without an error,
+        so a new cosmetic never shows a blank tile. To add one, add a line to the <code>TILES</code> table in
+        <code>shop.py</code> and render it.</li>
+      <li><b>App icon.</b> If Top-down is chosen: render it at 1024 px, replace the files in <code>Assets/Art/Branding</code>,
+        and re-run <code>Proctor.EditorTools.Branding.Apply</code> for Android. The Store listing also needs a 512 px PNG.
+        First, it would help to lift the background off pure navy so the icon keeps an edge on dark wallpapers.</li>
     </ul>
-    <p class="muted">Sources: <code>ArtSource/UI/imgq/blender/icon.py</code> and <code>shop.py</code>, composed by
-      <code>compose_icons.py</code>, <code>compose_shop.py</code> and <code>build_icon_shop_report.py</code> (branch
-      <code>art-icon-shop</code>).</p>
+    <p class="muted">Sources on the <code>art-icon-shop</code> branch: <code>ArtSource/UI/imgq/blender/icon_scene.py</code>
+      and <code>shop.py</code>, composed by <code>compose_icons.py</code> and <code>build_icon_shop_report.py</code>. The Store
+      captures come from the PlayMode test <code>StoreTileCaptures</code>.</p>
   </section>
 </div>
 </body>
