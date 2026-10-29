@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wardrobe</title>
-<meta name="description" content="The supervisor's wardrobe in Exam Supervisor Simulator. Phase 1: the supervisor on the students' skinned body, as a man or a woman. Phase 2: wardrobe slots and the store's Wardrobe with a live preview figure, try-on and the Man / Woman toggle.">
+<meta name="description" content="The supervisor's wardrobe in Exam Supervisor Simulator. Phase 1: the supervisor on the students' skinned body, as a man or a woman. Phase 2: wardrobe slots and the store's Wardrobe with a live preview figure, try-on and the Man / Woman toggle. Phase 3: candidate clothing worn by both, to choose from.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -83,6 +83,22 @@ tr.hi td { background: var(--accent-soft); }
 .pair figcaption b { color: var(--ink); font-weight: 600; display: block; }
 .note { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; max-width: 80ch; }
 .note b { color: var(--ink); }
+.items { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.combos, .hair { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.item, .combo { margin: 0; display: grid; gap: 6px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.item .shots, .combo .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.combo .shots.three { grid-template-columns: 1fr 1fr 1fr; }
+.item figure, .combo figure { margin: 0; }
+.item img, .combo img { border-radius: 6px; width: 100%; }
+.item h3, .combo h3 { font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.meta span + span::before { content: "·"; margin-right: 12px; }
+.route { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+.small { font-size: 0.88rem; }
+.id code { font-size: 0.75rem; }
+.count { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+#phase3 > h3 { font-size: 1.3rem; margin-top: 16px; }
+td a { color: var(--accent); }
 </style>
 
 </head>
@@ -90,7 +106,7 @@ tr.hi td { background: var(--accent-soft); }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phases 1 and 2 of 4</span>
+    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phases 1–2 done · Phase 3 candidates</span>
     <h1>Wardrobe</h1>
     <p class="lede">The player's supervisor will get a wardrobe: hats, tops, trousers, shoes, badges and extras, each worn
       or taken off. Phase 1 gives the supervisor a real body. The stack of cubes is gone. The supervisor now uses the
@@ -98,7 +114,7 @@ tr.hi td { background: var(--accent-soft); }
       supervisor walks with a real walk cycle, holds a hand out when acting on a student, wears the bought shirt
       colour, and wears the badge on the front of the chest. Phase 2 gives the wardrobe its eight slots and puts a
       Wardrobe in the store: a live 3D figure of your own supervisor, a Man / Woman toggle, category tabs, try-on
-      before buying, and Buy → Wear → Take off on every item. Still to come: clothing art and new items (3), and
+      before buying, and Buy → Wear → Take off on every item. Phase 3 is in review: <a href="#phase3">36 candidate items</a> (hats, tops, trousers, shoes, pin badges and school crests, glasses, a lanyard and a watch), five full outfits, three hairstyles for the woman and the fix for the seams on her tops, for you to choose which go into the game. Still to come: bringing the chosen items in, then
       prices and unlocks (4).</p>
   </header>
 
@@ -210,6 +226,354 @@ tr.hi td { background: var(--accent-soft); }
     </div>
   </section>
 
+  <section id="phase3">
+    <div class="section-head"><span class="eyebrow">Phase 3 — candidates · not in the game yet</span><h2>Phase 3: the clothing, to choose from</h2>
+      <p class="muted">36 candidate items, each worn by both the man and the woman, for you to pick which go into the game.
+        They are Blender renders of the game's own meshes: the shipped body, skeleton and parts, in the Standing clip, at
+        the store preview's size (512 × 640), with one fixed 3/4-front camera and one light set for every shot. Small
+        items get a close-up too. Everything else is the issued look (teal top, dark trousers, dark shoes). No item here
+        is in the game yet; after you choose, step B brings the chosen ones in.</p></div>
+    <div class="note"><p><b>How to read a card.</b> Name, slot, a suggested price band and the technical route.
+      <b>Rigid</b>: one mesh on one bone, like the badge today. <b>Skinned</b>: a new part cut from each body's own
+      shape, so it bends with the arms like the shipped tops (one per body). <b>Colour</b>: a tint of something that
+      already exists, so there is no new mesh at all.</p></div>
+    <h3 id="outfits">Outfits</h3>
+    <div class="combos">
+<article class="combo"><div class="shots"><figure><a href="img/wardrobe3-combo-casual-man.jpg"><img src="img/wardrobe3-combo-casual-man.jpg" alt="Casual outfit, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-combo-casual-woman.jpg"><img src="img/wardrobe3-combo-casual-woman.jpg" alt="Casual outfit, woman" loading="lazy"></a></figure></div><h3>Casual</h3><p class="muted small">Navy cap, mustard T-shirt, jeans, white sneakers, wristwatch</p></article>
+<article class="combo"><div class="shots"><figure><a href="img/wardrobe3-combo-smart-man.jpg"><img src="img/wardrobe3-combo-smart-man.jpg" alt="Smart casual outfit, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-combo-smart-woman.jpg"><img src="img/wardrobe3-combo-smart-woman.jpg" alt="Smart casual outfit, woman" loading="lazy"></a></figure></div><h3>Smart casual</h3><p class="muted small">Cardigan over a shirt, chinos, boots, round glasses, ID lanyard</p></article>
+<article class="combo"><div class="shots"><figure><a href="img/wardrobe3-combo-formal-man.jpg"><img src="img/wardrobe3-combo-formal-man.jpg" alt="Formal outfit, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-combo-formal-woman.jpg"><img src="img/wardrobe3-combo-formal-woman.jpg" alt="Formal outfit, woman" loading="lazy"></a></figure></div><h3>Formal</h3><p class="muted small">Shirt and tie, formal trousers, loafers, square glasses, Silver pin</p></article>
+<article class="combo"><div class="shots"><figure><a href="img/wardrobe3-combo-headteacher-man.jpg"><img src="img/wardrobe3-combo-headteacher-man.jpg" alt="Headteacher outfit, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-combo-headteacher-woman.jpg"><img src="img/wardrobe3-combo-headteacher-woman.jpg" alt="Headteacher outfit, woman" loading="lazy"></a></figure></div><h3>Headteacher</h3><p class="muted small">Navy blazer and tie, dark trousers, round glasses, Kingsley Academy crest, gold watch</p></article>
+<article class="combo"><div class="shots"><figure><a href="img/wardrobe3-combo-graduation-man.jpg"><img src="img/wardrobe3-combo-graduation-man.jpg" alt="Graduation day outfit, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-combo-graduation-woman.jpg"><img src="img/wardrobe3-combo-graduation-woman.jpg" alt="Graduation day outfit, woman" loading="lazy"></a></figure></div><h3>Graduation day</h3><p class="muted small">Graduation cap, black blazer, Gold pin, black loafers</p></article>
+    </div>
+    <h3 id="g-hats">Hats <span class="count">5</span></h3>
+    <div class="items"><article class="item" id="hat_cap">
+  <div class="shots"><figure><a href="img/wardrobe3-hat-cap-man.jpg"><img src="img/wardrobe3-hat-cap-man.jpg" alt="Baseball Cap on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-cap-woman.jpg"><img src="img/wardrobe3-hat-cap-woman.jpg" alt="Baseball Cap on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-hat-cap-man-close.jpg"><img src="img/wardrobe3-hat-cap-man-close.jpg" alt="Baseball Cap close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-cap-woman-close.jpg"><img src="img/wardrobe3-hat-cap-woman-close.jpg" alt="Baseball Cap close up, woman" loading="lazy"></a></figure></div>
+  <h3>Baseball Cap</h3>
+  <p class="meta"><span>Hat</span><span>120–160¢</span></p>
+  <p class="route">Rigid · Head</p><p class="muted small">Hair that sits below the brim (the woman&#x27;s ponytail, the man&#x27;s sides) still shows, as it would.</p>
+  <p class="id"><code>hat_cap</code></p>
+</article>
+<article class="item" id="hat_beanie">
+  <div class="shots"><figure><a href="img/wardrobe3-hat-beanie-man.jpg"><img src="img/wardrobe3-hat-beanie-man.jpg" alt="Beanie on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-beanie-woman.jpg"><img src="img/wardrobe3-hat-beanie-woman.jpg" alt="Beanie on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-hat-beanie-man-close.jpg"><img src="img/wardrobe3-hat-beanie-man-close.jpg" alt="Beanie close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-beanie-woman-close.jpg"><img src="img/wardrobe3-hat-beanie-woman-close.jpg" alt="Beanie close up, woman" loading="lazy"></a></figure></div>
+  <h3>Beanie</h3>
+  <p class="meta"><span>Hat</span><span>100–140¢</span></p>
+  <p class="route">Rigid · Head</p><p class="muted small">Folded cuff in a darker shade (second role).</p>
+  <p class="id"><code>hat_beanie</code></p>
+</article>
+<article class="item" id="hat_flatcap">
+  <div class="shots"><figure><a href="img/wardrobe3-hat-flatcap-man.jpg"><img src="img/wardrobe3-hat-flatcap-man.jpg" alt="Flat Cap on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-flatcap-woman.jpg"><img src="img/wardrobe3-hat-flatcap-woman.jpg" alt="Flat Cap on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-hat-flatcap-man-close.jpg"><img src="img/wardrobe3-hat-flatcap-man-close.jpg" alt="Flat Cap close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-flatcap-woman-close.jpg"><img src="img/wardrobe3-hat-flatcap-woman-close.jpg" alt="Flat Cap close up, woman" loading="lazy"></a></figure></div>
+  <h3>Flat Cap</h3>
+  <p class="meta"><span>Hat</span><span>180–240¢</span></p>
+  <p class="route">Rigid · Head</p>
+  <p class="id"><code>hat_flatcap</code></p>
+</article>
+<article class="item" id="hat_bucket">
+  <div class="shots"><figure><a href="img/wardrobe3-hat-bucket-man.jpg"><img src="img/wardrobe3-hat-bucket-man.jpg" alt="Bucket Hat on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-bucket-woman.jpg"><img src="img/wardrobe3-hat-bucket-woman.jpg" alt="Bucket Hat on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-hat-bucket-man-close.jpg"><img src="img/wardrobe3-hat-bucket-man-close.jpg" alt="Bucket Hat close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-bucket-woman-close.jpg"><img src="img/wardrobe3-hat-bucket-woman-close.jpg" alt="Bucket Hat close up, woman" loading="lazy"></a></figure></div>
+  <h3>Bucket Hat</h3>
+  <p class="meta"><span>Hat</span><span>140–180¢</span></p>
+  <p class="route">Rigid · Head</p><p class="muted small">Sits just above the eyebrows; the eyes stay clear.</p>
+  <p class="id"><code>hat_bucket</code></p>
+</article>
+<article class="item" id="hat_mortarboard">
+  <div class="shots"><figure><a href="img/wardrobe3-hat-mortarboard-man.jpg"><img src="img/wardrobe3-hat-mortarboard-man.jpg" alt="Graduation Cap on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-mortarboard-woman.jpg"><img src="img/wardrobe3-hat-mortarboard-woman.jpg" alt="Graduation Cap on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-hat-mortarboard-man-close.jpg"><img src="img/wardrobe3-hat-mortarboard-man-close.jpg" alt="Graduation Cap close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hat-mortarboard-woman-close.jpg"><img src="img/wardrobe3-hat-mortarboard-woman-close.jpg" alt="Graduation Cap close up, woman" loading="lazy"></a></figure></div>
+  <h3>Graduation Cap</h3>
+  <p class="meta"><span>Hat</span><span>400–600 (Tier 3)¢</span></p>
+  <p class="route">Rigid · Head</p><p class="muted small">Board, button and a gold tassel. Suggested as a Tier 3 or graduation-event item.</p>
+  <p class="id"><code>hat_mortarboard</code></p>
+</article></div>
+    <h3 id="g-tops">Tops <span class="count">9</span></h3>
+    <div class="items"><article class="item" id="top_tee_white">
+  <div class="shots"><figure><a href="img/wardrobe3-top-tee-white-man.jpg"><img src="img/wardrobe3-top-tee-white-man.jpg" alt="T-Shirt · White on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-tee-white-woman.jpg"><img src="img/wardrobe3-top-tee-white-woman.jpg" alt="T-Shirt · White on the woman" loading="lazy"></a></figure></div>
+  <h3>T-Shirt · White</h3>
+  <p class="meta"><span>Top</span><span>80–100¢</span></p>
+  <p class="route">Colour · Top_ShortSleeve (existing part)</p><p class="muted small">The students&#x27; T-shirt part, tinted. No new mesh.</p>
+  <p class="id"><code>top_tee_white</code></p>
+</article>
+<article class="item" id="top_tee_mustard">
+  <div class="shots"><figure><a href="img/wardrobe3-top-tee-mustard-man.jpg"><img src="img/wardrobe3-top-tee-mustard-man.jpg" alt="T-Shirt · Mustard on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-tee-mustard-woman.jpg"><img src="img/wardrobe3-top-tee-mustard-woman.jpg" alt="T-Shirt · Mustard on the woman" loading="lazy"></a></figure></div>
+  <h3>T-Shirt · Mustard</h3>
+  <p class="meta"><span>Top</span><span>80–100¢</span></p>
+  <p class="route">Colour · Top_ShortSleeve (existing part)</p>
+  <p class="id"><code>top_tee_mustard</code></p>
+</article>
+<article class="item" id="top_tee_red">
+  <div class="shots"><figure><a href="img/wardrobe3-top-tee-red-man.jpg"><img src="img/wardrobe3-top-tee-red-man.jpg" alt="T-Shirt · Brick on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-tee-red-woman.jpg"><img src="img/wardrobe3-top-tee-red-woman.jpg" alt="T-Shirt · Brick on the woman" loading="lazy"></a></figure></div>
+  <h3>T-Shirt · Brick</h3>
+  <p class="meta"><span>Top</span><span>80–100¢</span></p>
+  <p class="route">Colour · Top_ShortSleeve (existing part)</p>
+  <p class="id"><code>top_tee_red</code></p>
+</article>
+<article class="item" id="top_polo">
+  <div class="shots"><figure><a href="img/wardrobe3-top-polo-man.jpg"><img src="img/wardrobe3-top-polo-man.jpg" alt="Polo Shirt on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-polo-woman.jpg"><img src="img/wardrobe3-top-polo-woman.jpg" alt="Polo Shirt on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-polo-man-close.jpg"><img src="img/wardrobe3-top-polo-man-close.jpg" alt="Polo Shirt close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-polo-woman-close.jpg"><img src="img/wardrobe3-top-polo-woman-close.jpg" alt="Polo Shirt close up, woman" loading="lazy"></a></figure></div>
+  <h3>Polo Shirt</h3>
+  <p class="meta"><span>Top</span><span>140–180¢</span></p>
+  <p class="route">Skinned · new part (short-sleeve shell + collar, placket, buttons)</p><p class="muted small">Laid-down collar in the same colour, a placket and two white buttons.</p>
+  <p class="id"><code>top_polo</code></p>
+</article>
+<article class="item" id="top_shirt_tie">
+  <div class="shots"><figure><a href="img/wardrobe3-top-shirt-tie-man.jpg"><img src="img/wardrobe3-top-shirt-tie-man.jpg" alt="Shirt &amp; Tie on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-shirt-tie-woman.jpg"><img src="img/wardrobe3-top-shirt-tie-woman.jpg" alt="Shirt &amp; Tie on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-shirt-tie-man-close.jpg"><img src="img/wardrobe3-top-shirt-tie-man-close.jpg" alt="Shirt &amp; Tie close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-shirt-tie-woman-close.jpg"><img src="img/wardrobe3-top-shirt-tie-woman-close.jpg" alt="Shirt &amp; Tie close up, woman" loading="lazy"></a></figure></div>
+  <h3>Shirt &amp; Tie</h3>
+  <p class="meta"><span>Top</span><span>220–280¢</span></p>
+  <p class="route">Skinned · new part (long-sleeve shell + collar, tie: 2 roles)</p><p class="muted small">Tie colour is a second role, so one mesh can sell several shirt/tie pairs.</p>
+  <p class="id"><code>top_shirt_tie</code></p>
+</article>
+<article class="item" id="top_sweater">
+  <div class="shots"><figure><a href="img/wardrobe3-top-sweater-man.jpg"><img src="img/wardrobe3-top-sweater-man.jpg" alt="Sweater on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-sweater-woman.jpg"><img src="img/wardrobe3-top-sweater-woman.jpg" alt="Sweater on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-sweater-man-close.jpg"><img src="img/wardrobe3-top-sweater-man-close.jpg" alt="Sweater close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-sweater-woman-close.jpg"><img src="img/wardrobe3-top-sweater-woman-close.jpg" alt="Sweater close up, woman" loading="lazy"></a></figure></div>
+  <h3>Sweater</h3>
+  <p class="meta"><span>Top</span><span>160–220¢</span></p>
+  <p class="route">Skinned · new part (thick long-sleeve shell + rib hem, cuffs, neck)</p><p class="muted small">Rib hem, cuffs and crew neck in a slightly darker shade of the same colour.</p>
+  <p class="id"><code>top_sweater</code></p>
+</article>
+<article class="item" id="top_hoodie">
+  <div class="shots"><figure><a href="img/wardrobe3-top-hoodie-man.jpg"><img src="img/wardrobe3-top-hoodie-man.jpg" alt="Hoodie on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-hoodie-woman.jpg"><img src="img/wardrobe3-top-hoodie-woman.jpg" alt="Hoodie on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-hoodie-man-close.jpg"><img src="img/wardrobe3-top-hoodie-man-close.jpg" alt="Hoodie close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-hoodie-woman-close.jpg"><img src="img/wardrobe3-top-hoodie-woman-close.jpg" alt="Hoodie close up, woman" loading="lazy"></a></figure></div>
+  <h3>Hoodie</h3>
+  <p class="meta"><span>Top</span><span>180–240¢</span></p>
+  <p class="route">Colour · Top_Hoodie (existing part)</p><p class="muted small">The students&#x27; hoodie part, tinted. No new mesh.</p>
+  <p class="id"><code>top_hoodie</code></p>
+</article>
+<article class="item" id="top_cardigan">
+  <div class="shots"><figure><a href="img/wardrobe3-top-cardigan-man.jpg"><img src="img/wardrobe3-top-cardigan-man.jpg" alt="Cardigan on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-cardigan-woman.jpg"><img src="img/wardrobe3-top-cardigan-woman.jpg" alt="Cardigan on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-cardigan-man-close.jpg"><img src="img/wardrobe3-top-cardigan-man-close.jpg" alt="Cardigan close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-cardigan-woman-close.jpg"><img src="img/wardrobe3-top-cardigan-woman-close.jpg" alt="Cardigan close up, woman" loading="lazy"></a></figure></div>
+  <h3>Cardigan</h3>
+  <p class="meta"><span>Top</span><span>220–300¢</span></p>
+  <p class="route">Skinned · new part (long-sleeve shell + shirt V, front bands, buttons)</p><p class="muted small">Open over a white shirt; front bands and four buttons.</p>
+  <p class="id"><code>top_cardigan</code></p>
+</article>
+<article class="item" id="top_blazer">
+  <div class="shots"><figure><a href="img/wardrobe3-top-blazer-man.jpg"><img src="img/wardrobe3-top-blazer-man.jpg" alt="Blazer on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-blazer-woman.jpg"><img src="img/wardrobe3-top-blazer-woman.jpg" alt="Blazer on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-top-blazer-man-close.jpg"><img src="img/wardrobe3-top-blazer-man-close.jpg" alt="Blazer close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-top-blazer-woman-close.jpg"><img src="img/wardrobe3-top-blazer-woman-close.jpg" alt="Blazer close up, woman" loading="lazy"></a></figure></div>
+  <h3>Blazer</h3>
+  <p class="meta"><span>Top</span><span>400–600 (Tier 3)¢</span></p>
+  <p class="route">Skinned · new part (thick shell + lapels, shirt V and tie, pockets)</p><p class="muted small">Notched lapels, a white shirt V and a tie, two buttons, pocket flaps. On the woman the lapels crease a little over the bust (low-poly shell).</p>
+  <p class="id"><code>top_blazer</code></p>
+</article></div>
+    <h3 id="g-trousers">Trousers <span class="count">3</span></h3>
+    <div class="items"><article class="item" id="trousers_jeans">
+  <div class="shots"><figure><a href="img/wardrobe3-trousers-jeans-man.jpg"><img src="img/wardrobe3-trousers-jeans-man.jpg" alt="Jeans on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-trousers-jeans-woman.jpg"><img src="img/wardrobe3-trousers-jeans-woman.jpg" alt="Jeans on the woman" loading="lazy"></a></figure></div>
+  <h3>Jeans</h3>
+  <p class="meta"><span>Trousers</span><span>100–140¢</span></p>
+  <p class="route">Colour · body Legwear sub-mesh</p><p class="muted small">Same cut as today; only the Legwear colour changes.</p>
+  <p class="id"><code>trousers_jeans</code></p>
+</article>
+<article class="item" id="trousers_chinos">
+  <div class="shots"><figure><a href="img/wardrobe3-trousers-chinos-man.jpg"><img src="img/wardrobe3-trousers-chinos-man.jpg" alt="Chinos on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-trousers-chinos-woman.jpg"><img src="img/wardrobe3-trousers-chinos-woman.jpg" alt="Chinos on the woman" loading="lazy"></a></figure></div>
+  <h3>Chinos</h3>
+  <p class="meta"><span>Trousers</span><span>120–160¢</span></p>
+  <p class="route">Colour · body Legwear sub-mesh</p>
+  <p class="id"><code>trousers_chinos</code></p>
+</article>
+<article class="item" id="trousers_formal">
+  <div class="shots"><figure><a href="img/wardrobe3-trousers-formal-man.jpg"><img src="img/wardrobe3-trousers-formal-man.jpg" alt="Formal Trousers on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-trousers-formal-woman.jpg"><img src="img/wardrobe3-trousers-formal-woman.jpg" alt="Formal Trousers on the woman" loading="lazy"></a></figure></div>
+  <h3>Formal Trousers</h3>
+  <p class="meta"><span>Trousers</span><span>180–240¢</span></p>
+  <p class="route">Colour · body Legwear sub-mesh</p><p class="muted small">Mid-grey so it is not mistaken for the issued near-black trousers.</p>
+  <p class="id"><code>trousers_formal</code></p>
+</article></div>
+    <h3 id="g-shoes">Shoes <span class="count">4</span></h3>
+    <div class="items"><article class="item" id="shoes_sneakers">
+  <div class="shots"><figure><a href="img/wardrobe3-shoes-sneakers-man.jpg"><img src="img/wardrobe3-shoes-sneakers-man.jpg" alt="White Sneakers on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-sneakers-woman.jpg"><img src="img/wardrobe3-shoes-sneakers-woman.jpg" alt="White Sneakers on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-shoes-sneakers-man-close.jpg"><img src="img/wardrobe3-shoes-sneakers-man-close.jpg" alt="White Sneakers close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-sneakers-woman-close.jpg"><img src="img/wardrobe3-shoes-sneakers-woman-close.jpg" alt="White Sneakers close up, woman" loading="lazy"></a></figure></div>
+  <h3>White Sneakers</h3>
+  <p class="meta"><span>Shoes</span><span>120–160¢</span></p>
+  <p class="route">Skinned · shoe shell (low), 2 roles: upper, sole</p><p class="muted small">Sole in a light grey so the white upper still reads.</p>
+  <p class="id"><code>shoes_sneakers</code></p>
+</article>
+<article class="item" id="shoes_loafers">
+  <div class="shots"><figure><a href="img/wardrobe3-shoes-loafers-man.jpg"><img src="img/wardrobe3-shoes-loafers-man.jpg" alt="Loafers on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-loafers-woman.jpg"><img src="img/wardrobe3-shoes-loafers-woman.jpg" alt="Loafers on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-shoes-loafers-man-close.jpg"><img src="img/wardrobe3-shoes-loafers-man-close.jpg" alt="Loafers close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-loafers-woman-close.jpg"><img src="img/wardrobe3-shoes-loafers-woman-close.jpg" alt="Loafers close up, woman" loading="lazy"></a></figure></div>
+  <h3>Loafers</h3>
+  <p class="meta"><span>Shoes</span><span>180–240¢</span></p>
+  <p class="route">Skinned · shoe shell (low), 2 roles: upper, sole</p>
+  <p class="id"><code>shoes_loafers</code></p>
+</article>
+<article class="item" id="shoes_boots">
+  <div class="shots"><figure><a href="img/wardrobe3-shoes-boots-man.jpg"><img src="img/wardrobe3-shoes-boots-man.jpg" alt="Boots on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-boots-woman.jpg"><img src="img/wardrobe3-shoes-boots-woman.jpg" alt="Boots on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-shoes-boots-man-close.jpg"><img src="img/wardrobe3-shoes-boots-man-close.jpg" alt="Boots close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-boots-woman-close.jpg"><img src="img/wardrobe3-shoes-boots-woman-close.jpg" alt="Boots close up, woman" loading="lazy"></a></figure></div>
+  <h3>Boots</h3>
+  <p class="meta"><span>Shoes</span><span>220–300¢</span></p>
+  <p class="route">Skinned · shoe shell (to mid-shin), 2 roles: upper, sole</p><p class="muted small">The shell climbs to mid-shin over the trousers.</p>
+  <p class="id"><code>shoes_boots</code></p>
+</article>
+<article class="item" id="shoes_runners">
+  <div class="shots"><figure><a href="img/wardrobe3-shoes-runners-man.jpg"><img src="img/wardrobe3-shoes-runners-man.jpg" alt="Running Shoes on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-runners-woman.jpg"><img src="img/wardrobe3-shoes-runners-woman.jpg" alt="Running Shoes on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-shoes-runners-man-close.jpg"><img src="img/wardrobe3-shoes-runners-man-close.jpg" alt="Running Shoes close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-shoes-runners-woman-close.jpg"><img src="img/wardrobe3-shoes-runners-woman-close.jpg" alt="Running Shoes close up, woman" loading="lazy"></a></figure></div>
+  <h3>Running Shoes</h3>
+  <p class="meta"><span>Shoes</span><span>160–220¢</span></p>
+  <p class="route">Skinned · shoe shell (low), 2 roles: upper, sole</p>
+  <p class="id"><code>shoes_runners</code></p>
+</article></div>
+    <h3 id="g-badges">Badges <span class="count">11</span></h3>
+    <p class="muted">Small pins replace the 8.5 cm disc: 3.4 cm medals, and a 3.5 × 4.2 cm crest for each of the eight schools in <code>InstitutionCatalog</code>. All sit where the badge sits today (left chest, on the top's surface). The crests share one shield; only the field colour and the emblem differ.</p>
+    <div class="items"><article class="item" id="badge_bronze">
+  <div class="shots"><figure><a href="img/wardrobe3-badge-bronze-man.jpg"><img src="img/wardrobe3-badge-bronze-man.jpg" alt="Bronze Pin on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-bronze-woman.jpg"><img src="img/wardrobe3-badge-bronze-woman.jpg" alt="Bronze Pin on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-badge-bronze-man-close.jpg"><img src="img/wardrobe3-badge-bronze-man-close.jpg" alt="Bronze Pin close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-bronze-woman-close.jpg"><img src="img/wardrobe3-badge-bronze-woman-close.jpg" alt="Bronze Pin close up, woman" loading="lazy"></a></figure></div>
+  <h3>Bronze Pin</h3>
+  <p class="meta"><span>Badge</span><span>120¢ · Tier 1</span></p>
+  <p class="route">Rigid · Spine (replaces the 8.5 cm disc)</p>
+  <p class="id"><code>badge_bronze</code></p>
+</article>
+<article class="item" id="badge_silver">
+  <div class="shots"><figure><a href="img/wardrobe3-badge-silver-man.jpg"><img src="img/wardrobe3-badge-silver-man.jpg" alt="Silver Pin on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-silver-woman.jpg"><img src="img/wardrobe3-badge-silver-woman.jpg" alt="Silver Pin on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-badge-silver-man-close.jpg"><img src="img/wardrobe3-badge-silver-man-close.jpg" alt="Silver Pin close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-silver-woman-close.jpg"><img src="img/wardrobe3-badge-silver-woman-close.jpg" alt="Silver Pin close up, woman" loading="lazy"></a></figure></div>
+  <h3>Silver Pin</h3>
+  <p class="meta"><span>Badge</span><span>250¢ · Tier 2</span></p>
+  <p class="route">Rigid · Spine (replaces the 8.5 cm disc)</p>
+  <p class="id"><code>badge_silver</code></p>
+</article>
+<article class="item" id="badge_gold">
+  <div class="shots"><figure><a href="img/wardrobe3-badge-gold-man.jpg"><img src="img/wardrobe3-badge-gold-man.jpg" alt="Gold Pin on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-gold-woman.jpg"><img src="img/wardrobe3-badge-gold-woman.jpg" alt="Gold Pin on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-badge-gold-man-close.jpg"><img src="img/wardrobe3-badge-gold-man-close.jpg" alt="Gold Pin close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-badge-gold-woman-close.jpg"><img src="img/wardrobe3-badge-gold-woman-close.jpg" alt="Gold Pin close up, woman" loading="lazy"></a></figure></div>
+  <h3>Gold Pin</h3>
+  <p class="meta"><span>Badge</span><span>500¢ · Tier 3</span></p>
+  <p class="route">Rigid · Spine (replaces the 8.5 cm disc)</p>
+  <p class="id"><code>badge_gold</code></p>
+</article>
+<article class="item" id="crest_maple">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-maple-man.jpg"><img src="img/wardrobe3-crest-maple-man.jpg" alt="Maple Elementary crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-maple-woman.jpg"><img src="img/wardrobe3-crest-maple-woman.jpg" alt="Maple Elementary crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-maple-man-close.jpg"><img src="img/wardrobe3-crest-maple-man-close.jpg" alt="Maple Elementary crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-maple-woman-close.jpg"><img src="img/wardrobe3-crest-maple-woman-close.jpg" alt="Maple Elementary crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>Maple Elementary crest</h3>
+  <p class="meta"><span>Badge</span><span>150¢ · Tier 1 · unlocked by working at Maple</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_maple</code></p>
+</article>
+<article class="item" id="crest_riverside">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-riverside-man.jpg"><img src="img/wardrobe3-crest-riverside-man.jpg" alt="Riverside Middle crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-riverside-woman.jpg"><img src="img/wardrobe3-crest-riverside-woman.jpg" alt="Riverside Middle crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-riverside-man-close.jpg"><img src="img/wardrobe3-crest-riverside-man-close.jpg" alt="Riverside Middle crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-riverside-woman-close.jpg"><img src="img/wardrobe3-crest-riverside-woman-close.jpg" alt="Riverside Middle crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>Riverside Middle crest</h3>
+  <p class="meta"><span>Badge</span><span>150¢ · Tier 1 · unlocked at Riverside</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_riverside</code></p>
+</article>
+<article class="item" id="crest_eastgate">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-eastgate-man.jpg"><img src="img/wardrobe3-crest-eastgate-man.jpg" alt="Eastgate Evening College crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-eastgate-woman.jpg"><img src="img/wardrobe3-crest-eastgate-woman.jpg" alt="Eastgate Evening College crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-eastgate-man-close.jpg"><img src="img/wardrobe3-crest-eastgate-man-close.jpg" alt="Eastgate Evening College crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-eastgate-woman-close.jpg"><img src="img/wardrobe3-crest-eastgate-woman-close.jpg" alt="Eastgate Evening College crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>Eastgate Evening College crest</h3>
+  <p class="meta"><span>Badge</span><span>150¢ · Tier 1 · unlocked at Eastgate</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_eastgate</code></p>
+</article>
+<article class="item" id="crest_cityhigh">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-cityhigh-man.jpg"><img src="img/wardrobe3-crest-cityhigh-man.jpg" alt="City High School crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-cityhigh-woman.jpg"><img src="img/wardrobe3-crest-cityhigh-woman.jpg" alt="City High School crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-cityhigh-man-close.jpg"><img src="img/wardrobe3-crest-cityhigh-man-close.jpg" alt="City High School crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-cityhigh-woman-close.jpg"><img src="img/wardrobe3-crest-cityhigh-woman-close.jpg" alt="City High School crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>City High School crest</h3>
+  <p class="meta"><span>Badge</span><span>300¢ · Tier 2 · unlocked at City High</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_cityhigh</code></p>
+</article>
+<article class="item" id="crest_brightpath">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-brightpath-man.jpg"><img src="img/wardrobe3-crest-brightpath-man.jpg" alt="Brightpath Prep Centre crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-brightpath-woman.jpg"><img src="img/wardrobe3-crest-brightpath-woman.jpg" alt="Brightpath Prep Centre crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-brightpath-man-close.jpg"><img src="img/wardrobe3-crest-brightpath-man-close.jpg" alt="Brightpath Prep Centre crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-brightpath-woman-close.jpg"><img src="img/wardrobe3-crest-brightpath-woman-close.jpg" alt="Brightpath Prep Centre crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>Brightpath Prep Centre crest</h3>
+  <p class="meta"><span>Badge</span><span>300¢ · Tier 2 · unlocked at Brightpath</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_brightpath</code></p>
+</article>
+<article class="item" id="crest_kingsley">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-kingsley-man.jpg"><img src="img/wardrobe3-crest-kingsley-man.jpg" alt="Kingsley Academy crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-kingsley-woman.jpg"><img src="img/wardrobe3-crest-kingsley-woman.jpg" alt="Kingsley Academy crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-kingsley-man-close.jpg"><img src="img/wardrobe3-crest-kingsley-man-close.jpg" alt="Kingsley Academy crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-kingsley-woman-close.jpg"><img src="img/wardrobe3-crest-kingsley-woman-close.jpg" alt="Kingsley Academy crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>Kingsley Academy crest</h3>
+  <p class="meta"><span>Badge</span><span>500¢ · Tier 3 · unlocked at Kingsley</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_kingsley</code></p>
+</article>
+<article class="item" id="crest_university">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-university-man.jpg"><img src="img/wardrobe3-crest-university-man.jpg" alt="State University crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-university-woman.jpg"><img src="img/wardrobe3-crest-university-woman.jpg" alt="State University crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-university-man-close.jpg"><img src="img/wardrobe3-crest-university-man-close.jpg" alt="State University crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-university-woman-close.jpg"><img src="img/wardrobe3-crest-university-woman-close.jpg" alt="State University crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>State University crest</h3>
+  <p class="meta"><span>Badge</span><span>500¢ · Tier 3 · unlocked at State University</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_university</code></p>
+</article>
+<article class="item" id="crest_national">
+  <div class="shots"><figure><a href="img/wardrobe3-crest-national-man.jpg"><img src="img/wardrobe3-crest-national-man.jpg" alt="National Examination Centre crest on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-national-woman.jpg"><img src="img/wardrobe3-crest-national-woman.jpg" alt="National Examination Centre crest on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-crest-national-man-close.jpg"><img src="img/wardrobe3-crest-national-man-close.jpg" alt="National Examination Centre crest close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-crest-national-woman-close.jpg"><img src="img/wardrobe3-crest-national-woman-close.jpg" alt="National Examination Centre crest close up, woman" loading="lazy"></a></figure></div>
+  <h3>National Examination Centre crest</h3>
+  <p class="meta"><span>Badge</span><span>500¢ · Tier 3 · unlocked at the National Centre</span></p>
+  <p class="route">Rigid · Spine (one shield mesh + one emblem mesh per school)</p>
+  <p class="id"><code>crest_national</code></p>
+</article></div>
+    <h3 id="g-extras">Extras <span class="count">4</span></h3>
+    <div class="items"><article class="item" id="glasses_round">
+  <div class="shots"><figure><a href="img/wardrobe3-glasses-round-man.jpg"><img src="img/wardrobe3-glasses-round-man.jpg" alt="Round Glasses on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-glasses-round-woman.jpg"><img src="img/wardrobe3-glasses-round-woman.jpg" alt="Round Glasses on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-glasses-round-man-close.jpg"><img src="img/wardrobe3-glasses-round-man-close.jpg" alt="Round Glasses close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-glasses-round-woman-close.jpg"><img src="img/wardrobe3-glasses-round-woman-close.jpg" alt="Round Glasses close up, woman" loading="lazy"></a></figure></div>
+  <h3>Round Glasses</h3>
+  <p class="meta"><span>Glasses</span><span>120–160¢</span></p>
+  <p class="route">Rigid · headfront</p><p class="muted small">Thin gold wire frame round the large eyes.</p>
+  <p class="id"><code>glasses_round</code></p>
+</article>
+<article class="item" id="glasses_square">
+  <div class="shots"><figure><a href="img/wardrobe3-glasses-square-man.jpg"><img src="img/wardrobe3-glasses-square-man.jpg" alt="Square Glasses on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-glasses-square-woman.jpg"><img src="img/wardrobe3-glasses-square-woman.jpg" alt="Square Glasses on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-glasses-square-man-close.jpg"><img src="img/wardrobe3-glasses-square-man-close.jpg" alt="Square Glasses close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-glasses-square-woman-close.jpg"><img src="img/wardrobe3-glasses-square-woman-close.jpg" alt="Square Glasses close up, woman" loading="lazy"></a></figure></div>
+  <h3>Square Glasses</h3>
+  <p class="meta"><span>Glasses</span><span>120–160¢</span></p>
+  <p class="route">Rigid · headfront</p><p class="muted small">Thick black frame.</p>
+  <p class="id"><code>glasses_square</code></p>
+</article>
+<article class="item" id="neck_lanyard">
+  <div class="shots"><figure><a href="img/wardrobe3-neck-lanyard-man.jpg"><img src="img/wardrobe3-neck-lanyard-man.jpg" alt="ID Lanyard on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-neck-lanyard-woman.jpg"><img src="img/wardrobe3-neck-lanyard-woman.jpg" alt="ID Lanyard on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-neck-lanyard-man-close.jpg"><img src="img/wardrobe3-neck-lanyard-man-close.jpg" alt="ID Lanyard close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-neck-lanyard-woman-close.jpg"><img src="img/wardrobe3-neck-lanyard-woman-close.jpg" alt="ID Lanyard close up, woman" loading="lazy"></a></figure></div>
+  <h3>ID Lanyard</h3>
+  <p class="meta"><span>Neck</span><span>80–100¢</span></p>
+  <p class="route">Rigid · Spine (not neck: the card rides the chest)</p><p class="muted small">Blue cord, clip and a white ID card with a photo and two lines. The card hangs 3 cm off the chest so it clears a blazer&#x27;s lapels.</p>
+  <p class="id"><code>neck_lanyard</code></p>
+</article>
+<article class="item" id="wrist_watch">
+  <div class="shots"><figure><a href="img/wardrobe3-wrist-watch-man.jpg"><img src="img/wardrobe3-wrist-watch-man.jpg" alt="Wristwatch on the man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-wrist-watch-woman.jpg"><img src="img/wardrobe3-wrist-watch-woman.jpg" alt="Wristwatch on the woman" loading="lazy"></a></figure></div><div class="shots close"><figure><a href="img/wardrobe3-wrist-watch-man-close.jpg"><img src="img/wardrobe3-wrist-watch-man-close.jpg" alt="Wristwatch close up, man" loading="lazy"></a></figure><figure><a href="img/wardrobe3-wrist-watch-woman-close.jpg"><img src="img/wardrobe3-wrist-watch-woman-close.jpg" alt="Wristwatch close up, woman" loading="lazy"></a></figure></div>
+  <h3>Wristwatch</h3>
+  <p class="meta"><span>Wrist</span><span>200–260¢</span></p>
+  <p class="route">Rigid · LeftHand</p><p class="muted small">Steel case, white dial, brown strap, on the left wrist past the sleeve.</p>
+  <p class="id"><code>wrist_watch</code></p>
+</article></div>
+    <h3 id="hair">The woman's hair</h3>
+    <p class="muted">Today she wears the tied-back style: from the front it is a short cap with a fringe, and the ponytail
+      hides behind her head, so she reads almost like the man (right). Three options that read as a woman from the
+      front. Long and Wavy are the students' own parts (no new mesh, just a different <code>HairStyle</code> index); Bun is
+      new: today's cap with a bun high on the crown, which shows above the head from the front.</p>
+    <div class="hair">
+<article class="combo"><div class="shots three"><figure><a href="img/wardrobe3-hair-current-head.jpg"><img src="img/wardrobe3-hair-current-head.jpg" alt="Tied-back (today), front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-current-back.jpg"><img src="img/wardrobe3-hair-current-back.jpg" alt="Tied-back (today), back" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-current-full.jpg"><img src="img/wardrobe3-hair-current-full.jpg" alt="Tied-back (today), full" loading="lazy"></a></figure></div><h3>Tied-back (today)</h3></article>
+<article class="combo"><div class="shots three"><figure><a href="img/wardrobe3-hair-long-head.jpg"><img src="img/wardrobe3-hair-long-head.jpg" alt="Long (existing student part), front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-long-back.jpg"><img src="img/wardrobe3-hair-long-back.jpg" alt="Long (existing student part), back" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-long-full.jpg"><img src="img/wardrobe3-hair-long-full.jpg" alt="Long (existing student part), full" loading="lazy"></a></figure></div><h3>Long (existing student part)</h3></article>
+<article class="combo"><div class="shots three"><figure><a href="img/wardrobe3-hair-wavy-head.jpg"><img src="img/wardrobe3-hair-wavy-head.jpg" alt="Wavy bob (existing student part), front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-wavy-back.jpg"><img src="img/wardrobe3-hair-wavy-back.jpg" alt="Wavy bob (existing student part), back" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-wavy-full.jpg"><img src="img/wardrobe3-hair-wavy-full.jpg" alt="Wavy bob (existing student part), full" loading="lazy"></a></figure></div><h3>Wavy bob (existing student part)</h3></article>
+<article class="combo"><div class="shots three"><figure><a href="img/wardrobe3-hair-bun-head.jpg"><img src="img/wardrobe3-hair-bun-head.jpg" alt="Bun (new: today&#x27;s cap + a bun), front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-bun-back.jpg"><img src="img/wardrobe3-hair-bun-back.jpg" alt="Bun (new: today&#x27;s cap + a bun), back" loading="lazy"></a></figure><figure><a href="img/wardrobe3-hair-bun-full.jpg"><img src="img/wardrobe3-hair-bun-full.jpg" alt="Bun (new: today&#x27;s cap + a bun), full" loading="lazy"></a></figure></div><h3>Bun (new: today&#x27;s cap + a bun)</h3></article>
+<article class="combo"><div class="shots three"><figure><a href="img/wardrobe3-hair-man-ref.jpg"><img src="img/wardrobe3-hair-man-ref.jpg" alt="The man, for comparison" loading="lazy"></a></figure></div><h3>The man, for comparison</h3></article>
+    </div>
+    <h3 id="seam">The seams on the woman's tops: found and fixed</h3>
+    <div class="items seam">
+      <article class="item"><div class="shots"><figure><a href="img/wardrobe3-seam-before.jpg"><img src="img/wardrobe3-seam-before.jpg" alt="Shipped female long-sleeve top, front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-seam-before-side.jpg"><img src="img/wardrobe3-seam-before-side.jpg" alt="Shipped female top, side" loading="lazy"></a></figure></div><h3>Before · shipped <code>Top_LongSleeve_F</code></h3><p class="muted small">Thin light slits at the shoulder and at the sides of the waist.</p></article>
+      <article class="item"><div class="shots"><figure><a href="img/wardrobe3-seam-after.jpg"><img src="img/wardrobe3-seam-after.jpg" alt="Fixed female long-sleeve top, front" loading="lazy"></a></figure><figure><a href="img/wardrobe3-seam-after-side.jpg"><img src="img/wardrobe3-seam-after-side.jpg" alt="Fixed female top, side" loading="lazy"></a></figure></div><h3>After · the same cut, closed</h3><p class="muted small">No slits, same shape and weights.</p></article>
+    </div>
+    <div class="note"><p><b>Cause.</b> To shape her bust, <code>build_female.py</code> subdivides the chest of the male
+      body once. The faces inside that patch gain a vertex in the middle of each edge; the face across the patch's border
+      keeps its plain edge. The body is flat-shaded, so the tops are cut from it and welded by position, and a vertex in
+      the middle of an edge has nothing to weld to. The gap is invisible until the vertex moves (the bust) and the shell
+      is pushed out along its normals. Then it opens into a slit. There are exactly 12 of these on each female top (short-sleeve, hoodie, long-sleeve) and none on the male tops.
+      <b>Fix.</b> When the shell is cut, each such edge is split at the middle vertex and welded (<code>fix_tjunctions</code>, a
+      few lines in <code>build_parts.shell</code>). It also fixes the female students, who wear the same parts. Every woman's top on this page already uses it.</p></div>
+    <h3 id="routes">Every item, its route and price</h3>
+    <div class="table-wrap"><table><thead><tr><th>Item</th><th>Slot</th><th>Price band</th><th>Route</th></tr></thead><tbody>
+<tr><td><a href="#hat_cap">Baseball Cap</a></td><td>Hat</td><td>120–160¢</td><td>Rigid · Head</td></tr>
+<tr><td><a href="#hat_beanie">Beanie</a></td><td>Hat</td><td>100–140¢</td><td>Rigid · Head</td></tr>
+<tr><td><a href="#hat_flatcap">Flat Cap</a></td><td>Hat</td><td>180–240¢</td><td>Rigid · Head</td></tr>
+<tr><td><a href="#hat_bucket">Bucket Hat</a></td><td>Hat</td><td>140–180¢</td><td>Rigid · Head</td></tr>
+<tr><td><a href="#hat_mortarboard">Graduation Cap</a></td><td>Hat</td><td>400–600 (Tier 3)¢</td><td>Rigid · Head</td></tr>
+<tr><td><a href="#top_tee_white">T-Shirt · White</a></td><td>Top</td><td>80–100¢</td><td>Colour · Top_ShortSleeve (existing part)</td></tr>
+<tr><td><a href="#top_tee_mustard">T-Shirt · Mustard</a></td><td>Top</td><td>80–100¢</td><td>Colour · Top_ShortSleeve (existing part)</td></tr>
+<tr><td><a href="#top_tee_red">T-Shirt · Brick</a></td><td>Top</td><td>80–100¢</td><td>Colour · Top_ShortSleeve (existing part)</td></tr>
+<tr><td><a href="#top_polo">Polo Shirt</a></td><td>Top</td><td>140–180¢</td><td>Skinned · new part (short-sleeve shell + collar, placket, buttons)</td></tr>
+<tr><td><a href="#top_shirt_tie">Shirt &amp; Tie</a></td><td>Top</td><td>220–280¢</td><td>Skinned · new part (long-sleeve shell + collar, tie: 2 roles)</td></tr>
+<tr><td><a href="#top_sweater">Sweater</a></td><td>Top</td><td>160–220¢</td><td>Skinned · new part (thick long-sleeve shell + rib hem, cuffs, neck)</td></tr>
+<tr><td><a href="#top_hoodie">Hoodie</a></td><td>Top</td><td>180–240¢</td><td>Colour · Top_Hoodie (existing part)</td></tr>
+<tr><td><a href="#top_cardigan">Cardigan</a></td><td>Top</td><td>220–300¢</td><td>Skinned · new part (long-sleeve shell + shirt V, front bands, buttons)</td></tr>
+<tr><td><a href="#top_blazer">Blazer</a></td><td>Top</td><td>400–600 (Tier 3)¢</td><td>Skinned · new part (thick shell + lapels, shirt V and tie, pockets)</td></tr>
+<tr><td><a href="#trousers_jeans">Jeans</a></td><td>Trousers</td><td>100–140¢</td><td>Colour · body Legwear sub-mesh</td></tr>
+<tr><td><a href="#trousers_chinos">Chinos</a></td><td>Trousers</td><td>120–160¢</td><td>Colour · body Legwear sub-mesh</td></tr>
+<tr><td><a href="#trousers_formal">Formal Trousers</a></td><td>Trousers</td><td>180–240¢</td><td>Colour · body Legwear sub-mesh</td></tr>
+<tr><td><a href="#shoes_sneakers">White Sneakers</a></td><td>Shoes</td><td>120–160¢</td><td>Skinned · shoe shell (low), 2 roles: upper, sole</td></tr>
+<tr><td><a href="#shoes_loafers">Loafers</a></td><td>Shoes</td><td>180–240¢</td><td>Skinned · shoe shell (low), 2 roles: upper, sole</td></tr>
+<tr><td><a href="#shoes_boots">Boots</a></td><td>Shoes</td><td>220–300¢</td><td>Skinned · shoe shell (to mid-shin), 2 roles: upper, sole</td></tr>
+<tr><td><a href="#shoes_runners">Running Shoes</a></td><td>Shoes</td><td>160–220¢</td><td>Skinned · shoe shell (low), 2 roles: upper, sole</td></tr>
+<tr><td><a href="#badge_bronze">Bronze Pin</a></td><td>Badge</td><td>120¢ · Tier 1</td><td>Rigid · Spine (replaces the 8.5 cm disc)</td></tr>
+<tr><td><a href="#badge_silver">Silver Pin</a></td><td>Badge</td><td>250¢ · Tier 2</td><td>Rigid · Spine (replaces the 8.5 cm disc)</td></tr>
+<tr><td><a href="#badge_gold">Gold Pin</a></td><td>Badge</td><td>500¢ · Tier 3</td><td>Rigid · Spine (replaces the 8.5 cm disc)</td></tr>
+<tr><td><a href="#crest_maple">Maple Elementary crest</a></td><td>Badge</td><td>150¢ · Tier 1 · unlocked by working at Maple</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_riverside">Riverside Middle crest</a></td><td>Badge</td><td>150¢ · Tier 1 · unlocked at Riverside</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_eastgate">Eastgate Evening College crest</a></td><td>Badge</td><td>150¢ · Tier 1 · unlocked at Eastgate</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_cityhigh">City High School crest</a></td><td>Badge</td><td>300¢ · Tier 2 · unlocked at City High</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_brightpath">Brightpath Prep Centre crest</a></td><td>Badge</td><td>300¢ · Tier 2 · unlocked at Brightpath</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_kingsley">Kingsley Academy crest</a></td><td>Badge</td><td>500¢ · Tier 3 · unlocked at Kingsley</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_university">State University crest</a></td><td>Badge</td><td>500¢ · Tier 3 · unlocked at State University</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#crest_national">National Examination Centre crest</a></td><td>Badge</td><td>500¢ · Tier 3 · unlocked at the National Centre</td><td>Rigid · Spine (one shield mesh + one emblem mesh per school)</td></tr>
+<tr><td><a href="#glasses_round">Round Glasses</a></td><td>Glasses</td><td>120–160¢</td><td>Rigid · headfront</td></tr>
+<tr><td><a href="#glasses_square">Square Glasses</a></td><td>Glasses</td><td>120–160¢</td><td>Rigid · headfront</td></tr>
+<tr><td><a href="#neck_lanyard">ID Lanyard</a></td><td>Neck</td><td>80–100¢</td><td>Rigid · Spine (not neck: the card rides the chest)</td></tr>
+<tr><td><a href="#wrist_watch">Wristwatch</a></td><td>Wrist</td><td>200–260¢</td><td>Rigid · LeftHand</td></tr>
+    </tbody></table></div>
+    <div class="cards">
+      <div class="card"><h3>Mesh count</h3><p>7 colour-only items (3 T-shirts, the hoodie, 3 trousers), 5 new tops (×2 bodies), 2 shoe parts (×2 bodies), and 18 rigid meshes (5 hats, 2 glasses, a lanyard, a watch, 3 pins sharing one mesh, 8 crests sharing one shield).</p></div>
+      <div class="card"><h3>Mobile cost</h3><p>Every new piece is a few hundred triangles at most and uses the role materials the figure already tints. A second colour (tie, sole, cuff, emblem) is a second role on the same white material, not a texture.</p></div>
+      <div class="card"><h3>Shop tiles</h3><p>Each chosen item needs a tile through the shop tile pipeline (owned by another session); none were made here.</p></div>
+    </div>
+  </section>
+
   <section id="how">
     <div class="section-head"><h2>How it works</h2></div>
     <div class="cards">
@@ -229,11 +593,11 @@ tr.hi td { background: var(--accent-soft); }
   <section id="limits">
     <div class="section-head"><h2>Known limits</h2></div>
     <ul class="next">
-      <li><b>Shirt seams.</b> The female long-sleeved top shows a few thin seams, as it does on the female students. This
-        is the shared art; phase 3 replaces it.</li>
-      <li><b>No clothing art yet.</b> Hats, glasses, neck and wrist items have attachment points but no meshes, and the
-        catalogue has only tops and badges, so only those tabs show. Phase 3 adds the art and the items.</li>
-    </ul>
+      <li><b>Shirt seams.</b> The female tops (and the female students' tops) show a few thin seams in the game today.
+        The cause is found and the fix is shown <a href="#seam">above</a>; it reaches the game with phase 3's integration.</li>
+      <li><b>The clothing is not in the game yet.</b> The phase 3 items above are candidates rendered in Blender from the
+        game's meshes. Until the chosen ones are brought in, the store has only tops and badges.</li>
+  </ul>
   </section>
 </div>
 </body>
