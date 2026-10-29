@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wardrobe</title>
-<meta name="description" content="The supervisor's wardrobe in Exam Supervisor Simulator. Phase 1: the supervisor is rebuilt on the students' skinned body, as a man or a woman, with a real walk, the shirt colour and a badge on the chest.">
+<meta name="description" content="The supervisor's wardrobe in Exam Supervisor Simulator. Phase 1: the supervisor on the students' skinned body, as a man or a woman. Phase 2: wardrobe slots and the store's Wardrobe with a live preview figure, try-on and the Man / Woman toggle.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -90,14 +90,16 @@ tr.hi td { background: var(--accent-soft); }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phase 1 of 4</span>
+    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phases 1 and 2 of 4</span>
     <h1>Wardrobe</h1>
     <p class="lede">The player's supervisor will get a wardrobe: hats, tops, trousers, shoes, badges and extras, each worn
       or taken off. Phase 1 gives the supervisor a real body. The stack of cubes is gone. The supervisor now uses the
       students' skinned body and skeleton, as a man or a woman (the player's choice, saved with the career). The
       supervisor walks with a real walk cycle, holds a hand out when acting on a student, wears the bought shirt
-      colour, and wears the badge on the front of the chest. Later phases will extend this page: the wardrobe slots
-      and the store's live preview (2), clothing art (3), and prices and unlocks (4).</p>
+      colour, and wears the badge on the front of the chest. Phase 2 gives the wardrobe its eight slots and puts a
+      Wardrobe in the store: a live 3D figure of your own supervisor, a Man / Woman toggle, category tabs, try-on
+      before buying, and Buy → Wear → Take off on every item. Still to come: clothing art and new items (3), and
+      prices and unlocks (4).</p>
   </header>
 
   <section id="room">
@@ -107,9 +109,9 @@ tr.hi td { background: var(--accent-soft); }
         When standing, the supervisor faces the camera, turned slightly toward the room's centre, so the face and the
         badge show.</p></div>
     <div class="gallery">
-<figure><a href="img/wardrobe1-male-maple-stand.jpg"><img src="img/wardrobe1-male-maple-stand.jpg" alt="Male supervisor standing beside the desk in the Maple Elementary room" loading="lazy"></a><figcaption><b>Man · Maple Elementary</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe2-maple-start-male.jpg"><img src="img/wardrobe2-maple-start-male.jpg" alt="Male supervisor standing beside the desk in the Maple Elementary room, fully in frame" loading="lazy"></a><figcaption><b>Man · Maple Elementary</b>standing at the start spot</figcaption></figure>
 <figure><a href="img/wardrobe1-male-maple-walk.jpg"><img src="img/wardrobe1-male-maple-walk.jpg" alt="Male supervisor walking in the Maple Elementary room" loading="lazy"></a><figcaption><b>Man · Maple Elementary</b>walking</figcaption></figure>
-<figure><a href="img/wardrobe1-female-maple-stand.jpg"><img src="img/wardrobe1-female-maple-stand.jpg" alt="Female supervisor standing beside the desk in the Maple Elementary room" loading="lazy"></a><figcaption><b>Woman · Maple Elementary</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe2-maple-start-female.jpg"><img src="img/wardrobe2-maple-start-female.jpg" alt="Female supervisor standing beside the desk in the Maple Elementary room, fully in frame" loading="lazy"></a><figcaption><b>Woman · Maple Elementary</b>standing at the start spot</figcaption></figure>
 <figure><a href="img/wardrobe1-female-maple-walk.jpg"><img src="img/wardrobe1-female-maple-walk.jpg" alt="Female supervisor walking in the Maple Elementary room" loading="lazy"></a><figcaption><b>Woman · Maple Elementary</b>walking</figcaption></figure>
 <figure><a href="img/wardrobe1-male-national-stand.jpg"><img src="img/wardrobe1-male-national-stand.jpg" alt="Male supervisor standing in the National Examination Centre" loading="lazy"></a><figcaption><b>Man · National Examination Centre</b>standing</figcaption></figure>
 <figure><a href="img/wardrobe1-male-national-walk.jpg"><img src="img/wardrobe1-male-national-walk.jpg" alt="Male supervisor walking in the National Examination Centre" loading="lazy"></a><figcaption><b>Man · National Examination Centre</b>walking</figcaption></figure>
@@ -170,15 +172,53 @@ tr.hi td { background: var(--accent-soft); }
     </div>
   </section>
 
+  <section id="phase2">
+    <div class="section-head"><h2>Phase 2: the Wardrobe</h2>
+      <p class="muted">The store's "Appearance" section is now the Wardrobe. Play mode at a phone's portrait size
+        (1080 × 2340), dark theme, with the Navy Shirt and the Bronze Badge owned, the badge worn, and 160 coins.</p></div>
+    <div class="gallery">
+<figure><a href="img/wardrobe2-man.jpg"><img src="img/wardrobe2-man.jpg" alt="The Wardrobe with the live preview of a male supervisor" loading="lazy"></a><figcaption><b>The live preview · Man</b>Your own supervisor as saved, idling, at a three-quarter front so the badge shows.</figcaption></figure>
+<figure><a href="img/wardrobe2-woman.jpg"><img src="img/wardrobe2-woman.jpg" alt="The Wardrobe with the live preview of a female supervisor" loading="lazy"></a><figcaption><b>Woman</b>The toggle is free and saved at once; the room's figure changes on the next frame.</figcaption></figure>
+<figure><a href="img/wardrobe2-tab-badges.jpg"><img src="img/wardrobe2-tab-badges.jpg" alt="The Badges category tab" loading="lazy"></a><figcaption><b>A category tab · Badges</b>Only tabs with items are drawn: today All, Tops and Badges.</figcaption></figure>
+<figure><a href="img/wardrobe2-tryon.jpg"><img src="img/wardrobe2-tryon.jpg" alt="Trying on the Charcoal Shirt" loading="lazy"></a><figcaption><b>Trying on</b>Tapping the unowned Charcoal Shirt puts it on the figure. Nothing is saved; "Back to your outfit" or leaving the store undoes it.</figcaption></figure>
+<figure><a href="img/wardrobe2-states.jpg"><img src="img/wardrobe2-states.jpg" alt="Item tiles in Buy, Wear, Take off and Worn states" loading="lazy"></a><figcaption><b>Buy · Wear · Take off</b>Charcoal: price. Navy (owned): Wear. Bronze (worn): Take off. The Issued Shirt is Worn while no other top is.</figcaption></figure>
+<figure><a href="img/wardrobe2-states-worn.jpg"><img src="img/wardrobe2-states-worn.jpg" alt="Tiles after wearing the Navy Shirt" loading="lazy"></a><figcaption><b>After Wear</b>Navy now offers Take off, which puts the Issued Shirt back on; the Issued Shirt offers Wear.</figcaption></figure>
+<figure><a href="img/wardrobe2-wearing-navy.jpg"><img src="img/wardrobe2-wearing-navy.jpg" alt="The preview wearing the Navy Shirt" loading="lazy"></a><figcaption><b>The preview follows</b>Wearing the Navy Shirt and the Bronze Badge.</figcaption></figure>
+<figure><a href="vid/wardrobe2-drag.gif"><img src="vid/wardrobe2-drag.gif" alt="Animated: the preview figure turning as it is dragged" loading="lazy"></a><figcaption><b>Drag to turn</b>A sideways drag turns the figure (a full screen width is one turn); an up-down drag scrolls the page.</figcaption></figure>
+    </div>
+    <div class="cards">
+      <div class="card"><h3>Eight slots</h3><p>Hat, top, trousers, shoes, badge, glasses, neck (lanyard or tie) and
+        wrist (watch). One item each, owned items only. Every slot can be emptied except the top: taking a top off
+        puts the issued shirt back on. Saves move from version 3 to 4; the old "shirt" becomes the top, so nothing worn
+        or owned is lost.</p></div>
+      <div class="card"><h3>The preview stage</h3><p>The same figure as the room, on its own layer far below the
+        room, filmed by its own camera into a 512 × 640 texture (about 2.6 MB). Its two lights are on only while that
+        camera renders, and the room's lights are off for that moment, so neither lights the other. It renders only
+        while the card is on screen and is destroyed, texture and all, when you leave the store.</p></div>
+      <div class="card"><h3>Ready for art</h3><p>Hats, glasses, ties and watches already have a place on the right
+        bone (head, face, neck, left wrist). Phase 3 adds a catalogue line, a prefab named after the item and a shop
+        tile; the tab appears by itself.</p></div>
+      <div class="card"><h3>Never gameplay</h3><p>Trying on never touches the save. Nothing in the simulation reads
+        what is worn or which body was chosen (tested).</p></div>
+    </div>
+    <div class="note">
+      <p><b>Phase 1's two loose ends are fixed.</b> The room now frames the supervisor at the body's full width with
+        its hands (0.45 m each side, not the 0.35 m footprint), so the whole figure is on screen at the start in every
+        school on 19.5:9, 20:9 and 21:9 phones and 4:3 and 16:10 tablets, checked vertex by vertex through the real
+        camera. In Maple on a phone the right hand is now at 92% of the width. And the body turns before it walks:
+        from rest, it no longer walks sideways while the turn catches up.</p>
+    </div>
+  </section>
+
   <section id="how">
     <div class="section-head"><h2>How it works</h2></div>
     <div class="cards">
       <div class="card"><h3>One builder</h3><p><code>SupervisorFigure.Build(prefab, appearance, parent)</code> makes a
-        dressed figure anywhere, from a <code>SupervisorAppearance</code> (body, hair, shirt, trousers, shoes, badge).
-        The room uses it now. The store's live preview will use it in phase 2.</p></div>
+        dressed figure anywhere, from a <code>SupervisorAppearance</code> (body, hair and every wardrobe slot).
+        The room and the store's live preview both use it.</p></div>
       <div class="card"><h3>Man or woman</h3><p>Saved in the career as <code>SupervisorBody</code>, Male by default. Older
-        saves load as Male. It is only a look: the simulation never reads it. The phase 2 wardrobe adds the
-        toggle.</p></div>
+        saves load as Male. It is only a look: the simulation never reads it. The Wardrobe's toggle changes it at any
+        time, free.</p></div>
       <div class="card"><h3>Three clips, one mixer</h3><p>Standing, Walking and PresentDocument (the reach), from the
         students' file. They are mixed by speed on a hand-driven graph, with no per-frame allocation.</p></div>
       <div class="card"><h3>Mobile cost</h3><p>One skinned body, two or three skinned parts, a badge disc and one
@@ -189,13 +229,10 @@ tr.hi td { background: var(--accent-soft); }
   <section id="limits">
     <div class="section-head"><h2>Known limits</h2></div>
     <ul class="next">
-      <li><b>Start spot near the edge.</b> On a phone in the Maple room, the start spot beside the desk (from M130.1) is
-        close enough to the frame's right edge to clip the right arm at rest. The block figure was narrower and
-        fit.</li>
       <li><b>Shirt seams.</b> The female long-sleeved top shows a few thin seams, as it does on the female students. This
         is the shared art; phase 3 replaces it.</li>
-      <li><b>Turning on the first step.</b> The agent turns at 720°/s. On the first step from rest, the body walks a few
-        frames slightly sideways before it faces its path.</li>
+      <li><b>No clothing art yet.</b> Hats, glasses, neck and wrist items have attachment points but no meshes, and the
+        catalogue has only tops and badges, so only those tabs show. Phase 3 adds the art and the items.</li>
     </ul>
   </section>
 </div>
