@@ -23,6 +23,12 @@
   ],
   "reports": [
     {
+      "slug": "wardrobe",
+      "title": "Wardrobe",
+      "category": "look-and-feel",
+      "summary": "The supervisor's wardrobe. Phase 1: the supervisor rebuilt on the students' body as a man or a woman, with a real walk, shirt colour and chest badge."
+    },
+    {
       "slug": "school-rooms",
       "title": "School Rooms",
       "category": "classroom",

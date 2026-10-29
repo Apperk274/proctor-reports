@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wardrobe</title>
+<meta name="description" content="The supervisor's wardrobe in Exam Supervisor Simulator. Phase 1: the supervisor is rebuilt on the students' skinned body, as a man or a woman, with a real walk, the shirt colour and a badge on the chest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --star: #b7791f;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --star: #f5c04a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.moment { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.moment .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
+.moment .shot img { border-radius: 0; width: 100%; }
+.moment .text { display: grid; gap: 12px; align-content: start; }
+.moment ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); max-width: 70ch; }
+.moment ul b { color: var(--ink); font-weight: 600; }
+@media (max-width: 720px) { .moment { grid-template-columns: 1fr; } .moment .shot { max-width: 320px; } }
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.trio figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.trio figcaption { font-size: 0.85rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); white-space: nowrap; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+td.stars { color: var(--star); letter-spacing: 1px; }
+tr.hi td { background: var(--accent-soft); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.8rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.next { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.next li { color: var(--muted); }
+.next b { color: var(--ink); font-weight: 600; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+.gallery.wide { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.gallery figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; align-content: start; }
+.gallery figcaption { font-size: 0.85rem; color: var(--muted); }
+.gallery figcaption b { color: var(--ink); font-weight: 600; display: block; }
+.gallery a { display: block; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.pair figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; align-content: start; }
+.pair figcaption { font-size: 0.85rem; color: var(--muted); }
+.pair figcaption b { color: var(--ink); font-weight: 600; display: block; }
+.note { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; max-width: 80ch; }
+.note b { color: var(--ink); }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phase 1 of 4</span>
+    <h1>Wardrobe</h1>
+    <p class="lede">The player's supervisor will get a wardrobe: hats, tops, trousers, shoes, badges and extras, each worn
+      or taken off. Phase 1 gives the supervisor a real body. The stack of cubes is gone. The supervisor now uses the
+      students' skinned body and skeleton, as a man or a woman (the player's choice, saved with the career). The
+      supervisor walks with a real walk cycle, holds a hand out when acting on a student, wears the bought shirt
+      colour, and wears the badge on the front of the chest. Later phases will extend this page: the wardrobe slots
+      and the store's live preview (2), clothing art (3), and prices and unlocks (4).</p>
+  </header>
+
+  <section id="room">
+    <div class="section-head"><h2>In the room</h2>
+      <p class="muted">Play mode on a phone (1080 × 2340) in two schools' rooms, with the Bronze badge on and the issued
+        teal shirt. Standing beside the supervisor's desk when the room opens, and mid-walk a moment after a tap.
+        When standing, the supervisor faces the camera, turned slightly toward the room's centre, so the face and the
+        badge show.</p></div>
+    <div class="gallery">
+<figure><a href="img/wardrobe1-male-maple-stand.jpg"><img src="img/wardrobe1-male-maple-stand.jpg" alt="Male supervisor standing beside the desk in the Maple Elementary room" loading="lazy"></a><figcaption><b>Man · Maple Elementary</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe1-male-maple-walk.jpg"><img src="img/wardrobe1-male-maple-walk.jpg" alt="Male supervisor walking in the Maple Elementary room" loading="lazy"></a><figcaption><b>Man · Maple Elementary</b>walking</figcaption></figure>
+<figure><a href="img/wardrobe1-female-maple-stand.jpg"><img src="img/wardrobe1-female-maple-stand.jpg" alt="Female supervisor standing beside the desk in the Maple Elementary room" loading="lazy"></a><figcaption><b>Woman · Maple Elementary</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe1-female-maple-walk.jpg"><img src="img/wardrobe1-female-maple-walk.jpg" alt="Female supervisor walking in the Maple Elementary room" loading="lazy"></a><figcaption><b>Woman · Maple Elementary</b>walking</figcaption></figure>
+<figure><a href="img/wardrobe1-male-national-stand.jpg"><img src="img/wardrobe1-male-national-stand.jpg" alt="Male supervisor standing in the National Examination Centre" loading="lazy"></a><figcaption><b>Man · National Examination Centre</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe1-male-national-walk.jpg"><img src="img/wardrobe1-male-national-walk.jpg" alt="Male supervisor walking in the National Examination Centre" loading="lazy"></a><figcaption><b>Man · National Examination Centre</b>walking</figcaption></figure>
+<figure><a href="img/wardrobe1-female-national-stand.jpg"><img src="img/wardrobe1-female-national-stand.jpg" alt="Female supervisor standing in the National Examination Centre" loading="lazy"></a><figcaption><b>Woman · National Examination Centre</b>standing</figcaption></figure>
+<figure><a href="img/wardrobe1-female-national-walk.jpg"><img src="img/wardrobe1-female-national-walk.jpg" alt="Female supervisor walking in the National Examination Centre" loading="lazy"></a><figcaption><b>Woman · National Examination Centre</b>walking</figcaption></figure>
+    </div>
+    <div class="pair">
+<figure><a href="img/wardrobe1-male-maple-gamecrop.jpg"><img src="img/wardrobe1-male-maple-gamecrop.jpg" alt="Close crop of the male supervisor at game distance" loading="lazy"></a><figcaption><b>At game distance, enlarged 2×</b>The man in the Maple room, cropped from the phone frame above: the head, shoulders and the badge on the chest.</figcaption></figure>
+<figure><a href="img/wardrobe1-female-maple-gamecrop.jpg"><img src="img/wardrobe1-female-maple-gamecrop.jpg" alt="Close crop of the female supervisor at game distance" loading="lazy"></a><figcaption><b>At game distance, enlarged 2×</b>The woman, same spot.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="walk">
+    <div class="section-head"><h2>The walk</h2>
+      <p class="muted">20 frames a second of game time while the supervisor crosses the front of the room at full speed:
+        first the man, then the woman. The left clip uses the game's camera angle, closer in. The right clip shows the
+        supervisor side-on. The walk is the students' own walk clip from <code>candidate.glb</code>; no new clip was
+        made. Its speed follows the supervisor's actual speed, so the planted foot stays put on the floor. The blend
+        from standing to walking follows the speed too, so starting and stopping are gradual. A footstep sound plays
+        each time a foot lands.</p></div>
+    <div class="pair">
+<figure><a href="vid/wardrobe1-walk.gif"><img src="vid/wardrobe1-walk.gif" alt="Animated walk of the supervisor seen from the game's camera angle" loading="lazy"></a><figcaption><b>Game angle</b>Man, then woman, at 2.1 m/s.</figcaption></figure>
+<figure><a href="vid/wardrobe1-walk-side.gif"><img src="vid/wardrobe1-walk-side.gif" alt="Animated walk of the supervisor seen from the side" loading="lazy"></a><figcaption><b>Side-on</b>The same walk from the side.</figcaption></figure>
+    </div>
+    <div class="note">
+      <p><b>Walk speed lowered from 3.2 to 2.1 m/s (brisk walk), the user's choice.</b> 3.2 m/s is a jog: a walk
+        would have to play at 2.3× its speed and would look like scurrying. At 2.1 m/s the clip plays at 1.5×. The
+        clip's planted foot travels 1.40 m/s at normal speed, measured from the clip. The balance bots now walk at
+        2.1 m/s too. Their twelve careful test careers were re-recorded: median final coins went from 1017 to 1010,
+        median reputation from 70 to 68.5, and none was dismissed.</p>
+    </div>
+  </section>
+
+  <section id="closeup">
+    <div class="section-head"><h2>The supervisor, close up</h2>
+      <p class="muted">The same figure the room uses, built on its own: as issued (teal shirt, no badge), and with the
+        Navy Shirt and the Bronze Badge. The badge is a small disc on the chest bone, over the wearer's left chest,
+        placed against the front of each body's shirt. It moves with the chest. Before, it was a cube that floated
+        behind the supervisor's back.</p></div>
+    <div class="gallery wide">
+<figure><a href="img/wardrobe1-closeup-male-default.jpg"><img src="img/wardrobe1-closeup-male-default.jpg" alt="Male supervisor in the issued teal shirt" loading="lazy"></a><figcaption><b>Man · issued</b>Short hair, teal shirt, dark trousers and shoes.</figcaption></figure>
+<figure><a href="img/wardrobe1-closeup-male-navy-badge.jpg"><img src="img/wardrobe1-closeup-male-navy-badge.jpg" alt="Male supervisor in the Navy Shirt with the Bronze Badge" loading="lazy"></a><figcaption><b>Man · Navy Shirt + Bronze Badge</b></figcaption></figure>
+<figure><a href="img/wardrobe1-closeup-female-default.jpg"><img src="img/wardrobe1-closeup-female-default.jpg" alt="Female supervisor in the issued teal shirt" loading="lazy"></a><figcaption><b>Woman · issued</b>Tied-back hair, the female body and its shirt cut.</figcaption></figure>
+<figure><a href="img/wardrobe1-closeup-female-navy-badge.jpg"><img src="img/wardrobe1-closeup-female-navy-badge.jpg" alt="Female supervisor in the Navy Shirt with the Bronze Badge" loading="lazy"></a><figcaption><b>Woman · Navy Shirt + Bronze Badge</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="students">
+    <div class="section-head"><h2>Students are unchanged</h2>
+      <p class="muted">The students' body file, parts file and prefab are untouched. The supervisor uses them read-only
+        and has its own material. In the Maple room the same class is seated before and after the change: the students
+        are identical, and only the supervisor differs. In the National room the class draw depends on the frame
+        count, so different people are seated, but they are drawn the same way. A test builds both supervisors and
+        checks that every student renderer's colour and material is unchanged.</p></div>
+    <div class="pair">
+<figure><a href="img/wardrobe1-students-before-after-maple.jpg"><img src="img/wardrobe1-students-before-after-maple.jpg" alt="Maple room students before and after, side by side" loading="lazy"></a><figcaption><b>Maple Elementary, before and after</b>Same class: the students are identical, and the supervisor at the bottom right is the only change.</figcaption></figure>
+<figure><a href="img/wardrobe1-students-before-after-national.jpg"><img src="img/wardrobe1-students-before-after-national.jpg" alt="National room students before and after, side by side" loading="lazy"></a><figcaption><b>National Examination Centre, before and after</b>A different class draw: the students are rendered the same way.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-head"><h2>How it works</h2></div>
+    <div class="cards">
+      <div class="card"><h3>One builder</h3><p><code>SupervisorFigure.Build(prefab, appearance, parent)</code> makes a
+        dressed figure anywhere, from a <code>SupervisorAppearance</code> (body, hair, shirt, trousers, shoes, badge).
+        The room uses it now. The store's live preview will use it in phase 2.</p></div>
+      <div class="card"><h3>Man or woman</h3><p>Saved in the career as <code>SupervisorBody</code>, Male by default. Older
+        saves load as Male. It is only a look: the simulation never reads it. The phase 2 wardrobe adds the
+        toggle.</p></div>
+      <div class="card"><h3>Three clips, one mixer</h3><p>Standing, Walking and PresentDocument (the reach), from the
+        students' file. They are mixed by speed on a hand-driven graph, with no per-frame allocation.</p></div>
+      <div class="card"><h3>Mobile cost</h3><p>One skinned body, two or three skinned parts, a badge disc and one
+        material.</p></div>
+    </div>
+  </section>
+
+  <section id="limits">
+    <div class="section-head"><h2>Known limits</h2></div>
+    <ul class="next">
+      <li><b>Start spot near the edge.</b> On a phone in the Maple room, the start spot beside the desk (from M130.1) is
+        close enough to the frame's right edge to clip the right arm at rest. The block figure was narrower and
+        fit.</li>
+      <li><b>Shirt seams.</b> The female long-sleeved top shows a few thin seams, as it does on the female students. This
+        is the shared art; phase 3 replaces it.</li>
+      <li><b>Turning on the first step.</b> The agent turns at 720°/s. On the first step from rest, the body walks a few
+        frames slightly sideways before it faces its path.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
