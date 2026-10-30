@@ -224,28 +224,47 @@ ol.next { padding-left: 22px; }
     </div>
     <h3 id="phone">On the phone</h3>
     <div class="note">
-      <p><b>The phone found four preview bugs; they are fixed in <code>7ea7da3</code>. The re-check on the phone is still
-        pending.</b> On the Galaxy A15 (build <code>6ac9729</code>) the preview logged render errors twice a frame from the
-        first Wardrobe visit until the app was closed. The back of the figure was striped with a skin band at the waist,
-        try-on left the figure in the issued green, and turning stuck after a drag or two.</p>
-      <p><b>One cause.</b> The preview's texture asked for 2× anti-aliasing while the phone's render pipeline has it
-        off. Every opaque and transparent pass of the preview failed ("Attachment 0 was created with 1 samples but 2
-        samples were requested"). With the passes went the depth test, so the body's skin and trousers drew over the
-        shirt. The picture also stopped updating, so try-ons and turns happened but never reached the screen. The
-        texture is now single-sampled, the camera does not ask for anti-aliasing, and it stops the moment you leave the
-        store. The Mac editor never showed the bug, so the "after" pictures below are from the editor until the phone
-        confirms them.</p>
-      <p><b>Also:</b> unowned tiles are clearly marked, the Issued Shirt has its hanger render, and the drag decides
-        turn-or-scroll from the whole movement since the touch began.</p>
+      <p><b>The Wardrobe works on the phone.</b> Galaxy A15 (SM-S156V, Android 16), development build of
+        <code>9b848d2</code>: phases 2 and 3 together. The render errors are gone: logcat shows <b>0</b> "samples were
+        requested" and <b>0</b> "Not inside a Renderpass" lines over about 13 minutes in the Wardrobe, and 0 again after
+        leaving the store and playing into an exam. The app logged no Unity errors or exceptions, and the
+        development console never opened.</p>
+      <p><b>What was wrong on the first phone build (<code>6ac9729</code>).</b> The preview's texture asked for 2×
+        anti-aliasing while the phone's render pipeline has it off. Every pass of the preview failed, twice a frame,
+        until the app closed. Without the depth test the skin and trousers drew over the shirt, and the picture
+        stopped updating, so try-ons and turns never reached the screen. The texture is now single-sampled, and
+        the camera stops the moment you leave the store.</p>
+      <p><b>Checked on the phone:</b> try-on changes the figure for a top, a hat, shoes, glasses and a crest. Nine
+        sideways drags each turned it, and the back view is clean. Leaving and coming back faces it front again,
+        with the try-on and tab reset. All six hair styles and both bodies show. All seven tabs are there. Locked crests
+        give their reason. Unowned tiles are dimmed with a coin mark, and the Issued Shirt is the hanger render. In the exam the supervisor wears
+        what was bought: cap and blazer, with the bun let down into a ponytail under the cap.</p>
     </div>
     <div class="pair">
 <figure><a href="img/wardrobe2-phone-before-wardrobe-back-zoom.jpg"><img src="img/wardrobe2-phone-before-wardrobe-back-zoom.jpg" alt="Phone before the fix: the back of the figure striped, with a skin band at the waist" loading="lazy"></a><figcaption><b>Before · phone, 6ac9729</b>Back view: striping and a skin band at the waist.</figcaption></figure>
-<figure><a href="img/wardrobe2-fixed-back.jpg"><img src="img/wardrobe2-fixed-back.jpg" alt="After the fix: the woman from behind, shirt and trousers drawn correctly" loading="lazy"></a><figcaption><b>After · editor, 7ea7da3</b>The same view, drawn correctly. Phone re-check pending.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-back.jpg"><img src="img/wardrobe-phone-back.jpg" alt="Phone now: the back of the figure in a blazer, drawn correctly" loading="lazy"></a><figcaption><b>Now · phone, 9b848d2</b>The same back view, in the Blazer: no striping, no skin band.</figcaption></figure>
 <figure><a href="img/wardrobe2-phone-before-tryon-navy.jpg"><img src="img/wardrobe2-phone-before-tryon-navy.jpg" alt="Phone before the fix: trying on the Navy Shirt but the figure still in green" loading="lazy"></a><figcaption><b>Before · phone</b>"Trying on: Navy Shirt" over a frozen green figure.</figcaption></figure>
-<figure><a href="img/wardrobe2-tryon.jpg"><img src="img/wardrobe2-tryon.jpg" alt="After the fix: trying on the Charcoal Shirt, the figure wears it" loading="lazy"></a><figcaption><b>After · editor</b>The figure wears what is tried on. A test checks that the picture matches buying and wearing it.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tryon-blazer.jpg"><img src="img/wardrobe-phone-tryon-blazer.jpg" alt="Phone now: trying on the Blazer, the figure wears it" loading="lazy"></a><figcaption><b>Now · phone</b>Trying on the Blazer: the figure wears it at once.</figcaption></figure>
 <figure><a href="img/wardrobe2-phone-before-tiles-owned.jpg"><img src="img/wardrobe2-phone-before-tiles-owned.jpg" alt="Phone before the fix: unowned Navy Shirt barely dimmed, Issued Shirt a flat drawing" loading="lazy"></a><figcaption><b>Before · phone</b>Navy (not owned) looks nearly owned; the Issued Shirt is a flat drawing.</figcaption></figure>
-<figure><a href="img/wardrobe2-states.jpg"><img src="img/wardrobe2-states.jpg" alt="After the fix: unowned tiles veiled with a coin mark, Issued Shirt on a hanger" loading="lazy"></a><figcaption><b>After · editor</b>Not owned: a heavier veil and a coin mark. The Issued Shirt is a hanger render.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tiles-tops.jpg"><img src="img/wardrobe-phone-tiles-tops.jpg" alt="Phone now: Issued Shirt hanger tile worn, unowned tops dimmed with coin marks" loading="lazy"></a><figcaption><b>Now · phone</b>The Issued Shirt is the hanger render with its check; unowned tops are dimmed with a coin mark.</figcaption></figure>
 <figure><a href="img/wardrobe2-phone-before-store-pills-console.jpg"><img src="img/wardrobe2-phone-before-store-pills-console.jpg" alt="Phone before the fix: the development console full of render errors over the store" loading="lazy"></a><figcaption><b>Before · phone</b>The development console over the store, about 30,000 lines of each error.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-store.jpg"><img src="img/wardrobe-phone-store.jpg" alt="Phone now: the store scrolled to the Wardrobe, no console" loading="lazy"></a><figcaption><b>Now · phone</b>The same scroll position: no console, and the preview is drawn.</figcaption></figure>
+    </div>
+    <div class="pair"><figure><a href="img/wardrobe-phone-drags.jpg"><img src="img/wardrobe-phone-drags.jpg" alt="Nine frames of the phone preview turning after nine sideways drags" loading="lazy"></a><figcaption><b>Nine drags in a row · phone</b>About 60° each. Every drag turned the figure, and both back views (3rd and 9th) are drawn cleanly.</figcaption></figure></div>
+    <div class="pair"><figure><a href="img/wardrobe-phone-hair.jpg"><img src="img/wardrobe-phone-hair.jpg" alt="Six phone preview crops: man short, cropped, curly; woman long, bob, bun" loading="lazy"></a><figcaption><b>Hair · phone</b>Man: Short, Cropped, Curly. Woman: Long, Bob, Bun. Each tap changes the figure.</figcaption></figure></div>
+    <div class="gallery">
+<figure><a href="img/wardrobe-phone-return-front.jpg"><img src="img/wardrobe-phone-return-front.jpg" alt="Phone: the store reopened, the figure facing front" loading="lazy"></a><figcaption><b>Back to the store</b>Left facing the back; it opened again at the three-quarter front, with the try-on and the tab reset.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tryon-boots.jpg"><img src="img/wardrobe-phone-tryon-boots.jpg" alt="Phone: trying on Boots" loading="lazy"></a><figcaption><b>Shoes</b>Trying on the Boots.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-glasses-zoom.jpg"><img src="img/wardrobe-phone-glasses-zoom.jpg" alt="Phone: the figure wearing round glasses, enlarged" loading="lazy"></a><figcaption><b>Glasses, enlarged</b>Round Glasses tried on.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-crest-zoom.jpg"><img src="img/wardrobe-phone-crest-zoom.jpg" alt="Phone: the Kingsley Crest on the chest, enlarged" loading="lazy"></a><figcaption><b>A crest, enlarged</b>The Kingsley Crest on the chest.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tabs.jpg"><img src="img/wardrobe-phone-tabs.jpg" alt="Phone: category tabs scrolled to Shoes, Badges, Extras" loading="lazy"></a><figcaption><b>All seven tabs</b>The row scrolls to Shoes, Badges and Extras.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-locks.jpg"><img src="img/wardrobe-phone-locks.jpg" alt="Phone: locked crests with their reasons" loading="lazy"></a><figcaption><b>Locks</b>Crests of schools not yet worked at show "Work at …" and a lock on the price.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-locks2.jpg"><img src="img/wardrobe-phone-locks2.jpg" alt="Phone: more crests, Kingsley unlocked" loading="lazy"></a><figcaption><b>Locks, continued</b>Kingsley, the current school, is for sale; the others are locked.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tiles-owned.jpg"><img src="img/wardrobe-phone-tiles-owned.jpg" alt="Phone: owned cap tile next to dimmed unowned hats" loading="lazy"></a><figcaption><b>Owned and not owned</b>The bought Baseball Cap is bright with its check; the rest are dimmed with a coin mark.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-outfit.jpg"><img src="img/wardrobe-phone-outfit.jpg" alt="Phone: preview wearing cap and blazer" loading="lazy"></a><figcaption><b>Bought and worn</b>Woman, Bun, Baseball Cap and Blazer. Under the cap the bun is a ponytail.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-room.jpg"><img src="img/wardrobe-phone-room.jpg" alt="Phone: the exam room with the supervisor in cap and blazer" loading="lazy"></a><figcaption><b>In the exam</b>The supervisor (bottom right) wears the same outfit.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-room-zoom.jpg"><img src="img/wardrobe-phone-room-zoom.jpg" alt="Phone: the supervisor in the room, enlarged" loading="lazy"></a><figcaption><b>In the exam, enlarged</b>Cap, blazer and tie at game distance.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-walk-zoom.jpg"><img src="img/wardrobe-phone-walk-zoom.jpg" alt="Phone: the supervisor walking, ponytail under the cap" loading="lazy"></a><figcaption><b>Walking, enlarged</b>The ponytail shows under the cap.</figcaption></figure>
     </div>
     <div class="cards">
       <div class="card"><h3>Eight slots</h3><p>Hat, top, trousers, shoes, badge, glasses, neck (lanyard or tie) and
@@ -614,8 +633,16 @@ ol.next { padding-left: 22px; }
   <section id="limits">
     <div class="section-head"><h2>Known limits</h2></div>
     <ul class="next">
-      <li><b>Not checked on the phone yet.</b> Everything above is the editor. The Galaxy A15 has not run phase 3, nor the
-        phase 2 preview fixes (<a href="#phone">On the phone</a>).</li>
+      <li><b>Hair and body taps hitch on the phone.</b> On the Galaxy A15 each Man/Woman or Hair tap freezes the
+        screen for about 0.9 s: six taps, six single frames of 0.90–0.92 s. The rate of finished frames is about 50 a second
+        otherwise. A try-on tap costs one frame of about 0.5 s and a tab switch about 0.35 s. These are display
+        composition figures from the phone's own log (<code>hwcomposer</code>), not an in-game counter. The likely cause is
+        that the store redraws on every tap and a body or hair change builds a new figure.</li>
+      <li><b>The selected tab can be scrolled out of sight.</b> After you pick Shoes, Badges or Extras the tab row
+        snaps back to the start on the redraw, so the highlighted tab is off screen.</li>
+      <li><b>Older careers start with no school history.</b> Schools are recorded from this version on. A save from
+        before it counts only its current school, so a career that has passed through Maple still sees the Maple
+        Crest locked.</li>
       <li><b>Hair under hats.</b> The long and bob styles show below every brim, as hair does; the bob pokes out a little at one
         side of the cap. The bun is let down into a ponytail under any hat.</li>
       <li><b>One colour per item.</b> Each item has its own fixed colours; there are no colour variants to choose.</li>
