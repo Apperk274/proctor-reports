@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Schools and Offers</title>
-<meta name="description" content="Eight schools with fixed star ratings, offers that compare rating and salary, and the lower-rated school that pays more, in Exam Supervisor Simulator.">
+<meta name="description" content="Eight schools with fixed star ratings in half-star steps, offers that compare rating and salary, and the lower-rated school that pays more, in Exam Supervisor Simulator.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -80,7 +80,8 @@ tr.hi td { background: var(--accent-soft); }
     <span class="eyebrow">Exam Supervisor Simulator · M129</span>
     <h1>Schools and Offers</h1>
     <p class="lede">A career now runs through eight schools instead of three postings. Each school has a fixed star rating
-      that the player can see. A move between schools arrives as an offer, and the offer compares the school you hold
+      that the player can see, in half-star steps. The normal climb is Maple → Riverside → Eastgate → City High →
+      Kingsley. A move between schools arrives as an offer, and the offer compares the school you hold
       with the one offered, on both rating and salary. Usually one school writes. Sometimes two write at once, and then
       a better-rated school competes with a lower-rated one that pays more. The screenshots are from Play mode at a
       phone's portrait size (1080 × 2340).</p>
@@ -91,7 +92,8 @@ tr.hi td { background: var(--accent-soft); }
       <h2>The schools</h2>
       <p class="muted">A career starts at Maple at standing 40. "Offered at" is the standing a school asks for. "Lost
         below" is the standing under which you are reassigned. The two numbers are kept apart so that a career does not
-        bounce between schools. Brightpath, highlighted, is the lower-rated school that pays more.</p>
+        bounce between schools. Brightpath, highlighted, is the lower-rated school that pays more. Eastgate is rated two and a half stars: above
+        Riverside, below City High, and open at 47, before City High's 52.</p>
     </div>
     <div class="table-wrap">
       <table>
@@ -99,7 +101,7 @@ tr.hi td { background: var(--accent-soft); }
         <tbody>
           <tr><td>Maple Elementary School</td><td>Elementary</td><td class="stars">★☆☆☆☆</td><td class="num">50</td><td class="num">start</td><td>final warning, then dismissal</td></tr>
           <tr><td>Riverside Middle School</td><td>Middle school</td><td class="stars">★★☆☆☆</td><td class="num">60</td><td class="num">44</td><td class="num">34</td></tr>
-          <tr><td>Eastgate Evening College</td><td>Adult evening and vocational</td><td class="stars">★★☆☆☆</td><td class="num">70</td><td class="num">47</td><td class="num">37</td></tr>
+          <tr><td>Eastgate Evening College</td><td>Adult evening and vocational</td><td class="stars">★★½☆☆</td><td class="num">70</td><td class="num">47</td><td class="num">37</td></tr>
           <tr><td>City High School</td><td>High school</td><td class="stars">★★★☆☆</td><td class="num">80</td><td class="num">52</td><td class="num">40</td></tr>
           <tr class="hi"><td>Brightpath Prep Centre</td><td>Private exam-prep centre</td><td class="stars">★★☆☆☆</td><td class="num">120</td><td class="num">50</td><td class="num">40</td></tr>
           <tr><td>Kingsley Academy</td><td>Selective academy</td><td class="stars">★★★★☆</td><td class="num">140</td><td class="num">60</td><td class="num">48</td></tr>
@@ -128,7 +130,7 @@ tr.hi td { background: var(--accent-soft); }
             taking one can never leave the other open.</li>
           <li><b>The second school is rated lower and pays more.</b> It appears beside a promotion only when such a school
             is open to the player: City High (better rated) against Brightpath (better paid).</li>
-          <li><b>How often:</b> about one card in fourteen in a careful career.</li>
+          <li><b>How often:</b> about one card in seventeen in a careful career.</li>
           <li><b>The cost of the money is printed on the card,</b> not hidden in the rules.</li>
           <li><b>Without a banner.</b> The comparison stands in for the picture, so the three answers fit on the
             screen.</li>
@@ -136,6 +138,20 @@ tr.hi td { background: var(--accent-soft); }
       </div>
     </article>
 
+    <article class="moment">
+      <div class="shot"><img src="img/02b-eastgate-promotion.png" alt="Promotion card: A move up; Eastgate Evening College, rating 2 to 2.5 stars, salary 60 to 70 (+10); buttons Join Eastgate Evening College, Stay where you are" loading="lazy"></div>
+      <div class="text">
+        <h3>The half star: Riverside to Eastgate</h3>
+        <ul>
+          <li><b>Eastgate is a real rung.</b> At two and a half stars it is rated above Riverside, so a supervisor at
+            Riverside with standing 47 to 51 is offered it as a promotion. From Eastgate, City High is the next offer.</li>
+          <li><b>The half star is drawn from the same icon family:</b> the star outline, solid on its left half. Text
+            reads it as "2.5 of 5 stars".</li>
+          <li><b>Every careful career now passes through it:</b> 24 of 24, against 0 of 24 when it was rated two stars
+            like Riverside.</li>
+        </ul>
+      </div>
+    </article>
     <article class="moment">
       <div class="shot"><img src="img/03-money-offer.png" alt="Single offer card: More money elsewhere; Brightpath Prep Centre, rating 3 to 2 stars, salary 80 to 120 (+40); buttons Join Brightpath Prep Centre, Stay where you are" loading="lazy"></div>
       <div class="text">
@@ -152,7 +168,7 @@ tr.hi td { background: var(--accent-soft); }
     <div class="trio">
       <figure><img src="img/02-promotion.png" alt="Promotion card: Riverside Middle School, 1 to 2 stars, 50 to 60" loading="lazy"><figcaption>A move up: Maple to Riverside, one star to two.</figcaption></figure>
       <figure><img src="img/04-top-promotion.png" alt="Promotion card: National Examination Centre, 4 to 5 stars, 160 to 190" loading="lazy"><figcaption>The longest name, at the top: it wraps instead of being cut.</figcaption></figure>
-      <figure><img src="img/05-demotion.png" alt="Reassignment card: Eastgate Evening College, 3 to 2 stars, 80 to 70 (-10)" loading="lazy"><figcaption>A demotion uses the same comparison. The move goes to the best lower-rated school the standing can still hold.</figcaption></figure>
+      <figure><img src="img/05-demotion.png" alt="Reassignment card: Eastgate Evening College, 3 to 2.5 stars, 80 to 70 (-10)" loading="lazy"><figcaption>A demotion uses the same comparison. The move goes to the best lower-rated school the standing can still hold.</figcaption></figure>
     </div>
   </section>
 
@@ -165,12 +181,13 @@ tr.hi td { background: var(--accent-soft); }
     </div>
     <div class="trio">
       <figure><img src="img/06-hub-maple.png" alt="Hub hero: Assistant Supervisor, Maple Elementary School, 1 star, Elementary school" loading="lazy"><figcaption>Maple, where careers begin.</figcaption></figure>
+      <figure><img src="img/06-hub-vocational.png" alt="Hub hero: Assistant Supervisor, Eastgate Evening College, 2.5 stars, Adult evening and vocational college" loading="lazy"><figcaption>Eastgate, with its half star.</figcaption></figure>
       <figure><img src="img/06-hub-brightpath.png" alt="Hub hero: Supervisor, Brightpath Prep Centre, 2 stars, Private exam-prep centre" loading="lazy"><figcaption>Brightpath.</figcaption></figure>
       <figure><img src="img/06-hub-national.png" alt="Hub hero: Senior Supervisor, National Examination Centre, 5 stars" loading="lazy"><figcaption>National Examination Centre: the longest name fits on one line.</figcaption></figure>
     </div>
     <div class="trio">
-      <figure><img src="img/07-career-top.png" alt="Career tab: Supervisor, City High School, 3 of 5 stars; progression ring, 5 more to reach Kingsley Academy, 4 stars" loading="lazy"><figcaption>Career tab: your school's rating, and the next school's.</figcaption></figure>
-      <figure><img src="img/08-career-schools.png" alt="Career tab Schools card: every school with stars, standing required and salary; City High marked You are here" loading="lazy"><figcaption>Every school with its stars, the standing it asks for and its pay. Your school is marked.</figcaption></figure>
+      <figure><img src="img/07-career-top.png" alt="Career tab: Assistant Supervisor, Eastgate Evening College, 2.5 of 5 stars; progression ring, 3 more to reach City High School, 3 stars" loading="lazy"><figcaption>Career tab at Eastgate: your school's rating, half star included, and the next school's.</figcaption></figure>
+      <figure><img src="img/08-career-schools.png" alt="Career tab Schools card: every school with stars, standing required and salary; Eastgate, two and a half stars, marked You are here" loading="lazy"><figcaption>Every school with its stars, the standing it asks for and its pay. Your school is marked.</figcaption></figure>
     </div>
   </section>
 
@@ -182,21 +199,22 @@ tr.hi td { background: var(--accent-soft); }
         whenever it is offered, and an error-prone player.</p>
     </div>
     <div class="cards">
-      <div class="card"><span class="big">0.94</span><p>The correlation between standing and school rating within a career.
+      <div class="card"><span class="big">0.93</span><p>The correlation between standing and school rating within a career.
         A better-regarded supervisor works at a better-rated school.</p></div>
-      <div class="card"><span class="big">3.8 vs 4.0</span><p>The mean rating at exam 15 for the player who took the money,
+      <div class="card"><span class="big">2.9 vs 3.4</span><p>The mean rating at exam 10 for the player who took the money,
         against the one who took the better school. Taking the money slows the climb.</p></div>
-      <div class="card"><span class="big">7276 vs 7258</span><p>Coins after 50 exams for those two players. They end level:
+      <div class="card"><span class="big">6628 vs 6628</span><p>Coins after 50 exams for those two players. They end level:
         the money pays early, the slower climb gives it back, and neither choice dominates.</p></div>
-      <div class="card"><span class="big">24 / 24</span><p>Error-prone careers dismissed. That is the same as at M126 from the
-        old start: the bottom school keeps the final warning and dismissal unchanged.</p></div>
+      <div class="card"><span class="big">24 / 24</span><p>Careful careers that work at Eastgate on the way up, about two exams
+        each. Before the half star it was 0 / 24. City High (exam 6) and Kingsley (exam 11) are reached on the same exams
+        as before, and coins are level (6606 → 6628).</p></div>
     </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Careful player, takes the better school</th><th>Exam 5</th><th>10</th><th>15</th><th>20</th><th>30</th></tr></thead>
         <tbody>
-          <tr><td>Median standing</td><td class="num">50</td><td class="num">59</td><td class="num">68</td><td class="num">78</td><td class="num">99</td></tr>
-          <tr><td>Mean school rating</td><td class="num">2.2</td><td class="num">3.4</td><td class="num">4.0</td><td class="num">4.1</td><td class="num">4.9</td></tr>
+          <tr><td>Median standing</td><td class="num">50</td><td class="num">58</td><td class="num">66</td><td class="num">74</td><td class="num">92</td></tr>
+          <tr><td>Mean school rating</td><td class="num">2.5</td><td class="num">3.4</td><td class="num">4.0</td><td class="num">4.1</td><td class="num">4.7</td></tr>
         </tbody>
       </table>
     </div>
@@ -209,11 +227,14 @@ tr.hi td { background: var(--accent-soft); }
         not reinstalled, because the phone is shared with other sessions.</li>
       <li><b>The hub's banner is crowded.</b> With the star line added, the rank sits lower and overlaps the steps of the
         colonnade building. It is still readable, but the art might want more room.</li>
-      <li><b>Eastgate Evening College is rarely visited by a careful player.</b> Riverside's 44 leads straight on to City
-        High's 52. Eastgate is mostly a place a reassignment lands, or where an older save that was at the Vocational
-        Annex now loads.</li>
-      <li><b>The error-prone player is still always dismissed</b> (M126). That is unchanged and remains its own open
-        question.</li>
+      <li><b>The top comes a little later on these seeds.</b> With the Eastgate step, mean rating at exam 30 is 4.7
+        against 4.9, and careers spend less time at National. City High and Kingsley are reached on the same exams, so
+        this looks like career-to-career chaos rather than the extra rung. It has not been replicated on a second seed
+        block.</li>
+      <li><b>Eastgate keeps the two-star room.</b> Rooms are sized by whole stars, so the approved desk counts are
+        unchanged (7 on a phone, 9 on a tablet).</li>
+      <li><b>The error-prone player is still nearly always dismissed</b> (20 of 24, M126). That is unchanged and remains
+        its own open question.</li>
     </ul>
   </section>
 </div>
