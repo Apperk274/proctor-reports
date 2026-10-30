@@ -234,6 +234,28 @@ ol.next { padding-left: 22px; }
         until the app closed. Without the depth test the skin and trousers drew over the shirt, and the picture
         stopped updating, so try-ons and turns never reached the screen. The texture is now single-sampled, and
         the camera stops the moment you leave the store.</p>
+      <p><b>Tap freezes, fixed in place.</b> On <code>9b848d2</code> every Wardrobe tap redrew the whole store, all ~37 tiles,
+        and a body or hair change also saved a long career at once (one serialization and two parses of a 286 k-character
+        file). Redressing the figure was never the cost: about 0.1 ms. Now a tap changes only what it touches: the figure is
+        redressed in place, a choice moves without rebuilding its row, a try-on only moves a tile's outline, a tab hides the
+        other tabs' tiles out of view without switching them off, and the rows and tiles draw on their own canvases. An
+        outfit, body or hair change is saved when you leave the store. Only buying redraws the page.</p>
+      <div class="table-wrap"><table><thead><tr><th>Tap</th><th>Phone, <code>9b848d2</code></th><th>Phone, <code>b3ebf5b</code> (first fix)</th><th>Phone, <code>aae24f5</code> (now)</th><th>Editor, now</th></tr></thead><tbody>
+        <tr><td>Man / Woman</td><td class="num">≈ 900 ms</td><td class="num">78–89 ms</td><td class="num">22–34 ms</td><td class="num">1.6 ms</td></tr>
+        <tr><td>Hair</td><td class="num">≈ 900 ms</td><td class="num">76–78 ms</td><td class="num">23–34 ms</td><td class="num">1.5 ms</td></tr>
+        <tr><td>Try-on</td><td class="num">≈ 500 ms</td><td class="num">110–121 ms</td><td class="num">55–78 ms</td><td class="num">8.5 ms</td></tr>
+        <tr><td>Tab</td><td class="num">≈ 350 ms</td><td class="num">100–233 ms</td><td class="num">67–78 ms</td><td class="num">8.7–8.8 ms</td></tr>
+      </tbody></table></div>
+      <p class="muted">Every tap is now under the ~100 ms goal; Man / Woman and Hair are as smooth as no tap at all.
+        Phone: the longest frame in the display log (<code>BufferQueueProducer</code> for the game's surface,
+        one line a second) in the 2.6 s after each of six taps; about 23–33 ms with no tap. Editor: main-thread time of the
+        busiest frame after the tap (<code>M131WardrobeTapCostProbe</code>), Apple M4; it was 72–98 ms before.</p>
+      <p><b>The chosen tab stays in view.</b> Picking Badges or Extras at the far end of the row keeps it highlighted and on
+        screen, after the tap and after a purchase redraws the store.</p>
+      <p><b>Old careers' crests.</b> The phone's career was saved before schools were recorded (save version 2, at Kingsley):
+        no room styles, and offers with no "from" school, so only Kingsley counted. Save version 6 adds the schools on the main
+        ladder below each known school. On the real save Maple, Riverside, Eastgate, City High and Kingsley are now for sale;
+        Brightpath, State University and the National Centre stay locked. The save was put back byte for byte afterwards.</p>
       <p><b>Checked on the phone:</b> try-on changes the figure for a top, a hat, shoes, glasses and a crest. Nine
         sideways drags each turned it, and the back view is clean. Leaving and coming back faces it front again,
         with the try-on and tab reset. All six hair styles and both bodies show. All seven tabs are there. Locked crests
@@ -258,8 +280,11 @@ ol.next { padding-left: 22px; }
 <figure><a href="img/wardrobe-phone-glasses-zoom.jpg"><img src="img/wardrobe-phone-glasses-zoom.jpg" alt="Phone: the figure wearing round glasses, enlarged" loading="lazy"></a><figcaption><b>Glasses, enlarged</b>Round Glasses tried on.</figcaption></figure>
 <figure><a href="img/wardrobe-phone-crest-zoom.jpg"><img src="img/wardrobe-phone-crest-zoom.jpg" alt="Phone: the Kingsley Crest on the chest, enlarged" loading="lazy"></a><figcaption><b>A crest, enlarged</b>The Kingsley Crest on the chest.</figcaption></figure>
 <figure><a href="img/wardrobe-phone-tabs.jpg"><img src="img/wardrobe-phone-tabs.jpg" alt="Phone: category tabs scrolled to Shoes, Badges, Extras" loading="lazy"></a><figcaption><b>All seven tabs</b>The row scrolls to Shoes, Badges and Extras.</figcaption></figure>
-<figure><a href="img/wardrobe-phone-locks.jpg"><img src="img/wardrobe-phone-locks.jpg" alt="Phone: locked crests with their reasons" loading="lazy"></a><figcaption><b>Locks</b>Crests of schools not yet worked at show "Work at …" and a lock on the price.</figcaption></figure>
-<figure><a href="img/wardrobe-phone-locks2.jpg"><img src="img/wardrobe-phone-locks2.jpg" alt="Phone: more crests, Kingsley unlocked" loading="lazy"></a><figcaption><b>Locks, continued</b>Kingsley, the current school, is for sale; the others are locked.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-tab-kept.jpg"><img src="img/wardrobe-phone-tab-kept.jpg" alt="Phone: Badges tab chosen and still in view after the tap" loading="lazy"></a><figcaption><b>The tab stays in view</b>Badges, picked at the far end of the row, stays highlighted and on screen.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-locks.jpg"><img src="img/wardrobe-phone-locks.jpg" alt="Phone: Maple, Riverside, Eastgate and City High crests for sale, Brightpath locked" loading="lazy"></a><figcaption><b>Crests, an old career at Kingsley</b>Maple, Riverside, Eastgate and City High are for sale; Brightpath (the money route) stays locked. The Gold Pin is 750¢.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-locks2.jpg"><img src="img/wardrobe-phone-locks2.jpg" alt="Phone: Kingsley crest for sale, State University and National locked" loading="lazy"></a><figcaption><b>Crests, continued</b>Kingsley, the current school, is for sale; State University and the National Centre are locked.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-band2-hats.jpg"><img src="img/wardrobe-phone-band2-hats.jpg" alt="Phone, new Maple career: Flat Cap locked with Reach Supervisor" loading="lazy"></a><figcaption><b>Band 2 lock</b>A new career at Maple: the Flat Cap (200¢) waits for Supervisor.</figcaption></figure>
+<figure><a href="img/wardrobe-phone-band2-tops.jpg"><img src="img/wardrobe-phone-band2-tops.jpg" alt="Phone, new Maple career: Sweater and Hoodie locked, Graduation Cap 750" loading="lazy"></a><figcaption><b>Band 2 and 3</b>Sweater 190¢ and Hoodie 210¢ wait for Supervisor; the Graduation Cap is 750¢ at Senior Supervisor.</figcaption></figure>
 <figure><a href="img/wardrobe-phone-tiles-owned.jpg"><img src="img/wardrobe-phone-tiles-owned.jpg" alt="Phone: owned cap tile next to dimmed unowned hats" loading="lazy"></a><figcaption><b>Owned and not owned</b>The bought Baseball Cap is bright with its check; the rest are dimmed with a coin mark.</figcaption></figure>
 <figure><a href="img/wardrobe-phone-outfit.jpg"><img src="img/wardrobe-phone-outfit.jpg" alt="Phone: preview wearing cap and blazer" loading="lazy"></a><figcaption><b>Bought and worn</b>Woman, Bun, Baseball Cap and Blazer. Under the cap the bun is a ponytail.</figcaption></figure>
 <figure><a href="img/wardrobe-phone-room.jpg"><img src="img/wardrobe-phone-room.jpg" alt="Phone: the exam room with the supervisor in cap and blazer" loading="lazy"></a><figcaption><b>In the exam</b>The supervisor (bottom right) wears the same outfit.</figcaption></figure>
@@ -298,8 +323,8 @@ ol.next { padding-left: 22px; }
     <div class="cards">
       <div class="card"><h3>36 items</h3><p>5 hats, 9 tops, 3 trousers, 4 shoes, 3 pins, 8 school crests and 4 extras.
         Prices are one value inside each band from the candidates page, all in one table for the phase 4 balance pass.</p></div>
-      <div class="card"><h3>Unlocks</h3><p>The Graduation Cap, the Blazer and the Gold Pin wait for Senior Supervisor (band 3), the
-        Silver Pin for Supervisor (band 2). A band once reached stays reached, even after a demotion. A school's crest goes on
+      <div class="card"><h3>Unlocks</h3><p>The Graduation Cap, the Blazer and the Gold Pin (750¢ each) wait for Senior Supervisor
+        (band 3); the Silver Pin and ten mid-priced items (190–260¢) for Supervisor (band 2). A band once reached stays reached, even after a demotion. A school's crest goes on
         sale once you have worked there. Locked tiles say why and can still be tried on.</p></div>
       <div class="card"><h3>Hair</h3><p>A free choice for each body, next to Man / Woman. The woman now starts with long hair; she
         can pick a bob or a new bun. The man keeps his short hair, or picks cropped or curly.</p></div>
@@ -349,28 +374,28 @@ ol.next { padding-left: 22px; }
 <div class="items">
 <article class="item" id="hat_cap"><figure><a href="img/wardrobe3-item-hat_cap.jpg"><img src="img/wardrobe3-item-hat_cap.jpg" alt="Baseball Cap on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_cap.jpg"><img src="img/wardrobe3-tile-hat_cap.jpg" alt="Baseball Cap shop tile" loading="lazy"></a></figure><h3>Baseball Cap</h3><div class="meta"><span>Hat</span><span>140 ¢</span></div><p class="id"><code>hat_cap</code></p></article>
 <article class="item" id="hat_beanie"><figure><a href="img/wardrobe3-item-hat_beanie.jpg"><img src="img/wardrobe3-item-hat_beanie.jpg" alt="Beanie on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_beanie.jpg"><img src="img/wardrobe3-tile-hat_beanie.jpg" alt="Beanie shop tile" loading="lazy"></a></figure><h3>Beanie</h3><div class="meta"><span>Hat</span><span>120 ¢</span></div><p class="id"><code>hat_beanie</code></p></article>
-<article class="item" id="hat_flatcap"><figure><a href="img/wardrobe3-item-hat_flatcap.jpg"><img src="img/wardrobe3-item-hat_flatcap.jpg" alt="Flat Cap on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_flatcap.jpg"><img src="img/wardrobe3-tile-hat_flatcap.jpg" alt="Flat Cap shop tile" loading="lazy"></a></figure><h3>Flat Cap</h3><div class="meta"><span>Hat</span><span>200 ¢</span></div><p class="id"><code>hat_flatcap</code></p></article>
+<article class="item" id="hat_flatcap"><figure><a href="img/wardrobe3-item-hat_flatcap.jpg"><img src="img/wardrobe3-item-hat_flatcap.jpg" alt="Flat Cap on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_flatcap.jpg"><img src="img/wardrobe3-tile-hat_flatcap.jpg" alt="Flat Cap shop tile" loading="lazy"></a></figure><h3>Flat Cap</h3><div class="meta"><span>Hat</span><span>200 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>hat_flatcap</code></p></article>
 <article class="item" id="hat_bucket"><figure><a href="img/wardrobe3-item-hat_bucket.jpg"><img src="img/wardrobe3-item-hat_bucket.jpg" alt="Bucket Hat on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_bucket.jpg"><img src="img/wardrobe3-tile-hat_bucket.jpg" alt="Bucket Hat shop tile" loading="lazy"></a></figure><h3>Bucket Hat</h3><div class="meta"><span>Hat</span><span>160 ¢</span></div><p class="id"><code>hat_bucket</code></p></article>
-<article class="item" id="hat_grad"><figure><a href="img/wardrobe3-item-hat_grad.jpg"><img src="img/wardrobe3-item-hat_grad.jpg" alt="Graduation Cap on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_grad.jpg"><img src="img/wardrobe3-tile-hat_grad.jpg" alt="Graduation Cap shop tile" loading="lazy"></a></figure><h3>Graduation Cap</h3><div class="meta"><span>Hat</span><span>500 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>hat_grad</code></p></article>
+<article class="item" id="hat_grad"><figure><a href="img/wardrobe3-item-hat_grad.jpg"><img src="img/wardrobe3-item-hat_grad.jpg" alt="Graduation Cap on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-hat_grad.jpg"><img src="img/wardrobe3-tile-hat_grad.jpg" alt="Graduation Cap shop tile" loading="lazy"></a></figure><h3>Graduation Cap</h3><div class="meta"><span>Hat</span><span>750 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>hat_grad</code></p></article>
 <article class="item" id="top_tee_white"><figure><a href="img/wardrobe3-item-top_tee_white.jpg"><img src="img/wardrobe3-item-top_tee_white.jpg" alt="White T-Shirt on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_tee_white.jpg"><img src="img/wardrobe3-tile-top_tee_white.jpg" alt="White T-Shirt shop tile" loading="lazy"></a></figure><h3>White T-Shirt</h3><div class="meta"><span>Top</span><span>90 ¢</span></div><p class="id"><code>top_tee_white</code></p></article>
 <article class="item" id="top_tee_mustard"><figure><a href="img/wardrobe3-item-top_tee_mustard.jpg"><img src="img/wardrobe3-item-top_tee_mustard.jpg" alt="Mustard T-Shirt on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_tee_mustard.jpg"><img src="img/wardrobe3-tile-top_tee_mustard.jpg" alt="Mustard T-Shirt shop tile" loading="lazy"></a></figure><h3>Mustard T-Shirt</h3><div class="meta"><span>Top</span><span>90 ¢</span></div><p class="id"><code>top_tee_mustard</code></p></article>
 <article class="item" id="top_tee_brick"><figure><a href="img/wardrobe3-item-top_tee_brick.jpg"><img src="img/wardrobe3-item-top_tee_brick.jpg" alt="Brick T-Shirt on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_tee_brick.jpg"><img src="img/wardrobe3-tile-top_tee_brick.jpg" alt="Brick T-Shirt shop tile" loading="lazy"></a></figure><h3>Brick T-Shirt</h3><div class="meta"><span>Top</span><span>90 ¢</span></div><p class="id"><code>top_tee_brick</code></p></article>
 <article class="item" id="top_polo"><figure><a href="img/wardrobe3-item-top_polo.jpg"><img src="img/wardrobe3-item-top_polo.jpg" alt="Polo Shirt on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_polo.jpg"><img src="img/wardrobe3-tile-top_polo.jpg" alt="Polo Shirt shop tile" loading="lazy"></a></figure><h3>Polo Shirt</h3><div class="meta"><span>Top</span><span>160 ¢</span></div><p class="id"><code>top_polo</code></p></article>
-<article class="item" id="top_sweater"><figure><a href="img/wardrobe3-item-top_sweater.jpg"><img src="img/wardrobe3-item-top_sweater.jpg" alt="Sweater on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_sweater.jpg"><img src="img/wardrobe3-tile-top_sweater.jpg" alt="Sweater shop tile" loading="lazy"></a></figure><h3>Sweater</h3><div class="meta"><span>Top</span><span>190 ¢</span></div><p class="id"><code>top_sweater</code></p></article>
-<article class="item" id="top_hoodie"><figure><a href="img/wardrobe3-item-top_hoodie.jpg"><img src="img/wardrobe3-item-top_hoodie.jpg" alt="Hoodie on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_hoodie.jpg"><img src="img/wardrobe3-tile-top_hoodie.jpg" alt="Hoodie shop tile" loading="lazy"></a></figure><h3>Hoodie</h3><div class="meta"><span>Top</span><span>210 ¢</span></div><p class="id"><code>top_hoodie</code></p></article>
-<article class="item" id="top_shirt_tie"><figure><a href="img/wardrobe3-item-top_shirt_tie.jpg"><img src="img/wardrobe3-item-top_shirt_tie.jpg" alt="Shirt &amp; Tie on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_shirt_tie.jpg"><img src="img/wardrobe3-tile-top_shirt_tie.jpg" alt="Shirt &amp; Tie shop tile" loading="lazy"></a></figure><h3>Shirt &amp; Tie</h3><div class="meta"><span>Top</span><span>250 ¢</span></div><p class="id"><code>top_shirt_tie</code></p></article>
-<article class="item" id="top_cardigan"><figure><a href="img/wardrobe3-item-top_cardigan.jpg"><img src="img/wardrobe3-item-top_cardigan.jpg" alt="Cardigan on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_cardigan.jpg"><img src="img/wardrobe3-tile-top_cardigan.jpg" alt="Cardigan shop tile" loading="lazy"></a></figure><h3>Cardigan</h3><div class="meta"><span>Top</span><span>260 ¢</span></div><p class="id"><code>top_cardigan</code></p></article>
-<article class="item" id="top_blazer"><figure><a href="img/wardrobe3-item-top_blazer.jpg"><img src="img/wardrobe3-item-top_blazer.jpg" alt="Blazer on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_blazer.jpg"><img src="img/wardrobe3-tile-top_blazer.jpg" alt="Blazer shop tile" loading="lazy"></a></figure><h3>Blazer</h3><div class="meta"><span>Top</span><span>500 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>top_blazer</code></p></article>
+<article class="item" id="top_sweater"><figure><a href="img/wardrobe3-item-top_sweater.jpg"><img src="img/wardrobe3-item-top_sweater.jpg" alt="Sweater on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_sweater.jpg"><img src="img/wardrobe3-tile-top_sweater.jpg" alt="Sweater shop tile" loading="lazy"></a></figure><h3>Sweater</h3><div class="meta"><span>Top</span><span>190 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>top_sweater</code></p></article>
+<article class="item" id="top_hoodie"><figure><a href="img/wardrobe3-item-top_hoodie.jpg"><img src="img/wardrobe3-item-top_hoodie.jpg" alt="Hoodie on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_hoodie.jpg"><img src="img/wardrobe3-tile-top_hoodie.jpg" alt="Hoodie shop tile" loading="lazy"></a></figure><h3>Hoodie</h3><div class="meta"><span>Top</span><span>210 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>top_hoodie</code></p></article>
+<article class="item" id="top_shirt_tie"><figure><a href="img/wardrobe3-item-top_shirt_tie.jpg"><img src="img/wardrobe3-item-top_shirt_tie.jpg" alt="Shirt &amp; Tie on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_shirt_tie.jpg"><img src="img/wardrobe3-tile-top_shirt_tie.jpg" alt="Shirt &amp; Tie shop tile" loading="lazy"></a></figure><h3>Shirt &amp; Tie</h3><div class="meta"><span>Top</span><span>250 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>top_shirt_tie</code></p></article>
+<article class="item" id="top_cardigan"><figure><a href="img/wardrobe3-item-top_cardigan.jpg"><img src="img/wardrobe3-item-top_cardigan.jpg" alt="Cardigan on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_cardigan.jpg"><img src="img/wardrobe3-tile-top_cardigan.jpg" alt="Cardigan shop tile" loading="lazy"></a></figure><h3>Cardigan</h3><div class="meta"><span>Top</span><span>260 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>top_cardigan</code></p></article>
+<article class="item" id="top_blazer"><figure><a href="img/wardrobe3-item-top_blazer.jpg"><img src="img/wardrobe3-item-top_blazer.jpg" alt="Blazer on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-top_blazer.jpg"><img src="img/wardrobe3-tile-top_blazer.jpg" alt="Blazer shop tile" loading="lazy"></a></figure><h3>Blazer</h3><div class="meta"><span>Top</span><span>750 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>top_blazer</code></p></article>
 <article class="item" id="trousers_jeans"><figure><a href="img/wardrobe3-item-trousers_jeans.jpg"><img src="img/wardrobe3-item-trousers_jeans.jpg" alt="Jeans on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-trousers_jeans.jpg"><img src="img/wardrobe3-tile-trousers_jeans.jpg" alt="Jeans shop tile" loading="lazy"></a></figure><h3>Jeans</h3><div class="meta"><span>Trousers</span><span>120 ¢</span></div><p class="id"><code>trousers_jeans</code></p></article>
 <article class="item" id="trousers_chinos"><figure><a href="img/wardrobe3-item-trousers_chinos.jpg"><img src="img/wardrobe3-item-trousers_chinos.jpg" alt="Chinos on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-trousers_chinos.jpg"><img src="img/wardrobe3-tile-trousers_chinos.jpg" alt="Chinos shop tile" loading="lazy"></a></figure><h3>Chinos</h3><div class="meta"><span>Trousers</span><span>140 ¢</span></div><p class="id"><code>trousers_chinos</code></p></article>
-<article class="item" id="trousers_formal"><figure><a href="img/wardrobe3-item-trousers_formal.jpg"><img src="img/wardrobe3-item-trousers_formal.jpg" alt="Formal Trousers on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-trousers_formal.jpg"><img src="img/wardrobe3-tile-trousers_formal.jpg" alt="Formal Trousers shop tile" loading="lazy"></a></figure><h3>Formal Trousers</h3><div class="meta"><span>Trousers</span><span>210 ¢</span></div><p class="id"><code>trousers_formal</code></p></article>
+<article class="item" id="trousers_formal"><figure><a href="img/wardrobe3-item-trousers_formal.jpg"><img src="img/wardrobe3-item-trousers_formal.jpg" alt="Formal Trousers on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-trousers_formal.jpg"><img src="img/wardrobe3-tile-trousers_formal.jpg" alt="Formal Trousers shop tile" loading="lazy"></a></figure><h3>Formal Trousers</h3><div class="meta"><span>Trousers</span><span>210 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>trousers_formal</code></p></article>
 <article class="item" id="shoes_sneakers"><figure><a href="img/wardrobe3-item-shoes_sneakers.jpg"><img src="img/wardrobe3-item-shoes_sneakers.jpg" alt="White Sneakers on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_sneakers.jpg"><img src="img/wardrobe3-tile-shoes_sneakers.jpg" alt="White Sneakers shop tile" loading="lazy"></a></figure><h3>White Sneakers</h3><div class="meta"><span>Shoes</span><span>140 ¢</span></div><p class="id"><code>shoes_sneakers</code></p></article>
-<article class="item" id="shoes_runners"><figure><a href="img/wardrobe3-item-shoes_runners.jpg"><img src="img/wardrobe3-item-shoes_runners.jpg" alt="Running Shoes on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_runners.jpg"><img src="img/wardrobe3-tile-shoes_runners.jpg" alt="Running Shoes shop tile" loading="lazy"></a></figure><h3>Running Shoes</h3><div class="meta"><span>Shoes</span><span>190 ¢</span></div><p class="id"><code>shoes_runners</code></p></article>
-<article class="item" id="shoes_loafers"><figure><a href="img/wardrobe3-item-shoes_loafers.jpg"><img src="img/wardrobe3-item-shoes_loafers.jpg" alt="Loafers on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_loafers.jpg"><img src="img/wardrobe3-tile-shoes_loafers.jpg" alt="Loafers shop tile" loading="lazy"></a></figure><h3>Loafers</h3><div class="meta"><span>Shoes</span><span>210 ¢</span></div><p class="id"><code>shoes_loafers</code></p></article>
-<article class="item" id="shoes_boots"><figure><a href="img/wardrobe3-item-shoes_boots.jpg"><img src="img/wardrobe3-item-shoes_boots.jpg" alt="Boots on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_boots.jpg"><img src="img/wardrobe3-tile-shoes_boots.jpg" alt="Boots shop tile" loading="lazy"></a></figure><h3>Boots</h3><div class="meta"><span>Shoes</span><span>260 ¢</span></div><p class="id"><code>shoes_boots</code></p></article>
+<article class="item" id="shoes_runners"><figure><a href="img/wardrobe3-item-shoes_runners.jpg"><img src="img/wardrobe3-item-shoes_runners.jpg" alt="Running Shoes on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_runners.jpg"><img src="img/wardrobe3-tile-shoes_runners.jpg" alt="Running Shoes shop tile" loading="lazy"></a></figure><h3>Running Shoes</h3><div class="meta"><span>Shoes</span><span>190 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>shoes_runners</code></p></article>
+<article class="item" id="shoes_loafers"><figure><a href="img/wardrobe3-item-shoes_loafers.jpg"><img src="img/wardrobe3-item-shoes_loafers.jpg" alt="Loafers on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_loafers.jpg"><img src="img/wardrobe3-tile-shoes_loafers.jpg" alt="Loafers shop tile" loading="lazy"></a></figure><h3>Loafers</h3><div class="meta"><span>Shoes</span><span>210 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>shoes_loafers</code></p></article>
+<article class="item" id="shoes_boots"><figure><a href="img/wardrobe3-item-shoes_boots.jpg"><img src="img/wardrobe3-item-shoes_boots.jpg" alt="Boots on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-shoes_boots.jpg"><img src="img/wardrobe3-tile-shoes_boots.jpg" alt="Boots shop tile" loading="lazy"></a></figure><h3>Boots</h3><div class="meta"><span>Shoes</span><span>260 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>shoes_boots</code></p></article>
 <article class="item" id="badge_bronze"><figure><a href="img/wardrobe3-item-badge_bronze.jpg"><img src="img/wardrobe3-item-badge_bronze.jpg" alt="Bronze Pin on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-badge_bronze.jpg"><img src="img/wardrobe3-tile-badge_bronze.jpg" alt="Bronze Pin shop tile" loading="lazy"></a></figure><h3>Bronze Pin</h3><div class="meta"><span>Badge</span><span>120 ¢</span></div><p class="id"><code>badge_bronze</code></p></article>
 <article class="item" id="badge_silver"><figure><a href="img/wardrobe3-item-badge_silver.jpg"><img src="img/wardrobe3-item-badge_silver.jpg" alt="Silver Pin on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-badge_silver.jpg"><img src="img/wardrobe3-tile-badge_silver.jpg" alt="Silver Pin shop tile" loading="lazy"></a></figure><h3>Silver Pin</h3><div class="meta"><span>Badge</span><span>250 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>badge_silver</code></p></article>
-<article class="item" id="badge_gold"><figure><a href="img/wardrobe3-item-badge_gold.jpg"><img src="img/wardrobe3-item-badge_gold.jpg" alt="Gold Pin on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-badge_gold.jpg"><img src="img/wardrobe3-tile-badge_gold.jpg" alt="Gold Pin shop tile" loading="lazy"></a></figure><h3>Gold Pin</h3><div class="meta"><span>Badge</span><span>500 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>badge_gold</code></p></article>
+<article class="item" id="badge_gold"><figure><a href="img/wardrobe3-item-badge_gold.jpg"><img src="img/wardrobe3-item-badge_gold.jpg" alt="Gold Pin on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-badge_gold.jpg"><img src="img/wardrobe3-tile-badge_gold.jpg" alt="Gold Pin shop tile" loading="lazy"></a></figure><h3>Gold Pin</h3><div class="meta"><span>Badge</span><span>750 ¢</span><span>Reach Senior Supervisor (band 3)</span></div><p class="id"><code>badge_gold</code></p></article>
 <article class="item" id="crest_maple"><figure><a href="img/wardrobe3-item-crest_maple.jpg"><img src="img/wardrobe3-item-crest_maple.jpg" alt="Maple Crest on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-crest_maple.jpg"><img src="img/wardrobe3-tile-crest_maple.jpg" alt="Maple Crest shop tile" loading="lazy"></a></figure><h3>Maple Crest</h3><div class="meta"><span>Badge</span><span>150 ¢</span><span>Work at Maple</span></div><p class="id"><code>crest_maple</code></p></article>
 <article class="item" id="crest_riverside"><figure><a href="img/wardrobe3-item-crest_riverside.jpg"><img src="img/wardrobe3-item-crest_riverside.jpg" alt="Riverside Crest on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-crest_riverside.jpg"><img src="img/wardrobe3-tile-crest_riverside.jpg" alt="Riverside Crest shop tile" loading="lazy"></a></figure><h3>Riverside Crest</h3><div class="meta"><span>Badge</span><span>150 ¢</span><span>Work at Riverside</span></div><p class="id"><code>crest_riverside</code></p></article>
 <article class="item" id="crest_vocational"><figure><a href="img/wardrobe3-item-crest_vocational.jpg"><img src="img/wardrobe3-item-crest_vocational.jpg" alt="Eastgate Crest on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-crest_vocational.jpg"><img src="img/wardrobe3-tile-crest_vocational.jpg" alt="Eastgate Crest shop tile" loading="lazy"></a></figure><h3>Eastgate Crest</h3><div class="meta"><span>Badge</span><span>150 ¢</span><span>Work at Eastgate</span></div><p class="id"><code>crest_vocational</code></p></article>
@@ -382,7 +407,7 @@ ol.next { padding-left: 22px; }
 <article class="item" id="glasses_round"><figure><a href="img/wardrobe3-item-glasses_round.jpg"><img src="img/wardrobe3-item-glasses_round.jpg" alt="Round Glasses on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-glasses_round.jpg"><img src="img/wardrobe3-tile-glasses_round.jpg" alt="Round Glasses shop tile" loading="lazy"></a></figure><h3>Round Glasses</h3><div class="meta"><span>Extras</span><span>140 ¢</span></div><p class="id"><code>glasses_round</code></p></article>
 <article class="item" id="glasses_square"><figure><a href="img/wardrobe3-item-glasses_square.jpg"><img src="img/wardrobe3-item-glasses_square.jpg" alt="Square Glasses on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-glasses_square.jpg"><img src="img/wardrobe3-tile-glasses_square.jpg" alt="Square Glasses shop tile" loading="lazy"></a></figure><h3>Square Glasses</h3><div class="meta"><span>Extras</span><span>140 ¢</span></div><p class="id"><code>glasses_square</code></p></article>
 <article class="item" id="neck_lanyard"><figure><a href="img/wardrobe3-item-neck_lanyard.jpg"><img src="img/wardrobe3-item-neck_lanyard.jpg" alt="ID Lanyard on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-neck_lanyard.jpg"><img src="img/wardrobe3-tile-neck_lanyard.jpg" alt="ID Lanyard shop tile" loading="lazy"></a></figure><h3>ID Lanyard</h3><div class="meta"><span>Extras</span><span>90 ¢</span></div><p class="id"><code>neck_lanyard</code></p></article>
-<article class="item" id="wrist_watch"><figure><a href="img/wardrobe3-item-wrist_watch.jpg"><img src="img/wardrobe3-item-wrist_watch.jpg" alt="Wristwatch on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-wrist_watch.jpg"><img src="img/wardrobe3-tile-wrist_watch.jpg" alt="Wristwatch shop tile" loading="lazy"></a></figure><h3>Wristwatch</h3><div class="meta"><span>Extras</span><span>230 ¢</span></div><p class="id"><code>wrist_watch</code></p></article>
+<article class="item" id="wrist_watch"><figure><a href="img/wardrobe3-item-wrist_watch.jpg"><img src="img/wardrobe3-item-wrist_watch.jpg" alt="Wristwatch on the man and the woman" loading="lazy"></a></figure><figure><a href="img/wardrobe3-tile-wrist_watch.jpg"><img src="img/wardrobe3-tile-wrist_watch.jpg" alt="Wristwatch shop tile" loading="lazy"></a></figure><h3>Wristwatch</h3><div class="meta"><span>Extras</span><span>230 ¢</span><span>Reach Supervisor (band 2)</span></div><p class="id"><code>wrist_watch</code></p></article>
 </div>
     <h3 id="seam">The seams on the woman's tops: fixed</h3>
     <div class="items seam">
@@ -400,28 +425,28 @@ ol.next { padding-left: 22px; }
     <div class="table-wrap"><table><thead><tr><th>Item</th><th>Slot</th><th>Price</th><th>Unlock</th><th>Id</th></tr></thead><tbody>
 <tr><td><a href="#hat_cap">Baseball Cap</a></td><td>Hat</td><td class="num">140 ¢</td><td>—</td><td><code>hat_cap</code></td></tr>
 <tr><td><a href="#hat_beanie">Beanie</a></td><td>Hat</td><td class="num">120 ¢</td><td>—</td><td><code>hat_beanie</code></td></tr>
-<tr><td><a href="#hat_flatcap">Flat Cap</a></td><td>Hat</td><td class="num">200 ¢</td><td>—</td><td><code>hat_flatcap</code></td></tr>
+<tr><td><a href="#hat_flatcap">Flat Cap</a></td><td>Hat</td><td class="num">200 ¢</td><td>Reach Supervisor (band 2)</td><td><code>hat_flatcap</code></td></tr>
 <tr><td><a href="#hat_bucket">Bucket Hat</a></td><td>Hat</td><td class="num">160 ¢</td><td>—</td><td><code>hat_bucket</code></td></tr>
-<tr><td><a href="#hat_grad">Graduation Cap</a></td><td>Hat</td><td class="num">500 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>hat_grad</code></td></tr>
+<tr><td><a href="#hat_grad">Graduation Cap</a></td><td>Hat</td><td class="num">750 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>hat_grad</code></td></tr>
 <tr><td><a href="#top_tee_white">White T-Shirt</a></td><td>Top</td><td class="num">90 ¢</td><td>—</td><td><code>top_tee_white</code></td></tr>
 <tr><td><a href="#top_tee_mustard">Mustard T-Shirt</a></td><td>Top</td><td class="num">90 ¢</td><td>—</td><td><code>top_tee_mustard</code></td></tr>
 <tr><td><a href="#top_tee_brick">Brick T-Shirt</a></td><td>Top</td><td class="num">90 ¢</td><td>—</td><td><code>top_tee_brick</code></td></tr>
 <tr><td><a href="#top_polo">Polo Shirt</a></td><td>Top</td><td class="num">160 ¢</td><td>—</td><td><code>top_polo</code></td></tr>
-<tr><td><a href="#top_sweater">Sweater</a></td><td>Top</td><td class="num">190 ¢</td><td>—</td><td><code>top_sweater</code></td></tr>
-<tr><td><a href="#top_hoodie">Hoodie</a></td><td>Top</td><td class="num">210 ¢</td><td>—</td><td><code>top_hoodie</code></td></tr>
-<tr><td><a href="#top_shirt_tie">Shirt &amp; Tie</a></td><td>Top</td><td class="num">250 ¢</td><td>—</td><td><code>top_shirt_tie</code></td></tr>
-<tr><td><a href="#top_cardigan">Cardigan</a></td><td>Top</td><td class="num">260 ¢</td><td>—</td><td><code>top_cardigan</code></td></tr>
-<tr><td><a href="#top_blazer">Blazer</a></td><td>Top</td><td class="num">500 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>top_blazer</code></td></tr>
+<tr><td><a href="#top_sweater">Sweater</a></td><td>Top</td><td class="num">190 ¢</td><td>Reach Supervisor (band 2)</td><td><code>top_sweater</code></td></tr>
+<tr><td><a href="#top_hoodie">Hoodie</a></td><td>Top</td><td class="num">210 ¢</td><td>Reach Supervisor (band 2)</td><td><code>top_hoodie</code></td></tr>
+<tr><td><a href="#top_shirt_tie">Shirt &amp; Tie</a></td><td>Top</td><td class="num">250 ¢</td><td>Reach Supervisor (band 2)</td><td><code>top_shirt_tie</code></td></tr>
+<tr><td><a href="#top_cardigan">Cardigan</a></td><td>Top</td><td class="num">260 ¢</td><td>Reach Supervisor (band 2)</td><td><code>top_cardigan</code></td></tr>
+<tr><td><a href="#top_blazer">Blazer</a></td><td>Top</td><td class="num">750 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>top_blazer</code></td></tr>
 <tr><td><a href="#trousers_jeans">Jeans</a></td><td>Trousers</td><td class="num">120 ¢</td><td>—</td><td><code>trousers_jeans</code></td></tr>
 <tr><td><a href="#trousers_chinos">Chinos</a></td><td>Trousers</td><td class="num">140 ¢</td><td>—</td><td><code>trousers_chinos</code></td></tr>
-<tr><td><a href="#trousers_formal">Formal Trousers</a></td><td>Trousers</td><td class="num">210 ¢</td><td>—</td><td><code>trousers_formal</code></td></tr>
+<tr><td><a href="#trousers_formal">Formal Trousers</a></td><td>Trousers</td><td class="num">210 ¢</td><td>Reach Supervisor (band 2)</td><td><code>trousers_formal</code></td></tr>
 <tr><td><a href="#shoes_sneakers">White Sneakers</a></td><td>Shoes</td><td class="num">140 ¢</td><td>—</td><td><code>shoes_sneakers</code></td></tr>
-<tr><td><a href="#shoes_runners">Running Shoes</a></td><td>Shoes</td><td class="num">190 ¢</td><td>—</td><td><code>shoes_runners</code></td></tr>
-<tr><td><a href="#shoes_loafers">Loafers</a></td><td>Shoes</td><td class="num">210 ¢</td><td>—</td><td><code>shoes_loafers</code></td></tr>
-<tr><td><a href="#shoes_boots">Boots</a></td><td>Shoes</td><td class="num">260 ¢</td><td>—</td><td><code>shoes_boots</code></td></tr>
+<tr><td><a href="#shoes_runners">Running Shoes</a></td><td>Shoes</td><td class="num">190 ¢</td><td>Reach Supervisor (band 2)</td><td><code>shoes_runners</code></td></tr>
+<tr><td><a href="#shoes_loafers">Loafers</a></td><td>Shoes</td><td class="num">210 ¢</td><td>Reach Supervisor (band 2)</td><td><code>shoes_loafers</code></td></tr>
+<tr><td><a href="#shoes_boots">Boots</a></td><td>Shoes</td><td class="num">260 ¢</td><td>Reach Supervisor (band 2)</td><td><code>shoes_boots</code></td></tr>
 <tr><td><a href="#badge_bronze">Bronze Pin</a></td><td>Badge</td><td class="num">120 ¢</td><td>—</td><td><code>badge_bronze</code></td></tr>
 <tr><td><a href="#badge_silver">Silver Pin</a></td><td>Badge</td><td class="num">250 ¢</td><td>Reach Supervisor (band 2)</td><td><code>badge_silver</code></td></tr>
-<tr><td><a href="#badge_gold">Gold Pin</a></td><td>Badge</td><td class="num">500 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>badge_gold</code></td></tr>
+<tr><td><a href="#badge_gold">Gold Pin</a></td><td>Badge</td><td class="num">750 ¢</td><td>Reach Senior Supervisor (band 3)</td><td><code>badge_gold</code></td></tr>
 <tr><td><a href="#crest_maple">Maple Crest</a></td><td>Badge</td><td class="num">150 ¢</td><td>Work at Maple</td><td><code>crest_maple</code></td></tr>
 <tr><td><a href="#crest_riverside">Riverside Crest</a></td><td>Badge</td><td class="num">150 ¢</td><td>Work at Riverside</td><td><code>crest_riverside</code></td></tr>
 <tr><td><a href="#crest_vocational">Eastgate Crest</a></td><td>Badge</td><td class="num">150 ¢</td><td>Work at Eastgate</td><td><code>crest_vocational</code></td></tr>
@@ -433,7 +458,7 @@ ol.next { padding-left: 22px; }
 <tr><td><a href="#glasses_round">Round Glasses</a></td><td>Extras</td><td class="num">140 ¢</td><td>—</td><td><code>glasses_round</code></td></tr>
 <tr><td><a href="#glasses_square">Square Glasses</a></td><td>Extras</td><td class="num">140 ¢</td><td>—</td><td><code>glasses_square</code></td></tr>
 <tr><td><a href="#neck_lanyard">ID Lanyard</a></td><td>Extras</td><td class="num">90 ¢</td><td>—</td><td><code>neck_lanyard</code></td></tr>
-<tr><td><a href="#wrist_watch">Wristwatch</a></td><td>Extras</td><td class="num">230 ¢</td><td>—</td><td><code>wrist_watch</code></td></tr>
+<tr><td><a href="#wrist_watch">Wristwatch</a></td><td>Extras</td><td class="num">230 ¢</td><td>Reach Supervisor (band 2)</td><td><code>wrist_watch</code></td></tr>
     </tbody></table></div>
     <div class="cards">
       <div class="card"><h3>Meshes</h3><p>Seven items are colours only (the T-shirts, the hoodie, the trousers). Five tops for each body,
@@ -442,20 +467,23 @@ ol.next { padding-left: 22px; }
       <div class="card"><h3>Never gameplay</h3><p>New items are bought, never drawn as rewards, so the reward stream and every
         balance measurement are unchanged. Nothing in the simulation reads what is worn, the body or the hair.</p></div>
       <div class="card"><h3>Saves</h3><p>Version 5 records the schools a career has worked at; an older career is seeded from its
-        past rooms, its accepted offers and notices, and its current school. Hair needs no migration.</p></div>
+        past rooms, its accepted offers and notices, and its current school. Version 6 adds the schools on the main ladder
+        below each of those (Maple, Riverside, Eastgate, City High, Kingsley), because older saves keep too little to prove
+        them. Branch schools (Brightpath, State University) count only with proof. Hair needs no migration.</p></div>
     </div>
   </section>
 
   <section id="balance">
-    <div class="section-head"><span class="eyebrow">Phase 4 — measured, waiting for a decision</span><h2>Prices &amp; balance</h2>
+    <div class="section-head"><span class="eyebrow">Phase 4 — measured; two changes approved and in the game</span><h2>Prices &amp; balance</h2>
       <p class="muted">Do the prices and unlocks fit what a player earns? 9 player styles × 48 seeds × 60 exams (and 120 for the
         careful styles). They are real careers: the shipped simulation with the M130 phone rooms, the Eastgate ★★½ ladder
-        (<code>7d8747d</code>) and promotions answered by <code>EventPolicy</code>. Coins are game coins (¢). Nothing in the game has
-        changed: the proposals below are for the user to decide.</p></div>
+        (<code>7d8747d</code>) and promotions answered by <code>EventPolicy</code>. Coins are game coins (¢). The user approved the first two
+        recommendations and they are in the game: ten mid-priced items wait for band 2, and the three band-3 items cost 750¢. The
+        figures below were measured on the phase 3 prices; where the approved prices change them, both are given.</p></div>
     <div class="cards">
       <div class="card"><span class="big">≈144¢</span><p>A careful player nets about this per exam in band 3 (from exam 13).
         In bands 1 and 2 it is 30–60¢, and for every other style 10–35¢.</p></div>
-      <div class="card"><span class="big">8,490¢</span><p>The whole coin wardrobe: 30 items plus 8 crests. A careful career buys it all
+      <div class="card"><span class="big">9,240¢</span><p>The whole coin wardrobe now (8,490¢ at the phase 3 prices): 30 items plus 8 crests. A careful career buys it all
         by exam 62 (59–66). Every other style ends exam 60 with 8–15 items.</p></div>
       <div class="card"><span class="big">exam 10–15</span><p>The first wardrobe item, after both tools (430¢), which every style
         has bought by exam 6–11.</p></div>
@@ -567,7 +595,8 @@ ol.next { padding-left: 22px; }
       gets ahead of the shop. <b>Keep it as it is.</b> Adding the new items would change every balance fingerprint and could hand
       out a crest before its school.</p>
 
-    <h3 id="proposal">Recommendation</h3>
+    <h3 id="proposal">Recommendation and decision</h3>
+    <p>Recommendations 1 and 2 are in the game; 3 and 4 needed no change.</p>
     <ol class="next">
       <li><b>Lock the ten 190–260¢ items to band 2 (Supervisor).</b> Prices unchanged. Band 1 then sells only items up to 160¢
         (16 items and 3 crests, 2,630¢ in all). The tools (180, 250) are the only big buys while you need them most. No
@@ -585,7 +614,7 @@ ol.next { padding-left: 22px; }
         touch in the UI would do, for example the Store noting your coins after a purchase against the next living-cost bill.
         Prices can't fix it.</li>
     </ol>
-    <div class="table-wrap"><table><thead><tr><th>Item</th><th>Price now → proposed</th><th>Lock now → proposed</th></tr></thead><tbody>
+    <div class="table-wrap"><table><thead><tr><th>Item</th><th>Price before → now</th><th>Lock before → now</th></tr></thead><tbody>
       <tr><td>Flat Cap</td><td class="num">200</td><td>none → band 2</td></tr>
       <tr><td>Sweater</td><td class="num">190</td><td>none → band 2</td></tr>
       <tr><td>Hoodie</td><td class="num">210</td><td>none → band 2</td></tr>
@@ -633,20 +662,17 @@ ol.next { padding-left: 22px; }
   <section id="limits">
     <div class="section-head"><h2>Known limits</h2></div>
     <ul class="next">
-      <li><b>Hair and body taps hitch on the phone.</b> On the Galaxy A15 each Man/Woman or Hair tap freezes the
-        screen for about 0.9 s: six taps, six single frames of 0.90–0.92 s. The rate of finished frames is about 50 a second
-        otherwise. A try-on tap costs one frame of about 0.5 s and a tab switch about 0.35 s. These are display
-        composition figures from the phone's own log (<code>hwcomposer</code>), not an in-game counter. The likely cause is
-        that the store redraws on every tap and a body or hair change builds a new figure.</li>
-      <li><b>The selected tab can be scrolled out of sight.</b> After you pick Shoes, Badges or Extras the tab row
-        snaps back to the start on the redraw, so the highlighted tab is off screen.</li>
-      <li><b>Older careers start with no school history.</b> Schools are recorded from this version on. A save from
-        before it counts only its current school, so a career that has passed through Maple still sees the Maple
-        Crest locked.</li>
+      <li><b>Buying still redraws the whole store.</b> A purchase moves the balance and with it what every card can afford,
+        so the page is rebuilt: about 50 ms in the editor; not yet timed on the phone. Every other Wardrobe tap updates in place.</li>
+      <li><b>A changed outfit is saved when you leave the store.</b> While the Wardrobe is open, a change of clothes, body or
+        hair waits and is written when the store closes or the app is put away, so the save's cost lands on that screen
+        change instead of on each tap.</li>
+      <li><b>Older careers' school history is inferred.</b> A career saved before the school record counts the main ladder below
+        its schools. A branch school it really worked at (Brightpath) stays locked unless the save shows it.</li>
       <li><b>Hair under hats.</b> The long and bob styles show below every brim, as hair does; the bob pokes out a little at one
         side of the cap. The bun is let down into a ponytail under any hat.</li>
       <li><b>One colour per item.</b> Each item has its own fixed colours; there are no colour variants to choose.</li>
-      <li><b>Prices and unlocks are the phase 3 values.</b> Phase 4 measured them against real careers. The proposed changes (<a href="#balance">Prices &amp; balance</a>) are waiting for a decision.</li>
+      <li><b>Prices and unlocks.</b> The two approved changes are in (<a href="#balance">Prices &amp; balance</a>); the rest are the phase 3 values.</li>
     </ul>
   </section>
 </div>
