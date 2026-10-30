@@ -1,4 +1,5 @@
 [
+  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Phase 2 phone fixes (7ea7da3): the preview renders single-sampled and stops when the store closes, unowned tiles are marked, the Issued Shirt has its render; phone re-check pending."},
   {"date": "2026-10-29", "author": "ardakabadayi", "slug": "device-check", "change": "Added main 6ac9729 on the phone: the new app icon and shop tiles pass; the Wardrobe preview has render errors, a broken back view, try-on and turning."},
   {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added phase 3 candidates: 36 items on the man and the woman, five outfits, three hairstyles for the woman and the fix for the seams on her tops."},
   {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added phase 2, the store's Wardrobe: live preview figure, Man / Woman toggle, slots, try-on, Buy / Wear / Take off; Maple start shots replaced."},

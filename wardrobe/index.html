@@ -197,10 +197,35 @@ td a { color: var(--accent); }
 <figure><a href="img/wardrobe2-woman.jpg"><img src="img/wardrobe2-woman.jpg" alt="The Wardrobe with the live preview of a female supervisor" loading="lazy"></a><figcaption><b>Woman</b>The toggle is free and saved at once; the room's figure changes on the next frame.</figcaption></figure>
 <figure><a href="img/wardrobe2-tab-badges.jpg"><img src="img/wardrobe2-tab-badges.jpg" alt="The Badges category tab" loading="lazy"></a><figcaption><b>A category tab · Badges</b>Only tabs with items are drawn: today All, Tops and Badges.</figcaption></figure>
 <figure><a href="img/wardrobe2-tryon.jpg"><img src="img/wardrobe2-tryon.jpg" alt="Trying on the Charcoal Shirt" loading="lazy"></a><figcaption><b>Trying on</b>Tapping the unowned Charcoal Shirt puts it on the figure. Nothing is saved; "Back to your outfit" or leaving the store undoes it.</figcaption></figure>
-<figure><a href="img/wardrobe2-states.jpg"><img src="img/wardrobe2-states.jpg" alt="Item tiles in Buy, Wear, Take off and Worn states" loading="lazy"></a><figcaption><b>Buy · Wear · Take off</b>Charcoal: price. Navy (owned): Wear. Bronze (worn): Take off. The Issued Shirt is Worn while no other top is.</figcaption></figure>
+<figure><a href="img/wardrobe2-states.jpg"><img src="img/wardrobe2-states.jpg" alt="Item tiles in Buy, Wear, Take off and Worn states" loading="lazy"></a><figcaption><b>Buy · Wear · Take off</b>Charcoal: price. Navy (owned): Wear. Bronze (worn): Take off. The Issued Shirt, now a hanger render like the others, is Worn while no other top is. Items you don't own sit behind a heavier veil with a coin mark where an owned item has its check.</figcaption></figure>
 <figure><a href="img/wardrobe2-states-worn.jpg"><img src="img/wardrobe2-states-worn.jpg" alt="Tiles after wearing the Navy Shirt" loading="lazy"></a><figcaption><b>After Wear</b>Navy now offers Take off, which puts the Issued Shirt back on; the Issued Shirt offers Wear.</figcaption></figure>
 <figure><a href="img/wardrobe2-wearing-navy.jpg"><img src="img/wardrobe2-wearing-navy.jpg" alt="The preview wearing the Navy Shirt" loading="lazy"></a><figcaption><b>The preview follows</b>Wearing the Navy Shirt and the Bronze Badge.</figcaption></figure>
 <figure><a href="vid/wardrobe2-drag.gif"><img src="vid/wardrobe2-drag.gif" alt="Animated: the preview figure turning as it is dragged" loading="lazy"></a><figcaption><b>Drag to turn</b>A sideways drag turns the figure (a full screen width is one turn); an up-down drag scrolls the page.</figcaption></figure>
+    </div>
+    <h3 id="phone">On the phone</h3>
+    <div class="note">
+      <p><b>The phone found four preview bugs; they are fixed in <code>7ea7da3</code>. The re-check on the phone is still
+        pending.</b> On the Galaxy A15 (build <code>6ac9729</code>) the preview logged render errors twice a frame from the
+        first Wardrobe visit until the app was closed. The back of the figure was striped with a skin band at the waist,
+        try-on left the figure in the issued green, and turning stuck after a drag or two.</p>
+      <p><b>One cause.</b> The preview's texture asked for 2× anti-aliasing while the phone's render pipeline has it
+        off. Every opaque and transparent pass of the preview failed ("Attachment 0 was created with 1 samples but 2
+        samples were requested"). With the passes went the depth test, so the body's skin and trousers drew over the
+        shirt. The picture also stopped updating, so try-ons and turns happened but never reached the screen. The
+        texture is now single-sampled, the camera does not ask for anti-aliasing, and it stops the moment you leave the
+        store. The Mac editor never showed the bug, so the "after" pictures below are from the editor until the phone
+        confirms them.</p>
+      <p><b>Also:</b> unowned tiles are clearly marked, the Issued Shirt has its hanger render, and the drag decides
+        turn-or-scroll from the whole movement since the touch began.</p>
+    </div>
+    <div class="pair">
+<figure><a href="img/wardrobe2-phone-before-wardrobe-back-zoom.jpg"><img src="img/wardrobe2-phone-before-wardrobe-back-zoom.jpg" alt="Phone before the fix: the back of the figure striped, with a skin band at the waist" loading="lazy"></a><figcaption><b>Before · phone, 6ac9729</b>Back view: striping and a skin band at the waist.</figcaption></figure>
+<figure><a href="img/wardrobe2-fixed-back.jpg"><img src="img/wardrobe2-fixed-back.jpg" alt="After the fix: the woman from behind, shirt and trousers drawn correctly" loading="lazy"></a><figcaption><b>After · editor, 7ea7da3</b>The same view, drawn correctly. Phone re-check pending.</figcaption></figure>
+<figure><a href="img/wardrobe2-phone-before-tryon-navy.jpg"><img src="img/wardrobe2-phone-before-tryon-navy.jpg" alt="Phone before the fix: trying on the Navy Shirt but the figure still in green" loading="lazy"></a><figcaption><b>Before · phone</b>"Trying on: Navy Shirt" over a frozen green figure.</figcaption></figure>
+<figure><a href="img/wardrobe2-tryon.jpg"><img src="img/wardrobe2-tryon.jpg" alt="After the fix: trying on the Charcoal Shirt, the figure wears it" loading="lazy"></a><figcaption><b>After · editor</b>The figure wears what is tried on. A test checks that the picture matches buying and wearing it.</figcaption></figure>
+<figure><a href="img/wardrobe2-phone-before-tiles-owned.jpg"><img src="img/wardrobe2-phone-before-tiles-owned.jpg" alt="Phone before the fix: unowned Navy Shirt barely dimmed, Issued Shirt a flat drawing" loading="lazy"></a><figcaption><b>Before · phone</b>Navy (not owned) looks nearly owned; the Issued Shirt is a flat drawing.</figcaption></figure>
+<figure><a href="img/wardrobe2-states.jpg"><img src="img/wardrobe2-states.jpg" alt="After the fix: unowned tiles veiled with a coin mark, Issued Shirt on a hanger" loading="lazy"></a><figcaption><b>After · editor</b>Not owned: a heavier veil and a coin mark. The Issued Shirt is a hanger render.</figcaption></figure>
+<figure><a href="img/wardrobe2-phone-before-store-pills-console.jpg"><img src="img/wardrobe2-phone-before-store-pills-console.jpg" alt="Phone before the fix: the development console full of render errors over the store" loading="lazy"></a><figcaption><b>Before · phone</b>The development console over the store, about 30,000 lines of each error.</figcaption></figure>
     </div>
     <div class="cards">
       <div class="card"><h3>Eight slots</h3><p>Hat, top, trousers, shoes, badge, glasses, neck (lanyard or tie) and
@@ -208,9 +233,11 @@ td a { color: var(--accent); }
         puts the issued shirt back on. Saves move from version 3 to 4; the old "shirt" becomes the top, so nothing worn
         or owned is lost.</p></div>
       <div class="card"><h3>The preview stage</h3><p>The same figure as the room, on its own layer far below the
-        room, filmed by its own camera into a 512 × 640 texture (about 2.6 MB). Its two lights are on only while that
+        room, filmed by its own camera into a 512 × 640 texture with a depth buffer and one sample per pixel, the same as the
+        game's own render targets (about 2.6 MB). Its two lights are on only while that
         camera renders, and the room's lights are off for that moment, so neither lights the other. It renders only
-        while the card is on screen and is destroyed, texture and all, when you leave the store.</p></div>
+        while the card is on screen. When you leave the store the camera stops in the same frame and the stage is
+        destroyed, texture and all.</p></div>
       <div class="card"><h3>Ready for art</h3><p>Hats, glasses, ties and watches already have a place on the right
         bone (head, face, neck, left wrist). Phase 3 adds a catalogue line, a prefab named after the item and a shop
         tile; the tab appears by itself.</p></div>
