@@ -1,4 +1,5 @@
 [
+  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "performance", "change": "Checked merged main eed4d45 on the Galaxy A15: a steady 45 fps, short save freezes, a clean visual pass and no crashes or errors in logcat."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "schools", "change": "Re-measured the career figures on the current game (school rooms, bots starting at the desk, Eastgate at 2.5 stars) and added a second seed block."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Checked the polish pass on the Galaxy A15: the keep-some-coins hint, hats over every hairstyle, the lanyard, collars, the blazer and the female students all look right."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "performance", "change": "Added the Phone Performance report: GPU-bound judder, save freezes, and before/after on the Galaxy A15."},

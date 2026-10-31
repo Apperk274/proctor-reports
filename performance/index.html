@@ -76,7 +76,7 @@ ul.list b { color: var(--ink); font-weight: 600; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · performance · branch perf-smoothness on main eacf212</span>
+    <span class="eyebrow">Exam Supervisor Simulator · performance · merged in main eed4d45 (before: main eacf212)</span>
     <h1>Performance on the Galaxy A15</h1>
     <p class="lede">Frame rate and freezes measured in the app on a Galaxy A15 5G (SM-S156V, Android 16, 1080 × 2340,
       90 Hz panel, Mali-G57 on Vulkan). The probe splits every frame into main thread, render thread and GPU
@@ -104,13 +104,38 @@ ul.list b { color: var(--ink); font-weight: 600; }
       <thead><tr><th>Freeze</th><th>Before</th><th>After</th></tr></thead>
       <tbody>
         <tr><td>Exam start (two saves, two frames apart)</td><td class="num">455 + 433 ms · 478 + 444 · 477 + 466</td><td class="num">122 + 111 ms · 122 + 100 · 144 + 56 + 122</td></tr>
-        <tr><td>Result card after an exam</td><td class="num">67 + 433 ms · 78 + 467 · 67 + 455</td><td class="num">67 + 100 ms <span class="muted">(National; not re-measured at Maple or City High)</span></td></tr>
+        <tr><td>Result card after an exam</td><td class="num">67 + 433 ms · 78 + 467 · 67 + 455</td><td class="num">67 + 89 ms · — · 67 + 89 <span class="muted">(merged main; City High not re-measured)</span></td></tr>
         <tr><td>Each admit or reject at the door</td><td class="num">444–567 ms</td><td class="num">122–211 ms</td></tr>
         <tr><td>Go to next exam</td><td class="num">89 + 533 ms</td><td class="num">89 + 156 ms</td></tr>
         <tr><td>Continue career (load), once per session</td><td class="num">610–700 ms</td><td class="num">620–655 ms <span class="muted">(unchanged)</span></td></tr>
       </tbody>
     </table></div>
     <p class="muted">Exam-start and result values are listed in Maple · City High · National order.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>On merged main</h2>
+      <p class="muted">Main <code>eed4d45</code> (the fixes merged), as a development APK on the same phone, measured the same way.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Scenario</th><th>Median fps</th><th>p95 frame</th><th>Freezes</th></tr></thead>
+      <tbody>
+        <tr><td>Exam, Maple</td><td class="num">45.0</td><td class="num">22.3 ms</td><td class="num">start 122 + 100 ms</td></tr>
+        <tr><td>Exam, National</td><td class="num">45.0</td><td class="num">22.3 ms</td><td class="num">start 155 + 100 ms</td></tr>
+        <tr><td>Admission desk</td><td class="num">45.0</td><td class="num">22.3–22.4 ms</td><td class="num">each decision 122–222 ms</td></tr>
+        <tr><td>Result card</td><td class="num">45.0</td><td class="num">22.4 ms</td><td class="num">67 + 89 ms (both schools)</td></tr>
+        <tr><td>Go to next exam</td><td class="num">45.0</td><td class="num">22.4 ms</td><td class="num">100–111 + 178–222 ms</td></tr>
+        <tr><td>Continue career (load)</td><td class="num">—</td><td class="num">—</td><td class="num">656–678 ms</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="list">
+      <li><b>The same as the branch build.</b> The governor stepped down to 45 fps a few seconds into each session, as designed.</li>
+      <li><b>The first launch after an install</b> had a one-off 3.1 s + 1.8 s start. Later launches took 0.75 s + 0.32 s, as before.</li>
+      <li><b>Visual pass:</b> the launcher icon, title, hub, the Store's shop tiles with the check mark, and the Wardrobe preview (Man and Woman, then the Store closed) all look right.</li>
+      <li><b>Logcat:</b> no crashes, no ANRs, no managed exceptions, and no render or render-pass errors. Every process kill was a test-script force-stop. The only Unity warnings were the dev-build player-connection socket message and one "Failed to create agent because there is no valid NavMesh" at each launch, before the first room is built.</li>
+      <li><b>Release build:</b> not measured. Development builds have extra checks on the main thread, so a release build's freezes should be the same or shorter. That's an expectation, not a measurement.</li>
+    </ul>
   </section>
 
   <section>
