@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "sound-hints",
+      "title": "Sound Hints and Phone Detector",
+      "category": "sound",
+      "summary": "Whether row-numbered sound hints and the Phone Detector make cheaters too easy to catch: students per hint, old against new, bot careers, a fairness fix and options."
+    },
+    {
       "slug": "texture-compression",
       "title": "Texture Compression",
       "category": "performance",
