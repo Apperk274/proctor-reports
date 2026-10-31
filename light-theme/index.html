@@ -67,6 +67,10 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
 .tag.fix { background: var(--fix-soft); color: var(--fix); }
 .tag.bad { background: var(--bad-soft); color: var(--bad); }
 .note { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; max-width: 80ch; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.pair figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.pair figcaption { font-size: 0.85rem; color: var(--muted); }
+.pair figcaption b { color: var(--ink); font-weight: 600; display: block; }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
 .shotpair { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
 .shotpair figcaption { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -118,8 +122,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
 <tr><td>Exam HUD</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
 <tr><td>Admission</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Disabled buttons: white on pale tint, now DisabledInk</td></tr>
 <tr><td>Results</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Periwinkle page: ScrimTopTint token</td></tr>
-<tr><td>Store</td><td><span class="tag bad">Problem</span></td><td class="wrap">Not-owned veil washes out tile art (other session). Disabled prices fixed.</td></tr>
-<tr><td>Wardrobe</td><td><span class="tag bad">Problem</span></td><td class="wrap">Same veil. Preview stage background reads a token: fine.</td></tr>
+<tr><td>Store</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Not-owned veil: NotOwnedVeil role, 30% in Light. Disabled prices: DisabledInk</td></tr>
+<tr><td>Wardrobe</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Same veil role. Preview stage background reads a token</td></tr>
 <tr><td>Settings</td><td><span class="tag fix">New</span></td><td class="wrap">Theme row added</td></tr>
 <tr><td>Manual</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
     </tbody>
@@ -136,12 +140,13 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
 </section>
 
 <section>
-  <h2>For the Store and Wardrobe session</h2>
-  <p>These are in code this pass did not touch (StoreScreen). No token fix in <code>Ui</code> or <code>GameTheme</code> could reach them without changing Dark.</p>
-  <ul class="list">
-    <li><b>The not-owned veil washes the tile art out in Light.</b> <code>StoreScreen.NotOwnedVeil</code> lays <code>Surface</code> at 62% over a render you do not own. On a dark card that dims the art. On a white card it bleaches it nearly to nothing: the Phone Detector, the pills, the hats and the glasses are hard to make out. See <a href="#store-top">Store</a>, <a href="#wardrobe">Wardrobe</a> and <a href="#wardrobe-grid">the grid</a>. A suggestion: give the veil its own role, or a lower strength in a light theme (for example a role that is <code>Surface</code> at 62% in Dark and around 35% in Light), so a light theme can dim without bleaching.</li>
-    <li><b>The three things you asked me to check.</b> The Store and Wardrobe are rebuilt after a theme change, because the router's store key now carries <code>GameTheme.Revision</code>; that edit is in HudRouter, not StoreScreen. <code>SupervisorPreviewStage</code> takes its background from <code>RaisedTop</code> (a token), passed in from StoreScreen, and it matches its card in both themes. The room's colours were checked in a room started in Light: the phone-detector disc reads <code>Primary</code> each frame, the unwell haze keeps the dark theme's value on purpose (it is the room's own dark, and the room does not follow the theme), and the floor row numbers come from the floor colour. All three look right.</li>
-  </ul>
+  <h2>The Store's not-owned veil</h2>
+  <p>A baked shop tile you do not own sits under a veil of the card's surface colour, with a coin mark where an owned item's check would be. Dark has always used 62%, which dims a render on a dark card. On a white card the same 62% bleached the art to almost nothing. The veil is now a theme role, <code>NotOwnedVeil</code>: Dark keeps exactly 0.62, so it is pixel-identical, and Light uses 0.30. That was judged on the Phone Detector, the pills, the hats and the glasses. At 0.35 the Phone Detector was still faint, and at 0.25 the tiles began to look owned. The coin mark reads on top of the veil at 0.30, and the price button still says what it costs.</p>
+  <div class="pair">
+    <figure><a href="img/veil-store-before-after.webp"><img src="img/veil-store-before-after.webp" alt="Store equipment tiles in Light: 62% veil on the left, 30% on the right" loading="lazy" width="1980" height="1000"></a><figcaption><b>Equipment and medicine</b>Left: 62%, as before. Right: 30%, now.</figcaption></figure>
+    <figure><a href="img/veil-grid-before-after.webp"><img src="img/veil-grid-before-after.webp" alt="Wardrobe grid tiles in Light: 62% veil on the left, 30% on the right" loading="lazy" width="1980" height="1000"></a><figcaption><b>Wardrobe grid</b>Left: 62%, as before. Right: 30%, now.</figcaption></figure>
+  </div>
+  <p class="small muted">The Store and Wardrobe session OKed the one StoreScreen change this needed: <code>StoreScreen.NotOwnedVeil</code> now reads the role. Their three checks are fine. The Store redraws after a theme change (the store key carries the theme revision). <code>SupervisorPreviewStage</code> takes its background from the <code>RaisedTop</code> token. In a room started in Light, the phone-detector disc, the unwell haze and the row numbers look right.</p>
 </section>
 
 <section>
@@ -406,8 +411,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
   <div class="two cap"><span>Dark</span><span>Light</span></div>
 </figure>
 <figure class="shotpair" id="store-top">
-  <figcaption><b>Store</b> <span class="tag bad">Problem</span></figcaption>
-  <p class="small muted">Prices you cannot afford are fixed (slate ink). The not-owned veil over the tile art is the problem: see the other session&#x27;s list.</p>
+  <figcaption><b>Store</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">Prices you cannot afford take a slate ink. The not-owned veil over the tile art is lighter in Light (30%, Dark keeps 62%), so the Phone Detector and the pills read.</p>
   <div class="two">
     <a href="img/store-top-dark.webp"><img src="img/store-top-dark.webp" alt="Store in Dark" loading="lazy" width="1080" height="2340"></a>
     <a href="img/store-top-light.webp"><img src="img/store-top-light.webp" alt="Store in Light" loading="lazy" width="1080" height="2340"></a>
@@ -415,8 +420,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
   <div class="two cap"><span>Dark</span><span>Light</span></div>
 </figure>
 <figure class="shotpair" id="wardrobe">
-  <figcaption><b>Wardrobe</b> <span class="tag bad">Problem</span></figcaption>
-  <p class="small muted">The preview stage reads the RaisedTop token and matches its card. The tile art is washed out by the not-owned veil.</p>
+  <figcaption><b>Wardrobe</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">The preview stage reads the RaisedTop token and matches its card. Hats you do not own read through the lighter veil.</p>
   <div class="two">
     <a href="img/wardrobe-dark.webp"><img src="img/wardrobe-dark.webp" alt="Wardrobe in Dark" loading="lazy" width="1080" height="2340"></a>
     <a href="img/wardrobe-light.webp"><img src="img/wardrobe-light.webp" alt="Wardrobe in Light" loading="lazy" width="1080" height="2340"></a>
@@ -424,8 +429,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
   <div class="two cap"><span>Dark</span><span>Light</span></div>
 </figure>
 <figure class="shotpair" id="wardrobe-grid">
-  <figcaption><b>Wardrobe grid</b> <span class="tag bad">Problem</span></figcaption>
-  
+  <figcaption><b>Wardrobe grid</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">Glasses, the lanyard and the crests read; the coin mark still sits clearly on the veil.</p>
   <div class="two">
     <a href="img/wardrobe-grid-dark.webp"><img src="img/wardrobe-grid-dark.webp" alt="Wardrobe grid in Dark" loading="lazy" width="1080" height="2340"></a>
     <a href="img/wardrobe-grid-light.webp"><img src="img/wardrobe-grid-light.webp" alt="Wardrobe grid in Light" loading="lazy" width="1080" height="2340"></a>
