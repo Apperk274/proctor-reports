@@ -1,4 +1,6 @@
 [
+  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "wardrobe", "change": "The Phone Detector now costs 400¢ (was 250): the tool card, price table and affordability table are re-measured at today's prices."},
+  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "sound-hints", "change": "The Detector keeps 2 uses and now costs 400¢; the recommendation table says so."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "The Store's not-owned veil is now 30% in Light (Dark keeps 62%), with new Store and Wardrobe frames and a before and after."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "Added the Light Theme report: the Settings theme choice, every screen in Dark beside Light, the light palette's contrast and the open Store veil issue."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "sound-hints", "change": "Added the Sound Hints and Phone Detector report: students per hint old against new, search effort, bot careers, the heard-buzz grounds fix and recommendations."},
