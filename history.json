@@ -1,4 +1,5 @@
 [
+  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added the UI Overhaul report: screen captures, text audit, navigation map, animation check, salary diagnosis and three redesign directions."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "Added On the phone: the theme switch, Follow phone and the Light screens checked on the Galaxy A15, with two problems found."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "wardrobe", "change": "The Phone Detector now costs 400¢ (was 250): the tool card, price table and affordability table are re-measured at today's prices."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "sound-hints", "change": "The Detector keeps 2 uses and now costs 400¢; the recommendation table says so."},

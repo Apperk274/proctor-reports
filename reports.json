@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "ui-overhaul",
+      "title": "UI Overhaul",
+      "category": "look-and-feel",
+      "summary": "Every screen audited for text and navigation, every M129 animation checked, why salary shows as text, and three redesign directions with mockups."
+    },
+    {
       "slug": "light-theme",
       "title": "Light Theme",
       "category": "look-and-feel",

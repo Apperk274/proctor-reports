@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UI Overhaul</title>
+<meta name="description" content="Phase 0 of the UI overhaul: every screen captured, a text-density audit, the navigation map, a check of every M129 animation, why the salary shows as text, and three redesign directions with mockups.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef1f6; --surface: #ffffff; --surface-2: #f5f7fb; --ink: #121a2b; --muted: #5a667c; --line: #d6dce8;
+  --accent: #2563eb; --accent-soft: #dfe8fd; --gold: #b7791f; --gold-soft: #fbefd6;
+  --ok: #1d7a46; --ok-soft: #dcf1e4; --warn: #a8661a; --warn-soft: #fbecd7; --bad: #b4321f; --bad-soft: #fbe2dc;
+  --hero-1: #0d1530; --hero-2: #05080f;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0f1c; --surface: #121a2e; --surface-2: #0f1627; --ink: #e8eef9; --muted: #95a3bd; --line: #24304a;
+    --accent: #7aa7ff; --accent-soft: #1a2950; --gold: #f5c04a; --gold-soft: #3a2e12;
+    --ok: #5fd08f; --ok-soft: #12301f; --warn: #f0a75a; --warn-soft: #3a2712; --bad: #ff8b74; --bad-soft: #3d1a14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a0f1c; --surface: #121a2e; --surface-2: #0f1627; --ink: #e8eef9; --muted: #95a3bd; --line: #24304a;
+  --accent: #7aa7ff; --accent-soft: #1a2950; --gold: #f5c04a; --gold-soft: #3a2e12;
+  --ok: #5fd08f; --ok-soft: #12301f; --warn: #f0a75a; --warn-soft: #3a2712; --bad: #ff8b74; --bad-soft: #3d1a14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; margin: 0; padding: 0 16px 72px; }
+.wrap { max-width: 1160px; margin: 0 auto; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.12rem; font-weight: 700; }
+p { margin: 0; max-width: 70ch; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+code { font-family: var(--mono); font-size: 0.83em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+img { max-width: 100%; height: auto; display: block; }
+.muted { color: var(--muted); }
+.eyebrow { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- header ---------- */
+header.top { padding-top: 36px; display: grid; gap: 22px; }
+.herobox { position: relative; overflow: hidden; border-radius: 22px; padding: clamp(22px, 5vw, 48px); color: #f3f7ff;
+  background: radial-gradient(1200px 400px at 85% -10%, rgba(59,130,246,.35), transparent 60%),
+              radial-gradient(700px 300px at 0% 120%, rgba(245,192,74,.22), transparent 60%),
+              linear-gradient(160deg, var(--hero-1), var(--hero-2)); display: grid; gap: 18px; }
+.herobox .eyebrow { color: #9fb2d9; }
+.herobox p { color: #c7d3ec; font-size: 1.12rem; }
+.herobox h1 span { background: linear-gradient(90deg, #ffe08a, #f5c04a 50%, #e79a1e); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 6px; }
+.kpi { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px 14px; display: grid; gap: 2px; }
+.kpi b { font-family: var(--display); font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; color: #fff; }
+.kpi span { font-size: .88rem; color: #aebcdb; }
+.herocoins { position: absolute; right: clamp(-30px, 2vw, 30px); top: 18px; display: flex; gap: 6px; opacity: .9; pointer-events: none; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { text-decoration: none; font-size: .9rem; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; }
+.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+section { display: grid; gap: 22px; scroll-margin-top: 16px; }
+.section-head { display: grid; gap: 8px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.card p { color: var(--muted); font-size: .96rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+
+/* ---------- top 10 ---------- */
+.problems { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; counter-reset: p; }
+.problem { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 14px 56px; position: relative; display: grid; gap: 4px; }
+.problem::before { counter-increment: p; content: counter(p); position: absolute; left: 14px; top: 14px; width: 30px; height: 30px; border-radius: 9px;
+  display: grid; place-items: center; font-family: var(--display); font-weight: 800; background: var(--accent-soft); color: var(--accent); }
+.problem.hot::before { background: var(--gold-soft); color: var(--gold); }
+.problem h3 { font-size: 1.02rem; }
+.problem p { color: var(--muted); font-size: .93rem; }
+.tag { display: inline-block; font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 6px; vertical-align: 2px; }
+.tag.ok { background: var(--ok-soft); color: var(--ok); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.tag.bad { background: var(--bad-soft); color: var(--bad); }
+.tag.info { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- diagnosis ---------- */
+.diag { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 3vw, 26px); }
+.diag figure { margin: 0; display: grid; gap: 6px; }
+.diag figure img { border-radius: 10px; border: 1px solid var(--line); }
+figcaption { font-size: .86rem; color: var(--muted); }
+.steps { margin: 0; padding-left: 22px; display: grid; gap: 10px; max-width: 80ch; }
+.steps li { color: var(--muted); }
+.steps b { color: var(--ink); }
+.codebox { font-family: var(--mono); font-size: .8rem; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; overflow-x: auto; white-space: pre; line-height: 1.6; }
+.codebox .hl { background: var(--gold-soft); color: var(--ink); border-radius: 3px; }
+
+/* ---------- gallery ---------- */
+.gal-group { display: grid; gap: 10px; }
+.gal-group h3 { display: flex; gap: 10px; align-items: baseline; }
+.gal-group h3 small { font-family: var(--body); font-weight: 400; font-size: .9rem; color: var(--muted); }
+.strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(168px, 200px); gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x proximity; }
+.strip figure { margin: 0; display: grid; gap: 6px; scroll-snap-align: start; }
+.strip figure img { border-radius: 14px; border: 1px solid var(--line); aspect-ratio: 432/936; object-fit: cover; background: #0b1020; }
+.strip figcaption b { display: block; color: var(--ink); font-size: .9rem; }
+
+/* ---------- audit ---------- */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 760px; }
+th, td { padding: 9px 12px; text-align: left; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-family: var(--mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--surface-2); }
+tbody th { font-weight: 600; white-space: nowrap; }
+td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.q { white-space: normal; color: var(--muted); font-size: .84rem; min-width: 280px; }
+td .all { color: var(--muted); font-size: .82em; }
+tr.bad th { box-shadow: inset 4px 0 0 var(--bad); }
+tr.warn th { box-shadow: inset 4px 0 0 var(--warn); }
+tr.ok th { box-shadow: inset 4px 0 0 var(--ok); }
+.wbar { display: inline-block; width: 70px; height: 7px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--line); margin-right: 8px; vertical-align: 1px; overflow: hidden; }
+.wbar i { display: block; height: 100%; background: var(--accent); }
+tr.bad .wbar i { background: var(--bad); } tr.warn .wbar i { background: var(--warn); } tr.ok .wbar i { background: var(--ok); }
+.rewrite { display: grid; gap: 8px; }
+.rw { display: grid; grid-template-columns: minmax(0,1.3fr) 26px minmax(0,1fr); gap: 10px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: .93rem; }
+.rw .from { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bad) 60%, transparent); }
+.rw .arrow { color: var(--muted); text-align: center; }
+.rw .to { font-weight: 600; }
+.rw .where { grid-column: 1 / -1; font-family: var(--mono); font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 600px) { .rw { grid-template-columns: 1fr; } .rw .arrow { display: none; } }
+
+/* ---------- nav map ---------- */
+.navmap { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px; overflow-x: auto; }
+.navmap svg { min-width: 860px; width: 100%; height: auto; display: block; }
+.navmap .n rect { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.5; }
+.navmap .n.modal rect { fill: var(--gold-soft); stroke: color-mix(in srgb, var(--gold) 50%, transparent); }
+.navmap .n.tab rect { fill: var(--accent-soft); stroke: color-mix(in srgb, var(--accent) 50%, transparent); }
+.navmap .n.room rect { fill: var(--ok-soft); stroke: color-mix(in srgb, var(--ok) 50%, transparent); }
+.navmap .n.end rect { fill: var(--bad-soft); stroke: color-mix(in srgb, var(--bad) 50%, transparent); }
+.navmap text { fill: var(--ink); font-family: var(--body); font-size: 13px; }
+.navmap text.s { fill: var(--muted); font-size: 11px; }
+.navmap .e { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arr); }
+.navmap .e.dash { stroke-dasharray: 5 4; }
+.navmap .lab { fill: var(--muted); font-size: 11px; font-family: var(--mono); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .86rem; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 6px; border: 1px solid var(--line); }
+.taps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.tap { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.tap b { font-family: var(--display); font-size: 2rem; line-height: 1; }
+.tap span { color: var(--muted); font-size: .9rem; }
+
+/* ---------- animation check ---------- */
+.anims { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.anim-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.anim-card .clip { background: #070b16; display: grid; place-items: center; }
+.anim-card .clip img { width: 100%; max-width: 270px; }
+.anim-card .t { padding: 12px 14px; display: grid; gap: 6px; align-content: start; }
+.anim-card .t p { font-size: .9rem; color: var(--muted); }
+
+/* ---------- references ---------- */
+.refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.ref ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--muted); font-size: .93rem; }
+.ref ul b { color: var(--ink); }
+
+/* ---------- proposals ---------- */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.rule { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.rule b { font-family: var(--display); font-size: 1.6rem; line-height: 1; color: var(--accent); }
+.rule span { font-size: .9rem; color: var(--muted); }
+.options { display: grid; gap: 18px; }
+.option { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 22px; align-items: start; }
+.option .txt { display: grid; gap: 10px; align-content: start; }
+.option .txt ul { margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 5px; font-size: .94rem; }
+.option .txt ul b { color: var(--ink); }
+.option .pick { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+@media (max-width: 720px) { .option { grid-template-columns: 1fr; justify-items: center; } .option .txt { justify-self: stretch; } }
+.mockrow { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+.mockrow figure { margin: 0; display: grid; gap: 8px; justify-items: center; }
+.mockrow figcaption { text-align: center; max-width: 280px; }
+.palette { display: flex; flex-wrap: wrap; gap: 10px; }
+.sw { display: grid; gap: 4px; font-size: .82rem; color: var(--muted); }
+.sw i { width: 74px; height: 46px; border-radius: 10px; border: 1px solid var(--line); display: block; }
+.typescale { display: grid; gap: 6px; background: #0b1124; color: #f3f7ff; border-radius: 14px; padding: 16px 18px; }
+.typescale div { display: flex; align-items: baseline; gap: 14px; }
+.typescale small { font-family: var(--mono); font-size: .7rem; color: #8ea0c6; width: 120px; flex: none; }
+
+/* ---------- plan ---------- */
+.phases { display: grid; gap: 12px; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; display: grid; grid-template-columns: 120px minmax(0,1fr) 110px; gap: 16px; align-items: start; }
+.phase .num { font-family: var(--display); font-weight: 800; font-size: 1.15rem; }
+.phase .num small { display: block; font-family: var(--mono); font-weight: 500; font-size: .7rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.phase ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: .93rem; display: grid; gap: 4px; }
+.phase ul b { color: var(--ink); }
+.phase .est { text-align: right; font-family: var(--display); font-weight: 700; }
+.phase .est small { display: block; font-family: var(--body); font-weight: 400; color: var(--muted); font-size: .8rem; }
+@media (max-width: 640px) { .phase { grid-template-columns: 1fr; } .phase .est { text-align: left; } }
+footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
+</style>
+
+<style>
+/* ---------- phone mockups: values copied from GameTheme.ModernDark so the pitch reads as the game ---------- */
+.ph { --g-bg1:#111A31; --g-bg2:#05080F; --g-surface:#151E33; --g-raised:#1E2945; --g-high:#2A3760; --g-border:#2F3E68;
+  --g-primary:#3B82F6; --g-accent:#F5C04A; --g-money:#4ADE80; --g-success:#20A06C; --g-danger:#C14A45; --g-warn:#E0812F;
+  --g-t1:#F3F7FF; --g-t2:#B7C4E0; --g-t3:#697DA5;
+  width: 272px; aspect-ratio: 1080/2340; border-radius: 34px; padding: 10px; background: #0a0d14;
+  box-shadow: 0 0 0 1px #2a3348, 0 18px 40px -18px rgba(0,0,0,.6); flex: none; position: relative; }
+.ph .scr { position:absolute; inset:10px; border-radius: 26px; overflow:hidden; color: var(--g-t1);
+  background: linear-gradient(180deg,var(--g-bg1),var(--g-bg2)); font-family: var(--body); display:flex; flex-direction:column; }
+.ph.light { --g-bg1:#F4F6FB; --g-bg2:#E6EBF5; --g-surface:#FFFFFF; --g-raised:#F1F4FA; --g-high:#E3E9F5; --g-border:#D3DBEA;
+  --g-t1:#101828; --g-t2:#3D4B66; --g-t3:#6B7A96; }
+.ph .bar { display:flex; align-items:center; gap:6px; padding: 26px 12px 8px; }
+.ph .who { flex:1; min-width:0; line-height:1.1; }
+.ph .who b { display:block; font-size:12px; }
+.ph .who span { font-size:9.5px; color: var(--g-t3); }
+.ph .pill { display:inline-flex; align-items:center; gap:4px; border-radius:999px; padding:3px 8px 3px 4px; font-weight:700; font-size:11.5px; font-variant-numeric: tabular-nums; }
+.ph .pill.c { background: color-mix(in srgb, var(--g-money) 16%, transparent); color: var(--g-money); }
+.ph .pill.r { background: color-mix(in srgb, var(--g-accent) 16%, transparent); color: var(--g-accent); }
+.coin { width:14px; height:14px; border-radius:50%; flex:none; display:inline-block;
+  background: radial-gradient(circle at 35% 30%, #FFE9A3 0 22%, #F5C04A 23% 62%, #C88A1C 63%); box-shadow: inset 0 0 0 1.5px #A86F10; }
+.coin.lg { width:22px; height:22px; }
+.star { width:14px; height:14px; flex:none; display:inline-block; background: var(--g-accent);
+  clip-path: polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+.ph .body { flex:1; padding: 4px 12px 10px; display:flex; flex-direction:column; gap:8px; min-height:0; }
+.ph .card { background: var(--g-surface); border:1px solid var(--g-border); border-radius:16px; padding:10px; }
+.ph .hero { border-radius:18px; overflow:hidden; position:relative; min-height:118px; display:flex; align-items:flex-end; padding:10px;
+  background: linear-gradient(180deg, rgba(5,8,15,0) 35%, rgba(5,8,15,.85)), linear-gradient(160deg,#355C9A,#1B2B4E 55%,#2B2140); }
+.ph.light .hero { background: linear-gradient(180deg, rgba(5,8,15,0) 35%, rgba(5,8,15,.7)), linear-gradient(160deg,#8EB4EC,#5379B8 55%,#6E5A93); }
+.ph .hero .bld { position:absolute; left:50%; top:16px; transform:translateX(-50%); width:120px; height:62px;
+  background: linear-gradient(#c9d6ee,#9fb3d8); clip-path: polygon(0 40%,50% 0,100% 40%,100% 100%,0 100%); opacity:.85; }
+.ph .hero .bld::after { content:""; position:absolute; inset: 52% 14% 0; background: repeating-linear-gradient(90deg,#4b5f86 0 10px,transparent 10px 18px); }
+.ph .hero .t { position:relative; color:#fff; }
+.ph .hero .t small { font-family: var(--mono); font-size:8.5px; letter-spacing:.1em; color: var(--g-accent); display:block; }
+.ph .hero .t b { font-size:16px; font-family: var(--display); }
+.ph .cta { background: linear-gradient(180deg,#5B9BFF,var(--g-primary)); color:#fff; border-radius:16px; padding:12px; font-weight:700; text-align:center;
+  font-size:14px; box-shadow: 0 8px 22px -8px rgba(59,130,246,.75); display:flex; align-items:center; justify-content:center; gap:6px; }
+.ph .cta small { display:block; font-weight:500; font-size:9.5px; opacity:.85; }
+.ph .tiles { display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+.ph .tile { background: var(--g-surface); border:1px solid var(--g-border); border-radius:16px; padding:10px; display:grid; gap:4px; position:relative; }
+.ph .tile .ic { width:30px; height:30px; border-radius:10px; display:grid; place-items:center; font-size:16px; }
+.ph .tile b { font-size:12.5px; }
+.ph .tile span { font-size:10px; color: var(--g-t3); }
+.ph .tile .badge { position:absolute; top:8px; right:8px; font-size:9px; font-weight:700; padding:1px 6px; border-radius:999px; background: var(--g-danger); color:#fff; }
+.ph .stat { display:grid; grid-template-columns: 18px 1fr auto; align-items:center; gap:6px; font-size:10.5px; }
+.ph .meter { height:7px; border-radius:99px; background: var(--g-high); overflow:hidden; grid-column: 2 / 4; }
+.ph .meter i { display:block; height:100%; border-radius:99px; }
+.ph .tabs { display:flex; border-top:1px solid var(--g-border); background: var(--g-surface); padding: 6px 4px 14px; }
+.ph .tabs div { flex:1; text-align:center; font-size:9px; color: var(--g-t3); display:grid; justify-items:center; gap:2px; }
+.ph .tabs div i { width:20px; height:20px; border-radius:7px; display:block; background: var(--g-high); }
+.ph .tabs div.on { color: var(--g-t1); }
+.ph .tabs div.on i { background: var(--g-primary); }
+.ph .h { font-family: var(--display); font-weight:700; font-size:18px; line-height:1.1; }
+.ph .sub { font-size:10.5px; color: var(--g-t3); }
+.ph .row { display:flex; align-items:center; gap:8px; font-size:11.5px; }
+.ph .row .v { margin-left:auto; font-weight:700; font-variant-numeric: tabular-nums; }
+.ph .chip { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:999px; font-weight:700; font-size:11px; }
+.ph .ring { width:76px; height:76px; border-radius:50%; display:grid; place-items:center;
+  background: conic-gradient(var(--g-accent) calc(var(--p)*1%), var(--g-high) 0); }
+.ph .ring > div { width:60px; height:60px; border-radius:50%; background: var(--g-surface); display:grid; place-items:center; text-align:center; line-height:1; }
+.ph .seg { display:flex; background: var(--g-raised); border-radius:12px; padding:3px; gap:3px; font-size:10.5px; font-weight:600; }
+.ph .seg span { flex:1; text-align:center; padding:6px 0; border-radius:9px; color: var(--g-t3); }
+.ph .seg span.on { background: var(--g-high); color: var(--g-t1); }
+.ph .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.ph .item { background: var(--g-surface); border:1px solid var(--g-border); border-radius:14px; padding:8px; display:grid; gap:5px; }
+.ph .item .art { height:58px; border-radius:10px; background: var(--g-raised); display:grid; place-items:center; font-size:26px; }
+.ph .item b { font-size:11px; }
+.ph .price { justify-self:start; display:inline-flex; gap:4px; align-items:center; font-weight:700; font-size:11px; color: var(--g-money);
+  background: color-mix(in srgb, var(--g-money) 14%, transparent); padding:3px 8px 3px 4px; border-radius:99px; }
+.ph .owned { justify-self:start; font-size:10px; font-weight:700; color: var(--g-success); }
+.ph .btn2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.ph .btn { border-radius:14px; padding:11px 8px; text-align:center; font-weight:700; font-size:12.5px; background: var(--g-raised); border:1px solid var(--g-border); }
+.ph .btn.p { background: var(--g-primary); border-color: transparent; color:#fff; }
+.ph .btn.d { background: color-mix(in srgb, var(--g-danger) 22%, var(--g-surface)); border-color: color-mix(in srgb, var(--g-danger) 50%, transparent); }
+.ph .btn small { display:block; font-weight:500; font-size:9px; opacity:.8; margin-top:2px; }
+.ph .room { flex:1; background:
+  radial-gradient(ellipse at 50% 20%, #3b4766 0, transparent 60%),
+  repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.04) 46px 48px),
+  linear-gradient(#2a3247,#141a28); position:relative; }
+.ph .desk { position:absolute; width:34px; height:20px; border-radius:4px; background:#6b5236; box-shadow: 0 -12px 0 -4px #c79b7a; }
+.ph .toast { position:absolute; left:12px; right:12px; top:78px; background: var(--g-surface); border:1px solid var(--g-border); border-radius:12px; padding:7px 10px; font-size:10.5px; display:flex; gap:6px; align-items:center; }
+.ph .dock { position:absolute; left:10px; right:10px; bottom:14px; display:flex; gap:8px; justify-content:center; }
+.ph .dock div { width:44px; height:44px; border-radius:14px; background: var(--g-surface); border:1px solid var(--g-border); display:grid; place-items:center; font-size:18px; position:relative; }
+.ph .dock div em { position:absolute; top:-5px; right:-5px; font-style:normal; font-size:8.5px; font-weight:700; background: var(--g-primary); color:#fff; border-radius:99px; padding:0 4px; }
+.ph .clock { position:absolute; left:10px; right:10px; top:26px; display:flex; align-items:center; gap:8px; }
+.ph .clock .track { flex:1; height:8px; border-radius:99px; background: rgba(255,255,255,.12); overflow:hidden; }
+.ph .clock .track i { display:block; height:100%; width:72%; background: var(--g-warn); border-radius:99px; }
+.ph .clock b { font-size:13px; font-variant-numeric: tabular-nums; color: var(--g-warn); }
+.ph .cue { position:absolute; left:50%; transform:translateX(-50%); top:56px; font-size:10px; background: rgba(5,8,15,.7); padding:3px 9px; border-radius:99px; white-space:nowrap; }
+.ph .illus { height:120px; border-radius:16px; background: linear-gradient(160deg,#4a3a6b,#1e2340); display:grid; place-items:center; font-size:46px; }
+.ph .fly { position:absolute; z-index:5; pointer-events:none; }
+.ph .stack { position:relative; width:46px; height:44px; }
+.ph .stack .coin { position:absolute; left:12px; }
+/* coin flight + stack animation for the result mockups */
+@keyframes fly1 { 0%{ transform: translate(0,0) scale(0); opacity:0 } 15%{ transform: translate(-20px,-30px) scale(1.15); opacity:1 }
+  85%{ opacity:1 } 100%{ transform: translate(var(--dx), var(--dy)) scale(.7); opacity:0 } }
+@keyframes landpop { 0%,100%{ transform: scale(1) } 50%{ transform: scale(1.14) } }
+@keyframes stackin { 0% { transform: translateY(-26px); opacity:0 } 100% { transform: translateY(0); opacity:1 } }
+@keyframes rise { from { opacity:0; transform: translateY(6px) } to { opacity:1; transform:none } }
+.anim .fly .coin { animation: fly1 .9s cubic-bezier(.3,.7,.3,1) both; animation-iteration-count: 1; }
+.anim .stack .coin { animation: stackin .32s cubic-bezier(.2,1.4,.4,1) both; }
+.anim .land { animation: landpop .24s ease-out both; }
+.anim .rise { animation: rise .3s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .anim * { animation: none !important; } }
+.replay { font-family: var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--line); background: var(--surface);
+  color: var(--accent); border-radius:6px; padding:5px 10px; cursor:pointer; }
+.replay:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="../">← All reports</a>
+    <div class="herobox">
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0, audit and proposal</span>
+      <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
+      <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
+        connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
+        prettier game. No game code changed in this phase.</p>
+      <div class="kpis">
+        <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
+        <div class="kpi"><b>868</b><span>words in the Manual tab; the Store has 406 and 80 buttons</span></div>
+        <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
+        <div class="kpi"><b>0</b><span>coins seen on the result card: the salary arrives later, on the hub</span></div>
+      </div>
+    </div>
+    <nav class="toc" aria-label="Sections">
+      <a href="#summary">Summary</a><a href="#salary">The salary case</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
+      <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
+    </nav>
+  </header>
+
+  <!-- ================================================================ SUMMARY -->
+  <section id="summary">
+    <div class="section-head">
+      <span class="eyebrow">Summary</span>
+      <h2>The ten problems that matter most</h2>
+      <p class="muted">The game is consistent and themed, and its colours and buttons already follow one system. What it
+        lacks is hierarchy and payoff. Most screens are long scrolls of equally weighted cards, events are told in
+        paragraphs, and the best reward moment in the game happens on a different screen from the one the player is
+        looking at.</p>
+    </div>
+    <div class="problems">
+      <div class="problem hot"><h3>The salary is a line of text <span class="tag bad">broken feel</span></h3>
+        <p>The result card shows "Salary +50 ¢", which counts up. The coins only fly later, on the hub, from mid-screen.
+          When expenses are due (every 4th exam) no coins fly at all. <a href="#salary">Diagnosis</a>.</p></div>
+      <div class="problem hot"><h3>No headline on the result</h3>
+        <p>Good, Mixed or Poor is computed but never shown. The card opens on "Exam complete", which tells the player
+          nothing about how the exam went.</p></div>
+      <div class="problem"><h3>The Store is one 5-screen scroll</h3>
+        <p>Tools, medicine and the wardrobe share one page: 172 labels, 406 words and 80 buttons, with two nested rows of
+          segmented controls inside the wardrobe.</p></div>
+      <div class="problem"><h3>Events are told in paragraphs</h3>
+        <p>Event cards run 40 to 58 words, with a 30 to 40 word body. The price and the stakes sit in the middle of
+          prose ("…something for 120 coins - otherwise…").</p></div>
+      <div class="problem"><h3>The hub repeats itself and then goes empty</h3>
+        <p>The rank and posting appear in the top bar and again in the hero. Below the next-exam card there is a large
+          empty area, then one big button. Nothing on the hub is tappable apart from that button.</p></div>
+      <div class="problem"><h3>The Manual is a tab</h3>
+        <p>868 words of prose get a permanent quarter of the tab bar, and the Manual is also linked from Settings. Rules
+          the player needs at a given moment belong on that moment's screen.</p></div>
+      <div class="problem"><h3>Tab names do not say what is behind them</h3>
+        <p>"Exam" opens the home hub, and "Career" opens a ledger that repeats the hub. The gear opens Settings, or the
+          pause screen during an exam, and while Settings is open no tab is lit.</p></div>
+      <div class="problem"><h3>Onboarding is three text walls</h3>
+        <p>Three cards of 29 to 43 words each, with no picture, before the first tap that matters. The ideas in them are
+          good, but they arrive as reading.</p></div>
+      <div class="problem"><h3>The admission desk is a data table</h3>
+        <p>75 words: ten rows comparing document against exam in small type, plus the rules in prose. It is the game's
+          core puzzle, presented as a form.</p></div>
+      <div class="problem"><h3>Small visual bugs <span class="tag warn">polish</span></h3>
+        <p>The rank line in the top bar is clipped at the top on every screen. A notice from the exam can sit over the
+          result card. On the first frame the hub opens, its text overlaps.</p></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ SALARY -->
+  <section id="salary">
+    <div class="section-head">
+      <span class="eyebrow">Diagnosis</span>
+      <h2>Why the salary reads as "+120" and not as coins</h2>
+      <p class="muted">The coin flight works as written: in a real flow, 4 coins flew and the counter went 0 → 50 ¢. It
+        is designed to happen somewhere the player is not looking, and it is skipped on the exams with the biggest money
+        swing. Reduce motion is off on this Mac's save, and nothing on the player's side turns it off.</p>
+    </div>
+    <div class="diag">
+      <figure>
+        <img src="img/salary-diagnosis.jpg" alt="Four frames: the result card with a text row 'Salary +50', then the hub with the balance at 0, then four small green glyphs in the middle of the hub, then the balance reading 50." width="1356" height="715" loading="lazy">
+        <figcaption>A real career, recorded frame by frame. The salary is a text row on the result card (1). The coins
+          leave from mid-screen on the hub, after Continue and any post-exam events (2–4).</figcaption>
+      </figure>
+      <figure>
+        <img src="img/salary-flight-zoom.jpg" alt="Six zoomed frames of the top bar: the coin pill reads 0, small outline coin-stack glyphs travel up, then it reads 16 and climbs." width="1970" height="330" loading="lazy">
+        <figcaption>The flight up close. The glyphs are thin green outline stacks 72 reference px wide (about 6% of the
+          screen width). They arrive while the hub's own entrance is still settling.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li><b>The coin counter is hidden on the result card, so nothing can fly there.</b> <code>HudRouter.cs:323-325</code>
+          hides the chrome whenever a boundary card, an event or the door is up (<code>bool modal = _ui.Boundary.Visible || …</code>).
+          The design guide says so too (<code>UI-DESIGN-SYSTEM.md:220</code>: "the salary is paid in when the player
+          returns to the hub").</li>
+        <li><b>On the result card, the salary is a text row.</b> <code>HudRouter.AddPaymentRows</code> (<code>:1579</code>)
+          makes the row "Salary" with trailing text <code>"+{0} ¢"</code>. <code>BoundaryView.CountIn</code>
+          (<code>:285-299</code>) counts it up from 0 and pops the row icon once. No coin is drawn and no stack forms. The
+          "¢" glyph stands in for money.</li>
+        <li><b>The flight plays on the hub, from the middle of the screen.</b> <code>ChromeView.AnimateCoins</code>
+          (<code>:309-347</code>) uses <code>Vector3 source = _root.TransformPoint(Vector3.zero)</code> (<code>:326</code>),
+          the screen centre, because the payment row it came from no longer exists. The hub's entrance plays in the same
+          0.26 s, and one or more event cards can sit between the result and the hub. By then, cause and effect are
+          screens apart.</li>
+        <li><b>It flies the net change, and no coins fly when that is negative.</b> The chrome compares its last balance
+          with the new one (<code>:317</code>: <code>if (delta &lt;= 0 …) roll down</code>). Every 4th exam
+          (<code>CareerService.cs:511</code>, <code>ExpenseCadenceExams = 4</code>) monthly expenses of 220 ± 60 per tier
+          outweigh a salary of 50–190. On those exams the player never sees the salary arrive: the balance simply rolls
+          down. Store spending since the last hub visit is netted in the same way. Recorded: 1150 → 1040, with no flight.</li>
+        <li><b>A small salary looks like decoration.</b> The flight sends one coin per 15 earned, clamped to 3–8
+          (<code>:325</code>). The Maple salary of 50 sends 4 glyphs, in the Money green, with no gold and no stack.</li>
+      </ol>
+      <div class="grid-2">
+        <figure><img src="vid/result-card.gif" alt="Result card animation: rows arrive and the salary counts up to plus 50" width="270" height="585" loading="lazy" style="max-width:240px;border-radius:12px"><figcaption>Result card: the salary counts up as text.</figcaption></figure>
+        <figure><img src="vid/payday-expenses.gif" alt="An expenses exam: result rows, three event cards, then the hub where the balance rolls down with no coins" width="270" height="585" loading="lazy" style="max-width:240px;border-radius:12px"><figcaption>An expenses exam: three cards later the balance rolls down from 1150 to 1040, and the salary never flies.</figcaption></figure>
+      </div>
+      <p><b>Fix (Phase 1).</b> Pay out on the result card itself:</p>
+      <ul class="steps">
+        <li>Show a read-only coin pill on the result card.</li>
+        <li>Fly gold coins from each income row into a visible stack, then into the pill.</li>
+        <li>Play each payment as its own beat: income in, then costs out. A salary is always seen, even when the month's
+          bills take more.</li>
+        <li>The hub then has nothing left to animate.</li>
+      </ul>
+      <p>Mockups are under <a href="#proposal">Proposal</a>.</p>
+    </div>
+  </section>
+
+  <!-- ================================================================ GALLERY -->
+  <section id="gallery">
+    <div class="section-head">
+      <span class="eyebrow">Screen inventory</span>
+      <h2>Every screen, as a player meets it</h2>
+      <p class="muted">These are captured from the real build at 1080 × 2340, the Galaxy A15's shape, by a PlayMode
+        capture test. Most screens are reached the way a player reaches them: a new career, the intro cards, the room,
+        the result, post-exam events, the hub and the tabs. Rare events, the title and the offers are staged. Light and a
+        720-wide phone are shown for the key screens. Scroll each row sideways.</p>
+    </div>
+
+    <div class="gal-group"><h3>First run <small>title, three intro cards, the first hub</small></h3>
+      <div class="strip">
+        <figure><img src="img/d-00-title.jpg" alt="Title screen with EXAM SUPERVISOR wordmark and three buttons" loading="lazy" width="432" height="936"><figcaption><b>Title</b>11 words · 3 buttons</figcaption></figure>
+        <figure><img src="img/d-01-onboard-00-card.jpg" alt="Intro card: Your job" loading="lazy" width="432" height="936"><figcaption><b>Intro 1: Your job</b>29 words, no picture</figcaption></figure>
+        <figure><img src="img/d-01-onboard-01-card.jpg" alt="Intro card: Look before you act" loading="lazy" width="432" height="936"><figcaption><b>Intro 2</b>43 words</figcaption></figure>
+        <figure><img src="img/d-01-onboard-02-card.jpg" alt="Intro card: Decisions follow you" loading="lazy" width="432" height="936"><figcaption><b>Intro 3</b>41 words</figcaption></figure>
+        <figure><img src="img/d-50-hub-first.jpg" alt="First hub: hero image of the school, next exam card, big Go to next exam button" loading="lazy" width="432" height="936"><figcaption><b>Hub, first visit</b>the posting appears twice: top bar and hero</figcaption></figure>
+      </div></div>
+
+    <div class="gal-group"><h3>Home and tabs <small>hub, Career, Store, Settings, Manual</small></h3>
+      <div class="strip">
+        <figure><img src="img/d-12-hub.jpg" alt="Hub after an exam" loading="lazy" width="432" height="936"><figcaption><b>Hub</b>a large empty area above the button</figcaption></figure>
+        <figure><img src="img/d-13-career.jpg" alt="Career tab top: identity, progression ring" loading="lazy" width="432" height="936"><figcaption><b>Career</b>repeats rank and posting a third time</figcaption></figure>
+        <figure><img src="img/d-13-career-mid.jpg" alt="Career tab: list of eight schools with salaries" loading="lazy" width="432" height="936"><figcaption><b>Career, schools</b>a clear ladder, but it is the 3rd card</figcaption></figure>
+        <figure><img src="img/d-13-career-end.jpg" alt="Career tab end: overview and money" loading="lazy" width="432" height="936"><figcaption><b>Career, end</b>balance and reputation repeated again</figcaption></figure>
+        <figure><img src="img/d-51-store-top.jpg" alt="Store top: balance card, equipment tiles" loading="lazy" width="432" height="936"><figcaption><b>Store, top</b>balance repeated from the top bar</figcaption></figure>
+        <figure><img src="img/d-51-store-top-2.jpg" alt="Store: wardrobe with character preview" loading="lazy" width="432" height="936"><figcaption><b>Store, wardrobe</b>two nested segment rows</figcaption></figure>
+        <figure><img src="img/d-14-store-25.jpg" alt="Store: hat grid" loading="lazy" width="432" height="936"><figcaption><b>Store, grid</b>prices as blue buttons, locks as grey</figcaption></figure>
+        <figure><img src="img/d-14-store-50.jpg" alt="Store: tops grid" loading="lazy" width="432" height="936"><figcaption><b>Store, deeper</b>still the same page</figcaption></figure>
+        <figure><img src="img/d-15-settings.jpg" alt="Settings" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>clean; no tab lit</figcaption></figure>
+        <figure><img src="img/d-16-manual.jpg" alt="Supervisor Manual" loading="lazy" width="432" height="936"><figcaption><b>Manual</b>868 words of prose</figcaption></figure>
+        <figure><img src="img/d-17-confirm-abandon.jpg" alt="Abandon this career confirmation" loading="lazy" width="432" height="936"><figcaption><b>Confirm</b>good: Danger tone carries the weight</figcaption></figure>
+      </div></div>
+
+    <div class="gal-group"><h3>Into the room <small>brief, door, exam HUD</small></h3>
+      <div class="strip">
+        <figure><img src="img/d-53-brief-unwell.jpg" alt="Pre-exam brief: Before you begin, unwell warning" loading="lazy" width="432" height="936"><figcaption><b>Brief (unwell)</b>rules as prose lines</figcaption></figure>
+        <figure><img src="img/d-52-admission.jpg" alt="Admission desk: document comparison table" loading="lazy" width="432" height="936"><figcaption><b>Admission desk</b>75 words, 10-row table</figcaption></figure>
+        <figure><img src="img/d-52-admission-stamp.jpg" alt="Admission desk after Admit: 'Admitted: Tolga Şahin' line" loading="lazy" width="432" height="936"><figcaption><b>Admission, decided</b>the "stamp" is a text line</figcaption></figure>
+        <figure><img src="img/d-20-exam-hud.jpg" alt="Exam HUD over the 3D classroom" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b>quiet, readable: 6 words</figcaption></figure>
+        <figure><img src="img/d-04-exam-sound-cue.jpg" alt="Exam HUD with sound cue band" loading="lazy" width="432" height="936"><figcaption><b>Sound cue</b>"A phone buzzing - Rows 1–2"</figcaption></figure>
+        <figure><img src="img/d-05-exam-action-toast.jpg" alt="Exam HUD with action toast" loading="lazy" width="432" height="936"><figcaption><b>Action toast</b>12-word sentence</figcaption></figure>
+        <figure><img src="img/d-08-exam-detector-used.jpg" alt="Phone Detector used, result line at bottom" loading="lazy" width="432" height="936"><figcaption><b>Detector</b>result line (dev button overlaps it)</figcaption></figure>
+        <figure><img src="img/d-21-exam-paused.jpg" alt="Settings opened during exam as pause" loading="lazy" width="432" height="936"><figcaption><b>Paused</b>the pause screen is Settings</figcaption></figure>
+      </div></div>
+
+    <div class="gal-group"><h3>After the bell <small>result, events, offers, the end</small></h3>
+      <div class="strip">
+        <figure><img src="img/d-10-result.jpg" alt="Result card: Exam complete, rows" loading="lazy" width="432" height="936"><figcaption><b>Result</b>no outcome headline; a notice from the room bleeds on top</figcaption></figure>
+        <figure><img src="img/d-30-event-Illness.jpg" alt="Event: You are not well" loading="lazy" width="432" height="936"><figcaption><b>Illness</b>the price is inside a sentence</figcaption></figure>
+        <figure><img src="img/d-30-event-CarTrouble.jpg" alt="Event: car trouble" loading="lazy" width="432" height="936"><figcaption><b>Car trouble</b>30-word body</figcaption></figure>
+        <figure><img src="img/d-30-event-ParkingFine.jpg" alt="Event: parking fine" loading="lazy" width="432" height="936"><figcaption><b>Parking fine</b>short: the model to copy</figcaption></figure>
+        <figure><img src="img/d-30-event-CoworkerFavor.jpg" alt="Event: coworker favour" loading="lazy" width="432" height="936"><figcaption><b>Coworker favour</b>30-word body</figcaption></figure>
+        <figure><img src="img/d-30-event-ManagerMeeting.jpg" alt="Event: manager meeting" loading="lazy" width="432" height="936"><figcaption><b>Manager meeting</b>38-word body</figcaption></figure>
+        <figure><img src="img/d-30-event-DemotionNotice.jpg" alt="Event: reassignment letter" loading="lazy" width="432" height="936"><figcaption><b>Reassignment</b>40-word letter</figcaption></figure>
+        <figure><img src="img/d-31-offer-single.jpg" alt="Offer: a move up" loading="lazy" width="432" height="936"><figcaption><b>Offer</b>the comparison block is great; the prose under it repeats it</figcaption></figure>
+        <figure><img src="img/d-31-offer-two.jpg" alt="Two offers" loading="lazy" width="432" height="936"><figcaption><b>Two offers</b>best screen in the game: numbers, not prose</figcaption></figure>
+        <figure><img src="img/d-41-dismissed.jpg" alt="Dismissed card" loading="lazy" width="432" height="936"><figcaption><b>Dismissed</b>clear, final</figcaption></figure>
+      </div></div>
+
+    <div class="gal-group"><h3>Light theme <small>the same screens, Light</small></h3>
+      <div class="strip">
+        <figure><img src="img/l-12-hub.jpg" alt="Hub in Light" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
+        <figure><img src="img/l-10-result.jpg" alt="Result in Light" loading="lazy" width="432" height="936"><figcaption><b>Result</b></figcaption></figure>
+        <figure><img src="img/l-13-career.jpg" alt="Career in Light" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
+        <figure><img src="img/l-14-store-25.jpg" alt="Store in Light" loading="lazy" width="432" height="936"><figcaption><b>Store</b></figcaption></figure>
+        <figure><img src="img/l-30-event-Illness.jpg" alt="Illness event in Light" loading="lazy" width="432" height="936"><figcaption><b>Event</b></figcaption></figure>
+        <figure><img src="img/l-15-settings.jpg" alt="Settings in Light" loading="lazy" width="432" height="936"><figcaption><b>Settings</b></figcaption></figure>
+      </div></div>
+
+    <div class="gal-group"><h3>Narrow phone, 720 × 1560 <small>layout holds; nothing clips beyond the 1080 issues</small></h3>
+      <div class="strip">
+        <figure><img src="img/n-12-hub.jpg" alt="Hub at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
+        <figure><img src="img/n-10-result.jpg" alt="Result at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Result</b></figcaption></figure>
+        <figure><img src="img/n-13-career.jpg" alt="Career at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
+        <figure><img src="img/n-14-store-25.jpg" alt="Store at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Store</b></figcaption></figure>
+        <figure><img src="img/n-31-offer-two.jpg" alt="Two offers at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Two offers</b></figcaption></figure>
+        <figure><img src="img/n-20-exam-hud.jpg" alt="Exam HUD at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b></figcaption></figure>
+      </div></div>
+  </section>
+
+  <!-- ================================================================ AUDIT -->
+  <section id="audit">
+    <div class="section-head">
+      <span class="eyebrow">Text-density audit</span>
+      <h2>Where the words are</h2>
+      <p class="muted">Counted from the live UI tree at capture time: every visible TMP label and every live button. Each
+        cell shows <b>in view</b> / <i>whole screen including scroll</i>. The top bar and tab bar are included; HUD text
+        behind a staged card and the dev "End exam" button are not. Red rows are over 150 words or have a single 35-word
+        string; amber rows are over 50 words or have a 25-word string.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Screen</th><th scope="col">Labels</th><th scope="col">Words</th><th scope="col">Longest</th><th scope="col">Buttons</th><th scope="col">Longest string</th></tr></thead>
+        <tbody>
+<tr class="ok"><th scope="row">Title</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:2%"></i></span>11<span class="all"> / 11</span></td><td>4</td><td>3<span class="all"> / 3</span></td><td class="q">Real decisions. Real consequences.</td></tr>
+<tr class="ok"><th scope="row">Intro card 1</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>29<span class="all"> / 29</span></td><td>24</td><td>1<span class="all"> / 1</span></td><td class="q">You supervise the room. Watch people, understand what you are seeing, and decide what to do about it.  Not every odd movement is misconduct.</td></tr>
+<tr class="bad"><th scope="row">Intro card 2</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:5%"></i></span>43<span class="all"> / 43</span></td><td>36</td><td>1<span class="all"> / 1</span></td><td class="q">Get closer. Watch someone properly, or read what is out on their desk.  The actions you are offered depend on what you have seen. If somebody has give…</td></tr>
+<tr class="bad"><th scope="row">Intro card 3</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:5%"></i></span>41<span class="all"> / 41</span></td><td>35</td><td>1<span class="all"> / 1</span></td><td class="q">What you do here does not end with the exam. Complaints, reviews and recognition can arrive several exams later.  The Supervisor Manual on the home sc…</td></tr>
+<tr class="ok"><th scope="row">Hub, first visit</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>42<span class="all"> / 42</span></td><td>10</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: exam-issued scratch paper. Nothing else.</td></tr>
+<tr class="ok"><th scope="row">Hub</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>47<span class="all"> / 47</span></td><td>15</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</td></tr>
+<tr class="bad"><th scope="row">Career tab</th><td>33<span class="all"> / 65</span></td><td><span class="wbar"><i style="width:18%"></i></span>99<span class="all"> / 160</span></td><td>12</td><td>5<span class="all"> / 5</span></td><td class="q">Last change: an exam that went well - it helped your standing.</td></tr>
+<tr class="bad"><th scope="row">Store tab</th><td>24<span class="all"> / 172</span></td><td><span class="wbar"><i style="width:47%"></i></span>84<span class="all"> / 406</span></td><td>14</td><td>7<span class="all"> / 80</span></td><td class="q">Lists what you noticed in the last few seconds and where sounds came from.</td></tr>
+<tr class="warn"><th scope="row">Settings</th><td>26<span class="all"> / 28</span></td><td><span class="wbar"><i style="width:7%"></i></span>56<span class="all"> / 59</span></td><td>12</td><td>13<span class="all"> / 13</span></td><td class="q">Abandoning your career deletes it. Anything you have paid for stays yours.</td></tr>
+<tr class="bad"><th scope="row">Manual</th><td>24<span class="all"> / 79</span></td><td><span class="wbar"><i style="width:100%"></i></span>208<span class="all"> / 868</span></td><td>54</td><td>5<span class="all"> / 5</span></td><td class="q">A buzz or a dropped object tells you which row it came from, counted from the front: Row 1 is the row nearest your desk, and each row&#x27;s number is pain…</td></tr>
+<tr class="ok"><th scope="row">Pre-exam brief (unwell)</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:4%"></i></span>34<span class="all"> / 34</span></td><td>16</td><td>1<span class="all"> / 1</span></td><td class="q">You are feverish and drained. Recently expired IDs may be accepted. Minor name mismatches are tolerated.</td></tr>
+<tr class="warn"><th scope="row">Admission desk</th><td>28<span class="all"> / 28</span></td><td><span class="wbar"><i style="width:9%"></i></span>75<span class="all"> / 75</span></td><td>13</td><td>2<span class="all"> / 2</span></td><td class="q">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</td></tr>
+<tr class="ok"><th scope="row">Exam HUD</th><td>2<span class="all"> / 2</span></td><td><span class="wbar"><i style="width:2%"></i></span>6<span class="all"> / 6</span></td><td>3</td><td>1<span class="all"> / 1</span></td><td class="q">University exam 2</td></tr>
+<tr class="ok"><th scope="row">Exam HUD + cue + toast</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>24<span class="all"> / 24</span></td><td>12</td><td>1<span class="all"> / 1</span></td><td class="q">You warned Tolga Şahin. They stop, and look back at their paper.</td></tr>
+<tr class="ok"><th scope="row">Result card</th><td>9<span class="all"> / 9</span></td><td><span class="wbar"><i style="width:2%"></i></span>17<span class="all"> / 17</span></td><td>3</td><td>1<span class="all"> / 1</span></td><td class="q">School Exam 1</td></tr>
+<tr class="warn"><th scope="row">Event: illness</th><td>5<span class="all"> / 5</span></td><td><span class="wbar"><i style="width:5%"></i></span>40<span class="all"> / 40</span></td><td>31</td><td>2<span class="all"> / 2</span></td><td class="q">Your throat is raw and your head is heavy. The pharmacy can give you something for 120 coins - otherwise you will be slower than you want to be all mo…</td></tr>
+<tr class="warn"><th scope="row">Event: car trouble</th><td>5<span class="all"> / 5</span></td><td><span class="wbar"><i style="width:4%"></i></span>37<span class="all"> / 37</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">Your car won&#x27;t start this morning. The mechanic can fix it right away for 120 coins - or you find another way in and hope you make it on time.</td></tr>
+<tr class="warn"><th scope="row">Event: bribe</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:5%"></i></span>41<span class="all"> / 41</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">A man you have never met falls into step beside you on the way in. &quot;[name] is my child. This exam means everything to us.&quot; He holds out 120 coins.</td></tr>
+<tr class="warn"><th scope="row">Event: coworker favour</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:5%"></i></span>42<span class="all"> / 42</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">A coworker catches you in the corridor: &quot;Could you help me get this paperwork in before the exam? I&#x27;ll remember it.&quot; It would make you late into your …</td></tr>
+<tr class="bad"><th scope="row">Event: manager meeting</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:6%"></i></span>54<span class="all"> / 54</span></td><td>38</td><td>2<span class="all"> / 2</span></td><td class="q">Your manager wants to discuss the complaint from a previous exam. You can accept the finding and have the matter closed sooner, or give your account -…</td></tr>
+<tr class="bad"><th scope="row">Event: reassignment</th><td>11<span class="all"> / 11</span></td><td><span class="wbar"><i style="width:7%"></i></span>58<span class="all"> / 58</span></td><td>40</td><td>1<span class="all"> / 1</span></td><td class="q">A letter from the board: your services are no longer required here. You have been reassigned to City High School. Your assignments there will be Schoo…</td></tr>
+<tr class="warn"><th scope="row">Offer: one school</th><td>12<span class="all"> / 12</span></td><td><span class="wbar"><i style="width:6%"></i></span>55<span class="all"> / 55</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">Riverside Middle School has taken notice of your record and offers you a supervising position. Your assignments there will be School Exam and Universi…</td></tr>
+<tr class="warn"><th scope="row">Offer: two schools</th><td>21<span class="all"> / 21</span></td><td><span class="wbar"><i style="width:7%"></i></span>63<span class="all"> / 63</span></td><td>13</td><td>3<span class="all"> / 3</span></td><td class="q">Both schools have written to you. Take one, or stay where you are.</td></tr>
+<tr class="ok"><th scope="row">Confirm: abandon</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>25<span class="all"> / 25</span></td><td>19</td><td>2<span class="all"> / 2</span></td><td class="q">This career will be deleted and you will return to the start. Anything you have paid for is kept.</td></tr>
+<tr class="ok"><th scope="row">Dismissed</th><td>9<span class="all"> / 9</span></td><td><span class="wbar"><i style="width:5%"></i></span>43<span class="all"> / 43</span></td><td>22</td><td>1<span class="all"> / 1</span></td><td class="q">The board will not be sending you to another examination. What you did is on the record, and the record is closed.</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3>What the numbers say</h3>
+        <p><b>The result card is not the text problem.</b> It has 17 words; its problem is that it has no payoff. The
+          words are in the Manual (868), the Store (406, with 80 buttons), the Career tab (160), and the event cards and
+          intro cards, which carry 30 to 40 word bodies.</p>
+        <p><b>The best screens are already the shortest:</b> the exam HUD (6 words), the two-school offer (numbers in
+          columns) and the parking fine (one line plus the price).</p></div>
+      <div class="card"><h3>Worst offenders</h3>
+        <p>1. Manual: 868 words, one 54-word paragraph.<br>
+          2. Store: 406 words, 80 buttons, 5 screens of scroll.<br>
+          3. Career tab: 160 words, repeating hub and top-bar facts.<br>
+          4. Reassignment letter: 40-word body.<br>
+          5. Manager meeting: 38-word body.<br>
+          6. Intro card 2: 36-word body.<br>
+          7. Admission desk: 75 words in a 10-row table.</p></div>
+    </div>
+    <h3>Text that can become an icon, a number or a short label</h3>
+    <div class="rewrite">
+      <div class="rw"><span class="where">Event · illness</span><span class="from">Your throat is raw and your head is heavy. The pharmacy can give you something for 120 coins - otherwise you will be slower than you want to be all morning.</span><span class="arrow">→</span><span class="to">"Feverish this morning." · buttons [Medicine · coin 120] [Push through · slower]</span></div>
+      <div class="rw"><span class="where">Result · salary</span><span class="from">Salary   +50 ¢</span><span class="arrow">→</span><span class="to">Gold coin tile "+50" that pays into a visible coin pill</span></div>
+      <div class="rw"><span class="where">Result · title</span><span class="from">Exam complete · School Exam 1</span><span class="arrow">→</span><span class="to">Outcome chip "Good exam" with ★ +2</span></div>
+      <div class="rw"><span class="where">Hub · next exam</span><span class="from">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</span><span class="arrow">→</span><span class="to">Rule chips: [Reference sheet] [Scratch paper] with paper icons</span></div>
+      <div class="rw"><span class="where">Store · tool</span><span class="from">Marks each nearby student with an active phone. A lead, not proof.</span><span class="arrow">→</span><span class="to">"Finds phones nearby" + (i) for the rest</span></div>
+      <div class="rw"><span class="where">Store · top</span><span class="from">Balance 600 ¢ · You can afford the White T-Shirt</span><span class="arrow">→</span><span class="to">Delete: the top bar already shows the balance; price chips go green or grey</span></div>
+      <div class="rw"><span class="where">Career · header</span><span class="from">You are being noticed. People elsewhere have heard your name. Last change: an exam that went well - it helped your standing.</span><span class="arrow">→</span><span class="to">Reputation bar 42/100 with a ▲ +2 arrow</span></div>
+      <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">(warn icon) Warned · Tolga Şahin</span></div>
+      <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Chips: [ID: expired OK] [Name: typos OK]</span></div>
+      <div class="rw"><span class="where">Intro card 2</span><span class="from">Get closer. Watch someone properly, or read what is out on their desk. The actions you are offered depend on what you have seen…</span><span class="arrow">→</span><span class="to">One picture + "Look first. Act second." (4 words)</span></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ NAV -->
+  <section id="nav">
+    <div class="section-head">
+      <span class="eyebrow">Navigation map</span>
+      <h2>How the screens connect</h2>
+      <p class="muted">There are two kinds of screen. Tabs can be browsed freely. Modal cards (result, events, brief,
+        door) have to be answered, and the chrome hides while they are up. The loop between two exams passes through up to
+        seven modal cards and the hub.</p>
+    </div>
+    <div class="navmap">
+      <svg viewBox="0 0 1100 470" role="img" aria-label="Navigation map: title, intro cards, hub with four tabs and settings, then the exam loop of pre-exam events, brief, door, room, result, post-exam events, back to hub.">
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs>
+        <!-- launch -->
+        <g class="n"><rect x="20" y="40" width="130" height="54" rx="12"/><text x="85" y="64" text-anchor="middle">Title</text><text class="s" x="85" y="81" text-anchor="middle">Continue · New · Settings</text></g>
+        <g class="n modal"><rect x="20" y="150" width="130" height="54" rx="12"/><text x="85" y="174" text-anchor="middle">Intro cards ×3</text><text class="s" x="85" y="191" text-anchor="middle">new career only</text></g>
+        <path class="e" d="M85 94 V150"/>
+        <!-- hub + tabs -->
+        <g class="n tab"><rect x="250" y="150" width="150" height="64" rx="14"/><text x="325" y="177" text-anchor="middle" font-weight="700">Hub</text><text class="s" x="325" y="195" text-anchor="middle">tab "Exam" · 1 button</text></g>
+        <path class="e" d="M150 177 H250"/>
+        <g class="n tab"><rect x="240" y="20" width="80" height="44" rx="10"/><text x="280" y="47" text-anchor="middle">Career</text></g>
+        <g class="n tab"><rect x="330" y="20" width="80" height="44" rx="10"/><text x="370" y="47" text-anchor="middle">Store</text></g>
+        <g class="n tab"><rect x="420" y="20" width="80" height="44" rx="10"/><text x="460" y="47" text-anchor="middle">Manual</text></g>
+        <g class="n"><rect x="420" y="90" width="90" height="40" rx="10"/><text x="465" y="115" text-anchor="middle">⚙ Settings</text></g>
+        <path class="e dash" d="M300 150 L285 64"/><path class="e dash" d="M330 150 L365 64"/><path class="e dash" d="M360 150 L450 64"/><path class="e dash" d="M400 165 L420 120"/>
+        <path class="e dash" d="M510 110 C540 80 520 60 500 52"/><text class="lab" x="520" y="78">Manual again</text>
+        <!-- exam loop -->
+        <g class="n modal"><rect x="560" y="150" width="140" height="54" rx="12"/><text x="630" y="174" text-anchor="middle">Pre-exam events</text><text class="s" x="630" y="191" text-anchor="middle">0–2 cards, must answer</text></g>
+        <path class="e" d="M400 182 H560"/><text class="lab" x="420" y="174">"Go to next exam"</text>
+        <g class="n modal"><rect x="740" y="150" width="120" height="54" rx="12"/><text x="800" y="174" text-anchor="middle">Brief</text><text class="s" x="800" y="191" text-anchor="middle">only when unwell</text></g>
+        <path class="e" d="M700 177 H740"/>
+        <g class="n room"><rect x="900" y="150" width="170" height="54" rx="12"/><text x="985" y="174" text-anchor="middle">Admission desk</text><text class="s" x="985" y="191" text-anchor="middle">1 tap per candidate (3–6)</text></g>
+        <path class="e" d="M860 177 H900"/>
+        <g class="n room"><rect x="900" y="270" width="170" height="54" rx="12"/><text x="985" y="294" text-anchor="middle">Exam room + HUD</text><text class="s" x="985" y="311" text-anchor="middle">⚙ = pause (Settings)</text></g>
+        <path class="e" d="M985 204 V270"/>
+        <g class="n modal"><rect x="700" y="270" width="150" height="54" rx="12"/><text x="775" y="294" text-anchor="middle" font-weight="700">Result card</text><text class="s" x="775" y="311" text-anchor="middle">chrome hidden</text></g>
+        <path class="e" d="M900 297 H850"/><text class="lab" x="862" y="288">bell</text>
+        <g class="n modal"><rect x="480" y="270" width="170" height="54" rx="12"/><text x="565" y="294" text-anchor="middle">Post-exam events</text><text class="s" x="565" y="311" text-anchor="middle">0–3 cards; bills settle silently</text></g>
+        <path class="e" d="M700 297 H650"/><text class="lab" x="655" y="288">Continue</text>
+        <path class="e" d="M480 297 C400 297 360 260 340 214"/><text class="lab" x="372" y="262">coins fly here</text>
+        <g class="n modal"><rect x="480" y="380" width="170" height="54" rx="12"/><text x="565" y="404" text-anchor="middle">Offers / reassignment</text><text class="s" x="565" y="421" text-anchor="middle">event kinds</text></g>
+        <path class="e dash" d="M565 324 V380"/>
+        <g class="n end"><rect x="250" y="380" width="160" height="54" rx="12"/><text x="330" y="404" text-anchor="middle">Dismissed</text><text class="s" x="330" y="421" text-anchor="middle">only "Start a new career"</text></g>
+        <path class="e dash" d="M480 407 H410"/>
+        <path class="e dash" d="M250 407 C120 407 85 300 85 204"/>
+      </svg>
+    </div>
+    <div class="legend"><span><i style="background:var(--accent-soft)"></i>tab (chrome visible)</span><span><i style="background:var(--gold-soft)"></i>modal card (chrome hidden, must answer)</span><span><i style="background:var(--ok-soft)"></i>the room</span><span><i style="background:var(--bad-soft)"></i>end of career</span></div>
+    <div class="taps">
+      <div class="tap"><b>1</b><span>tap from the hub into the next exam, plus 1 per pre-exam event and 1 per candidate at the door (typically 4–9)</span></div>
+      <div class="tap"><b>2–5</b><span>taps from the bell to the hub: Continue, then one per post-exam event (observed: Continue, OK, OK, OK)</span></div>
+      <div class="tap"><b>2 + 3 swipes</b><span>to buy clothing: the Store tab, scroll past the tools and medicine, filter, Buy</span></div>
+      <div class="tap"><b>1</b><span>to check the career, but the school ladder is the 3rd card down</span></div>
+      <div class="tap"><b>5</b><span>taps from New career to the first room: 3 intro cards and the hub button</span></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3>Dead ends and unclear paths</h3>
+        <p>• <b>"Exam" tab = home.</b> The tab is named after a place the player is not yet in; the hub's button says "Go to next exam".<br>
+          • <b>Settings lights no tab</b> and has no Back. The way out is to pick a tab, or Android back.<br>
+          • <b>The Manual has two doors</b> (the tab and a Settings row) and is the only tab that never changes.<br>
+          • <b>The gear means two things:</b> Settings on the hub, Pause in the room.<br>
+          • <b>Dismissed is a true dead end</b> by design. That is correct, but it is the only screen with no recap of the career.</p></div>
+      <div class="card"><h3>What works</h3>
+        <p>• The persistent top bar and tab bar replaced a menu tree; Back is gone where the bar is visible.<br>
+          • Answer-before-browse on events is a fairness rule and stays.<br>
+          • Android back is handled by one policy (<code>BackNavigation</code>).<br>
+          • The modal sheet layout (picture, kicker, title, body, buttons) is consistent everywhere.</p></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ MOTION -->
+  <section id="motion">
+    <div class="section-head">
+      <span class="eyebrow">Animation check</span>
+      <h2>Every M129 motion, in a real flow</h2>
+      <p class="muted">These were recorded from a new career in PlayMode: admit, warn, remove, the clock, the bell, the
+        result, Continue, the hub, the tabs, a purchase, a promotion, an event, then an expenses exam. Each frame was
+        rendered at 540 × 1170 at about 60 fps; the GIFs are cut down to roughly 20 fps. Reduce motion was off.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Moment</th><th scope="col">Status</th><th scope="col">Evidence</th><th scope="col">Where</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Salary coin flight + stack</th><td><span class="tag warn">works, missable</span></td><td class="q">4 coins fly 0 → 50 ¢, but on the hub after Continue and events, from mid-screen. No flight on expenses exams (1150 → 1040 rolled down). No visible stack.</td><td class="q"><code>ChromeView.cs:309-347</code></td></tr>
+          <tr><th scope="row">Reputation count</th><td><span class="tag ok">works</span></td><td class="q">Result row counts up on a gain; the chrome rolls 40 → 37 with a colour crossfade; a loss does not pop.</td><td class="q"><code>BoundaryView.CountIn</code>, <code>ChromeView.AnimateReputation</code></td></tr>
+          <tr><th scope="row">Outcome chip (Good/Mixed/Poor)</th><td><span class="tag bad">missing</span></td><td class="q">Never built. The result opens on "Exam complete".</td><td class="q"><code>CareerService.EvaluateExam</code> is available</td></tr>
+          <tr><th scope="row">Action toast</th><td><span class="tag ok">works</span></td><td class="q">"You warned …" settles under the cue band for about 2.6 s, then fades.</td><td class="q"><code>ExamHudView.RefreshActionToast</code></td></tr>
+          <tr><th scope="row">Promotion beat</th><td><span class="tag ok">works</span></td><td class="q">One brass sweep plus a pop on the new school's hero. The planned salary "old → new" line was not built.</td><td class="q"><code>HomeHubView.CelebrateIfRaised</code></td></tr>
+          <tr><th scope="row">Event choice stamp</th><td><span class="tag ok">works</span></td><td class="q">The chosen button pops; the others fade where they stand.</td><td class="q"><code>EventSceneView.Choose</code></td></tr>
+          <tr><th scope="row">Career ring fill</th><td><span class="tag ok">works</span></td><td class="q">Sweeps from 0 on the first view of a session, then from the last value seen.</td><td class="q"><code>MeterFill.Play</code></td></tr>
+          <tr><th scope="row">Store purchase punch</th><td><span class="tag ok">works, subtle</span></td><td class="q">The tile turns to "Carry" and pops once; the chrome rolls 1550 → 1150. The Store's own balance card jumps with no roll.</td><td class="q"><code>StoreScreen.cs:377</code></td></tr>
+          <tr><th scope="row">Screen transitions</th><td><span class="tag ok">works</span></td><td class="q">Tabs get the Reveal entrance (cards settle in about 0.3 s) instead of the planned crossfade. On the first frame the hub's text overlaps.</td><td class="q"><code>Reveal</code>, <code>PanelScreenView</code></td></tr>
+          <tr><th scope="row">Exam clock warning</th><td><span class="tag ok">works</span></td><td class="q">The bar and time ease to Warning orange at 30 s left, with no pulse.</td><td class="q"><code>ExamHudView.WarmClock</code></td></tr>
+          <tr><th scope="row">Admission stamp</th><td><span class="tag ok">works</span></td><td class="q">"Admitted: Tolga Şahin" appears above the buttons and fades. It is a line, not a stamp, by design.</td><td class="q"><code>AdmissionView.Decide</code></td></tr>
+          <tr><th scope="row">3D removal walkout</th><td><span class="tag ok">works</span></td><td class="q">The student stands, walks the aisle and exits through the door in about 4 s.</td><td class="q"><code>RemovalWalkout</code></td></tr>
+          <tr><th scope="row">3D warn flinch</th><td><span class="tag bad">missing</span></td><td class="q">Deferred on purpose in M129 (commit e85bb2a). The warned student does not react beyond their idle.</td><td class="q"><code>PlaceholderCandidateRig</code></td></tr>
+          <tr><th scope="row">"Time is up" banner</th><td><span class="tag bad">missing</span></td><td class="q">Deferred on purpose: the result card opens on the same frame as the bell.</td><td class="q"><code>HudRouter.RingBellOnce</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="anims">
+      <div class="anim-card"><div class="clip"><img src="vid/payday-hub.gif" alt="Result card, a witness event card, then the hub with coins flying to the top bar" width="270" height="585" loading="lazy"></div><div class="t"><h3>Payday <span class="tag warn">missable</span></h3><p>Result, an event, then the hub. Watch the top right at about 1.5 s.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/result-expenses.gif" alt="Expenses exam result card: Equipment -400, Salary +50, Monthly expenses -160" width="270" height="585" loading="lazy"></div><div class="t"><h3>Expenses exam result</h3><p>Salary +50 sits between two costs; the net is negative, so no coins fly later.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/action-toast.gif" alt="Exam room: a toast 'You warned Tolga Şahin' appears and fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Action toast <span class="tag ok">works</span></h3><p>It reads well, but it is a 12-word sentence over the room.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/walkout.gif" alt="A removed student stands and walks out of the classroom door" width="270" height="585" loading="lazy"></div><div class="t"><h3>Walkout <span class="tag ok">works</span></h3><p>The same walk for anyone removed, so it says nothing about guilt.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/clock-warning.gif" alt="Exam HUD clock turns orange in the last 30 seconds" width="270" height="585" loading="lazy"></div><div class="t"><h3>Clock warning <span class="tag ok">works</span></h3><p>It eases once to orange and stays.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/career-ring.gif" alt="Career tab opens and its progression ring sweeps" width="270" height="585" loading="lazy"></div><div class="t"><h3>Career ring <span class="tag ok">works</span></h3><p>Sweeps on open. "7 to go" beside an almost full ring reads oddly.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/store-purchase.gif" alt="Store: tapping 400 buys the Phone Detector; the tile turns to Carry, balance drops" width="270" height="585" loading="lazy"></div><div class="t"><h3>Purchase <span class="tag ok">subtle</span></h3><p>The tile pops; the top bar rolls down; the Store's balance card jumps.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/promotion.gif" alt="Hub shows City High School with a brass shimmer sweeping across the hero" width="270" height="585" loading="lazy"></div><div class="t"><h3>Promotion <span class="tag ok">works</span></h3><p>One brass sweep and a pop. It is the nicest moment in the game, and it lasts under a second.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/event-stamp.gif" alt="An event card: Accept is tapped, pops, Reject fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Event stamp <span class="tag ok">works</span></h3><p>The chosen answer pops and the other fades.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ REFERENCES -->
+  <section id="refs">
+    <div class="section-head">
+      <span class="eyebrow">References</span>
+      <h2>What to borrow, and what to do better</h2>
+      <p class="muted">These draw on New Star Soccer (mobile), which the player named, and on current mobile game UI. Web
+        sources say little about NSS's hub layout. Its 2016 v2 update gave the menus "a complete graphical facelift" that
+        "streamlined navigation". The notes below are about patterns. No assets are copied.</p>
+    </div>
+    <div class="refs">
+      <div class="card ref"><h3>New Star Soccer: borrow</h3>
+        <ul>
+          <li><b>One obvious next action.</b> A big "next match" button anchors the career screen. Ours is "Go to next exam", but it floats under an empty area.</li>
+          <li><b>Relationships as bars, not sentences.</b> NSS shows each relationship as a short labelled bar. We have reputation as "42 / 100" and probation as prose.</li>
+          <li><b>Money as a number you watch grow.</b> Wages and bonuses are counted in and spent in a lifestyle shop.</li>
+          <li><b>Life events as short messages with two answers.</b> Our event cards have the same shape; ours just say too much.</li>
+        </ul></div>
+      <div class="card ref"><h3>New Star Soccer: do better</h3>
+        <ul>
+          <li><b>Its menus are dated,</b> by its own players' and reviewers' account: lists, small type and dense stat pages. Our base is already more polished.</li>
+          <li><b>No illustration.</b> We have baked school and event art, so lead with it.</li>
+          <li><b>Feedback is mostly numbers changing.</b> We can make money and standing physical: coins, stars and a stack you can see.</li>
+        </ul></div>
+      <div class="card ref"><h3>2026 mobile patterns worth using</h3>
+        <ul>
+          <li><b>A bottom tab bar as primary navigation,</b> per Apple's HIG and Material 3, with 3–5 nouns and the active tab filled.</li>
+          <li><b>Hub of big tiles.</b> Each tile has one icon, one word and one number or badge. Badges carry "new" or "affordable".</li>
+          <li><b>Bold numbers.</b> A currency or score is the biggest type on its card, with tabular numerals and icons beside them.</li>
+          <li><b>Reward choreography:</b> a burst, then a flight to the counter, which ticks per coin and pops once at the end. The source and the counter are on screen together.</li>
+          <li><b>Card stacks for decisions:</b> one card at a time, illustration first, two big answers.</li>
+          <li><b>Icon chips instead of rule sentences</b>, as in Clash Royale and Brawl Stars, with "ⓘ" for detail on demand.</li>
+        </ul></div>
+    </div>
+    <p class="muted" style="font-size:.86rem">Sources: <a href="https://toucharcade.com/2016/09/27/new-star-soccer-update/">TouchArcade on NSS 2.0</a> ·
+      <a href="https://www.pocketgamer.com/articles/071560/r/">Pocket Gamer: 5 ways NSS 2.0 feels new</a> ·
+      <a href="https://www.macworld.com/article/666864/new-star-soccer-for-ios-review.html">Macworld review</a> ·
+      <a href="https://pixune.com/blog/best-examples-mobile-game-ui-design/">Pixune: best mobile game UI (2026)</a> ·
+      <a href="https://www.elinext.com/?p=39738">Elinext: 2026 mobile UI trends</a>. NSS screen specifics (bars, button, shop) are from the game as commonly played, not from these articles.</p>
+  </section>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6zM9 8a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-ladder" viewBox="0 0 24 24"><path d="M4 20h4v-5H4zM10 20h4V10h-4zM16 20h4V4h-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3l4 2 4-2 5 4-3 3-2-1v12H8V9l-2 1-3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-35 12 12)" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 7.5l4 8" stroke="currentColor" stroke-width="2" transform="rotate(-35 12 12) translate(0 0)"/></symbol>
+      <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h7a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4zM20 4h-5a2 2 0 0 0-2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v5M12 18v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-paper" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 15l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6v4H3zM3 15h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="17" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17" r="1.5" fill="currentColor"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ================================================================ PROPOSAL -->
+  <section id="proposal">
+    <div class="section-head">
+      <span class="eyebrow">Proposal</span>
+      <h2>Simple to read, warm to look at, and every reward on screen</h2>
+      <p class="muted">These directions stay inside the system: every value below becomes a <code>GameTheme</code> token,
+        and every block is a <code>Ui</code> component that screens ask for by role. The rules that stay are no pulsing,
+        Reduce motion landing everything at once, the 3D room never hinting at guilt, and a choice card never predicting
+        a hidden outcome. A choice may show only a cost the player is already told, such as "120".</p>
+    </div>
+
+    <h3>Text rules</h3>
+    <div class="rules">
+      <div class="rule"><b>≤ 4</b><span>words in a title or a button. A button is a verb, and the player's cost goes in a chip.</span></div>
+      <div class="rule"><b>≤ 14</b><span>words in a card body; one sentence. The rest goes behind ⓘ, or into the Manual.</span></div>
+      <div class="rule"><b>1</b><span>number per fact. A balance appears once on a screen, in the top bar.</span></div>
+      <div class="rule"><b>Icon + number</b><span>before icon + sentence: coins, stars, candidates, rules, uses.</span></div>
+      <div class="rule"><b>0</b><span>"¢" glyphs. The coin is an icon, gold, and the same icon everywhere.</span></div>
+      <div class="rule"><b>1</b><span>primary action per screen, and it is the biggest thing below the fold.</span></div>
+    </div>
+
+    <h3>The hub: three directions</h3>
+    <div class="options">
+      <div class="option" id="hub-a">
+        <div class="ph anim"><div class="scr">
+          <div class="bar"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary</span></div>
+            <span class="pill r"><span class="star"></span>42</span><span class="pill c"><span class="coin"></span>1,040</span></div>
+          <div class="body">
+            <div class="hero"><div class="bld"></div><div class="t"><small>★☆☆☆☆ · ELEMENTARY</small><b>Maple Elementary</b></div></div>
+            <div class="cta"><div>Start exam 3<small>School Exam · 4 candidates</small></div></div>
+            <div class="tiles">
+              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-accent) 18%,transparent);color:var(--g-accent)"><svg width="18" height="18"><use href="#i-ladder"/></svg></div><b>Career</b><span>2 to Riverside</span></div>
+              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-money) 18%,transparent);color:var(--g-money)"><svg width="18" height="18"><use href="#i-bag"/></svg></div><b>Shop</b><span>3 you can afford</span><em class="badge">3</em></div>
+              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-primary) 18%,transparent);color:#8db6ff"><svg width="18" height="18"><use href="#i-shirt"/></svg></div><b>Wardrobe</b><span>2 new</span></div>
+              <div class="tile"><div class="ic" style="background:var(--g-high);color:var(--g-t2)"><svg width="18" height="18"><use href="#i-book"/></svg></div><b>Rules</b><span>Exam 3: 2 items</span></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="txt"><span class="pick">Option A · Tile hub (closest to NSS)</span><h3>One big button, four big tiles, no tab bar</h3>
+          <ul><li><b>Navigation:</b> the hub is home, and each tile opens a full screen with a close (×) button. The tab bar goes; Settings stays on the gear.</li>
+            <li><b>Hierarchy:</b> top bar numbers, then where you work, then <b>Start exam</b> directly under the picture, then tiles that each carry one live fact.</li>
+            <li><b>Text:</b> 34 words, against 47 today. No rule sentences; the Rules tile shows a count.</li>
+            <li><b>Cost:</b> new navigation model (router + Back policy), medium risk. It reads most like a game.</li></ul></div>
+      </div>
+
+      <div class="option" id="hub-b">
+        <div class="ph"><div class="scr">
+          <div class="bar"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary</span></div>
+            <span class="pill c"><span class="coin"></span>1,040</span><svg width="22" height="22" style="color:var(--g-t3)"><use href="#i-gear"/></svg></div>
+          <div class="body">
+            <div class="hero" style="min-height:100px"><div class="bld"></div><div class="t"><small>★☆☆☆☆ · ELEMENTARY</small><b>Maple Elementary</b></div></div>
+            <div class="card" style="display:grid;gap:8px">
+              <div class="stat"><span class="star"></span><span>Reputation</span><b>42</b><div class="meter"><i style="width:42%;background:var(--g-accent)"></i></div></div>
+              <div class="stat"><svg width="16" height="16" style="color:#8db6ff"><use href="#i-ladder"/></svg><span>To Riverside</span><b>2 exams</b><div class="meter"><i style="width:78%;background:var(--g-primary)"></i></div></div>
+              <div class="stat"><svg width="16" height="16" style="color:var(--g-warn)"><use href="#i-warn"/></svg><span>Probation</span><b>3 clean</b><div class="meter"><i style="width:25%;background:var(--g-warn)"></i></div></div>
+            </div>
+            <div class="card row"><svg width="18" height="18" style="color:#8db6ff"><use href="#i-paper"/></svg><div><b style="font-size:12px">School Exam · 4</b><div class="sub">Allowed: reference sheet, scratch paper</div></div></div>
+            <div style="flex:1"></div>
+            <div class="cta">Start exam 3</div>
+          </div>
+          <div class="tabs"><div class="on"><i></i>Home</div><div><i></i>Career</div><div><i></i>Shop</div><div><i></i>Wardrobe</div></div>
+        </div></div>
+        <div class="txt"><span class="pick">Option B · Tab bar + stat bars (lowest risk)</span><h3>Keep the bar, rename it, and fill the hub with three bars</h3>
+          <ul><li><b>Navigation:</b> 4 tabs named after nouns the player wants: Home · Career · Shop · Wardrobe. The Manual moves to Settings and an ⓘ on the rules card.</li>
+            <li><b>Hierarchy:</b> NSS-style stat bars (Reputation, next posting, probation) replace three cards and the Career tab's prose header.</li>
+            <li><b>Text:</b> 31 words. Reputation leaves the top bar, which keeps coins only.</li>
+            <li><b>Cost:</b> mostly content and component work; the router stays. This is the fastest route.</li></ul></div>
+      </div>
+
+      <div class="option" id="hub-c">
+        <div class="ph"><div class="scr">
+          <div class="bar"><div class="who"><b>Exam 3 · Tuesday</b><span>Maple Elementary</span></div>
+            <span class="pill r"><span class="star"></span>42</span><span class="pill c"><span class="coin"></span>1,040</span></div>
+          <div class="body">
+            <div class="card" style="padding:0;overflow:hidden;border-radius:20px">
+              <div class="hero" style="border-radius:0;min-height:150px"><div class="bld" style="top:24px"></div><div class="t"><small>NEXT · SCHOOL EXAM</small><b>4 candidates</b></div></div>
+              <div style="padding:10px;display:grid;gap:8px">
+                <div class="row"><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-paper"/></svg>Ref. sheet</span><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-paper"/></svg>Scratch</span></div>
+                <div class="cta">Start</div>
+              </div>
+            </div>
+            <div class="sub" style="font-family:var(--mono);letter-spacing:.08em">COMING UP</div>
+            <div class="card row"><svg width="18" height="18" style="color:var(--g-accent)"><use href="#i-ladder"/></svg><span>Riverside offer</span><span class="v" style="color:var(--g-accent)">2 exams</span></div>
+            <div class="card row"><span class="coin"></span><span>Monthly bills</span><span class="v" style="color:var(--g-t3)">next exam</span></div>
+          </div>
+          <div class="tabs"><div class="on"><i></i>Today</div><div><i></i>Career</div><div><i></i>Shop</div><div><i></i>More</div></div>
+        </div></div>
+        <div class="txt"><span class="pick">Option C · Today card stack</span><h3>The next exam is a card; what's coming is a short list</h3>
+          <ul><li><b>Navigation:</b> tab bar (Today · Career · Shop · More). "More" holds Manual and Settings.</li>
+            <li><b>Hierarchy:</b> one large card for the next exam, its picture and Start, and below it what is coming: an offer, bills, probation. Each item is a fact already decided, never a forecast.</li>
+            <li><b>Text:</b> 25 words. This one shows best that a career has a rhythm.</li>
+            <li><b>Cost:</b> needs a new "coming up" model built from Core state (bill cadence, progress); medium.</li></ul></div>
+      </div>
+    </div>
+
+    <h3>The result card: three directions, each with coins you can see</h3>
+    <p class="muted">All three show a read-only coin pill on the result card. The salary pays into it on this screen, and
+      costs leave it as separate beats afterwards, so the salary is always seen. Press replay to run the motion;
+      Reduce motion shows the end state.</p>
+    <div class="options">
+      <div class="option" id="res-a">
+        <div class="ph anim" data-replay><div class="scr">
+          <div class="bar"><div class="who"><b>School Exam 2</b><span>Maple Elementary</span></div><span class="pill c land" style="animation-delay:1.6s"><span class="coin"></span><span class="cnt" data-from="990" data-to="1040">1,040</span></span></div>
+          <div class="body" style="justify-content:center;gap:12px">
+            <div style="text-align:center;display:grid;gap:8px;justify-items:center" class="rise">
+              <span class="chip" style="background:color-mix(in srgb,var(--g-success) 22%,transparent);color:#5be0a0;font-size:13px;padding:6px 14px"><svg width="14" height="14"><use href="#i-check"/></svg>Good exam</span>
+              <div class="h" style="font-size:22px">Well handled</div>
+            </div>
+            <div class="grid2">
+              <div class="card rise" style="text-align:center;display:grid;gap:4px;justify-items:center;animation-delay:.15s"><span class="coin lg"></span><b style="font-size:22px;color:var(--g-accent)">+50</b><span class="sub">Salary</span></div>
+              <div class="card rise" style="text-align:center;display:grid;gap:4px;justify-items:center;animation-delay:.25s"><span class="star" style="width:22px;height:22px"></span><b style="font-size:22px;color:var(--g-accent)">+2</b><span class="sub">Reputation</span></div>
+            </div>
+            <div class="card rise" style="display:grid;gap:6px;animation-delay:.35s">
+              <div class="row"><svg width="14" height="14" style="color:var(--g-warn)"><use href="#i-warn"/></svg>Warned<span class="v sub">Tolga Ş.</span></div>
+              <div class="row"><span class="coin"></span>Bills<span class="v" style="color:var(--g-danger)">−160</span></div>
+            </div>
+            <div class="cta">Continue</div>
+          </div>
+          <div class="fly" style="left:58px;top:250px">
+            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.7s"></span>
+            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.78s"></span>
+            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.86s"></span>
+            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.94s"></span>
+            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:1.02s"></span>
+          </div>
+        </div></div>
+        <div class="txt"><span class="pick">Option A · Scoreboard</span><h3>The outcome headline, then two big number tiles, then the details</h3>
+          <ul><li><b>Headline:</b> the Good / Mixed / Poor chip (Success / Neutral / Warning tones) from <code>EvaluateExam</code>. It is a verdict on the exam the player just ran, never on one student.</li>
+            <li><b>Payday:</b> the +50 tile bursts 5 gold coins that fly to the pill and tick it 990 → 1,040, with a single pop at the end. Bills then roll it down quietly.</li>
+            <li><b>Text:</b> about 14 words. Decisions become icon rows.</li></ul>
+          <button class="replay" type="button" data-for="res-a"><svg width="12" height="12" style="vertical-align:-1px"><use href="#i-replay"/></svg> Replay</button></div>
+      </div>
+
+      <div class="option" id="res-b">
+        <div class="ph anim" data-replay><div class="scr">
+          <div class="bar"><div class="who"><b>Payday</b><span>School Exam 2</span></div><span class="pill c land" style="animation-delay:2.1s"><span class="coin"></span>1,040</span></div>
+          <div class="body" style="gap:10px">
+            <div class="card" style="display:grid;justify-items:center;gap:10px;padding:16px 10px">
+              <div class="stack">
+                <span class="coin lg" style="bottom:0;animation-delay:.2s"></span><span class="coin lg" style="bottom:5px;animation-delay:.32s"></span><span class="coin lg" style="bottom:10px;animation-delay:.44s"></span><span class="coin lg" style="bottom:15px;animation-delay:.56s"></span><span class="coin lg" style="bottom:20px;animation-delay:.68s"></span>
+              </div>
+              <b style="font-family:var(--display);font-size:34px;line-height:1;color:var(--g-accent)">+50</b>
+              <span class="sub">Salary · Maple Elementary</span>
+            </div>
+            <div class="card" style="display:grid;gap:7px">
+              <div class="row rise" style="animation-delay:.9s"><span class="coin"></span>Salary<span class="v" style="color:var(--g-accent)">+50</span></div>
+              <div class="row rise" style="animation-delay:1.1s"><span class="coin"></span>Monthly bills<span class="v" style="color:var(--g-danger)">−160</span></div>
+              <div class="row rise" style="animation-delay:1.3s"><span class="coin"></span>Detector<span class="v" style="color:var(--g-danger)">−400</span></div>
+            </div>
+            <div class="row card rise" style="animation-delay:1.5s"><span class="star"></span>Reputation<span class="v" style="color:var(--g-accent)">42 ▲2</span></div>
+            <div style="flex:1"></div>
+            <div class="cta">Continue</div>
+          </div>
+          <div class="fly" style="left:120px;top:110px">
+            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.7s"></span>
+            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.8s"></span>
+            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.9s"></span>
+          </div>
+        </div></div>
+        <div class="txt"><span class="pick">Option B · Payday receipt</span><h3>Coins stack up first, then pour into the balance</h3>
+          <ul><li><b>The stack:</b> salary coins drop into a pile on the card (one per 10, capped at 8), the total counts up beside it, and then the pile pours into the pill. This is the "stacking" the player asked for, read literally.</li>
+            <li><b>Receipt:</b> income and costs as one short list, with costs leaving after the pour, quietly.</li>
+            <li><b>Decisions</b> move to a second card ("What you did"), or into the Career log.</li></ul>
+          <button class="replay" type="button" data-for="res-b"><svg width="12" height="12" style="vertical-align:-1px"><use href="#i-replay"/></svg> Replay</button></div>
+      </div>
+
+      <div class="option" id="res-c">
+        <div class="mockrow">
+          <div class="ph"><div class="scr">
+            <div class="bar"><div class="who"><b>Exam 2</b><span>1 of 2</span></div></div>
+            <div class="body" style="justify-content:center;gap:14px;text-align:center">
+              <div class="ring" style="--p:72;margin:0 auto;width:110px;height:110px"><div style="width:88px;height:88px"><b style="font-size:22px">Good</b><span class="sub">exam</span></div></div>
+              <div class="h">Steady hands</div>
+              <div class="row" style="justify-content:center;gap:14px"><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12" style="color:var(--g-warn)"><use href="#i-warn"/></svg>1 warned</span><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-person"/></svg>4 sat</span></div>
+              <div style="flex:1"></div><div class="cta">Get paid</div>
+            </div></div></div>
+          <div class="ph"><div class="scr">
+            <div class="bar"><div class="who"><b>Exam 2</b><span>2 of 2</span></div><span class="pill c"><span class="coin"></span>1,040</span></div>
+            <div class="body" style="justify-content:center;gap:12px;text-align:center">
+              <span class="coin lg" style="width:64px;height:64px;margin:0 auto"></span>
+              <b style="font-family:var(--display);font-size:36px;color:var(--g-accent)">+50</b><span class="sub">Salary</span>
+              <div class="card row"><span class="coin"></span>Bills<span class="v" style="color:var(--g-danger)">−160</span></div>
+              <div class="card row"><span class="star"></span>Reputation<span class="v" style="color:var(--g-accent)">+2</span></div>
+              <div style="flex:1"></div><div class="cta">Continue</div>
+            </div></div></div>
+        </div>
+        <div class="txt"><span class="pick">Option C · Two beats</span><h3>"How did it go", then "what you earned"</h3>
+          <ul><li><b>Beat 1:</b> a large outcome ring and one line, with the counts as chips. The button says <b>Get paid</b>, which is a reason to tap.</li>
+            <li><b>Beat 2:</b> one giant coin, +50, which flies to the pill; bills and reputation sit underneath.</li>
+            <li><b>Cost:</b> one extra tap per exam. It gives the most drama and the least text per screen.</li></ul></div>
+      </div>
+    </div>
+
+    <h3>Store, exam HUD and event card</h3>
+    <div class="mockrow">
+      <figure>
+        <div class="ph"><div class="scr">
+          <div class="bar"><div class="who"><b style="font-size:16px;font-family:var(--display)">Shop</b></div><span class="pill c"><span class="coin"></span>1,040</span></div>
+          <div class="body">
+            <div class="seg"><span class="on">Tools</span><span>Medicine</span><span>Clothes</span></div>
+            <div class="grid2">
+              <div class="item"><div class="art" style="color:#8db6ff"><svg width="34" height="34"><use href="#i-radar"/></svg></div><b>Phone Detector</b><span class="sub">Finds phones nearby · 2/exam</span><span class="price"><span class="coin"></span>400</span></div>
+              <div class="item"><div class="art" style="color:#c7a6ff"><svg width="34" height="34"><use href="#i-replay"/></svg></div><b>Replay</b><span class="sub">Recent sounds · 2/exam</span><span class="price"><span class="coin"></span>180</span></div>
+              <div class="item"><div class="art" style="color:#ff9f8a"><svg width="34" height="34"><use href="#i-pill"/></svg></div><b>Pills</b><span class="sub">Kept at home · 2 of 5</span><span class="price"><span class="coin"></span>15</span></div>
+              <div class="item" style="opacity:.55"><div class="art" style="color:var(--g-t3)"><svg width="34" height="34"><use href="#i-shirt"/></svg></div><b>Cardigan</b><span class="sub">Reach Supervisor</span><span class="price" style="color:var(--g-t3);background:var(--g-raised)">Locked</span></div>
+            </div>
+            <div class="card row"><svg width="16" height="16" style="color:#8db6ff"><use href="#i-bag"/></svg>Carrying 1 of 2<span class="v sub">tap to swap</span></div>
+          </div>
+          <div class="tabs"><div><i></i>Home</div><div><i></i>Career</div><div class="on"><i></i>Shop</div><div><i></i>Wardrobe</div></div>
+        </div></div>
+        <figcaption><b>Shop.</b> Three segments replace one long scroll (one mixed page is shown here to show the tile states). The balance appears only in the top bar. Each item has one line. Prices are coin chips, not blue buttons; tap the tile to buy. On purchase, one coin flies out to the tile and the tile pops.</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><div class="scr" style="background:#1a2133">
+          <div class="room">
+            <div class="desk" style="left:40px;top:150px"></div><div class="desk" style="left:120px;top:150px"></div><div class="desk" style="left:190px;top:150px"></div>
+            <div class="desk" style="left:40px;top:240px"></div><div class="desk" style="left:120px;top:240px"></div><div class="desk" style="left:190px;top:240px"></div>
+            <div class="desk" style="left:40px;top:330px"></div><div class="desk" style="left:120px;top:330px"></div>
+            <div class="clock"><svg width="16" height="16" style="color:var(--g-warn)"><use href="#i-clock"/></svg><div class="track"><i></i></div><b>0:28</b></div>
+            <div class="cue"><svg width="11" height="11" style="vertical-align:-1px"><use href="#i-sound"/></svg> Buzz · row 2</div>
+            <div class="toast" style="top:84px"><svg width="14" height="14" style="color:var(--g-warn)"><use href="#i-warn"/></svg><b>Warned</b><span style="color:var(--g-t3)">Tolga Ş.</span></div>
+            <div class="dock"><div style="color:#8db6ff"><svg width="22" height="22"><use href="#i-radar"/></svg><em>2</em></div><div style="color:#c7a6ff"><svg width="22" height="22"><use href="#i-replay"/></svg><em>1</em></div><div style="color:var(--g-t2)"><svg width="22" height="22"><use href="#i-gear"/></svg></div></div>
+          </div>
+        </div></div>
+        <figcaption><b>Exam HUD.</b> A clock bar with no "School exam 1" title. The sound cue is an icon plus "row 2". The toast is a verb plus a name, three words. Tools sit in a thumb dock with use counts. The room stays the hero.</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><div class="scr">
+          <div class="body" style="justify-content:flex-end;padding-bottom:16px">
+            <div class="card" style="display:grid;gap:10px;padding:12px;border-radius:22px">
+              <div class="illus" style="background:linear-gradient(160deg,#5a3540,#22203a)"><svg width="54" height="54" style="color:#ffd2c2"><use href="#i-pill"/></svg></div>
+              <span class="sub" style="font-family:var(--mono);letter-spacing:.1em;color:#ff9f8a">THIS MORNING</span>
+              <div class="h">Feverish</div>
+              <div style="font-size:12px;color:var(--g-t2)">The pharmacy can help before the exam.</div>
+              <div class="btn2">
+                <div class="btn p">Medicine<small><span class="coin" style="width:10px;height:10px;vertical-align:-1px"></span> 120</small></div>
+                <div class="btn">Push through<small>slower today</small></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><b>Event card.</b> A picture, a 1-word title and one 8-word line. The cost the player is already told (120) sits on the button as a coin chip. "Slower today" is the stated effect, not a forecast. Any card with hidden consequences gets no chips on its answers.</figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-2">
+      <div class="card"><h3>Reward and feedback motion set</h3>
+        <p><b>Keep</b> CountUp, Punch, FlightLayer, MeterFill, Shimmer, Reveal and the toasts. <b>Add</b>, with new tokens on the existing timings:</p>
+        <p>• <b>Payout:</b> income row bursts gold coins, they arc to a pill on the same screen and tick it per coin, then one pop. <code>FlightLayer.Fly(fromRow)</code> as planned in M129.<br>
+          • <b>Stack:</b> coins drop onto a pile (OutBack, 0.32 s, 80 ms stagger, max 8) before the pour. New <code>CoinStack</code> component.<br>
+          • <b>Spend:</b> one coin flies out to the bought tile. No celebration.<br>
+          • <b>Outcome chip:</b> scale 0.9 → 1 with alpha, once.<br>
+          • <b>Promotion:</b> keep the sweep and add the salary "50 → 60" count.<br>
+          • <b>Warn flinch</b> (3D): a 0.3 s look-up for everyone warned, guilty or not.<br>
+          • <b>Reduce motion:</b> every one lands in its first frame. Nothing pulses or loops; there is no shake and no confetti.</p></div>
+      <div class="card"><h3>Typography and colour, as tokens</h3>
+        <div class="typescale">
+          <div><small>DisplayNumber · new</small><b style="font-family:var(--display);font-size:42px;line-height:1">+50</b></div>
+          <div><small>Display 74 → 84</small><span style="font-family:var(--display);font-size:26px;font-weight:800">Good exam</span></div>
+          <div><small>Heading2 53</small><span style="font-size:19px;font-weight:600">Maple Elementary</span></div>
+          <div><small>Body 39</small><span style="font-size:14px">The pharmacy can help.</span></div>
+          <div><small>Caption 32</small><span style="font-size:12px;color:#8ea0c6">2 uses per exam</span></div>
+        </div>
+        <div class="palette">
+          <div class="sw"><i style="background:radial-gradient(circle at 35% 30%,#FFE9A3 0 22%,#F5C04A 23% 62%,#C88A1C 63%)"></i>Coin (new role)</div>
+          <div class="sw"><i style="background:#4ADE80"></i>Money → gains text</div>
+          <div class="sw"><i style="background:#F5C04A"></i>Accent / Reputation</div>
+          <div class="sw"><i style="background:#3B82F6"></i>Primary</div>
+          <div class="sw"><i style="background:#20A06C"></i>Success chip</div>
+        </div>
+        <p>A <code>DisplayNumber</code> type role for the one number that matters on a card. A <code>Coin</code> role and a
+          drawn gold coin icon replace the green outline stack and the "¢" glyph. Light-theme values come with them;
+          everything else is unchanged.</p></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ PLAN -->
+  <section id="plan">
+    <div class="section-head">
+      <span class="eyebrow">Phased plan</span>
+      <h2>Payday first, then the hub, then everything else</h2>
+      <p class="muted">Each phase ships on its own, with captures and a device check on the A15. The estimates are
+        agent-days of implementation and verification, assuming hub option B. Options A and C add about 2 days to Phase 2.</p>
+    </div>
+    <div class="phases">
+      <div class="phase"><div class="num">Phase 1<small>Payday</small></div>
+        <div><b>Result card + coin system</b><ul>
+          <li><b>Coin role and gold coin icon</b>; "¢" removed from every screen (Store, Career, events, offers).</li>
+          <li><b>Read-only coin pill on the result card</b>; income rows pay into it via <code>FlightLayer</code> from the row, with a stack if option B wins. Costs leave as separate beats, so a salary is never netted away.</li>
+          <li><b>Outcome chip</b> (Good / Mixed / Poor); the chosen result layout (A, B or C).</li>
+          <li><b>Fixes:</b> the clipped top-bar rank line, the notice that bleeds onto the result, and the first-frame overlap on the hub.</li></ul></div>
+        <div class="est">3–4<small>days</small></div></div>
+      <div class="phase"><div class="num">Phase 2<small>Home</small></div>
+        <div><b>Hub + navigation</b><ul>
+          <li>The chosen hub (A, B or C); tabs renamed; the Manual moves out of the tab bar.</li>
+          <li><b>Stat bars</b> for reputation, next posting and probation (new <code>Ui.StatBar</code>).</li>
+          <li><b>Career tab</b> trimmed to the ladder of schools and a short log; repeats of the top bar removed.</li>
+          <li>The promotion beat gains "salary old → new".</li></ul></div>
+        <div class="est">4–5<small>days</small></div></div>
+      <div class="phase"><div class="num">Phase 3<small>Shop</small></div>
+        <div><b>Store split into Tools · Medicine · Clothes</b><ul>
+          <li>Segmented sub-pages; the balance card is deleted; price chips replace price buttons; one-line descriptions with (i) for detail.</li>
+          <li>Purchase: one coin flies out and the tile pops. The wardrobe preview stays as the Clothes header.</li></ul></div>
+        <div class="est">3–4<small>days</small></div></div>
+      <div class="phase"><div class="num">Phase 4<small>Words</small></div>
+        <div><b>Events, intro, brief, Manual</b><ul>
+          <li>The event card template enforces at most 4 title words and a 14-word body, and puts known costs on the buttons. All event copy is rewritten (about 25 kinds).</li>
+          <li>Intro becomes 3 picture cards with at most 15 words each. Brief rules become icon chips. The Manual gets collapsible sections and is opened in context from (i).</li>
+          <li>A text-length guard test, in the style of the existing M111 guards, so prose cannot creep back.</li></ul></div>
+        <div class="est">4–5<small>days</small></div></div>
+      <div class="phase"><div class="num">Phase 5<small>Room</small></div>
+        <div><b>Exam HUD + admission desk</b><ul>
+          <li>HUD: the clock bar, 3-word toasts, a tool dock with use counts, and icons for sound cues.</li>
+          <li>Admission: a document card beside a photo card, with field icons and a real stamp that lands on the outgoing card. Matches are never highlighted, which would give the answer away.</li>
+          <li>3D warn flinch, the same for everyone. Optional "Time is up" beat, if a short hold before the result is accepted.</li></ul></div>
+        <div class="est">4<small>days</small></div></div>
+      <div class="phase"><div class="num">Phase 6<small>Finish</small></div>
+        <div><b>Polish and proof</b><ul>
+          <li>Light-theme parity for every new role; 720-wide pass; Reduce motion audit; a device run on the A15 with captures.</li>
+          <li><code>UI-DESIGN-SYSTEM.md</code> and the reference image updated to the chosen direction.</li></ul></div>
+        <div class="est">2–3<small>days</small></div></div>
+    </div>
+    <div class="card"><h3>Decisions needed before Phase 1</h3>
+      <p>1. Result card: <a href="#res-a">A, scoreboard</a> · <a href="#res-b">B, payday receipt with a coin stack</a> · <a href="#res-c">C, two beats</a>.<br>
+        2. Hub: <a href="#hub-a">A, tiles with no tab bar</a> · <a href="#hub-b">B, tab bar with stat bars</a> · <a href="#hub-c">C, a Today card stack</a>.<br>
+        3. Money colour: should coins become gold (new <code>Coin</code> role) while "+" amounts stay Money green?</p></div>
+  </section>
+
+  <footer>
+    <p><b>How this was made.</b> <code>Assets/Tests/PlayMode/UiOverhaulCaptures.cs</code> (PlayMode, Explicit) drives a
+      new career in batchmode. It moves the overlay canvas onto the main camera and renders 1080 × 2340, 720 × 1560 and a
+      540 × 1170 frame recorder. On every shot it writes a text audit of the live UI tree. Some screens are staged (title,
+      rare events, offers, dismissal); everything else is the router's own flow. The editor's save files were backed up
+      and verified unchanged afterwards. The motion log, audit JSON and frames are kept locally under <code>DiagnosticOutput/UiOverhaul/</code>
+      on the development machine (not committed).</p>
+    <p>Related: <a href="../game-feel/">Game Feel</a> (the M129 motion as built) · <a href="../light-theme/">Light Theme</a>.</p>
+  </footer>
+</div>
+<script>
+// Replays a mockup's one-shot CSS animation; Reduce motion disables the animations themselves.
+document.querySelectorAll('.replay').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var ph = document.querySelector('#' + b.dataset.for + ' .ph');
+    if (!ph) return;
+    ph.classList.remove('anim'); void ph.offsetWidth; ph.classList.add('anim');
+  });
+});
+// Mockups animate when they scroll into view, once.
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var ph = e.target; ph.classList.remove('anim'); void ph.offsetWidth; ph.classList.add('anim'); io.unobserve(ph);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.ph[data-replay]').forEach(function (p) { io.observe(p); });
+}
+</script>
+</body>
+</html>
