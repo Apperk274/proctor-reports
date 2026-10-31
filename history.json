@@ -1,4 +1,5 @@
 [
+  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "performance", "change": "Added the Phone Performance report: GPU-bound judder, save freezes, and before/after on the Galaxy A15."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added the polish pass: a keep-some-coins hint in the store, hair that fits under every hat, a lanyard laid on each top, smoother shirt collars and draped blazer lapels, with before and after pictures."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Wardrobe taps no longer freeze the phone (now 22 to 78 ms), the chosen tab stays in view, old careers get their earlier schools' crests, and the approved band-2 locks and 750 prices are in."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Checked on the Galaxy A15 (build 9b848d2): the preview render errors are gone and phase 3 works on the phone, with phone shots replacing the editor ones and the hitches found listed under Known limits."},

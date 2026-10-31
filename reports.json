@@ -19,9 +19,19 @@
     {
       "id": "device-testing",
       "title": "Device testing"
+    },
+    {
+      "id": "performance",
+      "title": "Performance"
     }
   ],
   "reports": [
+    {
+      "slug": "performance",
+      "title": "Phone Performance",
+      "category": "performance",
+      "summary": "Why exams juddered at 63-70 fps and froze for half a second on a Galaxy A15, and the steady 45 fps and shorter freezes after the fixes."
+    },
     {
       "slug": "wardrobe",
       "title": "Wardrobe",

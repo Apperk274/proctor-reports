@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phone Performance</title>
+<meta name="description" content="Frame rate and freezes on a Galaxy A15: why exams juddered at 63-70 fps and froze for half a second, and the fixes, measured before and after on the phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --bad: #b42318; --bad-soft: #fde4e1; --warn: #9a5b00; --warn-soft: #fbefd9;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pass { background: var(--accent-soft); color: var(--accent); }
+.na { background: var(--line); color: var(--muted); }
+.fail { background: var(--bad-soft); color: var(--bad); }
+.minor { background: var(--warn-soft); color: var(--warn); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+.gallery figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; align-content: start; }
+.gallery figure.bad { border-color: var(--bad); }
+.gallery figure.good { border-color: var(--accent); }
+.gallery figcaption { font-size: 0.85rem; color: var(--muted); }
+.gallery figcaption b { color: var(--ink); font-weight: 600; display: block; }
+.gallery a { display: block; }
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+ul.list li { color: var(--muted); }
+ul.list b { color: var(--ink); font-weight: 600; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · performance · branch perf-smoothness on main eacf212</span>
+    <h1>Performance on the Galaxy A15</h1>
+    <p class="lede">Frame rate and freezes measured in the app on a Galaxy A15 5G (SM-S156V, Android 16, 1080 × 2340,
+      90 Hz panel, Mali-G57 on Vulkan). The probe splits every frame into main thread, render thread and GPU
+      time. The judder was GPU load, not a frame-rate setting. The half-second freezes came from saving the career.
+      All numbers are from development builds on that phone, before and after the fixes.</p>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Before and after</h2>
+      <p class="muted">Steady state: the median of 5-second windows with no one-off load in them. Freezes: the longest
+        frames at that moment, in a row. Same test careers, same phone.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Scenario</th><th>Median fps before</th><th>p95 frame before</th><th>Median fps after</th><th>p95 frame after</th></tr></thead>
+      <tbody>
+        <tr><td>Exam, Maple (4 students)</td><td class="num">67.4</td><td class="num">22.3 ms</td><td class="num">45.0</td><td class="num">22.4 ms</td></tr>
+        <tr><td>Exam, City High (7)</td><td class="num">66.1</td><td class="num">22.3 ms</td><td class="num">45.0</td><td class="num">22.3 ms</td></tr>
+        <tr><td>Exam, National (8)</td><td class="num">65.8 <span class="muted">(2 windows)</span></td><td class="num">22.3 ms</td><td class="num">45.0</td><td class="num">22.3 ms</td></tr>
+        <tr><td>Admission desk</td><td class="num">55.5–62.6</td><td class="num">22.2–22.3 ms</td><td class="num">45.0</td><td class="num">22.3–22.4 ms</td></tr>
+        <tr><td>Result and hub cards</td><td class="num">57–59</td><td class="num">22.3 ms</td><td class="num">45.0</td><td class="num">22.4 ms</td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Freeze</th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+        <tr><td>Exam start (two saves, two frames apart)</td><td class="num">455 + 433 ms · 478 + 444 · 477 + 466</td><td class="num">122 + 111 ms · 122 + 100 · 144 + 56 + 122</td></tr>
+        <tr><td>Result card after an exam</td><td class="num">67 + 433 ms · 78 + 467 · 67 + 455</td><td class="num">67 + 100 ms <span class="muted">(National; not re-measured at Maple or City High)</span></td></tr>
+        <tr><td>Each admit or reject at the door</td><td class="num">444–567 ms</td><td class="num">122–211 ms</td></tr>
+        <tr><td>Go to next exam</td><td class="num">89 + 533 ms</td><td class="num">89 + 156 ms</td></tr>
+        <tr><td>Continue career (load), once per session</td><td class="num">610–700 ms</td><td class="num">620–655 ms <span class="muted">(unchanged)</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">Exam-start and result values are listed in Maple · City High · National order.</p>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Why it juddered</h2></div>
+    <div class="cards">
+      <div class="card"><span class="big">14–15 ms</span><p>GPU time for an exam frame. A 90 Hz frame allows 11.1 ms, so every other frame missed its vsync: 11.1 / 22.2 ms.</p></div>
+      <div class="card"><span class="big">17 ms</span><p>GPU time under a full-screen card. About 7 ms of that was the room being drawn behind a screen that hides it.</p></div>
+      <div class="card"><span class="big">4–5 ms</span><p>Real main-thread work per frame. The CPU was never the limit.</p></div>
+    </div>
+    <ul class="list">
+      <li><b>The setting was already right.</b> The target was 90 (M125), vSync was 0, and Optimized Frame Pacing was off. Turning on Swappy with a target of 60 didn't switch the panel to 60 Hz. It ran at 45.</li>
+      <li><b>Experiments on the same build</b> (probe flag): HDR off made no change, and shadows off gave about 1 ms. Render scale 0.6 (from 0.8) brought an exam to 88.6 fps, but it softens the picture, and the cards still ran at 70.</li>
+      <li><b>Decision: a steady 45 on this phone.</b> Every frame takes 22.2 ms, the same length, with no alternation, and half the frames means less battery and heat. A frame-rate governor starts at the panel's best even rate and steps down for the session only if more than 15% of ordinary frames miss. A phone that holds 90 keeps 90.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Why it froze</h2></div>
+    <ul class="list">
+      <li><b>Every autosave cost 420–450 ms of main thread.</b> The parts were: serialize the career (75–90 ms), read the temp file back and parse it (165–185 ms), then parse the old primary before rotating it (150–190 ms). Each save also allocated about 12 MB. Saves happen at every boundary: each decision at the door, twice at exam start, and at the result.</li>
+      <li><b>Not the suspects.</b> Navmesh build: 4–5 ms. Room dressing: 5–8 ms. Spawning students: 13–60 ms. Shader compilation and resource loads: under 45 ms in any frame.</li>
+      <li><b>Fix:</b> the career is serialized on the main thread and written on a worker, using the same write, verify and rotate order. A primary that the last save already verified isn't parsed again. Load, delete, pause and quit all wait for the worker.</li>
+      <li><b>What is left:</b> serializing still takes 75–100 ms on the main thread. In this development build that leaves a 120–210 ms freeze per save.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>What changed</h2></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Change</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Autosave writes on a worker (<code>SaveFileIO.SaveInBackground</code>)</td><td>Save freezes from ~450 ms to ~120–210 ms</td></tr>
+        <tr><td>Frame-rate governor (<code>FramePacer</code>)</td><td>Steady 45.0 fps everywhere on the A15, p95 22.3–22.4 ms</td></tr>
+        <tr><td>The room isn't drawn under the hub, the admission desk or opaque cards (<code>RoomCameraGate</code>)</td><td>GPU 17 → 10 ms per frame on those screens</td></tr>
+        <tr><td>Probe: GPU/CPU split, hitch lines with engine markers, named marks, combinable experiments</td><td>Off unless the developer flag file exists</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">No gameplay or balance change: the simulation steps on its own fixed timestep. No URP or quality settings were changed.</p>
+  </section>
+</div>
+</body>
+</html>
