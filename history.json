@@ -1,4 +1,5 @@
 [
+  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "Added the Light Theme report: the Settings theme choice, every screen in Dark beside Light, the light palette's contrast and the open Store veil issue."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "sound-hints", "change": "Added the Sound Hints and Phone Detector report: students per hint old against new, search effort, bot careers, the heard-buzz grounds fix and recommendations."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "texture-compression", "change": "Added the Texture Compression report: clean APK sizes for ASTC 8x8, 10x10, a smaller max size and no daytime renders, with decoded crops beside today's 6x6."},
   {"date": "2026-10-30", "author": "ardakabadayi", "slug": "image-quality", "change": "The size note now points to the measured Texture Compression report instead of the old 8x8 estimate."},

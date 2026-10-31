@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "light-theme",
+      "title": "Light Theme",
+      "category": "look-and-feel",
+      "summary": "The Dark, Light and Follow phone theme choice in Settings, every screen in Dark beside Light, the light palette's contrast and what is left to fix."
+    },
+    {
       "slug": "sound-hints",
       "title": "Sound Hints and Phone Detector",
       "category": "sound",

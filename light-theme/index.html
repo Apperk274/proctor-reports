@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Light Theme</title>
+<meta name="description" content="The player's colour theme in Exam Supervisor Simulator: Dark, Light or Follow phone in Settings, applied live. Every screen in Dark next to Light at 1080 x 2340, the contrast of the light palette, and what is still wrong.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec;
+  --ok: #1d6b3a; --ok-soft: #dcefe2; --fix: #1f4fb8; --fix-soft: #dfe8fb; --bad: #a3320c; --bad-soft: #fbe4da;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+    --ok: #6fd39a; --ok-soft: #173326; --fix: #8fb2ff; --fix-soft: #1b2a4a; --bad: #ff9a72; --bad-soft: #3d2116;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; color-scheme: dark;
+  --ok: #6fd39a; --ok-soft: #173326; --fix: #8fb2ff; --fix-soft: #1b2a4a; --bad: #ff9a72; --bad-soft: #3d2116;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+ul.list li { color: var(--muted); }
+ul.list b { color: var(--ink); font-weight: 600; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+td.wrap { white-space: normal; min-width: 260px; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+.sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; border: 1px solid var(--line); }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.tag.ok { background: var(--ok-soft); color: var(--ok); }
+.tag.fix { background: var(--fix-soft); color: var(--fix); }
+.tag.bad { background: var(--bad-soft); color: var(--bad); }
+.note { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; max-width: 80ch; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.shotpair { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.shotpair figcaption { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.shotpair figcaption b { font-weight: 600; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.two img { border-radius: 6px; width: 100%; background: #000; }
+.two.cap { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="back" href="../">← All reports</a>
+  <h1>Light Theme</h1>
+  <p class="lede">Players can now choose the colour theme in Settings: Dark, Light or Follow phone. Dark stays the default, so nobody sees a change until they pick. Every screen is below in Dark next to Light, captured in the game at 1080 × 2340.</p>
+</header>
+
+<section>
+  <div class="cards">
+    <div class="card"><span class="big">13</span><p>screen types checked in Light, 29 frames each way, all eight schools' day heroes included.</p></div>
+    <div class="card"><span class="big">4.5:1+</span><p>every text role and every tone used as type, on every light ground. Button labels too, at both ends of their gradient.</p></div>
+    <div class="card"><span class="big">1 rebuild</span><p>for each theme change. The UI is built again from the new theme on the next frame, without an entrance animation and without leaving the screen.</p></div>
+    <div class="card"><span class="big">0</span><p>changes to how Dark looks. Every new token keeps the dark theme's old value.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <ul class="list">
+    <li><b>Stored</b> in the player's settings file (<code>proctor_settings.json</code>) as <code>Theme</code>: <code>Dark</code>, <code>Light</code> or <code>FollowPhone</code>. The format is still version 1, because the key is only an addition. An old file has no <code>Theme</code> and loads as Dark. A value this build does not know falls back to Dark and keeps every other setting.</li>
+    <li><b>Light</b> is a new shipped theme, <code>GameTheme.ModernLight()</code>. It changes colour only: type, spacing, corners, sizes and motion are inherited from Dark. It uses the same indigo family on cool off-whites. The colours chosen for a dark page (bright green, pale brass, sky blue) were near 2:1 on white, so all of them are darker here.</li>
+    <li><b>Follow phone</b> asks Android for <code>Configuration.uiMode</code>'s night bits. The answer is cached and asked again whenever the game comes back to the front, so a phone switched to dark mode in the quick-settings shade changes the game when the shade closes. The editor and other platforms have nothing to ask, so Follow phone shows Dark there.</li>
+    <li><b>Applied</b> at boot, before the first screen is built, and live afterwards. When the theme changes, <code>UiRoot.Rebuild</code> builds every screen again and the router redraws them from game state on the same frame. Nothing is lost, because every screen draws from state. The chrome inset and how far the page was scrolled are carried across. Entrance animations are held for that frame, so the switch is one clean frame with no flash. The Store and Wardrobe are drawn again too, because the Store's redraw key now includes the theme.</li>
+    <li><b>Settings</b> has a <i>Theme</i> row in <i>Display and help</i>, built from the existing segmented control. The Manual has no settings section, so it has no new line.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Screens checked</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Screen</th><th>Light</th><th>What was done</th></tr></thead>
+    <tbody>
+<tr><td>Title</td><td><span class="tag ok">Pass</span></td><td class="wrap">Daytime render; heavier scrim than Dark</td></tr>
+<tr><td>Hub, all 8 schools</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Rank line faint over daytime sky: solid scrim ground under the text block (HeroScrim tokens)</td></tr>
+<tr><td>Career tab</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+<tr><td>Offer cards (one and two schools)</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+<tr><td>Event cards (6 objects)</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+<tr><td>Pre-exam brief</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+<tr><td>Exam HUD</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+<tr><td>Admission</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Disabled buttons: white on pale tint, now DisabledInk</td></tr>
+<tr><td>Results</td><td><span class="tag fix">Fixed</span></td><td class="wrap">Periwinkle page: ScrimTopTint token</td></tr>
+<tr><td>Store</td><td><span class="tag bad">Problem</span></td><td class="wrap">Not-owned veil washes out tile art (other session). Disabled prices fixed.</td></tr>
+<tr><td>Wardrobe</td><td><span class="tag bad">Problem</span></td><td class="wrap">Same veil. Preview stage background reads a token: fine.</td></tr>
+<tr><td>Settings</td><td><span class="tag fix">New</span></td><td class="wrap">Theme row added</td></tr>
+<tr><td>Manual</td><td><span class="tag ok">Pass</span></td><td class="wrap"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <p><b>Fixed for every screen, through tokens.</b> All of these keep Dark exactly as it was.</p>
+    <ul class="list">
+      <li><b>The faint rank line.</b> The hero's scrim is now a theme decision (<code>HeroScrimReach</code>, <code>HeroScrimStrength</code>, <code>HeroScrimSolid</code>). Dark keeps its single ramp. Light lays a solid ground under the whole text block and ramps above it, and its accents are dark enough to read on that ground (5.2:1 or better). The cost is that less of the daytime building shows behind the words than in Dark.</li>
+      <li><b>Disabled buttons</b> fade toward the page. On a light page that leaves a pale tint, and their white labels read at about 2:1. Light now names a <code>DisabledInk</code> (slate) for them. Dark leaves it clear and keeps the old ink.</li>
+      <li><b>Full-screen card pages</b> (results, events, the brief, the title) multiplied the dark theme's cool tint into the light page and turned it periwinkle. That tint is now <code>ScrimTopTint</code>.</li>
+      <li>The drawn shop tiles' cache is cleared on a theme change, and the strip of camera background outside the safe area follows a theme change while a screen covers the room.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>For the Store and Wardrobe session</h2>
+  <p>These are in code this pass did not touch (StoreScreen). No token fix in <code>Ui</code> or <code>GameTheme</code> could reach them without changing Dark.</p>
+  <ul class="list">
+    <li><b>The not-owned veil washes the tile art out in Light.</b> <code>StoreScreen.NotOwnedVeil</code> lays <code>Surface</code> at 62% over a render you do not own. On a dark card that dims the art. On a white card it bleaches it nearly to nothing: the Phone Detector, the pills, the hats and the glasses are hard to make out. See <a href="#store-top">Store</a>, <a href="#wardrobe">Wardrobe</a> and <a href="#wardrobe-grid">the grid</a>. A suggestion: give the veil its own role, or a lower strength in a light theme (for example a role that is <code>Surface</code> at 62% in Dark and around 35% in Light), so a light theme can dim without bleaching.</li>
+    <li><b>The three things you asked me to check.</b> The Store and Wardrobe are rebuilt after a theme change, because the router's store key now carries <code>GameTheme.Revision</code>; that edit is in HudRouter, not StoreScreen. <code>SupervisorPreviewStage</code> takes its background from <code>RaisedTop</code> (a token), passed in from StoreScreen, and it matches its card in both themes. The room's colours were checked in a room started in Light: the phone-detector disc reads <code>Primary</code> each frame, the unwell haze keeps the dark theme's value on purpose (it is the room's own dark, and the room does not follow the theme), and the floor row numbers come from the floor colour. All three look right.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Contrast</h2>
+  <p>WCAG contrast ratios for the light theme's text roles. "Worst ground" is the lowest across cards, raised cards, both ends of the page gradient and the floating exam chrome; for every role here it is the bottom of the page (<code>#E4E9F2</code>). Dark is shown for comparison and is unchanged. <code>ThemeChoiceTests</code> fails the build if any light pair drops below 4.5:1, chips on their own 20% wash included.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Role</th><th>Light value</th><th>On a card</th><th>Worst ground</th><th>Dark, worst</th></tr></thead>
+    <tbody>
+<tr><td>TextPrimary</td><td><span class="sw" style="background:#111A2E"></span><code>#111A2E</code></td><td class="num">17.0</td><td class="num">14.2</td><td class="num muted">11.9</td></tr>
+<tr><td>TextSecondary</td><td><span class="sw" style="background:#38445E"></span><code>#38445E</code></td><td class="num">9.6</td><td class="num">8.0</td><td class="num muted">7.0</td></tr>
+<tr><td>TextMuted</td><td><span class="sw" style="background:#56627C"></span><code>#56627C</code></td><td class="num">6.0</td><td class="num">5.0</td><td class="num muted">4.7</td></tr>
+<tr><td>Primary</td><td><span class="sw" style="background:#1E56CF"></span><code>#1E56CF</code></td><td class="num">6.3</td><td class="num">5.2</td><td class="num muted">3.5</td></tr>
+<tr><td>Success</td><td><span class="sw" style="background:#0B6B45"></span><code>#0B6B45</code></td><td class="num">6.4</td><td class="num">5.4</td><td class="num muted">3.8</td></tr>
+<tr><td>Danger</td><td><span class="sw" style="background:#A9312C"></span><code>#A9312C</code></td><td class="num">6.5</td><td class="num">5.4</td><td class="num muted">2.6</td></tr>
+<tr><td>Warning</td><td><span class="sw" style="background:#A3430A"></span><code>#A3430A</code></td><td class="num">6.1</td><td class="num">5.1</td><td class="num muted">4.5</td></tr>
+<tr><td>Accent / Reputation</td><td><span class="sw" style="background:#684A06"></span><code>#684A06</code></td><td class="num">8.0</td><td class="num">6.7</td><td class="num muted">7.6</td></tr>
+<tr><td>Money</td><td><span class="sw" style="background:#0F6A35"></span><code>#0F6A35</code></td><td class="num">6.6</td><td class="num">5.5</td><td class="num muted">7.3</td></tr>
+<tr><td>InstitutionSchool</td><td><span class="sw" style="background:#0C6D4A"></span><code>#0C6D4A</code></td><td class="num">6.2</td><td class="num">5.2</td><td class="num muted">5.3</td></tr>
+<tr><td>InstitutionUniversity</td><td><span class="sw" style="background:#2357C8"></span><code>#2357C8</code></td><td class="num">6.3</td><td class="num">5.3</td><td class="num muted">4.6</td></tr>
+<tr><td>InstitutionProfessional</td><td><span class="sw" style="background:#6243C0"></span><code>#6243C0</code></td><td class="num">6.7</td><td class="num">5.6</td><td class="num muted">4.7</td></tr>
+    </tbody>
+  </table></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Button label, on the lighter top of its gradient</th><th>Light</th><th>Dark</th></tr></thead>
+    <tbody>
+<tr><td>OnPrimary on PrimaryTop</td><td class="num">4.7</td><td class="num muted">3.0</td></tr>
+<tr><td>OnSuccess on SuccessTop</td><td class="num">5.4</td><td class="num muted">2.4</td></tr>
+<tr><td>OnDanger on DangerTop</td><td class="num">5.9</td><td class="num muted">3.8</td></tr>
+<tr><td>OnWarning on WarningTop</td><td class="num">5.6</td><td class="num muted">2.3</td></tr>
+<tr><td>OnAccent on AccentTop</td><td class="num">6.3</td><td class="num muted">11.9</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Every screen, Dark and Light</h2>
+  <p class="muted small">Captured in the game (<code>ThemeCaptures</code>), with the theme picked through the setting and applied live. Tap a frame for the full 1080 × 2340 image.</p>
+  <div class="gallery">
+<figure class="shotpair" id="settings">
+  <figcaption><b>Settings</b> <span class="tag fix">New</span></figcaption>
+  <p class="small muted">The Theme row: Dark / Light / Follow phone on the shared segmented control, with one line saying what Follow phone does. Picking one restyles this screen in place.</p>
+  <div class="two">
+    <a href="img/settings-dark.webp"><img src="img/settings-dark.webp" alt="Settings in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/settings-light.webp"><img src="img/settings-light.webp" alt="Settings in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="title">
+  <figcaption><b>Title</b> <span class="tag ok">Pass</span></figcaption>
+  <p class="small muted">The daytime exam-room render. The light scrim is laid on higher, so less of the room shows under the name than in Dark.</p>
+  <div class="two">
+    <a href="img/title-dark.webp"><img src="img/title-dark.webp" alt="Title in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/title-light.webp"><img src="img/title-light.webp" alt="Title in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-maple">
+  <figcaption><b>Hub: Maple Elementary</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">The rank line now sits on a solid ground. It was faint over the daytime sky.</p>
+  <div class="two">
+    <a href="img/hub-maple-dark.webp"><img src="img/hub-maple-dark.webp" alt="Hub: Maple Elementary in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-maple-light.webp"><img src="img/hub-maple-light.webp" alt="Hub: Maple Elementary in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-riverside">
+  <figcaption><b>Hub: Riverside Middle</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-riverside-dark.webp"><img src="img/hub-riverside-dark.webp" alt="Hub: Riverside Middle in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-riverside-light.webp"><img src="img/hub-riverside-light.webp" alt="Hub: Riverside Middle in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-vocational">
+  <figcaption><b>Hub: Eastgate Evening College</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-vocational-dark.webp"><img src="img/hub-vocational-dark.webp" alt="Hub: Eastgate Evening College in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-vocational-light.webp"><img src="img/hub-vocational-light.webp" alt="Hub: Eastgate Evening College in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-standard">
+  <figcaption><b>Hub: City High</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-standard-dark.webp"><img src="img/hub-standard-dark.webp" alt="Hub: City High in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-standard-light.webp"><img src="img/hub-standard-light.webp" alt="Hub: City High in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-brightpath">
+  <figcaption><b>Hub: Brightpath Prep Centre</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-brightpath-dark.webp"><img src="img/hub-brightpath-dark.webp" alt="Hub: Brightpath Prep Centre in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-brightpath-light.webp"><img src="img/hub-brightpath-light.webp" alt="Hub: Brightpath Prep Centre in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-elite">
+  <figcaption><b>Hub: Kingsley Academy</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-elite-dark.webp"><img src="img/hub-elite-dark.webp" alt="Hub: Kingsley Academy in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-elite-light.webp"><img src="img/hub-elite-light.webp" alt="Hub: Kingsley Academy in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-state-university">
+  <figcaption><b>Hub: State University</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-state-university-dark.webp"><img src="img/hub-state-university-dark.webp" alt="Hub: State University in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-state-university-light.webp"><img src="img/hub-state-university-light.webp" alt="Hub: State University in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="hub-national">
+  <figcaption><b>Hub: National Examination Centre</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/hub-national-dark.webp"><img src="img/hub-national-dark.webp" alt="Hub: National Examination Centre in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/hub-national-light.webp"><img src="img/hub-national-light.webp" alt="Hub: National Examination Centre in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="career-top">
+  <figcaption><b>Career tab</b> <span class="tag ok">Pass</span></figcaption>
+  <p class="small muted">Ring, stars, the &quot;you are here&quot; brass and the salaries all read on white.</p>
+  <div class="two">
+    <a href="img/career-top-dark.webp"><img src="img/career-top-dark.webp" alt="Career tab in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/career-top-light.webp"><img src="img/career-top-light.webp" alt="Career tab in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="career-schools">
+  <figcaption><b>Career tab: schools and overview</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/career-schools-dark.webp"><img src="img/career-schools-dark.webp" alt="Career tab: schools and overview in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/career-schools-light.webp"><img src="img/career-schools-light.webp" alt="Career tab: schools and overview in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="offer-single">
+  <figcaption><b>Offer: one school</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/offer-single-dark.webp"><img src="img/offer-single-dark.webp" alt="Offer: one school in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/offer-single-light.webp"><img src="img/offer-single-light.webp" alt="Offer: one school in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="offer-two">
+  <figcaption><b>Offer: two schools</b> <span class="tag ok">Pass</span></figcaption>
+  <p class="small muted">The money-only warning is in Warning, 6:1 on the raised card.</p>
+  <div class="two">
+    <a href="img/offer-two-dark.webp"><img src="img/offer-two-dark.webp" alt="Offer: two schools in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/offer-two-light.webp"><img src="img/offer-two-light.webp" alt="Offer: two schools in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-BribeOffer">
+  <figcaption><b>Event: bribe</b> <span class="tag ok">Pass</span></figcaption>
+  <p class="small muted">The event objects are one render for both themes, like a photograph in a card.</p>
+  <div class="two">
+    <a href="img/event-BribeOffer-dark.webp"><img src="img/event-BribeOffer-dark.webp" alt="Event: bribe in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-BribeOffer-light.webp"><img src="img/event-BribeOffer-light.webp" alt="Event: bribe in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-Complaint">
+  <figcaption><b>Event: complaint</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/event-Complaint-dark.webp"><img src="img/event-Complaint-dark.webp" alt="Event: complaint in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-Complaint-light.webp"><img src="img/event-Complaint-light.webp" alt="Event: complaint in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-ThreateningMessage">
+  <figcaption><b>Event: threatening message</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/event-ThreateningMessage-dark.webp"><img src="img/event-ThreateningMessage-dark.webp" alt="Event: threatening message in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-ThreateningMessage-light.webp"><img src="img/event-ThreateningMessage-light.webp" alt="Event: threatening message in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-PrestigiousAssignment">
+  <figcaption><b>Event: prestigious assignment</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/event-PrestigiousAssignment-dark.webp"><img src="img/event-PrestigiousAssignment-dark.webp" alt="Event: prestigious assignment in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-PrestigiousAssignment-light.webp"><img src="img/event-PrestigiousAssignment-light.webp" alt="Event: prestigious assignment in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-LivingExpenses">
+  <figcaption><b>Event: monthly expenses</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/event-LivingExpenses-dark.webp"><img src="img/event-LivingExpenses-dark.webp" alt="Event: monthly expenses in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-LivingExpenses-light.webp"><img src="img/event-LivingExpenses-light.webp" alt="Event: monthly expenses in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="event-ManagerMeeting">
+  <figcaption><b>Event: manager meeting</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/event-ManagerMeeting-dark.webp"><img src="img/event-ManagerMeeting-dark.webp" alt="Event: manager meeting in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/event-ManagerMeeting-light.webp"><img src="img/event-ManagerMeeting-light.webp" alt="Event: manager meeting in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="brief">
+  <figcaption><b>Pre-exam brief</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/brief-dark.webp"><img src="img/brief-dark.webp" alt="Pre-exam brief in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/brief-light.webp"><img src="img/brief-light.webp" alt="Pre-exam brief in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="admission">
+  <figcaption><b>Admission</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">Reject and Admit are disabled while the person walks to the desk. Their labels were white on a pale tint (about 2:1); they now take a slate ink.</p>
+  <div class="two">
+    <a href="img/admission-dark.webp"><img src="img/admission-dark.webp" alt="Admission in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/admission-light.webp"><img src="img/admission-light.webp" alt="Admission in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="exam-hud">
+  <figcaption><b>Exam HUD</b> <span class="tag ok">Pass</span></figcaption>
+  <p class="small muted">The floating chrome over the room. The room itself does not follow the theme, by design.</p>
+  <div class="two">
+    <a href="img/exam-hud-dark.webp"><img src="img/exam-hud-dark.webp" alt="Exam HUD in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/exam-hud-light.webp"><img src="img/exam-hud-light.webp" alt="Exam HUD in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="results">
+  <figcaption><b>Results</b> <span class="tag fix">Fixed</span></figcaption>
+  <p class="small muted">The page behind the card was periwinkle: the dark theme&#x27;s scrim tint multiplied into a light page. It is a theme token now.</p>
+  <div class="two">
+    <a href="img/results-dark.webp"><img src="img/results-dark.webp" alt="Results in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/results-light.webp"><img src="img/results-light.webp" alt="Results in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="results-end">
+  <figcaption><b>Results (scrolled)</b> <span class="tag fix">Fixed</span></figcaption>
+  
+  <div class="two">
+    <a href="img/results-end-dark.webp"><img src="img/results-end-dark.webp" alt="Results (scrolled) in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/results-end-light.webp"><img src="img/results-end-light.webp" alt="Results (scrolled) in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="store-top">
+  <figcaption><b>Store</b> <span class="tag bad">Problem</span></figcaption>
+  <p class="small muted">Prices you cannot afford are fixed (slate ink). The not-owned veil over the tile art is the problem: see the other session&#x27;s list.</p>
+  <div class="two">
+    <a href="img/store-top-dark.webp"><img src="img/store-top-dark.webp" alt="Store in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/store-top-light.webp"><img src="img/store-top-light.webp" alt="Store in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="wardrobe">
+  <figcaption><b>Wardrobe</b> <span class="tag bad">Problem</span></figcaption>
+  <p class="small muted">The preview stage reads the RaisedTop token and matches its card. The tile art is washed out by the not-owned veil.</p>
+  <div class="two">
+    <a href="img/wardrobe-dark.webp"><img src="img/wardrobe-dark.webp" alt="Wardrobe in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/wardrobe-light.webp"><img src="img/wardrobe-light.webp" alt="Wardrobe in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="wardrobe-grid">
+  <figcaption><b>Wardrobe grid</b> <span class="tag bad">Problem</span></figcaption>
+  
+  <div class="two">
+    <a href="img/wardrobe-grid-dark.webp"><img src="img/wardrobe-grid-dark.webp" alt="Wardrobe grid in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/wardrobe-grid-light.webp"><img src="img/wardrobe-grid-light.webp" alt="Wardrobe grid in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+<figure class="shotpair" id="manual">
+  <figcaption><b>Manual</b> <span class="tag ok">Pass</span></figcaption>
+  
+  <div class="two">
+    <a href="img/manual-dark.webp"><img src="img/manual-dark.webp" alt="Manual in Dark" loading="lazy" width="1080" height="2340"></a>
+    <a href="img/manual-light.webp"><img src="img/manual-light.webp" alt="Manual in Light" loading="lazy" width="1080" height="2340"></a>
+  </div>
+  <div class="two cap"><span>Dark</span><span>Light</span></div>
+</figure>
+  </div>
+</section>
+
+<section>
+  <h2>Not verified yet</h2>
+  <ul class="list">
+    <li><b>Not seen on a phone.</b> Every frame here is from the editor in batchmode. Follow phone's Android query has not run on a device: the code path is compiled for Android only and the editor answers "unknown".</li>
+    <li>The live switch is tested in the scene from Settings during a career, between exams. It is not tested from the title screen's Settings or with Settings opened over a running exam (the pause screen), though those screens rebuild from state like every other.</li>
+    <li>Two things seen in the captures that are the same in Dark and were not changed: Settings shows a Back button while the tab bar is also on screen, and the panel shell keeps the previous tab's scroll position when a different tab opens.</li>
+  </ul>
+</section>
+</div>
+</body>
+</html>
