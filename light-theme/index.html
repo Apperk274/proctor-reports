@@ -71,6 +71,10 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
 .pair figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
 .pair figcaption { font-size: 0.85rem; color: var(--muted); }
 .pair figcaption b { color: var(--ink); font-weight: 600; display: block; }
+.phones { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 12px; }
+.phones figure { margin: 0; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px; align-content: start; }
+.phones img { border-radius: 6px; width: 100%; background: #000; }
+.phones figcaption { font-size: 0.8rem; color: var(--muted); }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
 .shotpair { margin: 0; display: grid; gap: 8px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
 .shotpair figcaption { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -449,12 +453,72 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; }
   </div>
 </section>
 
+<section id="phone">
+  <h2>On the phone</h2>
+  <p>Galaxy A15 (SM-S156V, 90 Hz), development build of <code>origin/main</code> <code>4000368</code> (APK 111.1 MB), checked on the player's own career. That career was backed up first and restored byte for byte afterwards.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Check</th><th>Result</th><th>What happened</th></tr></thead>
+    <tbody>
+      <tr><td>Old settings file</td><td><span class="tag ok">Pass</span></td><td class="wrap">The phone's settings file predates the option. The game opened in Dark.</td></tr>
+      <tr><td>Live switch: title Settings</td><td><span class="tag ok">Pass</span></td><td class="wrap">Dark to Light restyles the open screen in place. Back shows the title in Light.</td></tr>
+      <tr><td>Live switch: hub, Store, Career tab</td><td><span class="tag bad">Problem</span></td><td class="wrap">Dark to Light to Dark from the gear works, and every tab opens in the new theme. But after each switch, in-career Settings shows a <b>Back button above the tab bar</b> until Settings is opened again.</td></tr>
+      <tr><td>Live switch: pause (exam) Settings</td><td><span class="tag ok">Pass</span></td><td class="wrap">Light to Dark to Light while paused. Back returns to the same exam, with the clock and the room intact.</td></tr>
+      <tr><td>Cost of a switch</td><td><span class="tag bad">Problem</span></td><td class="wrap">Each live switch is one frame of 370 to 390 ms (the rebuild allocates about 3 MB). The switch on returning to the app was a 1.3 s frame. No flash and no lost state, but a visible pause.</td></tr>
+      <tr><td>Follow phone</td><td><span class="tag ok">Pass</span></td><td class="wrap">It follows when the game comes back to the front: about half a second after return (still Dark at 0.7 s, Light by 2.5 s). It does not follow while the game keeps focus, but changing dark mode from the quick-settings shade takes focus, and the game had followed by the time the shade closed. It falls back to the phone's own mode, not the game's, and Dark/Light never ask the phone.</td></tr>
+      <tr><td>Light screens</td><td><span class="tag ok">Pass</span></td><td class="wrap">Title, two schools' day heroes, event cards, admission, exam HUD, results, Store (30% veil, coin mark), Wardrobe and Career all read. No offer card came up in this run.</td></tr>
+      <tr><td>Sound cue over the room</td><td><span class="tag fix">Note</span></td><td class="wrap">The heard-noise line fades its text while its card stays solid. That is the same in Dark, but pale grey fading on a white card is weaker (<a href="img/phone-sound-cue-crop.webp">crop</a>).</td></tr>
+      <tr><td>Frame rate in Light</td><td><span class="tag ok">Pass</span></td><td class="wrap">A steady 45 fps (p95 22.3 ms) through the door, the exam and the results, the same as Dark.</td></tr>
+      <tr><td>Logcat</td><td><span class="tag ok">Pass</span></td><td class="wrap">No crash, ANR or exception. The only errors were the development player's 19 socket and multicast lines.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <p><b>Also seen, and the same in Dark:</b> the strip above the safe area shows the room behind Settings, the Store and events. Settings opens wherever the previous tab was scrolled to (one tap meant for the theme landed on Hints because of it). The rebuild for the shade return lost the Settings scroll position, while the one on resume kept it.</p>
+  </div>
+  <h3>Settings, live, from every place it opens</h3>
+  <div class="phones">
+    <figure><a href="img/phone-title-dark-default.webp"><img src="img/phone-title-dark-default.webp" alt="First launch: the old settings file loads as Dark" loading="lazy" width="1080" height="2340"></a><figcaption>First launch: the old settings file loads as Dark</figcaption></figure>
+    <figure><a href="img/phone-title-settings-light.webp"><img src="img/phone-title-settings-light.webp" alt="Title screen's Settings: Light, live" loading="lazy" width="1080" height="2340"></a><figcaption>Title screen's Settings: Light, live</figcaption></figure>
+    <figure><a href="img/phone-title-light.webp"><img src="img/phone-title-light.webp" alt="The title behind it, in Light" loading="lazy" width="1080" height="2340"></a><figcaption>The title behind it, in Light</figcaption></figure>
+    <figure><a href="img/phone-settings-back-bug.webp"><img src="img/phone-settings-back-bug.webp" alt="In-career Settings after a switch: a stray Back above the tab bar" loading="lazy" width="1080" height="2340"></a><figcaption>In-career Settings after a switch: a stray Back above the tab bar</figcaption></figure>
+    <figure><a href="img/phone-pause-light.webp"><img src="img/phone-pause-light.webp" alt="Exam paused, Light" loading="lazy" width="1080" height="2340"></a><figcaption>Exam paused, Light</figcaption></figure>
+    <figure><a href="img/phone-pause-dark.webp"><img src="img/phone-pause-dark.webp" alt="Exam paused, switched to Dark live" loading="lazy" width="1080" height="2340"></a><figcaption>Exam paused, switched to Dark live</figcaption></figure>
+    <figure><a href="img/phone-exam-dark-after-pause.webp"><img src="img/phone-exam-dark-after-pause.webp" alt="Back in the exam: clock and room intact, Dark" loading="lazy" width="1080" height="2340"></a><figcaption>Back in the exam: clock and room intact, Dark</figcaption></figure>
+  </div>
+  <h3>Follow phone</h3>
+  <div class="phones">
+    <figure><a href="img/phone-follow-dark.webp"><img src="img/phone-follow-dark.webp" alt="Follow phone, phone in dark mode: Dark" loading="lazy" width="1080" height="2340"></a><figcaption>Follow phone, phone in dark mode: Dark</figcaption></figure>
+    <figure><a href="img/phone-resume-0p7s.webp"><img src="img/phone-resume-0p7s.webp" alt="Phone set to light while the game was away: 0.7 s after return" loading="lazy" width="1080" height="2340"></a><figcaption>Phone set to light while the game was away: 0.7 s after return</figcaption></figure>
+    <figure><a href="img/phone-resume-2p5s.webp"><img src="img/phone-resume-2p5s.webp" alt="2.5 s after return: Light" loading="lazy" width="1080" height="2340"></a><figcaption>2.5 s after return: Light</figcaption></figure>
+    <figure><a href="img/phone-foreground-no-follow.webp"><img src="img/phone-foreground-no-follow.webp" alt="Dark mode switched with the game in front: no change" loading="lazy" width="1080" height="2340"></a><figcaption>Dark mode switched with the game in front: no change</figcaption></figure>
+    <figure><a href="img/phone-after-shade.webp"><img src="img/phone-after-shade.webp" alt="After the quick-settings shade opens and closes: Dark" loading="lazy" width="1080" height="2340"></a><figcaption>After the quick-settings shade opens and closes: Dark</figcaption></figure>
+  </div>
+  <h3>Light on the phone</h3>
+  <div class="phones">
+    <figure><a href="img/phone-hub-kingsley-light.webp"><img src="img/phone-hub-kingsley-light.webp" alt="Hub, Kingsley Academy" loading="lazy" width="1080" height="2340"></a><figcaption>Hub, Kingsley Academy</figcaption></figure>
+    <figure><a href="img/phone-hub-maple-light.webp"><img src="img/phone-hub-maple-light.webp" alt="Hub, Maple Elementary" loading="lazy" width="1080" height="2340"></a><figcaption>Hub, Maple Elementary</figcaption></figure>
+    <figure><a href="img/phone-event-light.webp"><img src="img/phone-event-light.webp" alt="Event card" loading="lazy" width="1080" height="2340"></a><figcaption>Event card</figcaption></figure>
+    <figure><a href="img/phone-admission-light.webp"><img src="img/phone-admission-light.webp" alt="Admission, buttons disabled while the person walks in" loading="lazy" width="1080" height="2340"></a><figcaption>Admission, buttons disabled while the person walks in</figcaption></figure>
+    <figure><a href="img/phone-exam-hud-light.webp"><img src="img/phone-exam-hud-light.webp" alt="Exam HUD" loading="lazy" width="1080" height="2340"></a><figcaption>Exam HUD</figcaption></figure>
+    <figure><a href="img/phone-results-light.webp"><img src="img/phone-results-light.webp" alt="Results" loading="lazy" width="1080" height="2340"></a><figcaption>Results</figcaption></figure>
+    <figure><a href="img/phone-results2-light.webp"><img src="img/phone-results2-light.webp" alt="Results with costs" loading="lazy" width="1080" height="2340"></a><figcaption>Results with costs</figcaption></figure>
+    <figure><a href="img/phone-audit-light.webp"><img src="img/phone-audit-light.webp" alt="Admissions audit" loading="lazy" width="1080" height="2340"></a><figcaption>Admissions audit</figcaption></figure>
+    <figure><a href="img/phone-store-light.webp"><img src="img/phone-store-light.webp" alt="Store: the veil at 30% and the coin mark" loading="lazy" width="1080" height="2340"></a><figcaption>Store: the veil at 30% and the coin mark</figcaption></figure>
+    <figure><a href="img/phone-wardrobe-grid-light.webp"><img src="img/phone-wardrobe-grid-light.webp" alt="Wardrobe grid" loading="lazy" width="1080" height="2340"></a><figcaption>Wardrobe grid</figcaption></figure>
+    <figure><a href="img/phone-career-light.webp"><img src="img/phone-career-light.webp" alt="Career tab" loading="lazy" width="1080" height="2340"></a><figcaption>Career tab</figcaption></figure>
+  </div>
+  <h3>And back to Dark, live</h3>
+  <div class="phones">
+    <figure><a href="img/phone-career-dark.webp"><img src="img/phone-career-dark.webp" alt="Career tab" loading="lazy" width="1080" height="2340"></a><figcaption>Career tab</figcaption></figure>
+    <figure><a href="img/phone-store-dark.webp"><img src="img/phone-store-dark.webp" alt="Store" loading="lazy" width="1080" height="2340"></a><figcaption>Store</figcaption></figure>
+    <figure><a href="img/phone-hub-dark.webp"><img src="img/phone-hub-dark.webp" alt="Hub" loading="lazy" width="1080" height="2340"></a><figcaption>Hub</figcaption></figure>
+  </div>
+</section>
+
 <section>
   <h2>Not verified yet</h2>
   <ul class="list">
-    <li><b>Not seen on a phone.</b> Every frame here is from the editor in batchmode. Follow phone's Android query has not run on a device: the code path is compiled for Android only and the editor answers "unknown".</li>
-    <li>The live switch is tested in the scene from Settings during a career, between exams. It is not tested from the title screen's Settings or with Settings opened over a running exam (the pause screen), though those screens rebuild from state like every other.</li>
-    <li>Two things seen in the captures that are the same in Dark and were not changed: Settings shows a Back button while the tab bar is also on screen, and the panel shell keeps the previous tab's scroll position when a different tab opens.</li>
+    <li>An offer card on the phone: none came up in this run. The editor captures above cover both offer cards.</li>
+    <li>Follow phone on a phone with Samsung's dark-mode schedule turned on. This phone's schedule is off, and the check changed dark mode by hand.</li>
   </ul>
 </section>
 </div>
