@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Texture Compression</title>
+<meta name="description" content="Stronger ASTC compression for the baked Blender art: clean APK sizes for each option and the real decoded pixels side by side with today's ASTC 6x6.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --bad: #b42318; --bad-soft: #fde4e1; --warn: #9a5b00; --warn-soft: #fbefd9;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+img { max-width: 100%; height: auto; display: block; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pass { background: var(--accent-soft); color: var(--accent); }
+.na { background: var(--line); color: var(--muted); }
+.fail { background: var(--bad-soft); color: var(--bad); }
+.minor { background: var(--warn-soft); color: var(--warn); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+ul.list li { color: var(--muted); }
+ul.list b { color: var(--ink); font-weight: 600; }
+.subject { display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.scale { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.crop { margin: 0; flex: 0 0 auto; width: 200px; display: grid; gap: 4px; }
+.crop img { width: 200px; height: 140px; image-rendering: pixelated; border-radius: 4px; border: 1px solid var(--line); }
+.crop.today img { border-color: var(--accent); }
+.crop figcaption { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.crop.today figcaption { color: var(--accent); font-weight: 600; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · APK size · measured on main eed4d45, branch texture-compression</span>
+    <h1>Texture Compression</h1>
+    <p class="lede">The baked Blender renders (hub heroes, title, exam hall, event objects, shop tiles) ship as ASTC 6×6.
+      This compares stronger settings: the APK size of a clean build for each, and the pixels the phone's GPU really
+      decodes, side by side with today's.</p>
+  </header>
+
+  <section>
+    <div class="cards">
+      <div class="card"><span class="big">114.63 MB</span><p>Today's development APK, from a clean build. Rebuilt three times at the shipped settings: the same size each time, within 8 bytes.</p></div>
+      <div class="card"><span class="big">11.4 MB</span><p>The 72 baked renders in the build, out of 15.8 MB of textures and 33.6 MB of user assets.</p></div>
+      <div class="card"><span class="big">−3.55 MB</span><p>The recommendation: scenes and event objects to ASTC 8×8, shop tiles left alone. No difference at phone size.</p></div>
+      <div class="card"><span class="big">−6.14 MB</span><p>The most this measured: everything at 8×8 and the daytime renders left out, which needs a decision first.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Size by option</h2>
+      <p class="muted">Every row is its own clean Android development build of the same commit. Only the Android/iOS
+        format or max size of the baked art changes. "Art in build" is the renders' total in Unity's build report.
+        1 MB = 1,000,000 bytes.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Option</th><th>What changes</th><th class="num">APK MB</th><th class="num">Saving</th><th class="num">Art in build MB</th><th>At phone size</th></tr></thead>
+        <tbody>
+<tr><td><b>Today</b></td><td>Everything ASTC 6×6, max 2048</td><td class="num">114.63</td><td class="num">–</td><td class="num">11.38</td><td><span class="pill na">baseline</span></td></tr>
+<tr><td><b>A</b></td><td>Everything ASTC 8×8</td><td class="num">110.20</td><td class="num">−4.43 (3.9%)</td><td class="num">6.39</td><td><span class="pill pass">No visible change at phone size</span></td></tr>
+<tr><td><b>A without shop tiles <span class="pill pass">recommended</span></b></td><td>Scenes and event objects 8×8; the 45 shop tiles stay 6×6</td><td class="num">111.08</td><td class="num">−3.55 (3.1%)</td><td class="num">7.34</td><td><span class="pill pass">No visible change at phone size</span></td></tr>
+<tr><td><b>A + no day renders</b></td><td>Everything 8×8 and the 10 daytime renders left out</td><td class="num">108.50</td><td class="num">−6.14 (5.4%)</td><td class="num">4.11</td><td><span class="pill minor">Needs a decision on the day renders</span></td></tr>
+<tr><td><b>B · 8×8</b></td><td>Scenes 6×6; event objects and all shop tiles 8×8</td><td class="num">113.33</td><td class="num">−1.30 (1.1%)</td><td class="num">9.97</td><td><span class="pill pass">No visible change at phone size</span></td></tr>
+<tr><td><b>B · 8×8, store tiles only</b></td><td>As above, the 35 wardrobe tiles left at 6×6</td><td class="num">114.01</td><td class="num">−0.62 (0.5%)</td><td class="num">10.71</td><td><span class="pill pass">No visible change at phone size</span></td></tr>
+<tr><td><b>B · 10×10</b></td><td>Scenes 6×6; event objects and all shop tiles 10×10</td><td class="num">112.75</td><td class="num">−1.89 (1.6%)</td><td class="num">9.32</td><td><span class="pill fail">Blocky edges on tiles and objects</span></td></tr>
+<tr><td><b>C · max 1024</b></td><td>Scenes 6×6 but scaled to 1024 px wide</td><td class="num">112.30</td><td class="num">−2.34 (2.0%)</td><td class="num">8.78</td><td><span class="pill fail">Softer than 8×8, for less saving</span></td></tr>
+<tr><td><b>C · heroes 8×8</b></td><td>Only the 16 hub heroes 8×8</td><td class="num">112.14</td><td class="num">−2.49 (2.2%)</td><td class="num">8.47</td><td><span class="pill pass">No visible change at phone size</span></td></tr>
+<tr><td><b>C · no day renders</b></td><td>Everything 6×6; the 10 daytime renders left out</td><td class="num">111.40</td><td class="num">−3.23 (2.8%)</td><td class="num">7.30</td><td><span class="pill minor">Nothing on screen changes today</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">The APK shrinks by a little less than the art does, because the APK's zip compression already
+      squeezed the ASTC data by about 12%. Most of the development APK is code: <code>libil2cpp.so</code> alone is
+      71 MB of it, so the same megabytes are a larger share of a release build.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Where the 11.4 MB goes today</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Group</th><th class="num">Files</th><th class="num">Size at 6×6</th><th class="num">At 8×8</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><b>Hub heroes, dusk</b></td><td class="num">8</td><td class="num">3.31 MB</td><td class="num">1.85 MB</td><td>1248 × 775 each, shown at about 998 × 620.</td></tr>
+          <tr><td><b>Hub heroes, day</b></td><td class="num">8</td><td class="num">3.31 MB</td><td class="num">1.85 MB</td><td>Only drawn in a light theme, and the game has no way to switch to one yet.</td></tr>
+          <tr><td><b>Title, dusk and day</b></td><td class="num">2</td><td class="num">1.07 MB</td><td class="num">0.61 MB</td><td>1248 × 1010.</td></tr>
+          <tr><td><b>Exam hall banner, dusk and day</b></td><td class="num">2</td><td class="num">0.46 MB</td><td class="num">0.26 MB</td><td>1120 × 483.</td></tr>
+          <tr><td><b>Event objects</b></td><td class="num">7</td><td class="num">1.06 MB</td><td class="num">0.60 MB</td><td>1120 × 318, one for both themes.</td></tr>
+          <tr><td><b>Store tiles</b></td><td class="num">10</td><td class="num">0.48 MB</td><td class="num">0.27 MB</td><td>480 × 230: detector, pills, shirts, badges.</td></tr>
+          <tr><td><b>Wardrobe tiles (M131)</b></td><td class="num">35</td><td class="num">1.69 MB</td><td class="num">0.95 MB</td><td>480 × 230. Owned by the store and wardrobe work, so they are listed apart and nothing here changes them.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">The daytime renders (8 heroes, title and exam hall) are 4.6 MB of the 11.4 at 6×6. Leaving
+      them out saves 3.23 MB of APK at today's settings, or 1.70 MB on top of all-8×8. They are not loaded while
+      the theme is dark, so they cost download size only, not memory. The question for you: should they ship
+      before a light theme exists? They were measured, not removed.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>What the phone draws</h2>
+      <p class="muted">Each picture was imported with the setting shown, and the GPU decoded the real ASTC texture.
+        The texture was then drawn at the size the phone shows it (renders are made at 1.25× that) and read back.
+        "Source" is the same path with no compression. The first row of each subject is phone pixels 1:1. The second
+        is a part of it at 2× with nearest-neighbour, so every pixel shows. The dB figure is the whole picture's
+        PSNR against the source at phone size: higher is closer. On a laptop screen, 1:1 is already larger than on
+        a phone, whose pixels are about three times smaller.</p>
+    </div>
+<div class="subject"><h3>Maple at dusk: night sky, moon and roof</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_maple_dark_source_1x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_maple_dark_6x6_1x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8_1x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 46.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_6x6-1024_1x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 44.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8-1024_1x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 42.7 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_maple_dark_source_2x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_maple_dark_6x6_2x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8_2x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 46.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_6x6-1024_2x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 44.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8-1024_2x.png" width="200" height="140" alt="Maple at dusk: night sky, moon and roof, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 42.7 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Maple by day: blue sky and roof</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_maple_light_source_1x.png" width="200" height="140" alt="Maple by day: blue sky and roof, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_maple_light_6x6_1x.png" width="200" height="140" alt="Maple by day: blue sky and roof, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_8x8_1x.png" width="200" height="140" alt="Maple by day: blue sky and roof, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 45.8 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_6x6-1024_1x.png" width="200" height="140" alt="Maple by day: blue sky and roof, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 44.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_8x8-1024_1x.png" width="200" height="140" alt="Maple by day: blue sky and roof, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 42.5 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_maple_light_source_2x.png" width="200" height="140" alt="Maple by day: blue sky and roof, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_maple_light_6x6_2x.png" width="200" height="140" alt="Maple by day: blue sky and roof, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_8x8_2x.png" width="200" height="140" alt="Maple by day: blue sky and roof, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 45.8 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_6x6-1024_2x.png" width="200" height="140" alt="Maple by day: blue sky and roof, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 44.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_light_8x8-1024_2x.png" width="200" height="140" alt="Maple by day: blue sky and roof, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 42.5 dB</figcaption></figure></div></div>
+<div class="subject"><h3>State University at dusk: sky gradient and dome</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_stateuni_dark_source_1x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_stateuni_dark_6x6_1x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_8x8_1x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 46.4 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_6x6-1024_1x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 41.9 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_8x8-1024_1x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 40.9 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_stateuni_dark_source_2x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_stateuni_dark_6x6_2x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_8x8_2x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 46.4 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_6x6-1024_2x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 41.9 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_dark_8x8-1024_2x.png" width="200" height="140" alt="State University at dusk: sky gradient and dome, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 40.9 dB</figcaption></figure></div></div>
+<div class="subject"><h3>State University by day: sky and dome</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_stateuni_light_source_1x.png" width="200" height="140" alt="State University by day: sky and dome, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_stateuni_light_6x6_1x.png" width="200" height="140" alt="State University by day: sky and dome, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.4 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8_1x.png" width="200" height="140" alt="State University by day: sky and dome, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 47.5 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_6x6-1024_1x.png" width="200" height="140" alt="State University by day: sky and dome, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 46.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8-1024_1x.png" width="200" height="140" alt="State University by day: sky and dome, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 44.1 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_stateuni_light_source_2x.png" width="200" height="140" alt="State University by day: sky and dome, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_stateuni_light_6x6_2x.png" width="200" height="140" alt="State University by day: sky and dome, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.4 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8_2x.png" width="200" height="140" alt="State University by day: sky and dome, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 47.5 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_6x6-1024_2x.png" width="200" height="140" alt="State University by day: sky and dome, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 46.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8-1024_2x.png" width="200" height="140" alt="State University by day: sky and dome, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 44.1 dB</figcaption></figure></div></div>
+<div class="subject"><h3>National Centre at dusk: lit columns</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_national_dark_source_1x.png" width="200" height="140" alt="National Centre at dusk: lit columns, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_national_dark_6x6_1x.png" width="200" height="140" alt="National Centre at dusk: lit columns, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_8x8_1x.png" width="200" height="140" alt="National Centre at dusk: lit columns, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 46.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_6x6-1024_1x.png" width="200" height="140" alt="National Centre at dusk: lit columns, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 39.5 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_8x8-1024_1x.png" width="200" height="140" alt="National Centre at dusk: lit columns, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 38.8 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_national_dark_source_2x.png" width="200" height="140" alt="National Centre at dusk: lit columns, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_national_dark_6x6_2x.png" width="200" height="140" alt="National Centre at dusk: lit columns, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_8x8_2x.png" width="200" height="140" alt="National Centre at dusk: lit columns, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 46.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_6x6-1024_2x.png" width="200" height="140" alt="National Centre at dusk: lit columns, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 39.5 dB</figcaption></figure><figure class="crop"><img src="img/scene_national_dark_8x8-1024_2x.png" width="200" height="140" alt="National Centre at dusk: lit columns, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 38.8 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Title room: desks and paper in the dark</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/scene_title_dark_source_1x.png" width="200" height="140" alt="Title room: desks and paper in the dark, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_title_dark_6x6_1x.png" width="200" height="140" alt="Title room: desks and paper in the dark, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8_1x.png" width="200" height="140" alt="Title room: desks and paper in the dark, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 45.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_6x6-1024_1x.png" width="200" height="140" alt="Title room: desks and paper in the dark, 6×6, max 1024, 1x" loading="lazy"><figcaption>6×6, max 1024 · 41.9 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8-1024_1x.png" width="200" height="140" alt="Title room: desks and paper in the dark, 8×8, max 1024, 1x" loading="lazy"><figcaption>8×8, max 1024 · 40.6 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/scene_title_dark_source_2x.png" width="200" height="140" alt="Title room: desks and paper in the dark, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_title_dark_6x6_2x.png" width="200" height="140" alt="Title room: desks and paper in the dark, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 49.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8_2x.png" width="200" height="140" alt="Title room: desks and paper in the dark, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 45.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_6x6-1024_2x.png" width="200" height="140" alt="Title room: desks and paper in the dark, 6×6, max 1024, 2x" loading="lazy"><figcaption>6×6, max 1024 · 41.9 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8-1024_2x.png" width="200" height="140" alt="Title room: desks and paper in the dark, 8×8, max 1024, 2x" loading="lazy"><figcaption>8×8, max 1024 · 40.6 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Event object: the note on a dark desk</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/prop_note_source_1x.png" width="200" height="140" alt="Event object: the note on a dark desk, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/prop_note_6x6_1x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 51.8 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_8x8_1x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_10x10_1x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 10×10, 1x" loading="lazy"><figcaption>ASTC 10×10 · 47.7 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/prop_note_source_2x.png" width="200" height="140" alt="Event object: the note on a dark desk, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/prop_note_6x6_2x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 51.8 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_8x8_2x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_10x10_2x.png" width="200" height="140" alt="Event object: the note on a dark desk, ASTC 10×10, 2x" loading="lazy"><figcaption>ASTC 10×10 · 47.7 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Event object: the person in the doorway</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/prop_person_source_1x.png" width="200" height="140" alt="Event object: the person in the doorway, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/prop_person_6x6_1x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.6 dB</figcaption></figure><figure class="crop"><img src="img/prop_person_8x8_1x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 48.0 dB</figcaption></figure><figure class="crop"><img src="img/prop_person_10x10_1x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 10×10, 1x" loading="lazy"><figcaption>ASTC 10×10 · 45.0 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/prop_person_source_2x.png" width="200" height="140" alt="Event object: the person in the doorway, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/prop_person_6x6_2x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.6 dB</figcaption></figure><figure class="crop"><img src="img/prop_person_8x8_2x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 48.0 dB</figcaption></figure><figure class="crop"><img src="img/prop_person_10x10_2x.png" width="200" height="140" alt="Event object: the person in the doorway, ASTC 10×10, 2x" loading="lazy"><figcaption>ASTC 10×10 · 45.0 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Store tile: signal detector</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/tile_signal_detector_source_1x.png" width="200" height="140" alt="Store tile: signal detector, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/tile_signal_detector_6x6_1x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 47.9 dB</figcaption></figure><figure class="crop"><img src="img/tile_signal_detector_8x8_1x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 44.6 dB</figcaption></figure><figure class="crop"><img src="img/tile_signal_detector_10x10_1x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 10×10, 1x" loading="lazy"><figcaption>ASTC 10×10 · 42.3 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/tile_signal_detector_source_2x.png" width="200" height="140" alt="Store tile: signal detector, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/tile_signal_detector_6x6_2x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 47.9 dB</figcaption></figure><figure class="crop"><img src="img/tile_signal_detector_8x8_2x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 44.6 dB</figcaption></figure><figure class="crop"><img src="img/tile_signal_detector_10x10_2x.png" width="200" height="140" alt="Store tile: signal detector, ASTC 10×10, 2x" loading="lazy"><figcaption>ASTC 10×10 · 42.3 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Wardrobe tile: blazer</h3><p class="scale">1:1 phone pixels</p><div class="strip"><figure class="crop"><img src="img/tile_top_blazer_source_1x.png" width="200" height="140" alt="Wardrobe tile: blazer, Source (no compression), 1x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/tile_top_blazer_6x6_1x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 6×6 · today, 1x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.6 dB</figcaption></figure><figure class="crop"><img src="img/tile_top_blazer_8x8_1x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 8×8, 1x" loading="lazy"><figcaption>ASTC 8×8 · 47.9 dB</figcaption></figure><figure class="crop"><img src="img/tile_top_blazer_10x10_1x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 10×10, 1x" loading="lazy"><figcaption>ASTC 10×10 · 45.2 dB</figcaption></figure></div><p class="scale">2× zoom, nearest neighbour</p><div class="strip"><figure class="crop"><img src="img/tile_top_blazer_source_2x.png" width="200" height="140" alt="Wardrobe tile: blazer, Source (no compression), 2x" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/tile_top_blazer_6x6_2x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 6×6 · today, 2x" loading="lazy"><figcaption>ASTC 6×6 · today · 50.6 dB</figcaption></figure><figure class="crop"><img src="img/tile_top_blazer_8x8_2x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 8×8, 2x" loading="lazy"><figcaption>ASTC 8×8 · 47.9 dB</figcaption></figure><figure class="crop"><img src="img/tile_top_blazer_10x10_2x.png" width="200" height="140" alt="Wardrobe tile: blazer, ASTC 10×10, 2x" loading="lazy"><figcaption>ASTC 10×10 · 45.2 dB</figcaption></figure></div></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Gradients at six times the contrast</h2>
+      <p class="muted">Banding shows first in smooth skies and dark glows, so these smooth areas are stretched to
+        six times their contrast around the source's average colour. At normal contrast every column here looks
+        the same. This is the stress test, not what a player sees.</p>
+    </div>
+<div class="subject"><h3>Maple dusk sky, 6x contrast</h3><div class="strip"><figure class="crop"><img src="img/scene_maple_dark_source_amp.png" width="200" height="140" alt="Maple dusk sky, 6x contrast, Source (no compression), amp" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_maple_dark_6x6_amp.png" width="200" height="140" alt="Maple dusk sky, 6x contrast, ASTC 6×6 · today, amp" loading="lazy"><figcaption>ASTC 6×6 · today · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8_amp.png" width="200" height="140" alt="Maple dusk sky, 6x contrast, ASTC 8×8, amp" loading="lazy"><figcaption>ASTC 8×8 · 46.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_6x6-1024_amp.png" width="200" height="140" alt="Maple dusk sky, 6x contrast, 6×6, max 1024, amp" loading="lazy"><figcaption>6×6, max 1024 · 44.3 dB</figcaption></figure><figure class="crop"><img src="img/scene_maple_dark_8x8-1024_amp.png" width="200" height="140" alt="Maple dusk sky, 6x contrast, 8×8, max 1024, amp" loading="lazy"><figcaption>8×8, max 1024 · 42.7 dB</figcaption></figure></div></div>
+<div class="subject"><h3>State University day sky, 6x contrast</h3><div class="strip"><figure class="crop"><img src="img/scene_stateuni_light_source_amp.png" width="200" height="140" alt="State University day sky, 6x contrast, Source (no compression), amp" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_stateuni_light_6x6_amp.png" width="200" height="140" alt="State University day sky, 6x contrast, ASTC 6×6 · today, amp" loading="lazy"><figcaption>ASTC 6×6 · today · 50.4 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8_amp.png" width="200" height="140" alt="State University day sky, 6x contrast, ASTC 8×8, amp" loading="lazy"><figcaption>ASTC 8×8 · 47.5 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_6x6-1024_amp.png" width="200" height="140" alt="State University day sky, 6x contrast, 6×6, max 1024, amp" loading="lazy"><figcaption>6×6, max 1024 · 46.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_stateuni_light_8x8-1024_amp.png" width="200" height="140" alt="State University day sky, 6x contrast, 8×8, max 1024, amp" loading="lazy"><figcaption>8×8, max 1024 · 44.1 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Title room wall, 6x contrast</h3><div class="strip"><figure class="crop"><img src="img/scene_title_dark_source_amp.png" width="200" height="140" alt="Title room wall, 6x contrast, Source (no compression), amp" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/scene_title_dark_6x6_amp.png" width="200" height="140" alt="Title room wall, 6x contrast, ASTC 6×6 · today, amp" loading="lazy"><figcaption>ASTC 6×6 · today · 49.0 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8_amp.png" width="200" height="140" alt="Title room wall, 6x contrast, ASTC 8×8, amp" loading="lazy"><figcaption>ASTC 8×8 · 45.6 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_6x6-1024_amp.png" width="200" height="140" alt="Title room wall, 6x contrast, 6×6, max 1024, amp" loading="lazy"><figcaption>6×6, max 1024 · 41.9 dB</figcaption></figure><figure class="crop"><img src="img/scene_title_dark_8x8-1024_amp.png" width="200" height="140" alt="Title room wall, 6x contrast, 8×8, max 1024, amp" loading="lazy"><figcaption>8×8, max 1024 · 40.6 dB</figcaption></figure></div></div>
+<div class="subject"><h3>Note card's purple glow, 6x contrast</h3><div class="strip"><figure class="crop"><img src="img/prop_note_source_amp.png" width="200" height="140" alt="Note card's purple glow, 6x contrast, Source (no compression), amp" loading="lazy"><figcaption>Source (no compression)</figcaption></figure><figure class="crop today"><img src="img/prop_note_6x6_amp.png" width="200" height="140" alt="Note card's purple glow, 6x contrast, ASTC 6×6 · today, amp" loading="lazy"><figcaption>ASTC 6×6 · today · 51.8 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_8x8_amp.png" width="200" height="140" alt="Note card's purple glow, 6x contrast, ASTC 8×8, amp" loading="lazy"><figcaption>ASTC 8×8 · 50.0 dB</figcaption></figure><figure class="crop"><img src="img/prop_note_10x10_amp.png" width="200" height="140" alt="Note card's purple glow, 6x contrast, ASTC 10×10, amp" loading="lazy"><figcaption>ASTC 10×10 · 47.7 dB</figcaption></figure></div></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Where quality suffers</h2>
+    </div>
+    <ul class="list">
+      <li><b>8×8, at phone size: no visible difference.</b> In every 1:1 crop (dusk and day skies, the title room, the dark note and doorway, the tiles), 8×8 can't be told from 6×6.</li>
+      <li><b>8×8, at 2×: slightly softer hard edges.</b> The moon's rim, the dome's finial and the paper edges are a touch less crisp, and some stars lose a little brightness. No blocks show.</li>
+      <li><b>8×8, at 6× contrast: faint bands in the dusk sky.</b> 6×6 shows them too, more weakly. The day sky and the title room's wall stay clean.</li>
+      <li><b>10×10 breaks first on the small art.</b> At 2×, the signal detector's edges and the blazer's lapels go visibly blocky, and at 1:1 the detector's green bars look smeared. Avoid it.</li>
+      <li><b>Max size 1024 is the wrong lever.</b> Shrinking to 1024 and then drawing at about 998 px resamples the picture twice. Columns, the dome and the desks go soft at 1:1, the PSNR falls below 8×8 at full size, and it saves less (−2.34 MB against −2.49 MB for heroes at 8×8). At 8×8 and 1024, the dusk sky bands are visible at 6× contrast.</li>
+    </ul>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>PSNR at phone size, dB</th><th class="num">6×6 today</th><th class="num">8×8</th><th class="num">10×10</th><th class="num">6×6 @1024</th><th class="num">8×8 @1024</th></tr></thead>
+        <tbody>
+<tr><td><code>scene_maple_dark</code></td><td class="num">50.0</td><td class="num">46.6</td><td class="num">43.8</td><td class="num">44.3</td><td class="num">42.7</td></tr>
+<tr><td><code>scene_maple_light</code></td><td class="num">49.0</td><td class="num">45.8</td><td class="num">42.8</td><td class="num">44.3</td><td class="num">42.5</td></tr>
+<tr><td><code>scene_stateuni_dark</code></td><td class="num">49.6</td><td class="num">46.4</td><td class="num">43.3</td><td class="num">41.9</td><td class="num">40.9</td></tr>
+<tr><td><code>scene_stateuni_light</code></td><td class="num">50.4</td><td class="num">47.5</td><td class="num">44.2</td><td class="num">46.0</td><td class="num">44.1</td></tr>
+<tr><td><code>scene_national_dark</code></td><td class="num">50.0</td><td class="num">46.3</td><td class="num">43.5</td><td class="num">39.5</td><td class="num">38.8</td></tr>
+<tr><td><code>scene_national_light</code></td><td class="num">49.1</td><td class="num">45.0</td><td class="num">41.4</td><td class="num">42.9</td><td class="num">41.1</td></tr>
+<tr><td><code>scene_title_dark</code></td><td class="num">49.0</td><td class="num">45.6</td><td class="num">42.7</td><td class="num">41.9</td><td class="num">40.6</td></tr>
+<tr><td><code>scene_examhall_dark</code></td><td class="num">46.4</td><td class="num">42.5</td><td class="num">39.4</td><td class="num">40.4</td><td class="num">38.8</td></tr>
+<tr><td><code>prop_note</code></td><td class="num">51.8</td><td class="num">50.0</td><td class="num">47.7</td><td class="num">47.1</td><td class="num">46.5</td></tr>
+<tr><td><code>prop_person</code></td><td class="num">50.6</td><td class="num">48.0</td><td class="num">45.0</td><td class="num">41.6</td><td class="num">41.2</td></tr>
+<tr><td><code>tile_signal_detector</code></td><td class="num">47.9</td><td class="num">44.6</td><td class="num">42.3</td><td class="num">47.9</td><td class="num">44.6</td></tr>
+<tr><td><code>tile_top_blazer</code></td><td class="num">50.6</td><td class="num">47.9</td><td class="num">45.2</td><td class="num">50.6</td><td class="num">47.9</td></tr>
+<tr><td><code>tile_badge_gold</code></td><td class="num">47.6</td><td class="num">44.9</td><td class="num">41.6</td><td class="num">47.6</td><td class="num">44.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">PSNR depends on the picture, so compare across a row, not down a column. A tile's "@1024" figure equals its full-size one, because tiles are smaller than 1024 already.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Recommendation</h2>
+    </div>
+    <ul class="list">
+      <li><b>Now: ASTC 8×8 for every scene and event object, shop tiles unchanged.</b> −3.55 MB of APK (114.63 → 111.08 MB), and the art in the build drops from 11.4 to 7.3 MB, also in GPU memory while it is on screen. On the branch, this is the proposal commit <code>e0d4156</code>. It changes one line in <code>BakedArtImporter</code> (tiles stay at 6×6, everything else goes to 8×8) and the Android/iOS format in 28 <code>.meta</code> files. Its build came out at exactly the measured size.</li>
+      <li><b>Then: the shop tiles, if their owner agrees.</b> Taking the store and wardrobe tiles to 8×8 too adds about 0.9 MB (all-8×8 is 110.20 MB). 0.68 MB of that is the 35 wardrobe tiles. On the 2× tile crops, 8×8 is only slightly softer.</li>
+      <li><b>Decide on the daytime renders.</b> If no light theme is planned soon, leaving them out saves another 1.7 MB at 8×8 (108.50 MB in all). Scenery already falls back to the dusk render when a day one is missing.</li>
+      <li><b>Not 10×10 and not a smaller max size.</b> See above.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Outside the baked art</h2>
+    </div>
+    <ul class="list">
+      <li><b><code>candidate.glb</code> is the biggest single asset.</b> It is a 3.2 MB file that becomes 10.6 MB in the build, mostly animation (10.4 MB in all). It comes in through glTFast, which brings the baked keyframes in as they are. Lowering the bake rate at export, or reducing the keyframes, would very likely save more than any texture setting here. It belongs to the candidate and wardrobe work, so it was not touched or measured.</li>
+      <li><b>The remaining 4.4 MB of textures</b> are mostly URP's own (SMAA, film grain) and the characters'. Nothing obvious and cheap there.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>How this was measured</h2>
+    </div>
+    <ul class="list">
+      <li><b>Builds.</b> Batchmode, Unity 6000.3.22f1, <code>BuildAndroid.Development</code>, one worktree of main <code>eed4d45</code>. The option comes from an environment variable read by <code>TextureCompressionOptions.cs</code> on the branch. Without it, the shipped settings apply.</li>
+      <li><b>A clean APK takes more than deleting <code>Builds/Android</code>.</b> Unity copies the APK out of Gradle's output in <code>Library/Bee/…/launcher/build/outputs/apk</code>, and Gradle repacks that file incrementally, so a smaller build kept the old file's length. The first round of sizes was wrong for this reason. Every size here comes from a build with Gradle's packaging output deleted, and the sum of the zip entries agrees with it.</li>
+      <li><b>Pixels.</b> <code>CaptureQuality</code> imports copies of the renders at each format, draws the GPU texture (ASTC, decoded by the GPU) to a render target, and reads it back. Read back at full size, the uncompressed path matches the source PNG exactly, so the colour handling adds no error of its own.</li>
+      <li><b>To re-run:</b> <code>Tools/texcomp/run_all.sh</code>, then <code>crops.py</code>, <code>metrics.py</code> and <code>buildreport.py</code> on the results.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

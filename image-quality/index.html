@@ -243,8 +243,8 @@ td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: now
       <div class="card"><span class="big">13 MB</span><p>Source PNGs in the repository (RGB, optimised).</p></div>
       <div class="card"><span class="big" id="apk">110.6 MB</span><p>Development APK built from this branch. In the build report the 26 renders total 9.06 MB, and textures are 13.9 MB in all. The last main build (Oct 25, a different commit) was 103.0 MB, so this is not a clean before-and-after.</p></div>
     </div>
-    <p class="muted">If size matters more than gradient smoothness, ASTC 8×8 brings the renders to about 5.1 MB. It is
-      one line in the importer.</p>
+    <p class="muted">Stronger compression (ASTC 8×8, 10×10, a smaller max size, leaving out the daytime renders) is
+      measured on clean builds, with the decoded pixels side by side, in <a href="../texture-compression/">Texture Compression</a>.</p>
   </section>
 
   <section id="open">

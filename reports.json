@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "texture-compression",
+      "title": "Texture Compression",
+      "category": "performance",
+      "summary": "Clean APK sizes for stronger ASTC settings on the baked art, the decoded pixels beside today's 6x6, and a recommended 3.55 MB saving."
+    },
+    {
       "slug": "performance",
       "title": "Phone Performance",
       "category": "performance",
