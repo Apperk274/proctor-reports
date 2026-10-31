@@ -127,7 +127,7 @@ ol.next { padding-left: 22px; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phases 1–3 done · Phase 4 measured</span>
+    <span class="eyebrow">Exam Supervisor Simulator · M131 · Phases 1–3 done · Phase 4 measured · Polish</span>
     <h1>Wardrobe</h1>
     <p class="lede">The player's supervisor will get a wardrobe: hats, tops, trousers, shoes, badges and extras, each worn
       or taken off. Phase 1 gives the supervisor a real body. The stack of cubes is gone. The supervisor now uses the
@@ -135,7 +135,7 @@ ol.next { padding-left: 22px; }
       supervisor walks with a real walk cycle, holds a hand out when acting on a student, wears the bought shirt
       colour, and wears the badge on the front of the chest. Phase 2 gives the wardrobe its eight slots and puts a
       Wardrobe in the store: a live 3D figure of your own supervisor, a Man / Woman toggle, category tabs, try-on
-      before buying, and Buy → Wear → Take off on every item. Phase 3 puts <a href="#phase3">36 items</a> in the game: hats, tops, trousers, shoes, pins and school crests, glasses, a lanyard and a watch, each with a price, an unlock and a shop tile, plus a hair choice for both bodies. Phase 4 measured the prices and unlocks against real careers: see <a href="#balance">Prices &amp; balance</a> for the earnings, the unlock timings and a proposal that is waiting for a decision.</p>
+      before buying, and Buy → Wear → Take off on every item. Phase 3 puts <a href="#phase3">36 items</a> in the game: hats, tops, trousers, shoes, pins and school crests, glasses, a lanyard and a watch, each with a price, an unlock and a shop tile, plus a hair choice for both bodies. Phase 4 measured the prices and unlocks against real careers: see <a href="#balance">Prices &amp; balance</a>. A <a href="#polish">polish pass</a> adds a "keep some coins" hint to the store and fixes hair under hats, the lanyard, the shirt collar and the blazer on the woman.</p>
   </header>
 
   <section id="room">
@@ -350,7 +350,7 @@ ol.next { padding-left: 22px; }
 <figure><a href="img/wardrobe3-large-tab-extras.jpg"><img src="img/wardrobe3-large-tab-extras.jpg" alt="Large text · Extras" loading="lazy"></a><figcaption><b>Large text · Extras</b></figcaption></figure>
 </div>
 <h3 id="hair">Hair</h3>
-<p class="muted">A free choice for each body, saved per body. Under a hat the bun is let down into a ponytail: it sits on the crown, where every hat is.</p>
+<p class="muted">A free choice for each body, saved per body. Under a hat the bun is let down into a ponytail: it sits on the crown, where every hat is. Every style fits under every hat (<a href="#hats-hair">Hair under hats</a>).</p>
 <div class="gallery">
 <figure><a href="img/wardrobe3-hair-female-long.jpg"><img src="img/wardrobe3-hair-female-long.jpg" alt="female hair Long (default)" loading="lazy"></a><figcaption><b>Woman · Long (default)</b></figcaption></figure>
 <figure><a href="img/wardrobe3-hair-female-wavy.jpg"><img src="img/wardrobe3-hair-female-wavy.jpg" alt="female hair Bob" loading="lazy"></a><figcaption><b>Woman · Bob</b></figcaption></figure>
@@ -470,6 +470,92 @@ ol.next { padding-left: 22px; }
         past rooms, its accepted offers and notices, and its current school. Version 6 adds the schools on the main ladder
         below each of those (Maple, Riverside, Eastgate, City High, Kingsley), because older saves keep too little to prove
         them. Branch schools (Brightpath, State University) count only with proof. Hair needs no migration.</p></div>
+    </div>
+  </section>
+
+  <section id="polish">
+    <div class="section-head"><span class="eyebrow">Polish — in the game (6b7f9b2)</span><h2>Keep some coins, and the clothes polished</h2>
+      <p class="muted">A calm hint in the store when a purchase would leave too little for a surprise bill, and five fixes to
+        the clothes: hair under hats, the lanyard, the shirt collar, the blazer on the woman, and a check of the female students.
+        Before and after pairs are Blender renders with the same camera and light (white items, as in the phase 3 checks);
+        the rest is the game.</p></div>
+
+    <h3 id="reserve">Keep some coins</h3>
+    <div class="cards">
+      <div class="card"><h3>Why</h3><p>The balance study (<a href="#balance">Prices &amp; balance</a>) found that players who spend
+        every coin cannot pay a car repair or medicine at the door when ill, and their careers fall behind. Keeping about
+        100¢ back removes the effect.</p></div>
+      <div class="card"><h3>The reserve</h3><p>One car repair (80¢) plus one door price of medicine (half the salary) at
+        your current school: <b>105¢ at Maple</b>, more at better-paid schools. A pill already at home covers the ill
+        morning, so then only the repair counts. One rule in Core (<code>CoinReserve</code>), easy to tune.</p></div>
+      <div class="card"><h3>The hint</h3><p>Under the price of any tile that would leave you below it: <i>Leaves you 60 ¢</i>,
+        one line in the warning colour, no icon, no motion. The balance card says why, once: <i>Keep some coins for
+        emergencies. About 105 ¢ covers surprises like a car repair or medicine at the door.</i> Tools, pills and clothes alike.</p></div>
+      <div class="card"><h3>Never in the way</h3><p>The Buy button is unchanged and one tap still buys. Nothing shows above the
+        reserve, or on a tile you cannot buy anyway. The line fits at the largest text size.</p></div>
+    </div>
+    <div class="gallery">
+      <figure><a href="img/polish-hint-top.jpg"><img src="img/polish-hint-top.jpg" alt="Balance and tools" loading="lazy"></a><figcaption><b>Balance and tools</b>200¢ at Maple: Replay (180¢) would leave 20¢. The Detector is out of reach and says nothing more.</figcaption></figure>
+      <figure><a href="img/polish-hint-wardrobe.jpg"><img src="img/polish-hint-wardrobe.jpg" alt="Wardrobe" loading="lazy"></a><figcaption><b>Wardrobe</b>The cap would leave 60¢, the bucket hat 40¢. Locked items say why instead.</figcaption></figure>
+      <figure><a href="img/polish-hint-medicine.jpg"><img src="img/polish-hint-medicine.jpg" alt="Pills" loading="lazy"></a><figcaption><b>Pills</b>A 15¢ pill leaves 185¢: no hint. With a pill at home the reserve is the 80¢ repair.</figcaption></figure>
+      <figure><a href="img/polish-hint-large-top.jpg"><img src="img/polish-hint-large-top.jpg" alt="Largest text, 720 px phone" loading="lazy"></a><figcaption><b>Largest text, 720 px phone</b>The advice wraps in the balance card.</figcaption></figure>
+      <figure><a href="img/polish-hint-large-wardrobe.jpg"><img src="img/polish-hint-large-wardrobe.jpg" alt="Largest text · Wardrobe" loading="lazy"></a><figcaption><b>Largest text · Wardrobe</b>The hint keeps one line; the buttons stay level.</figcaption></figure>
+    </div>
+
+    <h3 id="hats-hair">Hair under hats</h3>
+    <p class="muted">Before, the bob and the curly hair came out through the side and crown of every hat: the hats were fitted
+      round the short hairs only. Now each hairstyle has an under-a-hat version: whatever a hat covers is drawn just inside
+      the tightest of the five hats, and the hair below the brim is left as it is. Every style, every hat, both bodies:
+      vertices outside a hat went from 1,039 (bob), 814 (curly), 274 (long), 144 (short), 115 (tied-back) and 75 (cropped) to 0.
+      The bun is still let down into the ponytail under a hat.</p>
+    <div class="pair">
+      <figure><a href="img/polish-hat_cap-before.jpg"><img src="img/polish-hat_cap-before.jpg" alt="Baseball cap · before" loading="lazy"></a><figcaption><b>Baseball cap · before</b>Bob and curly, from four sides.</figcaption></figure>
+      <figure><a href="img/polish-hat_cap-after.jpg"><img src="img/polish-hat_cap-after.jpg" alt="Baseball cap · now" loading="lazy"></a><figcaption><b>Baseball cap · now</b></figcaption></figure>
+      <figure><a href="img/polish-hat_beanie-before.jpg"><img src="img/polish-hat_beanie-before.jpg" alt="Beanie · before" loading="lazy"></a><figcaption><b>Beanie · before</b></figcaption></figure>
+      <figure><a href="img/polish-hat_beanie-after.jpg"><img src="img/polish-hat_beanie-after.jpg" alt="Beanie · now" loading="lazy"></a><figcaption><b>Beanie · now</b></figcaption></figure>
+      <figure><a href="img/polish-hat_bucket-before.jpg"><img src="img/polish-hat_bucket-before.jpg" alt="Bucket hat · before" loading="lazy"></a><figcaption><b>Bucket hat · before</b></figcaption></figure>
+      <figure><a href="img/polish-hat_bucket-after.jpg"><img src="img/polish-hat_bucket-after.jpg" alt="Bucket hat · now" loading="lazy"></a><figcaption><b>Bucket hat · now</b></figcaption></figure>
+    </div>
+    <div class="pair">
+      <figure><a href="img/polish-hats-game.jpg"><img src="img/polish-hats-game.jpg" alt="Every hat over every hairstyle, in the game" loading="lazy"></a><figcaption><b>Every hat over every hairstyle, in the game</b>Rows: cap, beanie, flat cap, bucket, graduation. Columns: long, bob (woman); short, cropped, curly (man). The store preview.</figcaption></figure>
+      <figure><a href="img/polish-hats-game-back.jpg"><img src="img/polish-hats-game-back.jpg" alt="The same, from behind" loading="lazy"></a><figcaption><b>The same, from behind</b></figcaption></figure>
+    </div>
+
+    <h3 id="lanyard">The lanyard</h3>
+    <p class="muted">Before, one lanyard was placed 3 cm off the skin to clear a blazer's lapels, so on a T-shirt the card
+      floated. Now there is one per top and body (16): every point is laid on that top's own front, just clear of it, and
+      bridges a collar, a tie or a lapel. Checked side-on through the walk.</p>
+    <div class="pair">
+      <figure><a href="img/polish-lanyard-before.jpg"><img src="img/polish-lanyard-before.jpg" alt="Before" loading="lazy"></a><figcaption><b>Before</b>Side views: T-shirt, blazer, cardigan; man, then woman.</figcaption></figure>
+      <figure><a href="img/polish-lanyard-after.jpg"><img src="img/polish-lanyard-after.jpg" alt="Now" loading="lazy"></a><figcaption><b>Now</b>Close on the T-shirt; still over the lapels and the cardigan.</figcaption></figure>
+    </div>
+    <div class="gallery"><figure><a href="img/polish-lanyard-game.jpg"><img src="img/polish-lanyard-game.jpg" alt="In the game" loading="lazy"></a><figcaption><b>In the game</b>T-shirt side-on (man, woman), blazer front and side.</figcaption></figure></div>
+
+    <h3 id="collar">The shirt collar</h3>
+    <p class="muted">The shirt-and-tie collar points dropped 6 cm in two straight steps and read as blocks. They now ease
+      down over seven rows of a finer band and lean in toward the knot. Still flat-shaded and low-poly.</p>
+    <div class="pair">
+      <figure><a href="img/polish-collar-before.jpg"><img src="img/polish-collar-before.jpg" alt="Before" loading="lazy"></a><figcaption><b>Before</b>Man and woman, front and 30°.</figcaption></figure>
+      <figure><a href="img/polish-collar-after.jpg"><img src="img/polish-collar-after.jpg" alt="Now" loading="lazy"></a><figcaption><b>Now</b></figcaption></figure>
+    </div>
+
+    <h3 id="blazer">The blazer on the woman</h3>
+    <p class="muted">The lapels creased into pleats over her bust: they were a fan of thin triangles, each lifted along its
+      own facet's slope. They are now rows of quads that drape: lifted along a softened normal and relaxed toward their
+      neighbours, never closer to the cloth than half their lift. The cardigan's front bands, which had the same problem,
+      are built the same way. The man's blazer is cleaner too.</p>
+    <div class="pair">
+      <figure><a href="img/polish-blazer-before.jpg"><img src="img/polish-blazer-before.jpg" alt="Before" loading="lazy"></a><figcaption><b>Before</b>Blazer front, 25° and 60°; the cardigan.</figcaption></figure>
+      <figure><a href="img/polish-blazer-after.jpg"><img src="img/polish-blazer-after.jpg" alt="Now" loading="lazy"></a><figcaption><b>Now</b></figcaption></figure>
+    </div>
+    <div class="gallery"><figure><a href="img/polish-tops-game.jpg"><img src="img/polish-tops-game.jpg" alt="In the game" loading="lazy"></a><figcaption><b>In the game</b>Blazer and shirt &amp; tie, woman and man.</figcaption></figure></div>
+
+    <h3 id="students">The female students</h3>
+    <p class="muted">The seam fix (<a href="#seam">above</a>) re-cut the female students' tops. They look right in the
+      classroom: no slits, same shapes and colours. This pass does not change the students' parts at all.</p>
+    <div class="pair">
+      <figure><a href="img/polish-students-national.jpg"><img src="img/polish-students-national.jpg" alt="National Centre" loading="lazy"></a><figcaption><b>National Centre</b>Editor, phone layout.</figcaption></figure>
+      <figure><a href="img/polish-students-maple.jpg"><img src="img/polish-students-maple.jpg" alt="Maple" loading="lazy"></a><figcaption><b>Maple</b></figcaption></figure>
     </div>
   </section>
 
@@ -669,8 +755,6 @@ ol.next { padding-left: 22px; }
         change instead of on each tap.</li>
       <li><b>Older careers' school history is inferred.</b> A career saved before the school record counts the main ladder below
         its schools. A branch school it really worked at (Brightpath) stays locked unless the save shows it.</li>
-      <li><b>Hair under hats.</b> The long and bob styles show below every brim, as hair does; the bob pokes out a little at one
-        side of the cap. The bun is let down into a ponytail under any hat.</li>
       <li><b>One colour per item.</b> Each item has its own fixed colours; there are no colour variants to choose.</li>
       <li><b>Prices and unlocks.</b> The two approved changes are in (<a href="#balance">Prices &amp; balance</a>); the rest are the phase 3 values.</li>
     </ul>
