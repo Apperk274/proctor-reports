@@ -3,6 +3,12 @@
     "date": "2026-11-01",
     "author": "ardakabadayi",
     "slug": "ui-overhaul",
+    "change": "After player feedback: the exam hall picture is back on the result card, the cost cards say their price again (in the sentence and on a solid gold tag), offers list the exams each school sets, and a fact audit of Phases 4 and 5 is under Words."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
     "change": "Finished the overhaul: Phase 6 (Light measured on every component, Reduce motion walked, 720 and large text with nothing clipped, fast first opens and saves on the A15), a before-and-after summary and the plan marked complete."
   },
   {
