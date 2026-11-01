@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UI Overhaul</title>
-<meta name="description" content="Phase 0 of the UI overhaul: every screen captured, a text-density audit, the navigation map, a check of every M129 animation, why the salary shows as text, and phone mockups of the redesign directions, with the tile hub and the payday receipt chosen.">
+<meta name="description" content="The UI overhaul of Exam Supervisor Simulator: the Phase 0 audit and proposal, and Phases 1 to 5 as shipped: payday in gold, the tile hub, the Shop, one-sentence cards, and the exam room and admission desk.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -427,25 +427,25 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–4 shipped</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–5 shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
       <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
         connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
         prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
         gold coins. <a href="#home">Phase 2, Home</a>, has shipped too: the hub is one big Start button and four
         tiles, and every screen they open closes with a ×. The tab bar is gone. <a href="#shop">Phase 3, Shop</a>,
-        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps. <a href="#words">Phase 4, Words</a>, has shipped: one sentence a card, costs as coin chips on the answers, the rules as chips, and the Rules as short rows that open.</p>
+        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps. <a href="#words">Phase 4, Words</a>, has shipped: one sentence a card, costs as coin chips on the answers, the rules as chips, and the Rules as short rows that open. <a href="#room">Phase 5, Room</a>, has shipped: a clock bar, three-word toasts, a tool dock in thumb reach, and a door of two cards that a decision is stamped onto.</p>
       <div class="kpis">
         <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
         <div class="kpi"><b>251</b><span>words on the Rules screen with its rows closed, down from 868; a card body is 14 words at most, down from 42 (Phase 4)</span></div>
-        <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
+        <div class="kpi"><b>3.6%</b><span>of the room the exam HUD covers with nobody selected, down from 6.6%; the door reads 51 words, down from 72 (Phase 5)</span></div>
         <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
         <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47 (Phase 2)</span></div>
         <div class="kpi"><b>&lt;50 ms</b><span>to open a screen again on the A15, down from 230–960; a purchase's own work 4–10 ms (Phase 3)</span></div>
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#room">Phase 5: Room</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -485,9 +485,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="problem"><h3>Onboarding was three text walls <span class="tag ok">words fixed in Phase 4</span></h3>
         <p>The three cards are one sentence each now, 16 to 20 words a card (were 29 to 43). They still have no
           picture of their own.</p></div>
-      <div class="problem"><h3>The admission desk is a data table</h3>
-        <p>75 words: ten rows comparing document against exam in small type, plus the rules in prose. It is the game's
-          core puzzle, presented as a form.</p></div>
+      <div class="problem"><h3>The admission desk was a data table <span class="tag ok">fixed in Phase 5</span></h3>
+        <p>The person and their ID are two cards side by side, each field a glyph and a value, the rules are chips, and a
+          decision is stamped onto the cards. 51 words, down from 72. <a href="#room">Phase 5: Room</a>.</p></div>
       <div class="problem"><h3>Small visual bugs <span class="tag ok">2 of 3 fixed</span></h3>
         <p>The notice that sat over the result card and the hub's first-frame overlap are fixed. The clipped rank line
           could not be reproduced. <a href="#payday">Details</a>.</p></div>
@@ -1079,6 +1079,181 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
   </section>
 
+  <!-- ================================================================ ROOM (Phase 5) -->
+  <section id="room">
+    <div class="section-head">
+      <span class="eyebrow">Phase 5 · Room · shipped</span>
+      <h2>The room is the hero, and the door stamps</h2>
+      <p class="muted">The exam HUD got smaller instead of richer. The exam's name left the top: it is on the brief you
+        just read. The clock is a capsule with the time <b>left</b> and a bar, and it warms once to orange in the last
+        minute. A heard noise is a pill, "Buzz · row 2, left". What you just did is a pill of three words at most,
+        "Warned · Ayşe". The tools you carry are round buttons in the bottom right, each with a badge of the uses left.
+        At the bell, "Time's up" settles over the room for a beat before the result. The admission desk is now the
+        person beside their ID, the rules as chips, and a stamp that lands on the cards when you decide.
+        <b>Nothing in the room says whether you were right</b>: not a toast, not a stamp, and not how a field is drawn.</p>
+    </div>
+    <div class="diag">
+      <h3>How much of the room the HUD covers</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Moment in the exam</th><th>Before</th><th>After</th><th>Words before → after</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Early, nobody selected</th><td>6.6%</td><td><b>3.6%</b></td><td>5 → 1 ("2:28")</td></tr>
+          <tr><th scope="row">A heard noise</th><td>10.1%</td><td><b>6.2%</b></td><td>12 → 5</td></tr>
+          <tr><th scope="row">A noise and an action toast</th><td>17.1%</td><td><b>8.1%</b></td><td>24 → 7</td></tr>
+          <tr><th scope="row">Two tools carried</th><td>10.1% (tools hidden in the card)</td><td><b>8.0%</b> (the dock)</td><td>12 → 7</td></tr>
+          <tr><th scope="row">A tool's result on screen</th><td>13.6%</td><td><b>12.4%</b></td><td>10 → 8</td></tr>
+          <tr><th scope="row">A candidate selected</th><td>43.9%</td><td><b>36.5%</b></td><td>25 → 18</td></tr>
+          <tr><th scope="row">The last minute</th><td>13.6%</td><td><b>12.4%</b></td><td>10 → 8</td></tr>
+          <tr><th scope="row">Admission desk (words)</th><td colspan="2">full screen</td><td>72 → <b>51</b></td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="max-width:80ch">Measured by <code>RoomCaptures</code> in the real Classroom scene at
+        1080 × 2340: every drawn part of the HUD, as a union on an 8 px grid, over the whole frame. The same test ran
+        on the old HUD first. The developer-only "End exam" button is left out of both. A 720 × 1560 phone measures within
+        0.4 points of these. A test also holds the always-on part (clock, pause and two tools) under 5.5% of the
+        screen; it is 4.9%.</p>
+      <div class="strip">
+        <figure><img src="img/p5-before-early.jpg" alt="Before: the strip School exam 1, 0:03 / 2:30 across the top" loading="lazy" width="432" height="936"><figcaption><b>Before · early</b>6.6%</figcaption></figure>
+        <figure><img src="img/p5-hud-early-dark-1080.jpg" alt="After: the clock capsule and pause" loading="lazy" width="432" height="936"><figcaption><b>After · early</b>3.6%</figcaption></figure>
+        <figure><img src="img/p5-before-toast.jpg" alt="Before: a band A phone buzzing - Rows 1–2, left side, and a toast You warned Tolga Şahin. They stop, and look back at their paper." loading="lazy" width="432" height="936"><figcaption><b>Before · noise + toast</b>17.1%, 24 words</figcaption></figure>
+        <figure><img src="img/p5-hud-toast-dark-1080.jpg" alt="After: two pills, Buzz · rows 1–2, left and Warned · Tolga" loading="lazy" width="432" height="936"><figcaption><b>After · noise + toast</b>8.1%, 7 words</figcaption></figure>
+        <figure><img src="img/p5-before-selected.jpg" alt="Before: the selected card with tools inside it, Phone Detector (0) and Replay (2)" loading="lazy" width="432" height="936"><figcaption><b>Before · selected</b>43.9%</figcaption></figure>
+        <figure><img src="img/p5-hud-selected-dark-1080.jpg" alt="After: the selected card, the dock above it" loading="lazy" width="432" height="936"><figcaption><b>After · selected</b>36.5%</figcaption></figure>
+        <figure><img src="img/p5-phone-room.jpg" alt="On the A15: the room with the clock capsule at 2:24 and the dock at 2 and 2" loading="lazy" width="432" height="936"><figcaption><b>On the A15</b>the dock under the right thumb</figcaption></figure>
+      </div>
+
+      <h3>The exam HUD</h3>
+      <div class="strip">
+        <figure><img src="img/p5-hud-early-dark-1080.jpg" alt="The room with only a clock capsule at the top showing 2:28 and a pause button" loading="lazy" width="432" height="936"><figcaption><b>Early</b>a clock capsule and pause</figcaption></figure>
+        <figure><img src="img/p5-hud-cue-dark-1080.jpg" alt="Under the clock, a pill with a speaker glyph: Buzz · rows 1–2, left" loading="lazy" width="432" height="936"><figcaption><b>A heard noise</b>"Buzz · rows 1–2, left"</figcaption></figure>
+        <figure><img src="img/p5-hud-toast-dark-1080.jpg" alt="Under the noise pill, a second pill with a warning glyph: Warned · Tolga" loading="lazy" width="432" height="936"><figcaption><b>Action toast</b>"Warned · Tolga"</figcaption></figure>
+        <figure><img src="img/p5-hud-usedup-dark-1080.jpg" alt="Two round tool buttons bottom right, the Phone Detector's badge at 0 and dimmed, Replay at 2" loading="lazy" width="432" height="936"><figcaption><b>The dock</b>Phone Detector used up, Replay at 2</figcaption></figure>
+        <figure><img src="img/p5-hud-selected-dark-1080.jpg" alt="A candidate selected: the card at the bottom, the dock just above it on the right" loading="lazy" width="432" height="936"><figcaption><b>Selected</b>the dock sits on the card</figcaption></figure>
+        <figure><img src="img/p5-hud-lastmin-dark-1080.jpg" alt="The clock capsule in orange at 0:49" loading="lazy" width="432" height="936"><figcaption><b>The last minute</b>warmed once, no pulse</figcaption></figure>
+        <figure><img src="img/p5-hud-bell-dark-1080.jpg" alt="A pill with a bell glyph, Time's up, in the middle of the room; the clock full at 0:00" loading="lazy" width="432" height="936"><figcaption><b>The bell</b>"Time's up", then the result</figcaption></figure>
+        <figure><img src="img/p5-hud-toast-light-1080.jpg" alt="The noise and toast pills in Light" loading="lazy" width="432" height="936"><figcaption><b>Toast</b>Light</figcaption></figure>
+        <figure><img src="img/p5-hud-lastmin-light-720.jpg" alt="The warm clock in Light at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Last minute</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p5-hud-bell-light-1080.jpg" alt="Time's up in Light" loading="lazy" width="432" height="936"><figcaption><b>The bell</b>Light</figcaption></figure>
+        <figure><img src="img/p5-hud-selected-light-720.jpg" alt="A selected candidate in Light at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Selected</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p5-hud-dock-dark-720.jpg" alt="The dock with two fresh tools at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Dock</b>720 × 1560</figcaption></figure>
+      </div>
+      <ul class="steps">
+        <li><b>The clock bar</b> is a 600 × 116 capsule with a clock glyph, the exam as a bar, and the time left. Pause is
+          its own round button in the corner. The old strip was 996 × 158 and said "School exam 1 · 0:04 / 2:30". In the last
+          60 seconds (30 before) the glyph, the bar and the number ease once to orange over 0.8 s and stay. A test steps the
+          ease and checks that it never goes back.</li>
+        <li><b>A heard noise</b> is a speaker glyph and two facts: what it was in a word, and where, "Buzz · row 2, left".
+          They are the same two facts as before, a kind and a region and never a person. Only the drawing changed. A test
+          checks that the short form carries exactly the rows and side of the long one.</li>
+        <li><b>The action toast</b> is the verb's glyph, the verb and a first name: "Warned · Ayşe", "Phone taken · Ayşe",
+          "Notes taken", "Sheet taken", "Paper taken", "Removed · Ayşe". It is three words at most and fades after 2.6 s. It
+          confirms that you acted, never whether you were right. A test reads every toast and the door's words for
+          "correct", "guilty", "right", "wrong", "cheat", "evidence" and similar words. <b>How a warned person took it</b>
+          ("They look up, confused") moved from the end of the old sentence to the line under their name. It stays there
+          while the warning is fresh, where you are already looking.</li>
+        <li><b>The tool dock</b> has one round button per carried tool, bottom right, where a right thumb rests. Each
+          shows a glyph (a signal for the Phone Detector, a turning circle for Replay) and a badge of the uses left this
+          exam: 2 and 2 at the start. A used-up tool dims quietly, with a grey "0". It is there for the whole exam. Before,
+          the tools sat inside the selected-candidate card, so Replay could not be used unless somebody was selected.</li>
+        <li><b>The bell.</b> "Time's up" settles into the middle of the room and the room holds for 1.4 s before the result
+          card. A tap skips it. This happens only after a real bell; an exam ended any other way goes straight to the result.</li>
+        <li><b>The room's sentences are one each.</b> The six hints Phase 4 had set aside are now one sentence of 14 words at
+          most: "A raised hand won't wait forever; go over and ask." and "A buzz tells you roughly where, not whose phone it
+          was." The same goes for the inspection detail ("Blank issued paper, a few rough workings in one corner.") and what a
+          careful look finds ("Nothing stands out right now."). All eight left the allowlist, and the room's screens are now
+          in the text scan too.</li>
+      </ul>
+
+      <h3>The admission desk</h3>
+      <div class="strip">
+        <figure><img src="img/p5-before-door.jpg" alt="Before: a ten-row table of Document against This exam under the person, rules in bullet sentences" loading="lazy" width="432" height="936"><figcaption><b>Before</b>a 10-row table, 72 words</figcaption></figure>
+        <figure><img src="img/p5-door-dark-1080.jpg" alt="Admission 1 / 3, rule chips, In person and Their ID side by side with a glyph per field, This exam, Turn away and Admit" loading="lazy" width="432" height="936"><figcaption><b>After</b>two cards, glyphs, chips, 51 words</figcaption></figure>
+        <figure><img src="img/p5-door-stamp-dark-1080.jpg" alt="An ADMITTED stamp landing across the two cards, slightly tilted" loading="lazy" width="432" height="936"><figcaption><b>The stamp</b>in flight</figcaption></figure>
+        <figure><img src="img/p5-door-turned-dark-1080.jpg" alt="A TURNED AWAY stamp in red across the two cards" loading="lazy" width="432" height="936"><figcaption><b>Turned away</b>the decision's colour, as on its button</figcaption></figure>
+        <figure><img src="img/p5-door-stamp-light-1080.jpg" alt="The Admitted stamp in Light" loading="lazy" width="432" height="936"><figcaption><b>Stamp</b>Light</figcaption></figure>
+        <figure><img src="img/p5-door-light-720.jpg" alt="The admission desk in Light at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Door</b>Light · 720</figcaption></figure>
+      </div>
+      <ul class="steps">
+        <li><b>The person beside their ID.</b> "In person" is a portrait slot (character art drops in here later), the name and
+          how they look. "Their ID" has one line per field, each with a glyph: a person for the name, a book for the exam, a
+          building for the room, a clock for the time, a calendar for "valid until", an eye for the photo, and a document for
+          a second ID when the exam asks for one. "This exam" below uses the <b>same glyphs</b>, so the book on the ID is
+          matched against the book of the exam.</li>
+        <li><b>Matches are never highlighted.</b> Every value is drawn in one style whether it agrees or not. A test builds a
+          matching and a mismatching card and compares every colour, size, weight and sprite on them: they are identical.
+          Noticing the difference is the game.</li>
+        <li><b>The rules are chips</b>, the same chips as the brief: [✓ ID: expired OK] [✗ Name: exact] [2nd ID needed]. They are
+          drawn from the card's own values, so the door and the consequences read one rule. Before, the rules were three
+          bullet sentences.</li>
+        <li><b>The stamp.</b> The decision reaches the game the moment you tap. Then "Admitted" (green) or "Turned away" (red)
+          lands across the outgoing cards, from 1.15× to its size with a slight overshoot in 0.26 s. It holds for half a
+          second, then the cards fade and the next person's fade in. The next person is never shown under the last one's
+          stamp, and after the last person the door closes once the stamp has been seen. With Reduce motion the stamp is
+          there at once, and the hold stays so it can be read. "Reject" is now "Turn away".</li>
+      </ul>
+
+      <h3>Admission, a tool and a toast, in one take</h3>
+      <div class="anims">
+        <div class="anim-card"><div class="clip"><img src="vid/p5-room-clip.gif" alt="The door: Admit is tapped, ADMITTED lands across the cards, the next person's cards fade in; then the room: Replay is tapped in the dock and its badge drops from 2 to 1, its result appears; then a warning and the toast Warned · Tolga" width="270" height="585" loading="lazy"></div><div class="t"><h3>Stamp, dock, toast <span class="tag ok">Phase 5</span></h3><p>Recorded in the real scene at 540 × 1170, paced by real time.</p></div></div>
+      </div>
+
+      <h3>On the Galaxy A15</h3>
+      <div class="grid-3">
+        <figure><img src="img/p5-phone-door.jpg" alt="On the phone: the admission desk, a Professional Certification candidate, rule chips ID: in date, Name: typos OK, 2nd ID needed" width="540" height="1170" loading="lazy"><figcaption><b>The door</b>a real Kingsley exam</figcaption></figure>
+        <figure><img src="img/p5-phone-cue.jpg" alt="On the phone: Buzz · rows 1–2 under the clock, the Phone Detector's result, the dock at 1 and 2" width="540" height="1170" loading="lazy"><figcaption><b>A noise, a tool</b>the badge drops as it is used</figcaption></figure>
+        <figure><img src="img/p5-phone-toast.jpg" alt="On the phone: Calling you · row 3 and Warned · Ayşe under the clock; the card says They stop and look back at their paper" width="540" height="1170" loading="lazy"><figcaption><b>A warning</b>"Warned · Ayşe"; the reaction under her name</figcaption></figure>
+      </div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Moment (A15, in-app frame probe)</th><th>Before</th><th>After</th><th>What is in it</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">An admission decision</th><td>122–155 ms</td><td>111–155 ms</td><td>the save after each decision (about 80 ms) both times; the door's own redraw fell from 12–18 ms to under 2 ms (6.6 ms as the door closes)</td></tr>
+          <tr><th scope="row">Entering the room</th><td>133 + 122 ms</td><td>78 + 100 ms</td><td>the HUD's first frame 40 ms, the save 85 ms</td></tr>
+          <tr><th scope="row">A tool used from the dock</th><td>—</td><td>no frame over 50 ms</td><td>(the old career carried no tool)</td></tr>
+          <tr><th scope="row">A warning and its toast</th><td>no frame over 50 ms</td><td>no frame over 50 ms</td><td>the HUD's refresh 14 ms in that frame</td></tr>
+          <tr><th scope="row">The bell</th><td>133 + 100 ms</td><td>89 ms, then 156 ms 1.4 s later</td><td>the save at the bell; the result card's build now lands after "Time's up"</td></tr>
+          <tr><th scope="row">The rest of the exam</th><td colspan="2">45 fps steady, p99 22.4 ms, both</td><td>no new long frame</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="max-width:80ch">The same career and the same exam (Kingsley, Professional Certification 12,
+        seven at the door), played by taps. First on the Phase 4 build that was installed, then on this one after
+        <code>adb install -r</code>, with the saves put back between the two. The phone runs at its 45 fps cap.
+        The tools were bought for the second run. Afterwards the app was stopped, the five save files were put back, and
+        their sha256 hashes match the backup.</p>
+
+      <h3>Where the brief left room</h3>
+      <ul class="steps">
+        <li><b>A first name in the toast.</b> "Phone taken · Ayşe Koç" is four words. The toast lands while her card, with
+          her full name, is under your thumb, so the first name is enough.</li>
+        <li><b>The reaction moved, not removed.</b> M117B made a warned person's reaction information ("They look up,
+          confused" means nothing was on show). The toast lost it, so it is the status line on their card while the
+          warning is fresh.</li>
+        <li><b>The clock is a capsule, not a band.</b> A full-width bar plus the dock would have covered about as much as
+          before. Centred, the back of the room stays visible on both sides.</li>
+        <li><b>The stamp lands across both cards</b>, not on the ID alone: "TURNED AWAY" is wider than half a phone.</li>
+        <li><b>The noise pill is up to five words</b> ("Chair scrape · rows 2–3, middle"): a region needs its rows and side.</li>
+        <li><b>A removed candidate already walks out</b> (M129: stands, walks the aisle, leaves by the door, the same for
+          everyone). Nothing was added there. The 3D warn flinch from the plan was not built in this phase.</li>
+      </ul>
+
+      <h3>Checked</h3>
+      <ul class="steps">
+        <li><b>Tests.</b> EditMode 2,476: 0 failed, 211 skipped (the opt-in probes). PlayMode 103: 0 failed, 34 skipped (the opt-in
+          captures, this phase's four included). New: <code>RoomPhase5Tests</code> (three-word toasts with no verdict words, the
+          stamp's words, the reaction on the card, the noise pill revealing nothing new, one sentence for every room line, a
+          match and a mismatch drawn alike, the door's chips, the dock's counts follow the catalog and go down, the clock warms
+          once, Reduce motion, the HUD fits a phone and covers under 5.5%) and <code>AdmissionStampTests</code> (the stamp lands on
+          the outgoing cards, the next person waits for it, Reduce motion). The old door and HUD tests now check the same facts
+          where they live today.</li>
+        <li><b>Captures.</b> <code>RoomCaptures</code> (Explicit): the HUD and the door in Dark and Light at 1080 × 2340 and
+          720 × 1560, the coverage numbers, and the clip.</li>
+        <li><b>Performance.</b> The clock bar draws on its own canvas and moves in two-unit steps. The noise pill sets its
+          words once per noise and fades in twentieths. The dock is rebuilt only when what you carry changes. Its badges
+          change only when a count does, and the observation card is measured once per text. Before, it was measured every
+          frame, and the approach card was switched off and on again every frame of a walk.</li>
+      </ul>
+    </div>
+  </section>
+
   <section id="gallery">
     <div class="section-head">
       <span class="eyebrow">Screen inventory</span>
@@ -1111,15 +1286,15 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/d-17-confirm-abandon.jpg" alt="Abandon this career confirmation" loading="lazy" width="432" height="936"><figcaption><b>Confirm</b>good: Danger tone carries the weight</figcaption></figure>
       </div></div>
 
-    <div class="gal-group"><h3>Into the room <small>brief, door, exam HUD</small></h3>
+    <div class="gal-group"><h3>Into the room <small>brief, door, exam HUD (Phase 5)</small></h3>
       <div class="strip">
-        <figure><img src="img/d-53-brief-unwell.jpg" alt="Pre-exam brief: Before you begin, unwell warning" loading="lazy" width="432" height="936"><figcaption><b>Brief (unwell)</b>rules as prose lines</figcaption></figure>
-        <figure><img src="img/d-52-admission.jpg" alt="Admission desk: document comparison table" loading="lazy" width="432" height="936"><figcaption><b>Admission desk</b>75 words, 10-row table</figcaption></figure>
-        <figure><img src="img/d-52-admission-stamp.jpg" alt="Admission desk after Admit: 'Admitted: Tolga Şahin' line" loading="lazy" width="432" height="936"><figcaption><b>Admission, decided</b>the "stamp" is a text line</figcaption></figure>
-        <figure><img src="img/d-20-exam-hud.jpg" alt="Exam HUD over the 3D classroom" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b>quiet, readable: 6 words</figcaption></figure>
-        <figure><img src="img/d-04-exam-sound-cue.jpg" alt="Exam HUD with sound cue band" loading="lazy" width="432" height="936"><figcaption><b>Sound cue</b>"A phone buzzing - Rows 1–2"</figcaption></figure>
-        <figure><img src="img/d-05-exam-action-toast.jpg" alt="Exam HUD with action toast" loading="lazy" width="432" height="936"><figcaption><b>Action toast</b>12-word sentence</figcaption></figure>
-        <figure><img src="img/d-08-exam-detector-used.jpg" alt="Phone Detector used, result line at bottom" loading="lazy" width="432" height="936"><figcaption><b>Detector</b>result line (dev button overlaps it)</figcaption></figure>
+        <figure><img src="img/p4-brief-unwell-dark-1080.jpg" alt="Pre-exam brief with rule chips and the unwell row" loading="lazy" width="432" height="936"><figcaption><b>Brief (unwell)</b>rules as chips</figcaption></figure>
+        <figure><img src="img/p5-door-dark-1080.jpg" alt="Admission desk: the person beside their ID, rule chips" loading="lazy" width="432" height="936"><figcaption><b>Admission desk</b>two cards, 51 words</figcaption></figure>
+        <figure><img src="img/p5-door-stamp-dark-1080.jpg" alt="Admission desk with the ADMITTED stamp landing" loading="lazy" width="432" height="936"><figcaption><b>Admission, decided</b>a stamp on the cards</figcaption></figure>
+        <figure><img src="img/p5-hud-early-dark-1080.jpg" alt="Exam HUD over the 3D classroom: a clock capsule and pause" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b>1 word, 3.6% of the room</figcaption></figure>
+        <figure><img src="img/p5-hud-cue-dark-1080.jpg" alt="Exam HUD with the noise pill" loading="lazy" width="432" height="936"><figcaption><b>Sound cue</b>"Buzz · rows 1–2, left"</figcaption></figure>
+        <figure><img src="img/p5-hud-toast-dark-1080.jpg" alt="Exam HUD with the action toast" loading="lazy" width="432" height="936"><figcaption><b>Action toast</b>"Warned · Tolga"</figcaption></figure>
+        <figure><img src="img/p5-hud-usedup-dark-1080.jpg" alt="Phone Detector used up in the dock, its result on a card" loading="lazy" width="432" height="936"><figcaption><b>Detector</b>used up; the dock at 0 and 2</figcaption></figure>
         <figure><img src="img/d-21-exam-paused.jpg" alt="Settings opened during exam as pause" loading="lazy" width="432" height="936"><figcaption><b>Paused</b>the pause screen is Settings</figcaption></figure>
       </div></div>
 
@@ -1154,7 +1329,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/p2-career-dark-720.jpg" alt="Career at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
         <figure><img src="img/n-14-store-25.jpg" alt="Store at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Store</b></figcaption></figure>
         <figure><img src="img/n-31-offer-two.jpg" alt="Two offers at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Two offers</b></figcaption></figure>
-        <figure><img src="img/n-20-exam-hud.jpg" alt="Exam HUD at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b></figcaption></figure>
+        <figure><img src="img/p5-hud-dock-dark-720.jpg" alt="Exam HUD at 720 wide, the tool dock" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b>Phase 5</figcaption></figure>
       </div></div>
   </section>
 
@@ -1166,7 +1341,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <p class="muted">Every visible word on each screen as it stands after Phase 4, beside the Phase 0 count. The screens
         and cards are built and counted by <code>Phase4WordProbe</code> and the capture runs (status bar included; an
         event card is its longest wording; the cards around a career are counted from their strings). The longest string is the longest sentence a player can see without a tap.
-        Amber rows are over 50 words. The exam HUD and the admission desk are Phase 5's.</p>
+        Amber rows are over 50 words. The exam HUD and the admission desk are counted after Phase 5.</p>
     </div>
     <div class="tablewrap">
       <table>
@@ -1180,9 +1355,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
 <tr class="ok"><th scope="row">Settings</th><td><span class="wbar"><i style="width:15%"></i></span>41</td><td>59</td><td class="q">Follow phone uses your phone&#x27;s dark or light mode.</td></tr>
 <tr class="warn"><th scope="row">Rules, rows closed (first view)</th><td><span class="wbar"><i style="width:96%"></i></span>251 (91)</td><td>868 (208)</td><td class="q">Always there, not always justified. (the detail opens on a tap)</td></tr>
 <tr class="ok"><th scope="row">Pre-exam brief (unwell)</th><td><span class="wbar"><i style="width:10%"></i></span>26</td><td>34</td><td class="q">You see and hear less today.</td></tr>
-<tr class="warn"><th scope="row">Admission desk (Phase 5)</th><td><span class="wbar"><i style="width:28%"></i></span>75</td><td>75</td><td class="q">• A secondary document is required for entry.</td></tr>
-<tr class="ok"><th scope="row">Exam HUD</th><td><span class="wbar"><i style="width:2%"></i></span>6</td><td>6</td><td class="q">University exam 2</td></tr>
-<tr class="ok"><th scope="row">Exam HUD + cue + toast (Phase 5)</th><td><span class="wbar"><i style="width:9%"></i></span>24</td><td>24</td><td class="q">You warned Tolga Şahin. They stop, and look back at their paper.</td></tr>
+<tr class="ok"><th scope="row">Admission desk</th><td><span class="wbar"><i style="width:19%"></i></span>51</td><td>75</td><td class="q">tied-back fair hair / hazel eyes / medium skin / no glasses</td></tr>
+<tr class="ok"><th scope="row">Exam HUD</th><td><span class="wbar"><i style="width:1%"></i></span>1</td><td>6</td><td class="q">2:28</td></tr>
+<tr class="ok"><th scope="row">Exam HUD + cue + toast</th><td><span class="wbar"><i style="width:3%"></i></span>7</td><td>24</td><td class="q">Buzz · rows 1–2, left</td></tr>
 <tr class="ok"><th scope="row">Result card</th><td><span class="wbar"><i style="width:6%"></i></span>17</td><td>17</td><td class="q">School Exam 1</td></tr>
 <tr class="ok"><th scope="row">Event: illness</th><td><span class="wbar"><i style="width:8%"></i></span>22</td><td>40</td><td class="q">Your throat is raw; without medicine, you will be slow all morning.</td></tr>
 <tr class="ok"><th scope="row">Event: car trouble</th><td><span class="wbar"><i style="width:8%"></i></span>23</td><td>37</td><td class="q">A tyre is going soft: fix it now, or risk arriving late.</td></tr>
@@ -1200,14 +1375,13 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <div class="grid-2">
       <div class="card"><h3>What the numbers say</h3>
         <p><b>No card body is longer than one 14-word sentence</b>, and a test holds every string a player reads to that,
-          with a short, reasoned allowlist (the Rules' details behind an opening row, and the room's hints, which are
-          Phase 5's). Event cards average 20 words, down from 33.</p>
+          with one reasoned allowlist entry: the Rules' details behind an opening row. Phase 5 rewrote the room's hints and
+          lines to one sentence each. Event cards average 20 words, down from 33.</p>
         <p><b>Numbers are chips now:</b> a price on its answer, a sum or a standing beside the sentence. No "¢" is left.</p></div>
       <div class="card"><h3>What is still long</h3>
-        <p>1. Admission desk: 75 words in a 10-row table (Phase 5).<br>
-          2. Career: 64 words, mostly the ladder's eight schools.<br>
-          3. Offer, two schools: 54 words, mostly the two comparisons.<br>
-          4. The room's hints: up to 21 words (Phase 5).</p></div>
+        <p>1. Career: 64 words, mostly the ladder's eight schools.<br>
+          2. Offer, two schools: 54 words, mostly the two comparisons.<br>
+          3. The admission desk: 51 words, nearly all of them values the player must compare.</p></div>
     </div>
     <h3>Text that became an icon, a number or a short label</h3>
     <div class="rewrite">
@@ -1219,8 +1393,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="rw"><span class="where">Event · bribe</span><span class="from">… He holds out 120 coins.</span><span class="arrow">→</span><span class="to">Done in Phase 4: a chip "(coin) 120 offered"; no price on Take it or Refuse</span></div>
       <div class="rw"><span class="where">Career · header</span><span class="from">You are being noticed. People elsewhere have heard your name. Last change: an exam that went well - it helped your standing.</span><span class="arrow">→</span><span class="to">Done in Phase 2: a reputation bar, "41 · Watched"</span></div>
       <div class="rw"><span class="where">Event · audit</span><span class="from">Reputation -4 (a red box) · An admissions audit has flagged your admission of …: their ID expired last month.</span><span class="arrow">→</span><span class="to">Done in Phase 4: title "Expired ID", one sentence, a chip (star) -4</span></div>
-      <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">Phase 5: (warn icon) Warned · Tolga Şahin</span></div>
-      <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Phase 5 at the door; the brief and the Rules already show [ID: expired OK] [Name: typos OK]</span></div>
+      <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">Done in Phase 5: (warn icon) Warned · Tolga; how they took it is under their name on the card</span></div>
+      <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Done in Phase 5: the door, the brief and the Rules all show [ID: expired OK] [Name: typos OK]</span></div>
       <div class="rw"><span class="where">Intro card 2</span><span class="from">Get closer. Watch someone properly, or read what is out on their desk. The actions you are offered depend on what you have seen…</span><span class="arrow">→</span><span class="to">Done in Phase 4: "Get closer and look; what you have seen decides what you can do."</span></div>
     </div>
   </section>
@@ -1314,26 +1488,26 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <tr><th scope="row">Salary coin flight + stack</th><td><span class="tag warn">works, missable</span></td><td class="q">4 coins fly 0 → 50 ¢, but on the hub after Continue and events, from mid-screen. No flight on expenses exams (1150 → 1040 rolled down). No visible stack.</td><td class="q"><code>ChromeView.cs:309-347</code></td></tr>
           <tr><th scope="row">Reputation count</th><td><span class="tag ok">works</span></td><td class="q">Result row counts up on a gain; the chrome rolls 40 → 37 with a colour crossfade; a loss does not pop.</td><td class="q"><code>BoundaryView.CountIn</code>, <code>ChromeView.AnimateReputation</code></td></tr>
           <tr><th scope="row">Outcome chip (Good/Mixed/Poor)</th><td><span class="tag bad">missing</span></td><td class="q">Never built. The result opens on "Exam complete".</td><td class="q"><code>CareerService.EvaluateExam</code> is available</td></tr>
-          <tr><th scope="row">Action toast</th><td><span class="tag ok">works</span></td><td class="q">"You warned …" settles under the cue band for about 2.6 s, then fades.</td><td class="q"><code>ExamHudView.RefreshActionToast</code></td></tr>
+          <tr><th scope="row">Action toast</th><td><span class="tag ok">works</span></td><td class="q">Phase 5: a pill under the clock, "Warned · Tolga", for 2.6 s, then a fade. It was a 12-word sentence.</td><td class="q"><code>ActionToast</code>, <code>GameText.ActionFeedback</code></td></tr>
           <tr><th scope="row">Promotion beat</th><td><span class="tag ok">works</span></td><td class="q">One brass sweep plus a pop on the new school's hero. The planned salary "old → new" line was not built.</td><td class="q"><code>HomeHubView.CelebrateIfRaised</code></td></tr>
           <tr><th scope="row">Event choice stamp</th><td><span class="tag ok">works</span></td><td class="q">The chosen button pops; the others fade where they stand.</td><td class="q"><code>EventSceneView.Choose</code></td></tr>
           <tr><th scope="row">Career ring fill</th><td><span class="tag ok">replaced</span></td><td class="q">Phase 2 replaced the ring with stat bars (<code>Ui.StatBar</code>), which are drawn at their value.</td><td class="q"><code>Ui.StatBar</code></td></tr>
           <tr><th scope="row">Store purchase punch</th><td><span class="tag ok">works, subtle</span></td><td class="q">The tile turns to "Carry" and pops once; the chrome rolls 1550 → 1150. The Store's own balance card jumps with no roll.</td><td class="q"><code>StoreScreen.cs:377</code></td></tr>
           <tr><th scope="row">Screen transitions</th><td><span class="tag ok">works</span></td><td class="q">Tabs get the Reveal entrance (cards settle in about 0.3 s) instead of the planned crossfade. On the first frame the hub's text overlaps.</td><td class="q"><code>Reveal</code>, <code>PanelScreenView</code></td></tr>
-          <tr><th scope="row">Exam clock warning</th><td><span class="tag ok">works</span></td><td class="q">The bar and time ease to Warning orange at 30 s left, with no pulse.</td><td class="q"><code>ExamHudView.WarmClock</code></td></tr>
-          <tr><th scope="row">Admission stamp</th><td><span class="tag ok">works</span></td><td class="q">"Admitted: Tolga Şahin" appears above the buttons and fades. It is a line, not a stamp, by design.</td><td class="q"><code>AdmissionView.Decide</code></td></tr>
+          <tr><th scope="row">Exam clock warning</th><td><span class="tag ok">works</span></td><td class="q">Phase 5: the clock capsule eases once to orange over 0.8 s with 60 s left (was 30 s), with no pulse.</td><td class="q"><code>ExamHudView.StepWarmth</code></td></tr>
+          <tr><th scope="row">Admission stamp</th><td><span class="tag ok">works</span></td><td class="q">Phase 5: a real stamp. "Admitted" or "Turned away" lands across the outgoing cards (1.15× → 1, OutBack), holds, and the next person's cards fade in.</td><td class="q"><code>AdmissionScreenView.Decide</code>, <code>Ui.Stamp</code></td></tr>
           <tr><th scope="row">3D removal walkout</th><td><span class="tag ok">works</span></td><td class="q">The student stands, walks the aisle and exits through the door in about 4 s.</td><td class="q"><code>RemovalWalkout</code></td></tr>
           <tr><th scope="row">3D warn flinch</th><td><span class="tag bad">missing</span></td><td class="q">Deferred on purpose in M129 (commit e85bb2a). The warned student does not react beyond their idle.</td><td class="q"><code>PlaceholderCandidateRig</code></td></tr>
-          <tr><th scope="row">"Time is up" banner</th><td><span class="tag bad">missing</span></td><td class="q">Deferred on purpose: the result card opens on the same frame as the bell.</td><td class="q"><code>HudRouter.RingBellOnce</code></td></tr>
+          <tr><th scope="row">"Time is up" banner</th><td><span class="tag ok">works</span></td><td class="q">Phase 5: "Time's up" settles over the room and holds 1.4 s before the result; a tap skips it.</td><td class="q"><code>HudRouter.TimeUpHolding</code></td></tr>
         </tbody>
       </table>
     </div>
     <div class="anims">
       <div class="anim-card"><div class="clip"><img src="vid/payday-hub.gif" alt="Result card, a witness event card, then the hub with coins flying to the top bar" width="270" height="585" loading="lazy"></div><div class="t"><h3>Payday <span class="tag warn">missable</span></h3><p>Result, an event, then the hub. Watch the top right at about 1.5 s.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/result-expenses.gif" alt="Expenses exam result card: Equipment -400, Salary +50, Monthly expenses -160" width="270" height="585" loading="lazy"></div><div class="t"><h3>Expenses exam result</h3><p>Salary +50 sits between two costs; the net is negative, so no coins fly later.</p></div></div>
-      <div class="anim-card"><div class="clip"><img src="vid/action-toast.gif" alt="Exam room: a toast 'You warned Tolga Şahin' appears and fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Action toast <span class="tag ok">works</span></h3><p>It reads well, but it is a 12-word sentence over the room.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/p5-room-clip.gif" alt="Admit stamps the cards, Replay is used from the dock, and the toast Warned · Tolga appears" width="270" height="585" loading="lazy"></div><div class="t"><h3>Stamp, dock, toast <span class="tag ok">Phase 5</span></h3><p>The door's stamp, a tool from the dock, then "Warned · Tolga".</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/walkout.gif" alt="A removed student stands and walks out of the classroom door" width="270" height="585" loading="lazy"></div><div class="t"><h3>Walkout <span class="tag ok">works</span></h3><p>The same walk for anyone removed, so it says nothing about guilt.</p></div></div>
-      <div class="anim-card"><div class="clip"><img src="vid/clock-warning.gif" alt="Exam HUD clock turns orange in the last 30 seconds" width="270" height="585" loading="lazy"></div><div class="t"><h3>Clock warning <span class="tag ok">works</span></h3><p>It eases once to orange and stays.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/clock-warning.gif" alt="Exam HUD clock turns orange in the last 30 seconds" width="270" height="585" loading="lazy"></div><div class="t"><h3>Clock warning <span class="tag ok">works</span></h3><p>It eases once to orange and stays. Since Phase 5 it is a capsule and warns with 60 s left.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/p2-hub-career-shop-start.gif" alt="Hub, Career fades in, ×, Shop, ×, Start exam" width="270" height="585" loading="lazy"></div><div class="t"><h3>Screen change <span class="tag ok">Phase 2</span></h3><p>The Career ring became stat bars. Screens now fade in over the hub and out on ×.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/p3-buy.gif" alt="Wardrobe: pick the cap, Buy; one coin flies from the balance pill to the tile, the pill rolls down, the tile pops and turns to Owned" width="270" height="585" loading="lazy"></div><div class="t"><h3>Purchase <span class="tag ok">Phase 3</span></h3><p>One coin flies from the balance to the tile, the balance rolls down, the tile pops and "Owned" fades in.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/p2-promotion.gif" alt="Hub shows Riverside Middle School: a brass shimmer, a pop, and Salary counting from 55 to 65" width="270" height="585" loading="lazy"></div><div class="t"><h3>Promotion <span class="tag ok">works</span></h3><p>One brass sweep and a pop, and since Phase 2 the new salary counts up from the old one.</p></div></div>
@@ -1792,10 +1966,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li><code>TextRuleTests</code> guards every player-facing string, with a reasoned allowlist, and the screens' word budgets.</li></ul></div>
         <div class="est">4–5<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 5<small>Room</small></div>
-        <div><b>Exam HUD + admission desk</b><ul>
+        <div><b>Exam HUD + admission desk</b> <span class="tag ok">shipped</span> — see <a href="#room">Phase 5: Room</a>.<ul>
           <li>HUD: the clock bar, 3-word toasts, a tool dock with use counts, and icons for sound cues.</li>
           <li>Admission: a document card beside a photo card, with field icons and a real stamp that lands on the outgoing card. Matches are never highlighted, which would give the answer away.</li>
-          <li>3D warn flinch, the same for everyone. Optional "Time is up" beat, if a short hold before the result is accepted.</li></ul></div>
+          <li>"Time's up" holds the room 1.4 s before the result. The 3D warn flinch was not built; a removed candidate already walks out (M129).</li></ul></div>
         <div class="est">4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 6<small>Finish</small></div>
         <div><b>Polish and proof</b><ul>

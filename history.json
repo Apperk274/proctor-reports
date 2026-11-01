@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 5, Room: a clock bar, three-word toasts, a tool dock and Time's up in the exam, a door of two cards with a stamp, HUD coverage before and after, and frame times on the A15."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 4, Words: one sentence a card, known costs as coin chips on the answers, the rules as chips, the Rules as short rows that open, and the text audit as it now stands."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 3, Shop: one segment row, price chips and a pick-then-Buy sheet, earned crests, save v7, and faster screens on the A15."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 test totals now come from the run after the last merge with main (EditMode 2,421, PlayMode 95, none failed)."},
