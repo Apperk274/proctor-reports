@@ -427,21 +427,23 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phase 1 Payday shipped</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phase 1 Payday and Phase 2 Home shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
       <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
         connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
         prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
-        gold coins.</p>
+        gold coins. <a href="#home">Phase 2, Home</a>, has shipped too: the hub is one big Start button and four
+        tiles, and every screen they open closes with a ×. The tab bar is gone.</p>
       <div class="kpis">
         <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
         <div class="kpi"><b>868</b><span>words in the Manual tab; the Store has 406 and 80 buttons</span></div>
         <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
         <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
+        <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47 (Phase 2)</span></div>
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -469,15 +471,15 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="problem"><h3>Events are told in paragraphs</h3>
         <p>Event cards run 40 to 58 words, with a 30 to 40 word body. The price and the stakes sit in the middle of
           prose ("…something for 120 coins - otherwise…").</p></div>
-      <div class="problem"><h3>The hub repeats itself and then goes empty</h3>
-        <p>The rank and posting appear in the top bar and again in the hero. Below the next-exam card there is a large
-          empty area, then one big button. Nothing on the hub is tappable apart from that button.</p></div>
-      <div class="problem"><h3>The Manual is a tab</h3>
-        <p>868 words of prose get a permanent quarter of the tab bar, and the Manual is also linked from Settings. Rules
-          the player needs at a given moment belong on that moment's screen.</p></div>
-      <div class="problem"><h3>Tab names do not say what is behind them</h3>
-        <p>"Exam" opens the home hub, and "Career" opens a ledger that repeats the hub. The gear opens Settings, or the
-          pause screen during an exam, and while Settings is open no tab is lit.</p></div>
+      <div class="problem"><h3>The hub repeated itself and then went empty <span class="tag ok">fixed in Phase 2</span></h3>
+        <p>The rank is on the status bar only and the picture names the place. Start sits under the picture, and four
+          tiles fill the rest. <a href="#home">Phase 2: Home</a>.</p></div>
+      <div class="problem"><h3>The Manual was a tab <span class="tag ok">fixed in Phase 2</span></h3>
+        <p>It is now the Rules screen behind the Rules tile. It opens with the next exam's own rules. The Settings row
+          opens the same screen. Its 868 words are still prose; Phase 4 shortens them.</p></div>
+      <div class="problem"><h3>Tab names did not say what was behind them <span class="tag ok">fixed in Phase 2</span></h3>
+        <p>No tab bar any more. Each tile says where it goes and one live fact about it. The gear means Settings only;
+          in the room the control is a pause button.</p></div>
       <div class="problem"><h3>Onboarding is three text walls</h3>
         <p>Three cards of 29 to 43 words each, with no picture, before the first tap that matters. The ideas in them are
           good, but they arrive as reading.</p></div>
@@ -608,6 +610,147 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
   </section>
 
+  <!-- ================================================================ HOME (Phase 2) -->
+  <section id="home">
+    <div class="section-head">
+      <span class="eyebrow">Phase 2 · Home · shipped</span>
+      <h2>Home is one big button and four tiles</h2>
+      <p class="muted">The hub is now option A. At the top is the status bar: the rank as a brass chip, reputation,
+        the gold coin balance and the gear. Below it is the picture of where you work, with its name and stars. Then
+        comes <b>Start exam N</b>, with one line saying the kind of exam and how many candidates. Four tiles fill the
+        rest of the screen: Career, Shop, Wardrobe and Rules. Each tile has an icon, a short name and one live fact.
+        Each opens a full screen with a × that leads back. The tab bar is gone. The hub reads in 34 words, down from 47,
+        and carries no rule sentences.</p>
+    </div>
+    <div class="diag">
+      <div class="grid-2">
+        <figure><img src="vid/p2-hub-career-shop-start.gif" alt="Hub, tap Career: the Career screen fades in over the hub; × fades it out; tap Shop, ×, then Start exam opens the room" width="270" height="585" loading="lazy" style="max-width:270px;border-radius:12px"><figcaption><b>Hub → Career → × → Shop → × → Start exam.</b> Recorded in the game. Each screen fades in over the hub and out again on ×, alpha only, in 0.16 s. Start goes straight into the room.</figcaption></figure>
+        <figure><video src="vid/p2-phone-a15.mp4" controls muted playsinline loop preload="metadata" width="240" style="max-width:240px;border-radius:12px;border:1px solid var(--line)"></video><figcaption><b>On the Galaxy A15</b> (screen recording). Career, ×; Shop, back; Wardrobe, back; Rules, ×; the gear, back. Every way out lands on the hub.</figcaption></figure>
+      </div>
+      <div class="grid-3">
+        <figure><img src="img/p2-hub-dark-1080.jpg" alt="The hub, dark, 1080 wide: status bar with Assistant Supervisor chip, star 41, coin 260 and gear; Maple Elementary School picture; Start exam 1, School Exam · 3 candidates; tiles Career 5 to Riverside, Shop 2 you can afford, Wardrobe 30 you can afford, Rules 1 item allowed" width="540" height="1170" loading="lazy"><figcaption>Dark · 1080 × 2340</figcaption></figure>
+        <figure><img src="img/p2-hub-light-1080.jpg" alt="The same hub in the light theme" width="540" height="1170" loading="lazy"><figcaption>Light · 1080 × 2340</figcaption></figure>
+        <figure><img src="img/p2-hub-dark-720.jpg" alt="The hub, dark, 720 wide" width="540" height="1170" loading="lazy"><figcaption>Dark · 720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-hub-light-720.jpg" alt="The hub, light, 720 wide" width="540" height="1170" loading="lazy"><figcaption>Light · 720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-phone-hub.jpg" alt="The hub on the Galaxy A15: Senior Supervisor, star 61, coin 812, Kingsley Academy, Start exam 12, Professional Certification · 7 candidates, Career 24 to National, Shop 3 you can afford, Wardrobe 38 you can afford, Rules 2 items allowed" width="540" height="1170" loading="lazy"><figcaption>On the phone, a long career</figcaption></figure>
+      </div>
+
+      <h3>What each tile says</h3>
+      <ul class="steps">
+        <li><b>Career</b>: the way to the next school, "5 to Riverside" (reputation points to go). On probation it
+          reads "Probation: 2 left", and under a final warning "Final warning", both in the warning colour. At the top
+          posting it reads "Top posting". The Career screen's next-posting bar reads the same method
+          (<code>CareerPresentation.NextPosting</code>), so the tile and the bar can never disagree. M134's minimum stay
+          ("N more exams here") will go there too.</li>
+        <li><b>Shop</b>: tools and medicine you could buy now, "2 you can afford", using the same rules as the Shop's
+          buttons. Otherwise how far off the cheapest one is ("40 coins short"), or "All owned".</li>
+        <li><b>Wardrobe</b>: clothes you could buy now, otherwise how many you own ("12 of 31 owned"), or "All owned".
+          (The mockup said "2 new". The game does not track what you have seen, so the fact counts what you can buy.)</li>
+        <li><b>Rules</b>: what the next exam allows at the desk, as a count ("1 item allowed", "Nothing allowed"). The
+          sentence moved to the Rules screen, where it comes first.</li>
+      </ul>
+
+      <h3>Every screen a tile opens</h3>
+      <div class="strip">
+        <figure><img src="img/p2-career-dark-1080.jpg" alt="Career: reputation bar 41 Watched, next posting bar Next: Riverside 5 to go, then the ladder of eight schools with stars, standing asked and salary as a gold coin" loading="lazy" width="432" height="936"><figcaption><b>Career</b>stat bars, the ladder, a short log</figcaption></figure>
+        <figure><img src="img/p2-shop-dark-1080.jpg" alt="Shop: balance card, equipment tiles, medicine" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>tools, medicine, support</figcaption></figure>
+        <figure><img src="img/p2-wardrobe-dark-1080.jpg" alt="Wardrobe: the supervisor figure, Man/Woman, hair, category tabs and clothes" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>its own screen now</figcaption></figure>
+        <figure><img src="img/p2-rules-dark-1080.jpg" alt="Rules: Next exam card with the allowed materials and admission rules, then the manual" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>the next exam's rules first</figcaption></figure>
+        <figure><img src="img/p2-settings-dark-1080.jpg" alt="Settings with a close button; the gear is hidden on the status bar" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>from the gear; × goes back</figcaption></figure>
+        <figure><img src="img/p2-career-light-1080.jpg" alt="Career, light" loading="lazy" width="432" height="936"><figcaption><b>Career</b>Light</figcaption></figure>
+        <figure><img src="img/p2-shop-light-1080.jpg" alt="Shop, light" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>Light</figcaption></figure>
+        <figure><img src="img/p2-wardrobe-light-1080.jpg" alt="Wardrobe, light" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>Light</figcaption></figure>
+        <figure><img src="img/p2-rules-light-1080.jpg" alt="Rules, light" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>Light</figcaption></figure>
+        <figure><img src="img/p2-settings-light-1080.jpg" alt="Settings, light" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Light</figcaption></figure>
+        <figure><img src="img/p2-career-dark-720.jpg" alt="Career at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-shop-dark-720.jpg" alt="Shop at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-wardrobe-light-720.jpg" alt="Wardrobe, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p2-rules-light-720.jpg" alt="Rules, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p2-settings-dark-720.jpg" alt="Settings at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-career-light-720.jpg" alt="Career, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p2-shop-light-720.jpg" alt="Shop, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p2-wardrobe-dark-720.jpg" alt="Wardrobe at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-rules-dark-720.jpg" alt="Rules at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p2-settings-light-720.jpg" alt="Settings, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Light · 720</figcaption></figure>
+      </div>
+
+      <h3>The promotion says what it pays</h3>
+      <div class="grid-3">
+        <figure><img src="vid/p2-promotion.gif" alt="The hub first showing Riverside Middle School: a brass shimmer crosses the picture, it pops, and Salary counts from 55 up to 65 in gold" width="270" height="585" loading="lazy" style="max-width:270px;border-radius:12px"><figcaption><b>The first hub at a better school.</b> The brass sweep and pop are still there. Under the school's name, "Salary 55 › 65" counts up in gold.</figcaption></figure>
+        <figure><img src="img/p2-promotion-dark-1080.jpg" alt="Promotion beat at rest, dark" width="540" height="1170" loading="lazy"><figcaption>Dark · 1080</figcaption></figure>
+        <figure><img src="img/p2-promotion-light-720.jpg" alt="Promotion beat at rest, light, 720 wide" width="540" height="1170" loading="lazy"><figcaption>Light · 720</figcaption></figure>
+      </div>
+      <p class="muted" style="max-width:80ch">It plays once, on the first hub that shows the new school. Any redraw
+        after that, such as a purchase, no longer carries it. With Reduce motion on, the new figure is simply there.</p>
+
+      <h3>How it moves</h3>
+      <ul class="steps">
+        <li><b>Screen changes are a crossfade, alpha only.</b> A screen fades in over the hub in 0.16 s
+          (<code>PanelFadeSeconds</code>) and fades out on close. It stops taking taps at once. Moving from one full
+          screen to another (Career, then the gear) does not fade; the cards' entrance does that.</li>
+        <li><b>The hub stays standing under a screen it opened.</b> Closing a screen reveals the hub that was already
+          there. The 3D room stays undrawn behind it. The hub is not repainted unless something it shows changed.</li>
+        <li><b>The tiles arrive one after another</b> the first time the hub opens, never on a redraw. They scale and
+          fade, and nothing moves position; a test watches the tiles' positions through the entrance.</li>
+        <li><b>Tiles press like buttons</b>, using the same press feedback as every other control. Nothing loops or pulses.</li>
+        <li><b>Reduce motion</b> now also holds the entrance and the fade: a screen is simply there.</li>
+        <li><b>The picture and the tiles share the screen.</b> The picture grows to its natural height first, then the
+          tiles up to a ceiling (<code>TileMaxHeight</code>), then the picture again. A tall phone shows more of the
+          place rather than emptier tiles, and the hub never ends in an empty band.</li>
+      </ul>
+
+      <h3>Where the brief left room</h3>
+      <ul class="steps">
+        <li><b>× in the top-left of the header</b>, beside the title, where a full-screen dialog keeps it. The status
+          bar's gear stays top-right, so the two never sit on top of each other.</li>
+        <li><b>The status bar stays on every tile screen</b>, because the Shop and the Wardrobe need the balance. The
+          gear hides while Settings is open. The bar hides while an exam is under way: in the room, on the pause
+          screen and on the resume hub.</li>
+        <li><b>Shop and Wardrobe are two screens</b>, not one page scrolled to a section. The split was cheap: the
+          Store builds one part or the other. Phase 3 redesigns both.</li>
+        <li><b>The Settings row to the Rules stays</b>, because it is the only way to the Rules from the title screen.
+          Both doors open the same screen with the same name, and its × goes back to whichever door you used.</li>
+        <li><b>In the room the gear became a pause glyph</b>, because it opens "Exam paused". The gear now means
+          Settings and nothing else.</li>
+        <li><b>The onboarding tip stays on the hub for the first few exams</b> as one slim card under the tiles. It is
+          not counted in the 34 words, and Phase 4 shortens it.</li>
+        <li><b>Probation moved into the Career tile's fact</b>, in the warning colour, and into a bar on the Career
+          screen. The probation card on the hub is gone.</li>
+        <li><b>The Career screen</b> is now three bars (reputation, next posting, and probation when it applies), the
+          ladder with each school's pay as a gold coin, and the last three things that happened. The overview card and
+          the coin-by-coin ledger, which repeated the status bar, are gone.</li>
+      </ul>
+
+      <h3>Checked</h3>
+      <ul class="steps">
+        <li><b>Tests.</b> EditMode 2,411: 0 failed, 209 skipped (opt-in probes). PlayMode 95: 0 failed, 28 skipped
+          (opt-in captures). These figures include the M134 balance work merged in. New tests check that every tile
+          opens its screen and its × comes back to the hub. Android back does the same, including while a pre-exam
+          event waits for Start. The gear opens Settings only. There is no tab bar anywhere. The hub stays at 40 words
+          or fewer (34 today). Every tile fact is four words or fewer and never empty. The Career tile and the Career
+          bar agree. The promotion beat plays once. The entrance moves nothing the layout owns, and Reduce motion opens
+          a screen in one frame. Tests that used to check the tab bar now check the ×.</li>
+        <li><b>On the phone (Galaxy A15).</b> The dev build was installed with <code>adb install -r</code> on a long career
+          (Kingsley Academy, exam 12). Every tile opens its screen, and × and Android back both return to the hub. The
+          frame-time probe shows a steady 45 fps on the hub and every screen (the game's own pacer), and closing a
+          screen costs nothing. The phone's save files were restored afterwards and their hashes checked.</li>
+        <li><b>Found on the phone and fixed: Android back did nothing on the hub's screens</b> while a pre-exam event
+          was waiting. Since M114.1 that event waits for Start, but the back policy treated "due" as "on screen" and
+          swallowed back everywhere. Now an event blocks back only while it is actually showing.</li>
+        <li><b>Still slow: opening a screen costs one long frame</b> while its cards are built. Measured on the A15:
+          Career 208 ms, Shop 229 ms, Settings 136 ms, Rules 512 ms, Wardrobe 724 ms (the figure preview and every
+          clothes tile). The tabs paid the same before Phase 2, but the tap now feels it. The fix is to keep each
+          screen built and only redraw what changed. It belongs with the Phase 3 Store redesign and the Phase 4 Rules
+          rewrite.</li>
+      </ul>
+      <figure>
+        <img src="img/p2-phone-strip.jpg" alt="Ten phone screenshots: Career, hub, Shop, hub, Wardrobe, hub, Rules, hub, Settings, hub" width="1900" height="390" loading="lazy">
+        <figcaption>On the A15, left to right: Career, × → hub, Shop, back → hub, Wardrobe, back → hub, Rules, × → hub,
+          the gear's Settings, back → hub.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ================================================================ GALLERY -->
   <section id="gallery">
     <div class="section-head">
@@ -615,7 +758,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <h2>Every screen, as a player meets it</h2>
       <p class="muted">These are captured from the real build at 1080 × 2340, the Galaxy A15's shape, by a PlayMode
         capture test. Most screens are reached the way a player reaches them: a new career, the intro cards, the room,
-        the result, post-exam events, the hub and the tabs. Rare events, the title and the offers are staged. Light and a
+        the result, post-exam events, the hub and the screens it opens. Rare events, the title and the offers are staged.
+        The home screens show Phase 2 as shipped; everything else is as Phase 0 captured it. Light and a
         720-wide phone are shown for the key screens. Scroll each row sideways.</p>
     </div>
 
@@ -625,21 +769,18 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/d-01-onboard-00-card.jpg" alt="Intro card: Your job" loading="lazy" width="432" height="936"><figcaption><b>Intro 1: Your job</b>29 words, no picture</figcaption></figure>
         <figure><img src="img/d-01-onboard-01-card.jpg" alt="Intro card: Look before you act" loading="lazy" width="432" height="936"><figcaption><b>Intro 2</b>43 words</figcaption></figure>
         <figure><img src="img/d-01-onboard-02-card.jpg" alt="Intro card: Decisions follow you" loading="lazy" width="432" height="936"><figcaption><b>Intro 3</b>41 words</figcaption></figure>
-        <figure><img src="img/d-50-hub-first.jpg" alt="First hub: hero image of the school, next exam card, big Go to next exam button" loading="lazy" width="432" height="936"><figcaption><b>Hub, first visit</b>the posting appears twice: top bar and hero</figcaption></figure>
+        <figure><img src="img/p2-hub-dark-1080.jpg" alt="First hub: the school's picture, Start exam 1, four tiles" loading="lazy" width="432" height="936"><figcaption><b>Hub, first visit</b>34 words; rank on the bar, place on the picture</figcaption></figure>
       </div></div>
 
-    <div class="gal-group"><h3>Home and tabs <small>hub, Career, Store, Settings, Manual</small></h3>
+    <div class="gal-group"><h3>Home <small>hub, Career, Shop, Wardrobe, Rules, Settings (Phase 2)</small></h3>
       <div class="strip">
-        <figure><img src="img/d-12-hub.jpg" alt="Hub after an exam" loading="lazy" width="432" height="936"><figcaption><b>Hub</b>a large empty area above the button</figcaption></figure>
-        <figure><img src="img/d-13-career.jpg" alt="Career tab top: identity, progression ring" loading="lazy" width="432" height="936"><figcaption><b>Career</b>repeats rank and posting a third time</figcaption></figure>
-        <figure><img src="img/d-13-career-mid.jpg" alt="Career tab: list of eight schools with salaries" loading="lazy" width="432" height="936"><figcaption><b>Career, schools</b>a clear ladder, but it is the 3rd card</figcaption></figure>
-        <figure><img src="img/d-13-career-end.jpg" alt="Career tab end: overview and money" loading="lazy" width="432" height="936"><figcaption><b>Career, end</b>balance and reputation repeated again</figcaption></figure>
-        <figure><img src="img/d-51-store-top.jpg" alt="Store top: balance card, equipment tiles" loading="lazy" width="432" height="936"><figcaption><b>Store, top</b>balance repeated from the top bar</figcaption></figure>
-        <figure><img src="img/d-51-store-top-2.jpg" alt="Store: wardrobe with character preview" loading="lazy" width="432" height="936"><figcaption><b>Store, wardrobe</b>two nested segment rows</figcaption></figure>
-        <figure><img src="img/d-14-store-25.jpg" alt="Store: hat grid" loading="lazy" width="432" height="936"><figcaption><b>Store, grid</b>prices as blue buttons, locks as grey</figcaption></figure>
-        <figure><img src="img/d-14-store-50.jpg" alt="Store: tops grid" loading="lazy" width="432" height="936"><figcaption><b>Store, deeper</b>still the same page</figcaption></figure>
-        <figure><img src="img/d-15-settings.jpg" alt="Settings" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>clean; no tab lit</figcaption></figure>
-        <figure><img src="img/d-16-manual.jpg" alt="Supervisor Manual" loading="lazy" width="432" height="936"><figcaption><b>Manual</b>868 words of prose</figcaption></figure>
+        <figure><img src="img/p2-hub-dark-1080.jpg" alt="Hub" loading="lazy" width="432" height="936"><figcaption><b>Hub</b>Start under the picture, four tiles</figcaption></figure>
+        <figure><img src="img/p2-career-dark-1080.jpg" alt="Career: stat bars and the ladder" loading="lazy" width="432" height="936"><figcaption><b>Career</b>bars, the ladder, a short log</figcaption></figure>
+        <figure><img src="img/p2-shop-dark-1080.jpg" alt="Shop" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>balance repeated from the top bar (Phase 3)</figcaption></figure>
+        <figure><img src="img/d-14-store-25.jpg" alt="Store: hat grid" loading="lazy" width="432" height="936"><figcaption><b>Clothes grid</b>prices as blue buttons, locks as grey (Phase 3)</figcaption></figure>
+        <figure><img src="img/p2-wardrobe-dark-1080.jpg" alt="Wardrobe" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>two nested segment rows (Phase 3)</figcaption></figure>
+        <figure><img src="img/p2-rules-dark-1080.jpg" alt="Rules" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>868 words of prose (Phase 4)</figcaption></figure>
+        <figure><img src="img/p2-settings-dark-1080.jpg" alt="Settings" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>clean; × goes back</figcaption></figure>
         <figure><img src="img/d-17-confirm-abandon.jpg" alt="Abandon this career confirmation" loading="lazy" width="432" height="936"><figcaption><b>Confirm</b>good: Danger tone carries the weight</figcaption></figure>
       </div></div>
 
@@ -671,19 +812,19 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
 
     <div class="gal-group"><h3>Light theme <small>the same screens, Light</small></h3>
       <div class="strip">
-        <figure><img src="img/l-12-hub.jpg" alt="Hub in Light" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
+        <figure><img src="img/p2-hub-light-1080.jpg" alt="Hub in Light" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
         <figure><img src="img/l-10-result.jpg" alt="Result in Light" loading="lazy" width="432" height="936"><figcaption><b>Result</b></figcaption></figure>
-        <figure><img src="img/l-13-career.jpg" alt="Career in Light" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
+        <figure><img src="img/p2-career-light-1080.jpg" alt="Career in Light" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
         <figure><img src="img/l-14-store-25.jpg" alt="Store in Light" loading="lazy" width="432" height="936"><figcaption><b>Store</b></figcaption></figure>
         <figure><img src="img/l-30-event-Illness.jpg" alt="Illness event in Light" loading="lazy" width="432" height="936"><figcaption><b>Event</b></figcaption></figure>
-        <figure><img src="img/l-15-settings.jpg" alt="Settings in Light" loading="lazy" width="432" height="936"><figcaption><b>Settings</b></figcaption></figure>
+        <figure><img src="img/p2-settings-light-1080.jpg" alt="Settings in Light" loading="lazy" width="432" height="936"><figcaption><b>Settings</b></figcaption></figure>
       </div></div>
 
     <div class="gal-group"><h3>Narrow phone, 720 × 1560 <small>layout holds; nothing clips beyond the 1080 issues</small></h3>
       <div class="strip">
-        <figure><img src="img/n-12-hub.jpg" alt="Hub at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
+        <figure><img src="img/p2-hub-dark-720.jpg" alt="Hub at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
         <figure><img src="img/n-10-result.jpg" alt="Result at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Result</b></figcaption></figure>
-        <figure><img src="img/n-13-career.jpg" alt="Career at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
+        <figure><img src="img/p2-career-dark-720.jpg" alt="Career at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
         <figure><img src="img/n-14-store-25.jpg" alt="Store at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Store</b></figcaption></figure>
         <figure><img src="img/n-31-offer-two.jpg" alt="Two offers at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Two offers</b></figcaption></figure>
         <figure><img src="img/n-20-exam-hud.jpg" alt="Exam HUD at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b></figcaption></figure>
@@ -769,9 +910,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <div class="section-head">
       <span class="eyebrow">Navigation map</span>
       <h2>How the screens connect</h2>
-      <p class="muted">There are two kinds of screen. Tabs can be browsed freely. Modal cards (result, events, brief,
-        door) have to be answered, and the chrome hides while they are up. The loop between two exams passes through up to
-        seven modal cards and the hub.</p>
+      <p class="muted">As shipped in Phase 2. There are two kinds of screen. The hub's four tiles and its gear open
+        full screens, each closed by its × (or Android back) back to where it was opened. Modal cards (result, events,
+        brief, door) have to be answered, and the status bar hides while they are up. The loop between two exams passes
+        through up to seven modal cards and the hub.</p>
     </div>
     <div class="navmap">
       <svg viewBox="0 0 1100 470" role="img" aria-label="Navigation map: title, intro cards, hub with four tabs and settings, then the exam loop of pre-exam events, brief, door, room, result, post-exam events, back to hub.">
@@ -780,18 +922,20 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <g class="n"><rect x="20" y="40" width="130" height="54" rx="12"/><text x="85" y="64" text-anchor="middle">Title</text><text class="s" x="85" y="81" text-anchor="middle">Continue · New · Settings</text></g>
         <g class="n modal"><rect x="20" y="150" width="130" height="54" rx="12"/><text x="85" y="174" text-anchor="middle">Intro cards ×3</text><text class="s" x="85" y="191" text-anchor="middle">new career only</text></g>
         <path class="e" d="M85 94 V150"/>
-        <!-- hub + tabs -->
-        <g class="n tab"><rect x="250" y="150" width="150" height="64" rx="14"/><text x="325" y="177" text-anchor="middle" font-weight="700">Hub</text><text class="s" x="325" y="195" text-anchor="middle">tab "Exam" · 1 button</text></g>
+        <!-- hub + the screens its tiles open -->
+        <g class="n tab"><rect x="250" y="150" width="150" height="64" rx="14"/><text x="325" y="177" text-anchor="middle" font-weight="700">Hub</text><text class="s" x="325" y="195" text-anchor="middle">Start exam N · 4 tiles</text></g>
         <path class="e" d="M150 177 H250"/>
-        <g class="n tab"><rect x="240" y="20" width="80" height="44" rx="10"/><text x="280" y="47" text-anchor="middle">Career</text></g>
-        <g class="n tab"><rect x="330" y="20" width="80" height="44" rx="10"/><text x="370" y="47" text-anchor="middle">Store</text></g>
-        <g class="n tab"><rect x="420" y="20" width="80" height="44" rx="10"/><text x="460" y="47" text-anchor="middle">Manual</text></g>
-        <g class="n"><rect x="420" y="90" width="90" height="40" rx="10"/><text x="465" y="115" text-anchor="middle">⚙ Settings</text></g>
-        <path class="e dash" d="M300 150 L285 64"/><path class="e dash" d="M330 150 L365 64"/><path class="e dash" d="M360 150 L450 64"/><path class="e dash" d="M400 165 L420 120"/>
-        <path class="e dash" d="M510 110 C540 80 520 60 500 52"/><text class="lab" x="520" y="78">Manual again</text>
+        <g class="n tab"><rect x="170" y="20" width="84" height="44" rx="10"/><text x="212" y="47" text-anchor="middle">Career ×</text></g>
+        <g class="n tab"><rect x="262" y="20" width="76" height="44" rx="10"/><text x="300" y="47" text-anchor="middle">Shop ×</text></g>
+        <g class="n tab"><rect x="346" y="20" width="98" height="44" rx="10"/><text x="395" y="47" text-anchor="middle">Wardrobe ×</text></g>
+        <g class="n tab"><rect x="452" y="20" width="78" height="44" rx="10"/><text x="491" y="47" text-anchor="middle">Rules ×</text></g>
+        <g class="n"><rect x="430" y="90" width="100" height="40" rx="10"/><text x="480" y="115" text-anchor="middle">⚙ Settings ×</text></g>
+        <path class="e dash" d="M280 150 L220 64"/><path class="e dash" d="M310 150 L300 64"/><path class="e dash" d="M340 150 L390 64"/><path class="e dash" d="M370 150 L480 64"/><path class="e dash" d="M400 165 L430 120"/>
+        <path class="e dash" d="M520 90 C540 80 540 70 525 64"/><text class="lab" x="540" y="80">same Rules screen</text>
+        <path class="e dash" d="M85 94 C85 120 300 130 430 112"/><text class="lab" x="160" y="122">title ⚙</text>
         <!-- exam loop -->
         <g class="n modal"><rect x="560" y="150" width="140" height="54" rx="12"/><text x="630" y="174" text-anchor="middle">Pre-exam events</text><text class="s" x="630" y="191" text-anchor="middle">0–2 cards, must answer</text></g>
-        <path class="e" d="M400 182 H560"/><text class="lab" x="420" y="174">"Go to next exam"</text>
+        <path class="e" d="M400 182 H560"/><text class="lab" x="420" y="174">"Start exam N"</text>
         <g class="n modal"><rect x="740" y="150" width="120" height="54" rx="12"/><text x="800" y="174" text-anchor="middle">Brief</text><text class="s" x="800" y="191" text-anchor="middle">only when unwell</text></g>
         <path class="e" d="M700 177 H740"/>
         <g class="n room"><rect x="900" y="150" width="170" height="54" rx="12"/><text x="985" y="174" text-anchor="middle">Admission desk</text><text class="s" x="985" y="191" text-anchor="middle">1 tap per candidate (3–6)</text></g>
@@ -810,25 +954,26 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <path class="e dash" d="M250 407 C120 407 85 300 85 204"/>
       </svg>
     </div>
-    <div class="legend"><span><i style="background:var(--accent-soft)"></i>tab (chrome visible)</span><span><i style="background:var(--gold-soft)"></i>modal card (chrome hidden, must answer)</span><span><i style="background:var(--ok-soft)"></i>the room</span><span><i style="background:var(--bad-soft)"></i>end of career</span></div>
+    <div class="legend"><span><i style="background:var(--accent-soft)"></i>hub and the full screens it opens (status bar visible; × closes)</span><span><i style="background:var(--gold-soft)"></i>modal card (chrome hidden, must answer)</span><span><i style="background:var(--ok-soft)"></i>the room</span><span><i style="background:var(--bad-soft)"></i>end of career</span></div>
     <div class="taps">
       <div class="tap"><b>1</b><span>tap from the hub into the next exam, plus 1 per pre-exam event and 1 per candidate at the door (typically 4–9)</span></div>
       <div class="tap"><b>2–5</b><span>taps from the bell to the hub: Continue, then one per post-exam event (observed: Continue, OK, OK, OK)</span></div>
-      <div class="tap"><b>2 + 3 swipes</b><span>to buy clothing: the Store tab, scroll past the tools and medicine, filter, Buy</span></div>
-      <div class="tap"><b>1</b><span>to check the career, but the school ladder is the 3rd card down</span></div>
+      <div class="tap"><b>2</b><span>to buy clothing: the Wardrobe tile, then Buy (one more tap to filter by category)</span></div>
+      <div class="tap"><b>1</b><span>to check the career: the Career tile, three bars and then the ladder</span></div>
       <div class="tap"><b>5</b><span>taps from New career to the first room: 3 intro cards and the hub button</span></div>
     </div>
     <div class="grid-2">
-      <div class="card"><h3>Dead ends and unclear paths</h3>
-        <p>• <b>"Exam" tab = home.</b> The tab is named after a place the player is not yet in; the hub's button says "Go to next exam".<br>
-          • <b>Settings lights no tab</b> and has no Back. The way out is to pick a tab, or Android back.<br>
-          • <b>The Manual has two doors</b> (the tab and a Settings row) and is the only tab that never changes.<br>
-          • <b>The gear means two things:</b> Settings on the hub, Pause in the room.<br>
-          • <b>Dismissed is a true dead end</b> by design. That is correct, but it is the only screen with no recap of the career.</p></div>
+      <div class="card"><h3>Dead ends and unclear paths <span class="tag ok">fixed in Phase 2</span></h3>
+        <p>• <b>Home is the hub</b>, and its button says what it does: "Start exam N".<br>
+          • <b>Every full screen has a way out:</b> a × in its header, and Android back, both to where it was opened.<br>
+          • <b>The Rules have one screen</b> with two doors (the Rules tile, and a Settings row for the title screen).<br>
+          • <b>The gear means Settings only.</b> In the room the control is a pause button.<br>
+          • <b>Dismissed is still a true dead end</b> by design, and still the only screen with no recap of the career.</p></div>
       <div class="card"><h3>What works</h3>
-        <p>• The persistent top bar and tab bar replaced a menu tree; Back is gone where the bar is visible.<br>
+        <p>• The status bar carries the numbers on every career screen; the tiles carry the navigation.<br>
           • Answer-before-browse on events is a fairness rule and stays.<br>
-          • Android back is handled by one policy (<code>BackNavigation</code>).<br>
+          • Android back is handled by one policy (<code>BackNavigation</code>). Since Phase 2 a waiting pre-exam event no
+          longer swallows it on the hub's screens.<br>
           • The modal sheet layout (picture, kicker, title, body, buttons) is consistent everywhere.</p></div>
     </div>
   </section>
@@ -852,7 +997,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <tr><th scope="row">Action toast</th><td><span class="tag ok">works</span></td><td class="q">"You warned …" settles under the cue band for about 2.6 s, then fades.</td><td class="q"><code>ExamHudView.RefreshActionToast</code></td></tr>
           <tr><th scope="row">Promotion beat</th><td><span class="tag ok">works</span></td><td class="q">One brass sweep plus a pop on the new school's hero. The planned salary "old → new" line was not built.</td><td class="q"><code>HomeHubView.CelebrateIfRaised</code></td></tr>
           <tr><th scope="row">Event choice stamp</th><td><span class="tag ok">works</span></td><td class="q">The chosen button pops; the others fade where they stand.</td><td class="q"><code>EventSceneView.Choose</code></td></tr>
-          <tr><th scope="row">Career ring fill</th><td><span class="tag ok">works</span></td><td class="q">Sweeps from 0 on the first view of a session, then from the last value seen.</td><td class="q"><code>MeterFill.Play</code></td></tr>
+          <tr><th scope="row">Career ring fill</th><td><span class="tag ok">replaced</span></td><td class="q">Phase 2 replaced the ring with stat bars (<code>Ui.StatBar</code>), which are drawn at their value.</td><td class="q"><code>Ui.StatBar</code></td></tr>
           <tr><th scope="row">Store purchase punch</th><td><span class="tag ok">works, subtle</span></td><td class="q">The tile turns to "Carry" and pops once; the chrome rolls 1550 → 1150. The Store's own balance card jumps with no roll.</td><td class="q"><code>StoreScreen.cs:377</code></td></tr>
           <tr><th scope="row">Screen transitions</th><td><span class="tag ok">works</span></td><td class="q">Tabs get the Reveal entrance (cards settle in about 0.3 s) instead of the planned crossfade. On the first frame the hub's text overlaps.</td><td class="q"><code>Reveal</code>, <code>PanelScreenView</code></td></tr>
           <tr><th scope="row">Exam clock warning</th><td><span class="tag ok">works</span></td><td class="q">The bar and time ease to Warning orange at 30 s left, with no pulse.</td><td class="q"><code>ExamHudView.WarmClock</code></td></tr>
@@ -869,9 +1014,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="anim-card"><div class="clip"><img src="vid/action-toast.gif" alt="Exam room: a toast 'You warned Tolga Şahin' appears and fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Action toast <span class="tag ok">works</span></h3><p>It reads well, but it is a 12-word sentence over the room.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/walkout.gif" alt="A removed student stands and walks out of the classroom door" width="270" height="585" loading="lazy"></div><div class="t"><h3>Walkout <span class="tag ok">works</span></h3><p>The same walk for anyone removed, so it says nothing about guilt.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/clock-warning.gif" alt="Exam HUD clock turns orange in the last 30 seconds" width="270" height="585" loading="lazy"></div><div class="t"><h3>Clock warning <span class="tag ok">works</span></h3><p>It eases once to orange and stays.</p></div></div>
-      <div class="anim-card"><div class="clip"><img src="vid/career-ring.gif" alt="Career tab opens and its progression ring sweeps" width="270" height="585" loading="lazy"></div><div class="t"><h3>Career ring <span class="tag ok">works</span></h3><p>Sweeps on open. "7 to go" beside an almost full ring reads oddly.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/p2-hub-career-shop-start.gif" alt="Hub, Career fades in, ×, Shop, ×, Start exam" width="270" height="585" loading="lazy"></div><div class="t"><h3>Screen change <span class="tag ok">Phase 2</span></h3><p>The Career ring became stat bars. Screens now fade in over the hub and out on ×.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/store-purchase.gif" alt="Store: tapping 400 buys the Phone Detector; the tile turns to Carry, balance drops" width="270" height="585" loading="lazy"></div><div class="t"><h3>Purchase <span class="tag ok">subtle</span></h3><p>The tile pops; the top bar rolls down; the Store's balance card jumps.</p></div></div>
-      <div class="anim-card"><div class="clip"><img src="vid/promotion.gif" alt="Hub shows City High School with a brass shimmer sweeping across the hero" width="270" height="585" loading="lazy"></div><div class="t"><h3>Promotion <span class="tag ok">works</span></h3><p>One brass sweep and a pop. It is the nicest moment in the game, and it lasts under a second.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/p2-promotion.gif" alt="Hub shows Riverside Middle School: a brass shimmer, a pop, and Salary counting from 55 to 65" width="270" height="585" loading="lazy"></div><div class="t"><h3>Promotion <span class="tag ok">works</span></h3><p>One brass sweep and a pop, and since Phase 2 the new salary counts up from the old one.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/event-stamp.gif" alt="An event card: Accept is tapped, pops, Reject fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Event stamp <span class="tag ok">works</span></h3><p>The chosen answer pops and the other fades.</p></div></div>
     </div>
   </section>
@@ -1308,7 +1453,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li><b>Fixes:</b> the clipped top-bar rank line, the notice that bleeds onto the result, and the first-frame overlap on the hub.</li></ul></div>
         <div class="est">3–4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 2<small>Home</small></div>
-        <div><b>Hub + navigation</b><ul>
+        <div><b>Hub + navigation</b> <span class="tag ok">shipped</span> — see <a href="#home">Phase 2: Home</a>.<ul>
           <li>The tile hub (A): the tab bar goes, each tile opens a full screen with a close (×) button, and Settings stays on the gear.</li>
           <li><b>Stat bars</b> for reputation, next posting and probation (new <code>Ui.StatBar</code>).</li>
           <li><b>Career tab</b> trimmed to the ladder of schools and a short log; repeats of the top bar removed.</li>

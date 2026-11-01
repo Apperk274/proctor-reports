@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 Home shipped: the tile hub and its full screens with a close in Dark and Light at both phone sizes, the phone check, and the navigation map as it now stands."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "career-balance", "change": "The Target tuning is now shipped and measured with the real values: top school at exam 58, crests earned, and the whole store owned by exam 63."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "career-balance", "change": "Added the Career Balance report: today's career pace, school moves, money and store timing against the targets, and three tuning packages."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 1 Payday shipped: the result card's gold coin pile and pour into its own balance, in Dark and Light at both phone sizes, replace the salary diagnosis."},
