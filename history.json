@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "career-balance", "change": "Added the Career Balance report: today's career pace, school moves, money and store timing against the targets, and three tuning packages."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 1 Payday shipped: the result card's gold coin pile and pour into its own balance, in Dark and Light at both phone sizes, replace the salary diagnosis."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "The hub and result-card options are now side-by-side phone mockups, with tile hub A and payday receipt B marked as chosen and the decisions recorded."},
   {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "On the phone now shows the fixed build: no stray Back, a switch half as long, the scroll kept, and panels opening at the top."},

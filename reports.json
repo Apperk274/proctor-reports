@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "career-balance",
+      "title": "Career Balance",
+      "category": "career",
+      "summary": "Whole-game balance audit: how fast careers climb, how easily they change schools, what they earn and when the store is bought, with three tuning packages."
+    },
+    {
       "slug": "ui-overhaul",
       "title": "UI Overhaul",
       "category": "look-and-feel",
