@@ -427,20 +427,21 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0, audit and proposal</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phase 1 Payday shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
       <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
         connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
-        prettier game. No game code changed in this phase.</p>
+        prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
+        gold coins.</p>
       <div class="kpis">
         <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
         <div class="kpi"><b>868</b><span>words in the Manual tab; the Store has 406 and 80 buttons</span></div>
         <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
-        <div class="kpi"><b>0</b><span>coins seen on the result card: the salary arrives later, on the hub</span></div>
+        <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#salary">The salary case</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -457,12 +458,11 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         looking at.</p>
     </div>
     <div class="problems">
-      <div class="problem hot"><h3>The salary is a line of text <span class="tag bad">broken feel</span></h3>
-        <p>The result card shows "Salary +50 ¢", which counts up. The coins only fly later, on the hub, from mid-screen.
-          When expenses are due (every 4th exam) no coins fly at all. <a href="#salary">Diagnosis</a>.</p></div>
-      <div class="problem hot"><h3>No headline on the result</h3>
-        <p>Good, Mixed or Poor is computed but never shown. The card opens on "Exam complete", which tells the player
-          nothing about how the exam went.</p></div>
+      <div class="problem"><h3>The salary was a line of text <span class="tag ok">fixed in Phase 1</span></h3>
+        <p>Gold coins now drop onto a pile on the result card and pour into the card's own balance. Bills leave after the
+          pour. <a href="#payday">Phase 1: Payday</a>.</p></div>
+      <div class="problem"><h3>No headline on the result <span class="tag ok">fixed in Phase 1</span></h3>
+        <p>A Good, Mixed or Poor chip now sits under "Exam complete".</p></div>
       <div class="problem"><h3>The Store is one 5-screen scroll</h3>
         <p>Tools, medicine and the wardrobe share one page: 172 labels, 406 words and 80 buttons, with two nested rows of
           segmented controls inside the wardrobe.</p></div>
@@ -484,67 +484,127 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="problem"><h3>The admission desk is a data table</h3>
         <p>75 words: ten rows comparing document against exam in small type, plus the rules in prose. It is the game's
           core puzzle, presented as a form.</p></div>
-      <div class="problem"><h3>Small visual bugs <span class="tag warn">polish</span></h3>
-        <p>The rank line in the top bar is clipped at the top on every screen. A notice from the exam can sit over the
-          result card. On the first frame the hub opens, its text overlaps.</p></div>
+      <div class="problem"><h3>Small visual bugs <span class="tag ok">2 of 3 fixed</span></h3>
+        <p>The notice that sat over the result card and the hub's first-frame overlap are fixed. The clipped rank line
+          could not be reproduced. <a href="#payday">Details</a>.</p></div>
     </div>
   </section>
 
-  <!-- ================================================================ SALARY -->
-  <section id="salary">
+  <!-- ================================================================ PAYDAY (Phase 1) -->
+  <section id="payday">
     <div class="section-head">
-      <span class="eyebrow">Diagnosis</span>
-      <h2>Why the salary reads as "+120" and not as coins</h2>
-      <p class="muted">The coin flight works as written: in a real flow, 4 coins flew and the counter went 0 → 50 ¢. It
-        is designed to happen somewhere the player is not looking, and it is skipped on the exams with the biggest money
-        swing. Reduce motion is off on this Mac's save, and nothing on the player's side turns it off.</p>
+      <span class="eyebrow">Phase 1 · Payday · shipped</span>
+      <h2>The salary is paid in on the result card, in gold</h2>
+      <p class="muted">The result card is now option B, the payday receipt. It has its own balance pill and a short
+        receipt of what came in and what went out. The salary drops onto a small pile of gold coins, the pile pours
+        into the balance, and then any bill leaves it calmly. The status bar on the hub already shows the same number,
+        so nothing is paid twice.</p>
     </div>
     <div class="diag">
-      <figure>
-        <img src="img/salary-diagnosis.jpg" alt="Four frames: the result card with a text row 'Salary +50', then the hub with the balance at 0, then four small green glyphs in the middle of the hub, then the balance reading 50." width="1356" height="715" loading="lazy">
-        <figcaption>A real career, recorded frame by frame. The salary is a text row on the result card (1). The coins
-          leave from mid-screen on the hub, after Continue and any post-exam events (2–4).</figcaption>
-      </figure>
-      <figure>
-        <img src="img/salary-flight-zoom.jpg" alt="Six zoomed frames of the top bar: the coin pill reads 0, small outline coin-stack glyphs travel up, then it reads 16 and climbs." width="1970" height="330" loading="lazy">
-        <figcaption>The flight up close. The glyphs are thin green outline stacks 72 reference px wide (about 6% of the
-          screen width). They arrive while the hub's own entrance is still settling.</figcaption>
-      </figure>
-      <ol class="steps">
-        <li><b>The coin counter is hidden on the result card, so nothing can fly there.</b> <code>HudRouter.cs:323-325</code>
-          hides the chrome whenever a boundary card, an event or the door is up (<code>bool modal = _ui.Boundary.Visible || …</code>).
-          The design guide says so too (<code>UI-DESIGN-SYSTEM.md:220</code>: "the salary is paid in when the player
-          returns to the hub").</li>
-        <li><b>On the result card, the salary is a text row.</b> <code>HudRouter.AddPaymentRows</code> (<code>:1579</code>)
-          makes the row "Salary" with trailing text <code>"+{0} ¢"</code>. <code>BoundaryView.CountIn</code>
-          (<code>:285-299</code>) counts it up from 0 and pops the row icon once. No coin is drawn and no stack forms. The
-          "¢" glyph stands in for money.</li>
-        <li><b>The flight plays on the hub, from the middle of the screen.</b> <code>ChromeView.AnimateCoins</code>
-          (<code>:309-347</code>) uses <code>Vector3 source = _root.TransformPoint(Vector3.zero)</code> (<code>:326</code>),
-          the screen centre, because the payment row it came from no longer exists. The hub's entrance plays in the same
-          0.26 s, and one or more event cards can sit between the result and the hub. By then, cause and effect are
-          screens apart.</li>
-        <li><b>It flies the net change, and no coins fly when that is negative.</b> The chrome compares its last balance
-          with the new one (<code>:317</code>: <code>if (delta &lt;= 0 …) roll down</code>). Every 4th exam
-          (<code>CareerService.cs:511</code>, <code>ExpenseCadenceExams = 4</code>) monthly expenses of 220 ± 60 per tier
-          outweigh a salary of 50–190. On those exams the player never sees the salary arrive: the balance simply rolls
-          down. Store spending since the last hub visit is netted in the same way. Recorded: 1150 → 1040, with no flight.</li>
-        <li><b>A small salary looks like decoration.</b> The flight sends one coin per 15 earned, clamped to 3–8
-          (<code>:325</code>). The Maple salary of 50 sends 4 glyphs, in the Money green, with no gold and no stack.</li>
-      </ol>
       <div class="grid-2">
-        <figure><img src="vid/result-card.gif" alt="Result card animation: rows arrive and the salary counts up to plus 50" width="270" height="585" loading="lazy" style="max-width:240px;border-radius:12px"><figcaption>Result card: the salary counts up as text.</figcaption></figure>
-        <figure><img src="vid/payday-expenses.gif" alt="An expenses exam: result rows, three event cards, then the hub where the balance rolls down with no coins" width="270" height="585" loading="lazy" style="max-width:240px;border-radius:12px"><figcaption>An expenses exam: three cards later the balance rolls down from 1150 to 1040, and the salary never flies.</figcaption></figure>
+        <figure><img src="vid/p1-payday-salary.gif" alt="Result card: coins drop onto a pile beside the Salary line, then pour into the Balance pill, which counts up to 50 and pops once" width="300" height="390" loading="lazy" style="max-width:300px;border-radius:12px"><figcaption><b>A normal exam.</b> Recorded in the game: 50 coins land as a stack of four and pour into the pill. It counts up with a soft tap per coin and pops once at the end. About 1.2 s.</figcaption></figure>
+        <figure><img src="vid/p1-payday-bill.gif" alt="A bill exam: the salary pours in first, the balance reaches 50, then monthly expenses roll it down to minus 110 and the pill turns red" width="300" height="390" loading="lazy" style="max-width:300px;border-radius:12px"><figcaption><b>A bill exam.</b> The salary still arrives first, so the balance is seen at 50. Then the monthly expenses (−160) roll it down to −110, with no pop and no shake. In debt, the number and the pill are drawn in the danger colour. About 1.7 s.</figcaption></figure>
       </div>
-      <p><b>Fix (Phase 1).</b> Pay out on the result card itself:</p>
+      <figure>
+        <img src="img/p1-bill-strip.jpg" alt="Six moments of the bill exam: card arriving, coins dropping, the stack, coins in flight to the pill, the balance at 50, the balance rolled down to minus 110" width="2200" height="284" loading="lazy">
+        <figcaption>The same bill exam, frame by frame: the card arrives, the coins drop and stack, the pile pours into the
+          pill, the salary is counted in, and the bill leaves.</figcaption>
+      </figure>
+      <div class="grid-3">
+        <figure><img src="img/p1-result-salary-dark-1080.jpg" alt="Result card at rest, dark theme, 1080 wide: Exam complete, School Exam 1 with a Good chip; Balance 50; Salary +50; Reputation +2; Warned Tolga Sahin; Continue" width="540" height="702" loading="lazy"><figcaption>Dark · 1080 × 2340</figcaption></figure>
+        <figure><img src="img/p1-result-salary-light-1080.jpg" alt="The same card in the light theme" width="540" height="702" loading="lazy"><figcaption>Light · 1080 × 2340</figcaption></figure>
+        <figure><img src="img/p1-result-bill-dark-720.jpg" alt="A bill exam card at rest, dark theme, 720 wide: Balance minus 110 in a red pill, Salary +50, Monthly expenses −160" width="540" height="702" loading="lazy"><figcaption>Bill exam · Dark · 720 × 1560</figcaption></figure>
+        <figure><img src="img/p1-result-bill-light-1080.jpg" alt="A bill exam card at rest in the light theme" width="540" height="702" loading="lazy"><figcaption>Bill exam · Light · 1080 × 2340</figcaption></figure>
+        <figure><img src="img/p1-result-salary-dark-720.jpg" alt="Normal exam card, dark theme, 720 wide" width="540" height="702" loading="lazy"><figcaption>Dark · 720 × 1560</figcaption></figure>
+        <figure><img src="img/p1-result-bill-light-720.jpg" alt="Bill exam card, light theme, 720 wide" width="540" height="702" loading="lazy"><figcaption>Bill exam · Light · 720 × 1560</figcaption></figure>
+      </div>
+
+      <h3>How it plays</h3>
+      <ol class="steps">
+        <li><b>The outcome chip arrives.</b> Good, Mixed or Poor, from the same classification the career log already
+          uses ("Exam 3 finished – mixed"). Good is green, Mixed is neutral, and Poor uses the warning colour. It scales
+          from 0.9 and fades in, once.</li>
+        <li><b>Coins drop onto a pile beside the income line.</b> There is one coin per 15 earned, with at least 3 and at
+          most 10, so a 50 salary is a short stack and a 190 salary is a heap. The centre column leads, so even 3 coins
+          read as a stack. While they fall, the line's own number counts up to <code>+50</code>.</li>
+        <li><b>The pile pours into the balance pill.</b> The top coin leaves first, along an arc. The pill counts up as
+          each coin lands, with a soft tap on every other coin, and pops once on the last.</li>
+        <li><b>Costs leave after the pour.</b> One calm roll down, with no pop, no flight, no shake and no flash. A
+          salary is never netted away.</li>
+      </ol>
       <ul class="steps">
-        <li>Show a read-only coin pill on the result card.</li>
-        <li>Fly gold coins from each income row into a visible stack, then into the pill.</li>
-        <li>Play each payment as its own beat: income in, then costs out. A salary is always seen, even when the month's
-          bills take more.</li>
-        <li>The hub then has nothing left to animate.</li>
+        <li><b>A tap anywhere lands everything at once:</b> the pile is poured and the balance shows its true number. The
+          tap still reaches what is under it, so Continue works at any moment.</li>
+        <li><b>Reduce motion</b> shows the end state in the first frame.</li>
+        <li><b>The payday plays once per exam.</b> A redraw of the open card, or a theme switch that rebuilds it, shows
+          the end state.</li>
+        <li><b>The card ends on the balance after the bill.</b> The monthly bill settles without a screen once the result
+          is read, so the card already lists it. That is the number the status bar takes when the hub returns
+          (<code>ChromeView.Settle</code>).</li>
+        <li><b>The status bar does not pay it again.</b> In the clip below, the bar reads 50 as soon as the hub appears,
+          and no coins fly.</li>
       </ul>
-      <p>Mockups are under <a href="#proposal">Proposal</a>.</p>
+      <div class="grid-2">
+        <figure><img src="vid/p1-payday-reduced.gif" alt="Reduce motion: the bill exam card appears already settled at minus 110" width="300" height="390" loading="lazy" style="max-width:300px;border-radius:12px"><figcaption><b>Reduce motion on.</b> The card opens on its end state: no pile and no flight.</figcaption></figure>
+        <figure><img src="vid/p1-continue-to-hub.gif" alt="Continue: the result card gives way to the hub; the status bar already reads 50 and nothing flies" width="240" height="520" loading="lazy" style="max-width:240px;border-radius:12px"><figcaption><b>Continue to the hub.</b> The bar already reads 50, and the hub's first frame no longer shows the previous hub's text over the new one.</figcaption></figure>
+      </div>
+
+      <h3>The gold coin</h3>
+      <p class="muted" style="max-width:80ch">Coins are now gold everywhere they appear as an object: the balance pill in the
+        status bar and on the card, every receipt line, every coin in flight, and the pile. The coin is drawn in code in
+        layers that the theme colours: a lit face, a darker rim with one inner ring, and a highlight. The pile uses a
+        side view of the same coin. There is no "¢" next to a balance, because the coin is the unit. A gain is still
+        written in green (<code>+50</code>) and a cost in the danger colour (<code>-160</code>). In the light theme, the
+        balance number uses a dark gold that clears 4.5:1.
+        "¢" is still printed on prices, on the Career tab and in event text. Phase 3 (Store) and Phase 4 (words) replace
+        those with coin chips.</p>
+
+      <h3>The three visual bugs from Phase 0</h3>
+      <ul class="steps">
+        <li><b>The exam notice over the result card: fixed.</b> A notice raised in the room now ends when the exam does.
+          A notice raised anywhere else, such as the save-recovery line at launch, still gets its full 8 seconds.</li>
+        <li><b>The hub's first-frame overlap: fixed.</b> The overlapping text was the <em>previous</em> hub's cards.
+          <code>Destroy</code> is deferred to the end of the frame, so the old cards stayed in the layout while the new
+          ones were laid out, and both were drawn. A screen now deactivates what it discards (<code>Ui.Discard</code>)
+          before destroying it. This applies to the hub, the boundary cards and the panel screens.</li>
+        <li><b>The clipped rank line: not reproduced.</b> The Phase 0 captures, the new captures and the phone at the
+          largest text size all show the top bar's rank and posting fully inside the bar: about 30 px clear above and
+          26 px below at 1080 wide. Nothing in the code clips it. If it shows up again, it needs a screenshot from the
+          device where it happened.</li>
+      </ul>
+
+      <h3>Checked</h3>
+      <ul class="steps">
+        <li><b>Tests.</b> EditMode 2,352 tests: 2,145 passed, 0 failed, 207 skipped (all opt-in probes). PlayMode
+          88 tests: 61 passed, 0 failed, 27 skipped (all opt-in capture tests). New tests check that the balance ends on
+          the economy's own number on a normal exam, on a bill exam that leaves the player in debt, and on an exam that
+          paid nothing. They also check that the salary is visibly counted in before the bill leaves, that a tap mid-pour
+          lands everything, that Reduce motion shows the end in the first frame, and that the hub does not pay the salary
+          again. Two guards check that a payday moves nothing the layout owns and that no payday timing is written as a
+          number.</li>
+        <li><b>On the phone (Galaxy A15).</b> The dev build was installed with <code>adb install -r</code> and played on a real
+          bill exam. A car repair (−80) was paid that morning, then Salary +140 and the monthly bill −280. The balance
+          shows 812, a heap of 10 gold coins pours in to 952, then rolls down to 592, which matches the economy. The coins
+          read as gold coins at phone size. During the coin animation the screen recording's longest gap between frames
+          was 34 ms. The only long gaps, 168 ms and 110 ms, fall on the frame the exam ends and the card is built. After the
+          exam before it (Salary +140 to 812), the hub's bar read 812 straight away and nothing flew. The phone's save files were restored afterwards and
+          their hashes checked.</li>
+      </ul>
+      <div class="grid-2">
+        <figure><video src="vid/p1-phone-a15.mp4" controls muted playsinline loop preload="metadata" width="360" style="max-width:300px;border-radius:12px;border:1px solid var(--line)"></video><figcaption><b>On the Galaxy A15</b> (screen recording). The bell, then the bill exam's payday: 812 → 952 → 592.</figcaption></figure>
+        <figure><img src="img/p1-phone-a15.jpg" alt="The result card on the phone after the payday: Good chip, Balance 592, Car repair −80, Salary +140, Monthly expenses −280, Reputation +2" width="540" height="630" loading="lazy" style="max-width:300px"><figcaption>The same card at rest on the phone.</figcaption></figure>
+      </div>
+      <details>
+        <summary>What was wrong before (Phase 0 diagnosis, superseded)</summary>
+        <ul class="steps">
+          <li>The coin counter was hidden on the result card, so the salary was paid in later, on the hub, from the middle
+            of the screen. Several event cards could sit in between.</li>
+          <li>On the card, the salary was a line of text: <code>Salary +50 ¢</code>.</li>
+          <li>Only the net change flew. Every 4th exam the bills outweighed the salary, and the balance simply rolled down,
+            so the salary was never seen.</li>
+          <li>The flying coins were thin green outline glyphs, and a 50 salary sent four of them.</li>
+        </ul>
+      </details>
     </div>
   </section>
 
@@ -1240,7 +1300,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
     <div class="phases">
       <div class="phase"><div class="num">Phase 1<small>Payday</small></div>
-        <div><b>Result card + coin system</b><ul>
+        <div><b>Result card + coin system</b> <span class="tag ok">shipped</span> — see <a href="#payday">Phase 1: Payday</a>.
+          "¢" is gone from the balance and the result card; prices, the Career tab and event text keep it until Phases 3 and 4.<ul>
           <li><b>Coin role and gold coin icon</b>; "¢" removed from every screen (Store, Career, events, offers).</li>
           <li><b>Read-only coin pill on the result card</b>; income rows pay into it via <code>FlightLayer</code> from the row, through the coin stack. Costs leave as separate beats, so a salary is never netted away.</li>
           <li><b>Outcome chip</b> (Good / Mixed / Poor); the payday receipt layout (B).</li>
