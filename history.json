@@ -1,85 +1,506 @@
 [
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 5, Room: a clock bar, three-word toasts, a tool dock and Time's up in the exam, a door of two cards with a stamp, HUD coverage before and after, and frame times on the A15."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 4, Words: one sentence a card, known costs as coin chips on the answers, the rules as chips, the Rules as short rows that open, and the text audit as it now stands."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 3, Shop: one segment row, price chips and a pick-then-Buy sheet, earned crests, save v7, and faster screens on the A15."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 test totals now come from the run after the last merge with main (EditMode 2,421, PlayMode 95, none failed)."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 Home shipped: the tile hub and its full screens with a close in Dark and Light at both phone sizes, the phone check, and the navigation map as it now stands."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "career-balance", "change": "The Target tuning is now shipped and measured with the real values: top school at exam 58, crests earned, and the whole store owned by exam 63."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "career-balance", "change": "Added the Career Balance report: today's career pace, school moves, money and store timing against the targets, and three tuning packages."},
-  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 1 Payday shipped: the result card's gold coin pile and pour into its own balance, in Dark and Light at both phone sizes, replace the salary diagnosis."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "The hub and result-card options are now side-by-side phone mockups, with tile hub A and payday receipt B marked as chosen and the decisions recorded."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "On the phone now shows the fixed build: no stray Back, a switch half as long, the scroll kept, and panels opening at the top."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added the UI Overhaul report: screen captures, text audit, navigation map, animation check, salary diagnosis and three redesign directions."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "Added On the phone: the theme switch, Follow phone and the Light screens checked on the Galaxy A15, with two problems found."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "wardrobe", "change": "The Phone Detector now costs 400¢ (was 250): the tool card, price table and affordability table are re-measured at today's prices."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "sound-hints", "change": "The Detector keeps 2 uses and now costs 400¢; the recommendation table says so."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "The Store's not-owned veil is now 30% in Light (Dark keeps 62%), with new Store and Wardrobe frames and a before and after."},
-  {"date": "2026-10-31", "author": "ardakabadayi", "slug": "light-theme", "change": "Added the Light Theme report: the Settings theme choice, every screen in Dark beside Light, the light palette's contrast and the open Store veil issue."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "sound-hints", "change": "Added the Sound Hints and Phone Detector report: students per hint old against new, search effort, bot careers, the heard-buzz grounds fix and recommendations."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "texture-compression", "change": "Added the Texture Compression report: clean APK sizes for ASTC 8x8, 10x10, a smaller max size and no daytime renders, with decoded crops beside today's 6x6."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "image-quality", "change": "The size note now points to the measured Texture Compression report instead of the old 8x8 estimate."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "performance", "change": "Checked merged main eed4d45 on the Galaxy A15: a steady 45 fps, short save freezes, a clean visual pass and no crashes or errors in logcat."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "schools", "change": "Re-measured the career figures on the current game (school rooms, bots starting at the desk, Eastgate at 2.5 stars) and added a second seed block."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Checked the polish pass on the Galaxy A15: the keep-some-coins hint, hats over every hairstyle, the lanyard, collars, the blazer and the female students all look right."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "performance", "change": "Added the Phone Performance report: GPU-bound judder, save freezes, and before/after on the Galaxy A15."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added the polish pass: a keep-some-coins hint in the store, hair that fits under every hat, a lanyard laid on each top, smoother shirt collars and draped blazer lapels, with before and after pictures."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Wardrobe taps no longer freeze the phone (now 22 to 78 ms), the chosen tab stays in view, old careers get their earlier schools' crests, and the approved band-2 locks and 750 prices are in."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Checked on the Galaxy A15 (build 9b848d2): the preview render errors are gone and phase 3 works on the phone, with phone shots replacing the editor ones and the hitches found listed under Known limits."},
-  {"date": "2026-10-30", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added Prices & balance: earnings and unlock timings measured over about 3,000 bot careers, with a proposal for band-2 locks and 750-coin band-3 items."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Phase 3 is in the game: all 36 items on both bodies with prices, unlocks and shop tiles, the hair choice, pins and crests, and the woman's seam fix, replacing the candidates."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "schools", "change": "Eastgate Evening College is now rated 2.5 stars, a promotion between Riverside and City High: new offer card, half stars on the hub and Career tab, and re-measured careers."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Known limits: the phone re-check of the preview fixes is listed until the Galaxy A15 runs 7ea7da3."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Phase 2 phone fixes (7ea7da3): the preview renders single-sampled and stops when the store closes, unowned tiles are marked, the Issued Shirt has its render; phone re-check pending."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "device-check", "change": "Added main 6ac9729 on the phone: the new app icon and shop tiles pass; the Wardrobe preview has render errors, a broken back view, try-on and turning."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added phase 3 candidates: 36 items on the man and the woman, five outfits, three hairstyles for the woman and the fix for the seams on her tops."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added phase 2, the store's Wardrobe: live preview figure, Man / Woman toggle, slots, try-on, Buy / Wear / Take off; Maple start shots replaced."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "wardrobe", "change": "Added the Wardrobe report: phase 1, the supervisor on the students' skinned body as a man or a woman, walking at 2.1 m/s."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Shows the chosen icon, the Angled room with every student blue, in place of the four candidates."},
-  {"date": "2026-10-29", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Replaced the rejected icon concepts with four scene candidates tested at 48 px, and showed the shop tiles as shipped in the Store."},
-  {"date": "2026-10-28", "author": "ardakabadayi", "slug": "app-icon-shop", "change": "Added the App Icon and Shop Art report: four icon concepts at launcher sizes and Blender candidates for the seven shop tiles."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": null, "change": "The index shows one column per category with summaries on hover, and a history page lists every change."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "school-rooms", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "student-characters", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "classroom-door", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "admission-photo", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "whisper-sound", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "exam-bell-sounds", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "image-quality", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "game-feel", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "schools", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "device-check", "change": "Added an ← All reports link back to the index."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": null, "change": "The index renders from reports.json by category, and a check script runs before every push."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "student-characters", "change": "Whispering Students merged in as the Whispering section, with its two close-up clips."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "whisper-comparison", "change": "Merged into Student Characters and replaced with a redirect stub."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "classroom-door", "change": "Renamed from The Way Out to Classroom Door."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "admission-photo", "change": "The door link now uses the new name, Classroom Door."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "game-feel", "change": "Removed an unused image."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "image-quality", "change": "Removed two unused event screenshots."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "school-rooms", "change": "Removed an unused tablet capture."},
-  {"date": "2026-10-28", "author": "Apperk274", "slug": "exam-bell-sounds", "change": "Added No. 15, the small gong at classic speed, now the bell in the game."},
-  {"date": "2026-10-28", "author": "ardakabadayi", "slug": "device-check", "change": "Re-checked the M130.1 fixes on the Galaxy A15."},
-  {"date": "2026-10-27", "author": "ardakabadayi", "slug": "device-check", "change": "Added the Phone Check report: build bf08cc4 on a Galaxy A15, with one blocking focus bug at the National hall."},
-  {"date": "2026-10-27", "author": "ardakabadayi", "slug": "school-rooms", "change": "Approved smaller rooms and scaled pace, with new captures and difficulty figures."},
-  {"date": "2026-10-27", "author": "ardakabadayi", "slug": "whisper-sound", "change": "Clips rebuilt from the original Freesound WAVs, with a before-and-after against the MP3-preview set."},
-  {"date": "2026-10-27", "author": "Apperk274", "slug": "exam-bell-sounds", "change": "Added the Exam Bell Sounds report: fourteen synthesized bells, with the electric school bell in the game marked."},
-  {"date": "2026-10-27", "author": "ardakabadayi", "slug": "school-rooms", "change": "Added the School Rooms report for M130."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "whisper-sound", "change": "Shows the shipped male and female voices, matched to the student and played from the whisperer."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "student-characters", "change": "The whispering note now says the voice matches the student and links to Whisper Sound."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "image-quality", "change": "The candidate comparison gave way to the shipped baked Blender art."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "whisper-sound", "change": "Unintelligible reshuffled and reversed whispers replace the cuts that still carried words."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "whisper-sound", "change": "Added the Whisper Sound report: real CC0 whisper candidates against the generated placeholder."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "student-characters", "change": "Added the whispering pair in the game, captured both ways round, replacing the old fallback-lean images."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "image-quality", "change": "Added the Image Quality Candidates report: every 2D image in the game and the school, title, event and icon candidates."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "schools", "change": "Figures re-measured on the merge with the side-neighbour exchange."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "schools", "change": "Added the Schools and Offers report: eight rated schools, the offer comparison and two offers on one card."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "whisper-comparison", "change": "Became Whispering Students, leading with the revised Blender pair and keeping the comparison below."},
-  {"date": "2026-10-26", "author": "ardakabadayi", "slug": "whisper-comparison", "change": "Added the Whispering, Two Ways report comparing Blender and Meshy whisper and listen clips."},
-  {"date": "2026-10-27", "author": "Apperk274", "slug": "classroom-door", "change": "Added The Way Out report: a removed student leaves through the classroom door."},
-  {"date": "2026-10-27", "author": "Apperk274", "slug": "admission-photo", "change": "The closed-door picture now links to The Way Out."},
-  {"date": "2026-10-27", "author": "Apperk274", "slug": "admission-photo", "change": "Added the queue of waiting students at the open door and recaptured every door picture."},
-  {"date": "2026-10-26", "author": "Apperk274", "slug": "admission-photo", "change": "The door close-up is now a still camera on the inspection spot, and the card no longer describes the person's look in words."},
-  {"date": "2026-10-26", "author": "Apperk274", "slug": "admission-photo", "change": "Added the Admission Photo Check report."},
-  {"date": "2026-10-25", "author": "ardakabadayi", "slug": "game-feel", "change": "Added the Game Feel report on the reward motion: payday coins, the counting result card and action toasts."},
-  {"date": "2026-10-22", "author": "Apperk274", "slug": null, "change": "Started the reports site with an index page."},
-  {"date": "2026-10-22", "author": "Apperk274", "slug": "student-characters", "change": "Added the Student Characters report: bodies, hair, clothes and every animation clip."}
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Finished the overhaul: Phase 6 (Light measured on every component, Reduce motion walked, 720 and large text with nothing clipped, fast first opens and saves on the A15), a before-and-after summary and the plan marked complete."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Added Phase 5, Room: a clock bar, three-word toasts, a tool dock and Time's up in the exam, a door of two cards with a stamp, HUD coverage before and after, and frame times on the A15."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Added Phase 4, Words: one sentence a card, known costs as coin chips on the answers, the rules as chips, the Rules as short rows that open, and the text audit as it now stands."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Added Phase 3, Shop: one segment row, price chips and a pick-then-Buy sheet, earned crests, save v7, and faster screens on the A15."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Phase 2 test totals now come from the run after the last merge with main (EditMode 2,421, PlayMode 95, none failed)."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Phase 2 Home shipped: the tile hub and its full screens with a close in Dark and Light at both phone sizes, the phone check, and the navigation map as it now stands."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "career-balance",
+    "change": "The Target tuning is now shipped and measured with the real values: top school at exam 58, crests earned, and the whole store owned by exam 63."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "career-balance",
+    "change": "Added the Career Balance report: today's career pace, school moves, money and store timing against the targets, and three tuning packages."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Phase 1 Payday shipped: the result card's gold coin pile and pour into its own balance, in Dark and Light at both phone sizes, replace the salary diagnosis."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "The hub and result-card options are now side-by-side phone mockups, with tile hub A and payday receipt B marked as chosen and the decisions recorded."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "light-theme",
+    "change": "On the phone now shows the fixed build: no stray Back, a switch half as long, the scroll kept, and panels opening at the top."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "ui-overhaul",
+    "change": "Added the UI Overhaul report: screen captures, text audit, navigation map, animation check, salary diagnosis and three redesign directions."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "light-theme",
+    "change": "Added On the phone: the theme switch, Follow phone and the Light screens checked on the Galaxy A15, with two problems found."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "The Phone Detector now costs 400¢ (was 250): the tool card, price table and affordability table are re-measured at today's prices."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "sound-hints",
+    "change": "The Detector keeps 2 uses and now costs 400¢; the recommendation table says so."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "light-theme",
+    "change": "The Store's not-owned veil is now 30% in Light (Dark keeps 62%), with new Store and Wardrobe frames and a before and after."
+  },
+  {
+    "date": "2026-10-31",
+    "author": "ardakabadayi",
+    "slug": "light-theme",
+    "change": "Added the Light Theme report: the Settings theme choice, every screen in Dark beside Light, the light palette's contrast and the open Store veil issue."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "sound-hints",
+    "change": "Added the Sound Hints and Phone Detector report: students per hint old against new, search effort, bot careers, the heard-buzz grounds fix and recommendations."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "texture-compression",
+    "change": "Added the Texture Compression report: clean APK sizes for ASTC 8x8, 10x10, a smaller max size and no daytime renders, with decoded crops beside today's 6x6."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "image-quality",
+    "change": "The size note now points to the measured Texture Compression report instead of the old 8x8 estimate."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "performance",
+    "change": "Checked merged main eed4d45 on the Galaxy A15: a steady 45 fps, short save freezes, a clean visual pass and no crashes or errors in logcat."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "schools",
+    "change": "Re-measured the career figures on the current game (school rooms, bots starting at the desk, Eastgate at 2.5 stars) and added a second seed block."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Checked the polish pass on the Galaxy A15: the keep-some-coins hint, hats over every hairstyle, the lanyard, collars, the blazer and the female students all look right."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "performance",
+    "change": "Added the Phone Performance report: GPU-bound judder, save freezes, and before/after on the Galaxy A15."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Added the polish pass: a keep-some-coins hint in the store, hair that fits under every hat, a lanyard laid on each top, smoother shirt collars and draped blazer lapels, with before and after pictures."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Wardrobe taps no longer freeze the phone (now 22 to 78 ms), the chosen tab stays in view, old careers get their earlier schools' crests, and the approved band-2 locks and 750 prices are in."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Checked on the Galaxy A15 (build 9b848d2): the preview render errors are gone and phase 3 works on the phone, with phone shots replacing the editor ones and the hitches found listed under Known limits."
+  },
+  {
+    "date": "2026-10-30",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Added Prices & balance: earnings and unlock timings measured over about 3,000 bot careers, with a proposal for band-2 locks and 750-coin band-3 items."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Phase 3 is in the game: all 36 items on both bodies with prices, unlocks and shop tiles, the hair choice, pins and crests, and the woman's seam fix, replacing the candidates."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "schools",
+    "change": "Eastgate Evening College is now rated 2.5 stars, a promotion between Riverside and City High: new offer card, half stars on the hub and Career tab, and re-measured careers."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Known limits: the phone re-check of the preview fixes is listed until the Galaxy A15 runs 7ea7da3."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Phase 2 phone fixes (7ea7da3): the preview renders single-sampled and stops when the store closes, unowned tiles are marked, the Issued Shirt has its render; phone re-check pending."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "device-check",
+    "change": "Added main 6ac9729 on the phone: the new app icon and shop tiles pass; the Wardrobe preview has render errors, a broken back view, try-on and turning."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Added phase 3 candidates: 36 items on the man and the woman, five outfits, three hairstyles for the woman and the fix for the seams on her tops."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Added phase 2, the store's Wardrobe: live preview figure, Man / Woman toggle, slots, try-on, Buy / Wear / Take off; Maple start shots replaced."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "wardrobe",
+    "change": "Added the Wardrobe report: phase 1, the supervisor on the students' skinned body as a man or a woman, walking at 2.1 m/s."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "app-icon-shop",
+    "change": "Shows the chosen icon, the Angled room with every student blue, in place of the four candidates."
+  },
+  {
+    "date": "2026-10-29",
+    "author": "ardakabadayi",
+    "slug": "app-icon-shop",
+    "change": "Replaced the rejected icon concepts with four scene candidates tested at 48 px, and showed the shop tiles as shipped in the Store."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "ardakabadayi",
+    "slug": "app-icon-shop",
+    "change": "Added the App Icon and Shop Art report: four icon concepts at launcher sizes and Blender candidates for the seven shop tiles."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": null,
+    "change": "The index shows one column per category with summaries on hover, and a history page lists every change."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "school-rooms",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "student-characters",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "classroom-door",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "whisper-sound",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "exam-bell-sounds",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "image-quality",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "game-feel",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "schools",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "device-check",
+    "change": "Added an ← All reports link back to the index."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": null,
+    "change": "The index renders from reports.json by category, and a check script runs before every push."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "student-characters",
+    "change": "Whispering Students merged in as the Whispering section, with its two close-up clips."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "whisper-comparison",
+    "change": "Merged into Student Characters and replaced with a redirect stub."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "classroom-door",
+    "change": "Renamed from The Way Out to Classroom Door."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "The door link now uses the new name, Classroom Door."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "game-feel",
+    "change": "Removed an unused image."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "image-quality",
+    "change": "Removed two unused event screenshots."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "school-rooms",
+    "change": "Removed an unused tablet capture."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "Apperk274",
+    "slug": "exam-bell-sounds",
+    "change": "Added No. 15, the small gong at classic speed, now the bell in the game."
+  },
+  {
+    "date": "2026-10-28",
+    "author": "ardakabadayi",
+    "slug": "device-check",
+    "change": "Re-checked the M130.1 fixes on the Galaxy A15."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "ardakabadayi",
+    "slug": "device-check",
+    "change": "Added the Phone Check report: build bf08cc4 on a Galaxy A15, with one blocking focus bug at the National hall."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "ardakabadayi",
+    "slug": "school-rooms",
+    "change": "Approved smaller rooms and scaled pace, with new captures and difficulty figures."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "ardakabadayi",
+    "slug": "whisper-sound",
+    "change": "Clips rebuilt from the original Freesound WAVs, with a before-and-after against the MP3-preview set."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "Apperk274",
+    "slug": "exam-bell-sounds",
+    "change": "Added the Exam Bell Sounds report: fourteen synthesized bells, with the electric school bell in the game marked."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "ardakabadayi",
+    "slug": "school-rooms",
+    "change": "Added the School Rooms report for M130."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "whisper-sound",
+    "change": "Shows the shipped male and female voices, matched to the student and played from the whisperer."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "student-characters",
+    "change": "The whispering note now says the voice matches the student and links to Whisper Sound."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "image-quality",
+    "change": "The candidate comparison gave way to the shipped baked Blender art."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "whisper-sound",
+    "change": "Unintelligible reshuffled and reversed whispers replace the cuts that still carried words."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "whisper-sound",
+    "change": "Added the Whisper Sound report: real CC0 whisper candidates against the generated placeholder."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "student-characters",
+    "change": "Added the whispering pair in the game, captured both ways round, replacing the old fallback-lean images."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "image-quality",
+    "change": "Added the Image Quality Candidates report: every 2D image in the game and the school, title, event and icon candidates."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "schools",
+    "change": "Figures re-measured on the merge with the side-neighbour exchange."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "schools",
+    "change": "Added the Schools and Offers report: eight rated schools, the offer comparison and two offers on one card."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "whisper-comparison",
+    "change": "Became Whispering Students, leading with the revised Blender pair and keeping the comparison below."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "ardakabadayi",
+    "slug": "whisper-comparison",
+    "change": "Added the Whispering, Two Ways report comparing Blender and Meshy whisper and listen clips."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "Apperk274",
+    "slug": "classroom-door",
+    "change": "Added The Way Out report: a removed student leaves through the classroom door."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "The closed-door picture now links to The Way Out."
+  },
+  {
+    "date": "2026-10-27",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "Added the queue of waiting students at the open door and recaptured every door picture."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "The door close-up is now a still camera on the inspection spot, and the card no longer describes the person's look in words."
+  },
+  {
+    "date": "2026-10-26",
+    "author": "Apperk274",
+    "slug": "admission-photo",
+    "change": "Added the Admission Photo Check report."
+  },
+  {
+    "date": "2026-10-25",
+    "author": "ardakabadayi",
+    "slug": "game-feel",
+    "change": "Added the Game Feel report on the reward motion: payday coins, the counting result card and action toasts."
+  },
+  {
+    "date": "2026-10-22",
+    "author": "Apperk274",
+    "slug": null,
+    "change": "Started the reports site with an index page."
+  },
+  {
+    "date": "2026-10-22",
+    "author": "Apperk274",
+    "slug": "student-characters",
+    "change": "Added the Student Characters report: bodies, hair, clothes and every animation clip."
+  }
 ]

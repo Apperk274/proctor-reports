@@ -419,6 +419,16 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
 .beats .tapline path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 5 5; stroke-linecap: round; }
 .beats .tapnote { position:absolute; left: 50%; top: 54.5%; transform: translateX(-50%); font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
   background: var(--gold-soft); color: var(--gold); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+.pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.pair { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px; display: grid; gap: 8px; }
+.pair h3 { margin: 0; font-size: 1rem; }
+.pair .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pair figure { margin: 0; display: grid; gap: 4px; }
+.pair img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+.pair figcaption { font-size: .78rem; color: var(--muted); }
+details.before { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 10px 14px; }
+details.before > summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+details.before[open] > summary { margin-bottom: 12px; }
 </style>
 
 </head>
@@ -427,26 +437,25 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–5 shipped</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · complete · Phases 1–6 shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
-      <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
-        connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
-        prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
-        gold coins. <a href="#home">Phase 2, Home</a>, has shipped too: the hub is one big Start button and four
-        tiles, and every screen they open closes with a ×. The tab bar is gone. <a href="#shop">Phase 3, Shop</a>,
-        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps. <a href="#words">Phase 4, Words</a>, has shipped: one sentence a card, costs as coin chips on the answers, the rules as chips, and the Rules as short rows that open. <a href="#room">Phase 5, Room</a>, has shipped: a clock bar, three-word toasts, a tool dock in thumb reach, and a door of two cards that a decision is stamped onto.</p>
+      <p>The overhaul is finished. Every screen the player meets was redesigned in six phases: a gold-coin payday on
+        the result card, a hub of one big button and four tiles, a Shop and Wardrobe of tiles and price chips, cards of
+        one sentence, an exam room the HUD barely covers, and a door that stamps. Phase 6 made it hold up: Light reads
+        everywhere, Reduce motion stops every animation, nothing clips on a narrow phone at the largest text, and every
+        screen opens fast on a Galaxy A15. Below: what changed for the player, then each phase as it shipped.</p>
       <div class="kpis">
-        <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
-        <div class="kpi"><b>251</b><span>words on the Rules screen with its rows closed, down from 868; a card body is 14 words at most, down from 42 (Phase 4)</span></div>
-        <div class="kpi"><b>3.6%</b><span>of the room the exam HUD covers with nobody selected, down from 6.6%; the door reads 51 words, down from 72 (Phase 5)</span></div>
-        <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
-        <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47 (Phase 2)</span></div>
-        <div class="kpi"><b>&lt;50 ms</b><span>to open a screen again on the A15, down from 230–960; a purchase's own work 4–10 ms (Phase 3)</span></div>
+        <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47</span></div>
+        <div class="kpi"><b>14</b><span>words at most in a card's body, down from 42; the Rules read 251 words with every row closed, down from 868</span></div>
+        <div class="kpi"><b>3.6%</b><span>of the room the exam HUD covers with nobody selected, down from 6.6%</span></div>
+        <div class="kpi"><b>33–67 ms</b><span>to open any screen for the first time on the A15, down from 156–666 ms</span></div>
+        <div class="kpi"><b>15 ms</b><span>a save on the A15 (a purchase, a decision at the door), down from 77–95 ms</span></div>
+        <div class="kpi"><b>0</b><span>labels clipped across Dark and Light, 1080 and 720 wide, normal and largest text</span></div>
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#room">Phase 5: Room</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
-      <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
+      <a href="#summary">What changed</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#room">Phase 5: Room</a><a href="#finish">Phase 6: Finish</a><a href="#gallery">Screens</a>
+      <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#audit">Text audit</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
   </header>
@@ -454,13 +463,46 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <!-- ================================================================ SUMMARY -->
   <section id="summary">
     <div class="section-head">
-      <span class="eyebrow">Summary</span>
-      <h2>The ten problems that matter most</h2>
-      <p class="muted">The game is consistent and themed, and its colours and buttons already follow one system. What it
-        lacks is hierarchy and payoff. Most screens are long scrolls of equally weighted cards, events are told in
-        paragraphs, and the best reward moment in the game happens on a different screen from the one the player is
-        looking at.</p>
+      <span class="eyebrow">What changed for the player</span>
+      <h2>Simpler to read, warmer to look at, and fast</h2>
+      <p class="muted">The same career on the same phone, before the overhaul and now. The hub, the result and the Shop
+        are screenshots from the Galaxy A15; the event card and the room are captures of the real build at the A15's size.</p>
     </div>
+    <div class="pairs">
+      <div class="pair"><h3>The hub</h3><div class="two">
+        <figure><img src="img/p6-before-hub.jpg" alt="The hub, before the overhaul" loading="lazy" width="540" height="1170"><figcaption><b>Before</b> · a tab bar, the rank twice, a rule sentence, an empty band</figcaption></figure>
+        <figure><img src="img/p6-after-hub.jpg" alt="The hub, now" loading="lazy" width="540" height="1170"><figcaption><b>Now</b> · the place, Start, four tiles with one fact each</figcaption></figure>
+      </div></div>
+      <div class="pair"><h3>The result</h3><div class="two">
+        <figure><img src="img/d-10-result.jpg" alt="The result, before the overhaul" loading="lazy" width="540" height="1170"><figcaption><b>Before</b> · the salary as a line of text; a notice over the card</figcaption></figure>
+        <figure><img src="img/p6-after-result.jpg" alt="The result, now" loading="lazy" width="540" height="1170"><figcaption><b>Now</b> · Good / Mixed / Poor, the balance and a receipt the coins pour into</figcaption></figure>
+      </div></div>
+      <div class="pair"><h3>The Shop</h3><div class="two">
+        <figure><img src="img/n-14-store-25.jpg" alt="The Shop, before the overhaul" loading="lazy" width="540" height="1170"><figcaption><b>Before</b> · one long scroll, nested tabs, price buttons</figcaption></figure>
+        <figure><img src="img/p6-after-shop.jpg" alt="The Shop, now" loading="lazy" width="540" height="1170"><figcaption><b>Now</b> · one segment row, tiles with a price chip, pick then Buy</figcaption></figure>
+      </div></div>
+      <div class="pair"><h3>An event card</h3><div class="two">
+        <figure><img src="img/d-30-event-CarTrouble.jpg" alt="An event card, before the overhaul" loading="lazy" width="540" height="1170"><figcaption><b>Before</b> · a paragraph with the price inside it</figcaption></figure>
+        <figure><img src="img/p6-after-event.jpg" alt="An event card, now" loading="lazy" width="540" height="1170"><figcaption><b>Now</b> · one sentence; a known cost rides on its answer</figcaption></figure>
+      </div></div>
+      <div class="pair"><h3>The room</h3><div class="two">
+        <figure><img src="img/p5-before-toast.jpg" alt="The room, before the overhaul" loading="lazy" width="540" height="1170"><figcaption><b>Before</b> · a strip, a band and a 24-word toast: 17.1% of the screen</figcaption></figure>
+        <figure><img src="img/p6-after-room.jpg" alt="The room, now" loading="lazy" width="540" height="1170"><figcaption><b>Now</b> · a clock capsule and two short pills: 8.1%</figcaption></figure>
+      </div></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Six phases, one line each</h3>
+      <p><b>1 · Payday.</b> The salary drops as gold coins onto a pile on the result card and pours into its balance; bills
+        leave after it. A Good, Mixed or Poor chip headlines the card. "¢" is gone: the coin is drawn.<br>
+        <b>2 · Home.</b> The hub is one Start button and four tiles; every screen they open closes with a ×. No tab bar.<br>
+        <b>3 · Shop.</b> The Shop and the Wardrobe are one segment row and tiles with a price chip; buying is pick, then Buy.<br>
+        <b>4 · Words.</b> A card is one sentence of 14 words at most; numbers are chips; the Rules are short rows that open.<br>
+        <b>5 · Room.</b> A clock capsule, three-word toasts, a tool dock, "Time's up"; the door is two cards and a stamp.<br>
+        <b>6 · Finish.</b> Light measured on every component, Reduce motion walked through every animation, every screen
+        captured at 720 wide and the largest text, first opens and saves made fast on the A15. <a href="#finish">Phase 6</a>.</p>
+    </div>
+    <details class="before" style="margin-top:16px">
+      <summary>Before: the ten problems the Phase 0 audit found (all fixed)</summary>
     <div class="problems">
       <div class="problem"><h3>The salary was a line of text <span class="tag ok">fixed in Phase 1</span></h3>
         <p>Gold coins now drop onto a pile on the result card and pour into the card's own balance. Bills leave after the
@@ -492,6 +534,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <p>The notice that sat over the result card and the hub's first-frame overlap are fixed. The clipped rank line
           could not be reproduced. <a href="#payday">Details</a>.</p></div>
     </div>
+    </details>
   </section>
 
   <!-- ================================================================ PAYDAY (Phase 1) -->
@@ -1254,6 +1297,193 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
   </section>
 
+  <!-- ================================================================ FINISH (Phase 6) -->
+  <section id="finish">
+    <div class="section-head">
+      <span class="eyebrow">Phase 6 · Finish · shipped</span>
+      <h2>Light that reads, motion that stops, screens that are already there</h2>
+      <p class="muted">The last phase changed little you can point at and a lot you can feel. Every label of every new
+        component was measured in Light and the inks that fell short were darkened. Every screen was captured on a
+        narrow phone at the largest text, and nothing clips. Reduce motion was walked through every animation in the real
+        game, and three things that still moved were fixed. On the Galaxy A15 the first open of every screen, every save,
+        and the moment the result card appears all got fast. The design system now describes the game as it ships.</p>
+    </div>
+    <div class="diag">
+
+      <h3>Every screen now</h3>
+      <p class="muted" style="max-width:80ch">Captured from the real build at 1080 × 2340 by
+        <code>UiOverhaulCaptures</code>, walking a new career the way a player does; rare events and the title are
+        staged. Dark first, then Light. Scroll sideways.</p>
+      <div class="strip">
+        <figure><img src="img/p6-now-d-00-title.jpg" alt="Title: the classroom picture, EXAM SUPERVISOR, Continue career" loading="lazy" width="432" height="936"><figcaption><b>Title</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-01-onboard-00-card.jpg" alt="The first intro card, one sentence" loading="lazy" width="432" height="936"><figcaption><b>Intro card</b>one sentence</figcaption></figure>
+        <figure><img src="img/p6-now-d-12-hub.jpg" alt="Hub: the school, Start exam 2, four tiles" loading="lazy" width="432" height="936"><figcaption><b>Hub</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-13-career.jpg" alt="Career: reputation and next posting bars, the ladder of schools" loading="lazy" width="432" height="936"><figcaption><b>Career</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-14-store.jpg" alt="Shop: Tools, Medicine; tiles with price chips" loading="lazy" width="432" height="936"><figcaption><b>Shop</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-14-wardrobe.jpg" alt="Wardrobe: the figure, segments, tiles" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-16-manual.jpg" alt="Rules: the next exam's rules as chips, rows that open" loading="lazy" width="432" height="936"><figcaption><b>Rules</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-15-settings.jpg" alt="Settings: sound, theme, text size, hints, reduce motion" loading="lazy" width="432" height="936"><figcaption><b>Settings</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-door.jpg" alt="The door: In person beside Their ID, stamped Admitted" loading="lazy" width="432" height="936"><figcaption><b>Door</b>the stamp</figcaption></figure>
+        <figure><img src="img/p6-now-d-05-exam-action-toast.jpg" alt="The room: clock capsule, a noise pill and Warned · Tolga" loading="lazy" width="432" height="936"><figcaption><b>Room</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-21-exam-paused.jpg" alt="Exam paused" loading="lazy" width="432" height="936"><figcaption><b>Paused</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-10-result.jpg" alt="Result: Exam complete, Good, the balance and the salary" loading="lazy" width="432" height="936"><figcaption><b>Result</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-30-event-BribeOffer.jpg" alt="An event card: a bribe offer, its sum as a chip, no coins on the answers" loading="lazy" width="432" height="936"><figcaption><b>Event</b>hidden consequence: no price on the answers</figcaption></figure>
+        <figure><img src="img/p6-now-d-31-offer-two.jpg" alt="An offer of two schools" loading="lazy" width="432" height="936"><figcaption><b>Offer</b></figcaption></figure>
+        <figure><img src="img/p6-now-d-41-dismissed.jpg" alt="Dismissed: the end of a career" loading="lazy" width="432" height="936"><figcaption><b>The end</b></figcaption></figure>
+      </div>
+      <div class="strip">
+        <figure><img src="img/p6-now-l-00-title.jpg" alt="Title, Light" loading="lazy" width="432" height="936"><figcaption><b>Title</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-01-onboard-00-card.jpg" alt="Intro card, Light" loading="lazy" width="432" height="936"><figcaption><b>Intro card</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-12-hub.jpg" alt="Hub, Light" loading="lazy" width="432" height="936"><figcaption><b>Hub</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-13-career.jpg" alt="Career, Light" loading="lazy" width="432" height="936"><figcaption><b>Career</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-14-store.jpg" alt="Shop, Light" loading="lazy" width="432" height="936"><figcaption><b>Shop</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-14-wardrobe.jpg" alt="Wardrobe, Light" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-16-manual.jpg" alt="Rules, Light" loading="lazy" width="432" height="936"><figcaption><b>Rules</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-15-settings.jpg" alt="Settings, Light" loading="lazy" width="432" height="936"><figcaption><b>Settings</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-door.jpg" alt="The door, Light, stamped" loading="lazy" width="432" height="936"><figcaption><b>Door</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-05-exam-action-toast.jpg" alt="The room, Light" loading="lazy" width="432" height="936"><figcaption><b>Room</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-21-exam-paused.jpg" alt="Exam paused, Light" loading="lazy" width="432" height="936"><figcaption><b>Paused</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-10-result.jpg" alt="Result, Light" loading="lazy" width="432" height="936"><figcaption><b>Result</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-30-event-BribeOffer.jpg" alt="Event card, Light" loading="lazy" width="432" height="936"><figcaption><b>Event</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-31-offer-two.jpg" alt="Offer, Light" loading="lazy" width="432" height="936"><figcaption><b>Offer</b> · Light</figcaption></figure>
+        <figure><img src="img/p6-now-l-41-dismissed.jpg" alt="Dismissed, Light" loading="lazy" width="432" height="936"><figcaption><b>The end</b> · Light</figcaption></figure>
+      </div>
+
+      <h3>Light, measured on the components</h3>
+      <p class="muted" style="max-width:80ch">The Light theme's colours were measured against each other when it
+        shipped. Phases 1–5 then put coloured words on their own tinted pills (a result chip, a price chip, the coin pill,
+        a stamp) and on darker grounds than a white card: the foot of the page, an inset card, the floating chrome. A new
+        test builds every one of those components in Light, on each ground it is placed on, and measures each label
+        against what is really under it, tints and gradients included. It found 60 places between 3.6:1 and 4.49:1,
+        under the 4.5:1 floor for body text. The coloured inks of the Light theme are now about 10% darker, so every chip
+        clears 4.5:1 everywhere. The disabled Buy's words are darker. The coins on a filled answer button sit on a pill
+        pressed into the button instead of a white wash. Start's second line is full white. Dark is unchanged.</p>
+      <div class="grid-3">
+        <figure><img src="img/p4-event-car-light-1080.jpg" alt="Before: the light event card with Fix it and a pale coin pill" width="540" height="1170" loading="lazy"><figcaption><b>Before</b> · the coin pill on Fix it was a white wash: 3.6:1</figcaption></figure>
+        <figure><img src="img/p6-light-event.jpg" alt="Now: the light event card" width="540" height="1170" loading="lazy"><figcaption><b>Now</b> · darker inks, the pill pressed into the button</figcaption></figure>
+        <figure><img src="img/p6-phone-light-hub.jpg" alt="On the A15, Light: the Kingsley hub" width="540" height="1170" loading="lazy"><figcaption><b>On the A15</b> · the hub in Light</figcaption></figure>
+        <figure><img src="img/p6-phone-light-sheet.jpg" alt="On the A15, Light: the Shop with Replay picked and Buy 110" width="540" height="1170" loading="lazy"><figcaption><b>On the A15</b> · the Shop's sheet</figcaption></figure>
+        <figure><img src="img/p6-phone-light-wardrobe.jpg" alt="On the A15, Light: the Wardrobe" width="540" height="1170" loading="lazy"><figcaption><b>On the A15</b> · the Wardrobe</figcaption></figure>
+        <figure><img src="img/p6-phone-light-rules.jpg" alt="On the A15, Light: the Rules with chips and rows" width="540" height="1170" loading="lazy"><figcaption><b>On the A15</b> · the Rules</figcaption></figure>
+      </div>
+
+      <h3>A narrow phone at the largest text</h3>
+      <p class="muted" style="max-width:80ch">Every screen of the walk above was captured six ways: Dark and Light, 1080
+        and 720 wide, and on the 720 phone at the largest text size too. The text audit now flags any label whose words do
+        not fit (cut, ellipsis, or spilling out of its box). 856 visible labels a set at the normal size, 848 at the
+        largest: <b>none</b> overflows in any of the six sets. The room and the door were checked the same way
+        (<code>RoomCaptures</code>, 720 and 1080, both themes).</p>
+      <div class="strip">
+        <figure><img src="img/p6-720-large-hub-light.jpg" alt="720 wide, largest text, Light: the hub" loading="lazy" width="540" height="1170"><figcaption><b>Hub</b> · 720 · large · Light</figcaption></figure>
+        <figure><img src="img/p6-720-large-rules-light.jpg" alt="720 wide, largest text, Light: the Rules" loading="lazy" width="540" height="1170"><figcaption><b>Rules</b> · 720 · large · Light</figcaption></figure>
+        <figure><img src="img/p6-720-large-wardrobe-dark.jpg" alt="720 wide, largest text, Dark: the Wardrobe" loading="lazy" width="540" height="1170"><figcaption><b>Wardrobe</b> · 720 · large</figcaption></figure>
+        <figure><img src="img/p6-720-large-result-dark.jpg" alt="720 wide, largest text, Dark: the result card" loading="lazy" width="540" height="1170"><figcaption><b>Result</b> · 720 · large</figcaption></figure>
+        <figure><img src="img/p6-720-large-event-light.jpg" alt="720 wide, largest text, Light: Car trouble" loading="lazy" width="540" height="1170"><figcaption><b>Event</b> · 720 · large · Light</figcaption></figure>
+        <figure><img src="img/p6-720-light-store.jpg" alt="720 wide, Light: the Shop" loading="lazy" width="540" height="1170"><figcaption><b>Shop</b> · 720 · Light</figcaption></figure>
+        <figure><img src="img/p6-phone-large-rules.jpg" alt="On the A15 at the largest text: the Rules" loading="lazy" width="540" height="1170"><figcaption><b>On the A15</b> · Rules, large text</figcaption></figure>
+        <figure><img src="img/p6-phone-large-wardrobe.jpg" alt="On the A15 at the largest text: the Wardrobe" loading="lazy" width="540" height="1170"><figcaption><b>On the A15</b> · Wardrobe, large text</figcaption></figure>
+      </div>
+
+      <h3>Reduce motion, walked</h3>
+      <p class="muted" style="max-width:80ch">A new test plays the game with Reduce motion on and drives every animation
+        the overhaul added through the way the game really starts it: the hub's tiles arriving, every screen opening and
+        closing, a purchase's coin, a promotion's sweep and salary count-up, an event card and its answer, the door's
+        stamp, the toast, a heard noise, a notice, the clock's warning, "Time's up", the payday and the coins paid into the
+        balance. In every frame it fails on anything still moving. It found three things:</p>
+      <ul class="muted" style="max-width:80ch">
+        <li><b>Every button flinched when it was built</b>, Reduce motion or not. A new button started as if it had just
+          been released: a deeper face, the label pushed down, slightly smaller, settling over a tenth of a second. Each
+          screen opened with all its buttons doing that. They start at rest now, and a press under Reduce motion shows at once.</li>
+        <li><b>The toast, the noise pill and a notice still faded out.</b> Now they are there for their time, then gone.</li>
+        <li><b>An entrance cut off when a card was hidden carried on when it came back.</b> It lands now.</li>
+      </ul>
+      <p class="muted" style="max-width:80ch">The two holds stay: the stamp's half second and "Time's up". Nothing moves
+        in them; they are a pause to read. Nothing in the game loops or pulses: no animation is driven by a clock that
+        repeats.</p>
+
+      <h3>On the Galaxy A15</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Moment (A15, longest frame)</th><th>Before</th><th>After</th><th>What changed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">First open of Career</th><td>289 ms</td><td><b>56 ms</b></td><td rowspan="5">built while the hub rests, a card or a tile per frame; an open only shows it. The rest of the frame is switching the screen's canvas on (13–30 ms).</td></tr>
+          <tr><th scope="row">First open of the Shop</th><td>189 ms</td><td><b>33 ms</b></td></tr>
+          <tr><th scope="row">First open of the Wardrobe</th><td>666 ms</td><td><b>67 ms</b></td></tr>
+          <tr><th scope="row">First open of the Rules</th><td>600 ms</td><td><b>56 ms</b></td></tr>
+          <tr><th scope="row">First open of Settings</th><td>156 ms</td><td><b>44 ms</b></td></tr>
+          <tr><th scope="row">A purchase</th><td>111 ms (save 89)</td><td><b>56 ms</b> (save 16)</td><td rowspan="3">a finished exam's saved text is made once and reused</td></tr>
+          <tr><th scope="row">A decision at the door</th><td>111–144 ms (save 77–95)</td><td><b>44–56 ms</b> (save 15)</td></tr>
+          <tr><th scope="row">The bell</th><td>111 ms (save 88)</td><td><b>56 ms</b> (save 22)</td></tr>
+          <tr><th scope="row">The result card appears</th><td>122 ms</td><td><b>56 ms</b></td><td>built during "Time's up" (one 100 ms frame while nothing moves), then only shown</td></tr>
+          <tr><th scope="row">First save after launching</th><td>94 ms</td><td><b>48–53 ms</b></td><td>finished exams made on a worker right after the load</td></tr>
+          <tr><th scope="row">Switching theme</th><td>278 + 78 + 67 ms</td><td>289 + 89 + 56 ms</td><td>unchanged: still a rebuild (below)</td></tr>
+          <tr><th scope="row">The idle hub while it builds</th><td>—</td><td>33–55 ms frames, one 89, for about 4.5 s</td><td>a still screen; a touch stops it at once; 45 fps afterwards</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="max-width:80ch">The same career and the same exam (Kingsley, Professional Certification 12,
+        seven at the door), played by taps on the Phase 5 build that was installed, then on this one after
+        <code>adb install -r</code>, with the saves put back between runs. The figures are the in-app frame probe's
+        longest frame; at the phone's 45 fps cap a frame is 22 ms, so they move in steps of 11. Afterwards the app was
+        stopped, the five save files were put back, and their sha256 hashes match the backup.</p>
+
+      <h3>What the phone caught</h3>
+      <p class="muted" style="max-width:80ch">The first device run of the idle build found three problems the editor had
+        not shown, and all three were fixed and run again on the phone.</p>
+      <ul class="muted" style="max-width:80ch">
+        <li><b>The game dropped to 30 fps for the rest of the session.</b> The frame pacer, which steps the frame rate down
+          when a phone cannot keep up, counted the idle build's slow frames. Frames spent on that work are not counted now.</li>
+        <li><b>A screen built out of sight drew its buttons dimmed</b> (left): a button made while its screen is closed
+          kept Unity's disabled grey after the screen opened. The page now ignores the closed screen while it is built.</li>
+        <li><b>The result card's Continue was dimmed and the first tap went nowhere</b> (right), for the same reason. The
+          held card no longer switches its buttons off; a test now checks that every button on it can be pressed.</li>
+      </ul>
+      <div class="grid-3">
+        <figure><img src="img/p6-phone-tint-bug.jpg" alt="Found on the phone: the Shop's chosen segment and Buy drawn pale" width="540" height="1170" loading="lazy"><figcaption><b>Found</b> · Tools and Buy drawn pale</figcaption></figure>
+        <figure><img src="img/p6-phone-light-sheet.jpg" alt="Fixed: the Shop's chosen segment and Buy in full blue" width="540" height="1170" loading="lazy"><figcaption><b>Fixed</b> · the same screen</figcaption></figure>
+        <figure><img src="img/p6-phone-result-bug.jpg" alt="Found on the phone: the result card's Continue drawn pale" width="540" height="1170" loading="lazy"><figcaption><b>Found</b> · Continue pale (fixed and re-run)</figcaption></figure>
+      </div>
+
+      <h3>The save cache, and why it is safe</h3>
+      <p class="muted" style="max-width:80ch">A long career's save is mostly its finished exams (about 27 KB of text
+        each), and every purchase, decision and bell serialized all of them again. A finished exam never changes, so its
+        text is now made once and written into later saves as it is. The save file is unchanged, byte for byte: a test
+        plays a 22-exam career and compares the cached save with the full one 105 times. Another checks that no finished
+        exam's text changes after it is archived. In the editor every save is also compared with the full one. On the
+        phone a quick fingerprint (the size of everything an exam collects) re-makes the text of an exam that changed
+        anyway. Nothing about when or how the file is written changed. In the editor a 22-exam save fell from 8.8 ms to
+        1.1 ms.</p>
+
+      <h3>The design system and the reference</h3>
+      <p class="muted" style="max-width:80ch"><code>UI-DESIGN-SYSTEM.md</code> now opens with the direction in one page
+        (navigation, components, roles, the word rules, the motion rules, the room, the door, performance), and the
+        reference image is no longer the concept board drawn before the overhaul. It is the shipped game:</p>
+      <figure style="margin:0"><img src="img/p6-reference.jpg" alt="The reference sheet: hub, payday, Shop, Wardrobe, event card, room and door, Dark above and Light below" width="1600" height="1082" loading="lazy" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--line)"><figcaption class="muted">Docs/Design/ui-reference-modern.png · real captures at 1080 × 2340, Dark above, Light below</figcaption></figure>
+
+      <h3>Where the brief left room</h3>
+      <ul class="muted" style="max-width:80ch">
+        <li><b>The theme switch is still a rebuild.</b> Recolouring the screens in place would mean mapping every colour on
+          screen back to the role it came from, and that mapping is not one to one: the hub's picture is a different
+          render in Light, the Light hub has a layer the Dark one does not, gradients are stored as ratios, and two roles
+          that share a colour in Dark differ in Light. Without a way to prove a recolour matches a fresh build, it would be
+          the screen that forgot. The switch is a deliberate tap in Settings; its 170–290 ms frame stays.</li>
+        <li><b>Changing the text size</b> also rebuilds what is on screen (one 400 ms frame on the A15). Not in this phase's
+          list; noted.</li>
+        <li><b>A screen opened again</b> still costs 13–30 ms to switch its canvas on (the Wardrobe's 56 ms once in Phase 3
+          is now 33–67 ms on every open). Not improved further.</li>
+        <li><b>Pictures on the three intro cards</b> (optional) and <b>the 3D warn flinch</b> were not built.</li>
+      </ul>
+
+      <h3>Checked</h3>
+      <p class="muted" style="max-width:80ch"><b>Tests.</b> EditMode 2,485: 0 failed, 211 skipped (the opt-in probes).
+        PlayMode 104: 0 failed, 32 skipped (the opt-in captures). New: <code>SaveCacheTests</code>,
+        <code>ThemeRoleContrastTests</code>, <code>ReduceMotionWalkTests</code>, <code>Phase6PerfSceneTests</code> (the idle
+        build is spread over frames, an open then builds nothing, nothing it built is dimmed, nothing is built during an
+        exam, the result card is held during "Time's up" and released with its payday). <b>Captures.</b> Every opt-in capture
+        test ran once and passed (30). The three M131 store captures that drove the old store layout now open the
+        Wardrobe; the old store-tile capture, superseded by the Shop captures, is gone. <b>Phone.</b> First opens, a
+        purchase, the door, the bell and payday, the theme switch, Light, the largest text and Reduce motion, on the A15.</p>
+    </div>
+  </section>
+
   <section id="gallery">
     <div class="section-head">
       <span class="eyebrow">Screen inventory</span>
@@ -1264,6 +1494,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         The home screens show Phase 2 as shipped; everything else is as Phase 0 captured it. Light and a
         720-wide phone are shown for the key screens. Scroll each row sideways.</p>
     </div>
+    <details class="before">
+      <summary>Before: the Phase 0 screen inventory (superseded by "Every screen now" in Phase 6)</summary>
+
 
     <div class="gal-group"><h3>First run <small>title, three intro cards, the first hub</small></h3>
       <div class="strip">
@@ -1331,6 +1564,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/n-31-offer-two.jpg" alt="Two offers at 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Two offers</b></figcaption></figure>
         <figure><img src="img/p5-hud-dock-dark-720.jpg" alt="Exam HUD at 720 wide, the tool dock" loading="lazy" width="432" height="936"><figcaption><b>Exam HUD</b>Phase 5</figcaption></figure>
       </div></div>
+    </details>
   </section>
 
   <!-- ================================================================ AUDIT -->
@@ -1343,6 +1577,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         event card is its longest wording; the cards around a career are counted from their strings). The longest string is the longest sentence a player can see without a tap.
         Amber rows are over 50 words. The exam HUD and the admission desk are counted after Phase 5.</p>
     </div>
+    <details class="before">
+      <summary>Before: the Phase 0 text audit</summary>
+
     <div class="tablewrap">
       <table>
         <thead><tr><th scope="col">Screen</th><th scope="col">Words now</th><th scope="col">Phase 0</th><th scope="col">Longest string now</th></tr></thead>
@@ -1397,6 +1634,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Done in Phase 5: the door, the brief and the Rules all show [ID: expired OK] [Name: typos OK]</span></div>
       <div class="rw"><span class="where">Intro card 2</span><span class="from">Get closer. Watch someone properly, or read what is out on their desk. The actions you are offered depend on what you have seen…</span><span class="arrow">→</span><span class="to">Done in Phase 4: "Get closer and look; what you have seen decides what you can do."</span></div>
     </div>
+    </details>
   </section>
 
   <!-- ================================================================ NAV -->
@@ -1524,6 +1762,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         sources say little about NSS's hub layout. Its 2016 v2 update gave the menus "a complete graphical facelift" that
         "streamlined navigation". The notes below are about patterns. No assets are copied.</p>
     </div>
+    <details class="before">
+      <summary>Before: the references the proposal drew on</summary>
+
     <div class="refs">
       <div class="card ref"><h3>New Star Soccer: borrow</h3>
         <ul>
@@ -1553,6 +1794,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <a href="https://www.macworld.com/article/666864/new-star-soccer-for-ios-review.html">Macworld review</a> ·
       <a href="https://pixune.com/blog/best-examples-mobile-game-ui-design/">Pixune: best mobile game UI (2026)</a> ·
       <a href="https://www.elinext.com/?p=39738">Elinext: 2026 mobile UI trends</a>. NSS screen specifics (bars, button, shop) are from the game as commonly played, not from these articles.</p>
+    </details>
   </section>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1615,6 +1857,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         Reduce motion landing everything at once, the 3D room never hinting at guilt, and a choice card never predicting
         a hidden outcome. A choice may show only a cost the player is already told, such as "120".</p>
     </div>
+    <details class="before">
+      <summary>Before: the Phase 0 proposal (three directions per screen; A and B were chosen)</summary>
+
 
     <h3>Text rules</h3>
     <div class="rules">
@@ -1927,13 +2172,14 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           drawn gold coin icon replace the green outline stack and the "¢" glyph. Light-theme values come with them;
           everything else is unchanged.</p></div>
     </div>
+    </details>
   </section>
 
   <!-- ================================================================ PLAN -->
   <section id="plan">
     <div class="section-head">
       <span class="eyebrow">Phased plan</span>
-      <h2>Payday first, then the hub, then everything else</h2>
+      <h2>Complete: payday, home, shop, words, room, finish</h2>
       <p class="muted">Each phase ships on its own, with captures and a device check on the A15. The estimates are
         agent-days of implementation and verification, for the chosen tile hub (A) and payday receipt (B).</p>
     </div>
@@ -1972,9 +2218,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li>"Time's up" holds the room 1.4 s before the result. The 3D warn flinch was not built; a removed candidate already walks out (M129).</li></ul></div>
         <div class="est">4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 6<small>Finish</small></div>
-        <div><b>Polish and proof</b><ul>
-          <li>Light-theme parity for every new role; 720-wide pass; Reduce motion audit; a device run on the A15 with captures.</li>
-          <li><code>UI-DESIGN-SYSTEM.md</code> and the reference image updated to the chosen direction.</li></ul></div>
+        <div><b>Polish and proof</b> <span class="tag ok">shipped</span> — see <a href="#finish">Phase 6: Finish</a>.<ul>
+          <li>Light parity measured on every component (60 spots under 4.5:1 fixed); every screen captured at 720 wide and the largest text (nothing clips); Reduce motion walked through every animation (three fixes).</li>
+          <li>Performance on the A15: a save cache, screens built while the hub rests, the result card built during "Time's up". The theme switch is still a rebuild (why: <a href="#finish">Phase 6</a>).</li>
+          <li><code>UI-DESIGN-SYSTEM.md</code> rewritten as the approved direction; the reference image replaced by real captures. The optional pictures on the intro cards and the 3D warn flinch were not built.</li></ul></div>
         <div class="est">2–3<small>days</small></div></div>
     </div>
     <div class="card"><h3>Decided before Phase 1</h3>
