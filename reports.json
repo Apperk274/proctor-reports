@@ -36,7 +36,7 @@
       "slug": "ui-overhaul",
       "title": "UI Overhaul",
       "category": "look-and-feel",
-      "summary": "Every screen audited and redesigned: the result card pays the salary in as gold coins, and home is one Start button with four tiles."
+      "summary": "Every screen audited and redesigned: the salary pays in as gold coins, home is one Start button with four tiles, and the Shop is pick then Buy."
     },
     {
       "slug": "light-theme",

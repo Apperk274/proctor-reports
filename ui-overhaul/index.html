@@ -427,23 +427,25 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phase 1 Payday and Phase 2 Home shipped</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–3 shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
       <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
         connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
         prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
         gold coins. <a href="#home">Phase 2, Home</a>, has shipped too: the hub is one big Start button and four
-        tiles, and every screen they open closes with a ×. The tab bar is gone.</p>
+        tiles, and every screen they open closes with a ×. The tab bar is gone. <a href="#shop">Phase 3, Shop</a>,
+        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps.</p>
       <div class="kpis">
         <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
-        <div class="kpi"><b>868</b><span>words in the Manual tab; the Store has 406 and 80 buttons</span></div>
+        <div class="kpi"><b>868</b><span>words in the Manual tab. The Store had 406; each Shop and Wardrobe segment now reads in 12 to 40 (Phase 3)</span></div>
         <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
         <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
         <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47 (Phase 2)</span></div>
+        <div class="kpi"><b>&lt;50 ms</b><span>to open a screen again on the A15, down from 230–960; a purchase's own work 4–10 ms (Phase 3)</span></div>
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -465,9 +467,9 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           pour. <a href="#payday">Phase 1: Payday</a>.</p></div>
       <div class="problem"><h3>No headline on the result <span class="tag ok">fixed in Phase 1</span></h3>
         <p>A Good, Mixed or Poor chip now sits under "Exam complete".</p></div>
-      <div class="problem"><h3>The Store is one 5-screen scroll</h3>
-        <p>Tools, medicine and the wardrobe share one page: 172 labels, 406 words and 80 buttons, with two nested rows of
-          segmented controls inside the wardrobe.</p></div>
+      <div class="problem"><h3>The Store was one 5-screen scroll <span class="tag ok">fixed in Phase 3</span></h3>
+        <p>The Shop and the Wardrobe are two screens, each with one row of segments, tiles with a price chip and a
+          pick-then-Buy sheet. 12 to 40 words a segment. <a href="#shop">Phase 3: Shop</a>.</p></div>
       <div class="problem"><h3>Events are told in paragraphs</h3>
         <p>Event cards run 40 to 58 words, with a 30 to 40 word body. The price and the stakes sit in the middle of
           prose ("…something for 120 coins - otherwise…").</p></div>
@@ -558,8 +560,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         side view of the same coin. There is no "¢" next to a balance, because the coin is the unit. A gain is still
         written in green (<code>+50</code>) and a cost in the danger colour (<code>-160</code>). In the light theme, the
         balance number uses a dark gold that clears 4.5:1.
-        "¢" is still printed on prices, on the Career tab and in event text. Phase 3 (Store) and Phase 4 (words) replace
-        those with coin chips.</p>
+        Phase 2 took "¢" off the Career screen and Phase 3 off every price in the Shop and the Wardrobe. Event text and
+        the Career log keep it until Phase 4.</p>
 
       <h3>The three visual bugs from Phase 0</h3>
       <ul class="steps">
@@ -640,8 +642,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <li><b>Career</b>: the way to the next school, "5 to Riverside" (reputation points to go). On probation it
           reads "Probation: 2 left", and under a final warning "Final warning", both in the warning colour. At the top
           posting it reads "Top posting". The Career screen's next-posting bar reads the same method
-          (<code>CareerPresentation.NextPosting</code>), so the tile and the bar can never disagree. M134's minimum stay
-          ("N more exams here") will go there too.</li>
+          (<code>CareerPresentation.NextPosting</code>), so the tile and the bar can never disagree. Since Phase 3 it also
+          knows M134's minimum stay: "4 more exams here" until the stay is served.</li>
         <li><b>Shop</b>: tools and medicine you could buy now, "2 you can afford", using the same rules as the Shop's
           buttons. Otherwise how far off the cheapest one is ("40 coins short"), or "All owned".</li>
         <li><b>Wardrobe</b>: clothes you could buy now, otherwise how many you own ("12 of 31 owned"), or "All owned".
@@ -707,7 +709,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           gear hides while Settings is open. The bar hides while an exam is under way: in the room, on the pause
           screen and on the resume hub.</li>
         <li><b>Shop and Wardrobe are two screens</b>, not one page scrolled to a section. The split was cheap: the
-          Store builds one part or the other. Phase 3 redesigns both.</li>
+          Store builds one part or the other. <a href="#shop">Phase 3</a> redesigned both.</li>
         <li><b>The Settings row to the Rules stays</b>, because it is the only way to the Rules from the title screen.
           Both doors open the same screen with the same name, and its × goes back to whichever door you used.</li>
         <li><b>In the room the gear became a pause glyph</b>, because it opens "Exam paused". The gear now means
@@ -737,11 +739,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <li><b>Found on the phone and fixed: Android back did nothing on the hub's screens</b> while a pre-exam event
           was waiting. Since M114.1 that event waits for Start, but the back policy treated "due" as "on screen" and
           swallowed back everywhere. Now an event blocks back only while it is actually showing.</li>
-        <li><b>Still slow: opening a screen costs one long frame</b> while its cards are built. Measured on the A15:
-          Career 208 ms, Shop 229 ms, Settings 136 ms, Rules 512 ms, Wardrobe 724 ms (the figure preview and every
-          clothes tile). The tabs paid the same before Phase 2, but the tap now feels it. The fix is to keep each
-          screen built and only redraw what changed. It belongs with the Phase 3 Store redesign and the Phase 4 Rules
-          rewrite.</li>
+        <li><b>Opening a screen used to cost one long frame</b> while its cards were built (Career 208 ms, Shop 229 ms,
+          Settings 136 ms, Wardrobe 724 ms on the A15). Fixed in <a href="#shop">Phase 3</a> for Career, Shop, Wardrobe
+          and Settings: each stays built once opened, and opening it again has no long frame. The Rules screen is
+          rebuilt for each exam and waits for its Phase 4 rewrite.</li>
       </ul>
       <figure>
         <img src="img/p2-phone-strip.jpg" alt="Ten phone screenshots: Career, hub, Shop, hub, Wardrobe, hub, Rules, hub, Settings, hub" width="1900" height="390" loading="lazy">
@@ -752,6 +753,175 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   </section>
 
   <!-- ================================================================ GALLERY -->
+    <section id="shop">
+    <div class="section-head">
+      <span class="eyebrow">Phase 3 · Shop · shipped</span>
+      <h2>Pick a tile, then Buy</h2>
+      <p class="muted">The Shop and the Wardrobe are no longer one long scroll. Each has <b>one row of segments</b>
+        and a grid of tiles. A tile is the item, its name and <b>one chip</b>: the price as a gold coin and a number,
+        what is still missing ("210 short"), what it is ("Owned", "Carried", "Worn") or what it waits for (a lock and
+        "4 / 6"). Tapping a tile <b>picks</b> it, and a sheet comes up at the foot with one line and the one thing to do:
+        <b>Buy</b> with its price, Carry, Wear or Take off. Buying is always two taps, in both screens. The balance is in
+        the status bar only. When you buy, one gold coin flies from that balance to the tile, the balance rolls down, and
+        the tile pops once as its new chip fades in. There is no "¢" anywhere in either screen.</p>
+    </div>
+    <div class="diag">
+      <div class="grid-3">
+        <figure><img src="vid/p3-buy.gif" alt="Wardrobe, Hats: tapping Baseball Cap outlines it and opens the sheet with Buy 80; tapping Buy sends one gold coin from the balance pill to the cap's tile, the balance rolls from 190 to 110, the tile pops and its chip turns to Owned, and the sheet now offers Wear" width="270" height="585" loading="lazy" style="max-width:270px;border-radius:12px"><figcaption><b>Buying a cap.</b> Recorded in the game. Pick the tile; the sheet offers Buy 80. Buy: one coin arcs from the pill to the tile in 0.42 s, the pill rolls 190 → 110, the tile pops and "Owned" fades in. The sheet now says Wear.</figcaption></figure>
+        <figure><video src="vid/p3-phone-buy.mp4" controls muted playsinline loop preload="metadata" width="240" style="max-width:240px;border-radius:12px;border:1px solid var(--line)"></video><figcaption><b>On the Galaxy A15</b> (screen recording, a long career): the Navy Shirt picked and bought.</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crest-locked-dark-1080.jpg" alt="Wardrobe, Crests: Maple Owned, Riverside picked with a lock and 4 / 6, the others 0 / 6 and 0 / 10; the sheet reads Riverside Crest, 4 / 6 exams at Riverside, Locked" width="540" height="1170" loading="lazy"><figcaption><b>Crests are earned.</b> The sheet counts the career's own exams at the school.</figcaption></figure>
+      </div>
+
+      <h3>The Shop</h3>
+      <div class="strip">
+        <figure><img src="img/p3-shop-tools-dark-1080.jpg" alt="Shop, Tools: segments Tools, Medicine, Support; Carrying 0 of 2; Phone Detector with a muted chip 210 short; Replay with a gold chip 110" loading="lazy" width="432" height="936"><figcaption><b>Tools</b>one chip per tile</figcaption></figure>
+        <figure><img src="img/p3-shop-sheet-dark-1080.jpg" alt="Shop, Replay picked: sheet with Replay, Recent sounds, and where they came from. 2 uses per exam. Leaves 80. Keep 112 for bills. Buy 110" loading="lazy" width="432" height="936"><figcaption><b>The sheet</b>one line, the hint, Buy</figcaption></figure>
+        <figure><img src="img/p3-shop-cant-afford-dark-1080.jpg" alt="Shop, Phone Detector picked: Buy 400 dimmed; the tile's chip says 210 short" loading="lazy" width="432" height="936"><figcaption><b>Can't afford</b>"210 short", Buy dimmed</figcaption></figure>
+        <figure><img src="img/p3-shop-medicine-dark-1080.jpg" alt="Shop, Medicine: 0 at home, up to 5; Pills with a chip 19" loading="lazy" width="432" height="936"><figcaption><b>Medicine</b>its own segment</figcaption></figure>
+        <figure><img src="img/p3-shop-tools-light-1080.jpg" alt="Shop, Tools, light" loading="lazy" width="432" height="936"><figcaption><b>Tools</b>Light</figcaption></figure>
+        <figure><img src="img/p3-shop-sheet-light-1080.jpg" alt="Shop sheet, light" loading="lazy" width="432" height="936"><figcaption><b>The sheet</b>Light</figcaption></figure>
+        <figure><img src="img/p3-shop-cant-afford-light-720.jpg" alt="Can't afford, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Can't afford</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p3-shop-medicine-dark-720.jpg" alt="Medicine, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Medicine</b>720 × 1560</figcaption></figure>
+      </div>
+
+      <h3>The Wardrobe</h3>
+      <div class="strip">
+        <figure><img src="img/p3-wardrobe-tops-dark-1080.jpg" alt="Wardrobe, Tops: the figure, one row of segments Tops Bottoms Hats Extras, then tiles: Issued Shirt Owned, Navy Shirt Worn with a check, Charcoal Shirt 80, T-shirts 50" loading="lazy" width="432" height="936"><figcaption><b>Tops</b>one row; three columns</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-sheet-dark-1080.jpg" alt="Wardrobe, Polo Shirt picked: the figure wears it; sheet Polo Shirt, Top · trying on, Leaves 90. Keep 112 for bills. Buy 100" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>tried on, not bought</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-bottoms-dark-1080.jpg" alt="Wardrobe, Bottoms: trousers and shoes" loading="lazy" width="432" height="936"><figcaption><b>Bottoms</b>trousers and shoes</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-hats-dark-1080.jpg" alt="Wardrobe, Hats; locked ones show a lock and their price" loading="lazy" width="432" height="936"><figcaption><b>Hats</b>a lock keeps its price</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-extras-dark-1080.jpg" alt="Wardrobe, Extras: glasses, lanyard, watch" loading="lazy" width="432" height="936"><figcaption><b>Extras</b>glasses, lanyard, watch</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-pins-dark-1080.jpg" alt="Wardrobe, Pins: Bronze 70, Silver locked 140, Gold locked 450" loading="lazy" width="432" height="936"><figcaption><b>Pins</b>bronze, silver, gold</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crests-dark-1080.jpg" alt="Wardrobe, Crests: each tile names its school; Maple Owned, Riverside 4 / 6, the rest 0 / 6 or 0 / 10" loading="lazy" width="432" height="936"><figcaption><b>Crests</b>owned, or how far along</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crest-honest-dark-1080.jpg" alt="Brightpath Crest picked: Work 10 exams at Brightpath, Locked" loading="lazy" width="432" height="936"><figcaption><b>Brightpath</b>"Work 10 exams at Brightpath"</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crest-earned-dark-1080.jpg" alt="Maple Crest picked: Pin, Wear" loading="lazy" width="432" height="936"><figcaption><b>Earned</b>worn like any pin</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-hair-dark-1080.jpg" alt="Wardrobe, Hair: Figure Man / Woman, Hair Short / Cropped / Curly" loading="lazy" width="432" height="936"><figcaption><b>Hair</b>the figure and its hair</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-tops-light-1080.jpg" alt="Wardrobe, Tops, light" loading="lazy" width="432" height="936"><figcaption><b>Tops</b>Light</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crest-locked-light-1080.jpg" alt="Riverside crest picked, light" loading="lazy" width="432" height="936"><figcaption><b>Crest</b>Light</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-hair-light-720.jpg" alt="Hair, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Hair</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-tops-dark-720.jpg" alt="Tops, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Tops</b>720 × 1560</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crests-light-720.jpg" alt="Crests, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Crests</b>Light · 720</figcaption></figure>
+      </div>
+
+      <h3>Crests are earned, not bought</h3>
+      <div class="grid-3">
+        <figure><img src="img/p3-crest-award-dark-1080.jpg" alt="Reward card: the Riverside crest's own picture, CREST EARNED, Riverside Crest earned, Earned in 6 exams at Riverside., Claim" width="540" height="1170" loading="lazy"><figcaption><b>The award card</b>the crest itself, 12 words</figcaption></figure>
+        <figure><img src="img/p3-crest-award-light-720.jpg" alt="The same award card, light, 720 wide" width="540" height="1170" loading="lazy"><figcaption>Light · 720</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-crest-honest-light-1080.jpg" alt="Brightpath crest, light" width="540" height="1170" loading="lazy"><figcaption>Light · 1080</figcaption></figure>
+      </div>
+      <ul class="steps">
+        <li><b>No crest is sold.</b> Each one is earned by exams at its school: 6 at Maple, Riverside and Eastgate,
+          10 everywhere else. The numbers come from the career (<code>CareerService.ExamsAt</code>,
+          <code>CrestExamsRequiredAt</code>); the screen never writes a 6 or a 10 itself.</li>
+        <li><b>The lines are honest.</b> A crest you are working towards reads "4 / 6 exams at Riverside". A school you have
+          never worked at reads "Work 10 exams at Brightpath". Careful careers never reach Brightpath or State
+          University, so the text never suggests that you will.</li>
+        <li><b>The award is an ordinary reward card</b>, "Riverside Crest earned", with the crest's own picture and one
+          six-word line. It never opens the "watch an ad for a bonus" offer; every other reward still does.</li>
+        <li><b>A crest you already bought stays yours</b>, worn like any pin. Nothing is refunded.</li>
+        <li><b>Old saves (v6 → v7).</b> Crests are earned by exams at a school, and M134 only started counting when
+          a save loaded. So a long career would have found the crests of every school it had left out of reach. The
+          migration counts the exams the save records. It uses each exam's room where there is one (since M130).
+          Otherwise it uses the career's own moves: each accepted offer or reassignment, at the exam it was answered.
+          An offer from before M129 names no school left, and every career then started at City High. An exam that
+          cannot be placed is not counted, so nothing is invented. A crest already earned arrives as its award card,
+          once. The long career on the phone (Kingsley, exam 11, saved by a build from before v3) loads with nothing
+          lost: City High 9 exams, Kingsley 2, and no card, because 9 is short of 10.</li>
+      </ul>
+
+      <h3>Prices</h3>
+      <p class="muted" style="max-width:80ch">The shipped M134 table, item by item. T-shirts and the lanyard cost 50 (were
+        90), the 140 items cost 80, Replay 110 (was 180), band-2 clothes 100 to 140 (were 190 to 260), and the Blazer,
+        Gold Pin and Graduation Cap 450 (were 750). The Phone Detector stays at 400. The whole store now costs 4,370.
+        A test reads the table and checks every price against it.</p>
+
+      <h3>The Career tile and screen know the minimum stay</h3>
+      <div class="grid-3">
+        <figure><img src="img/p3-hub-dark-1080.jpg" alt="Hub at Riverside: Career tile reads 6 more exams here" width="540" height="1170" loading="lazy"><figcaption><b>Hub</b>"6 more exams here"</figcaption></figure>
+        <figure><img src="img/p3-career-dark-1080.jpg" alt="Career: Reputation 47 Watched; Next: Eastgate, 6 more exams here; New school: 6 safe exams; the ladder" width="540" height="1170" loading="lazy"><figcaption><b>Career</b>the bar is the stay; one grace line</figcaption></figure>
+        <figure><img src="img/p3-career-light-720.jpg" alt="Career, light, 720 wide" width="540" height="1170" loading="lazy"><figcaption>Light · 720</figcaption></figure>
+      </div>
+      <p class="muted" style="max-width:80ch">Until the minimum stay at this rating is served, the Career tile and the next-posting
+        bar both say "N more exams here". Both read one method (<code>CareerPresentation.NextPosting</code>), and the bar
+        fills with the stay. After the stay they show the standing still needed, as before. While a new school's floor
+        does not apply yet, the Career screen adds one line: "New school: 4 safe exams".</p>
+
+      <h3>Fast to open, fast to buy</h3>
+      <p class="muted" style="max-width:80ch">Every screen stays built once it has been opened. It follows the
+        state in place: chips, bars and the log change; nothing is built again. Measured on the Galaxy A15, a long
+        career, with the in-app frame probe. The figure is the longest frame when the screen opens, before and after.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Galaxy A15</th><th>Before (main)</th><th>After, first open of a session</th><th>After, every later open</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Career</th><td>300–311 ms</td><td>289 ms</td><td>no long frame (UI 13–18 ms)</td></tr>
+          <tr><th scope="row">Shop</th><td>233 ms</td><td>167–200 ms</td><td>no long frame (UI 8–13 ms)</td></tr>
+          <tr><th scope="row">Wardrobe</th><td>822–966 ms, and 111 ms on close</td><td>644–655 ms</td><td>no long frame on 2 of 3 opens, 55.8 ms once (UI 25–27 ms); closing: none</td></tr>
+          <tr><th scope="row">Settings</th><td>300 ms first, then 144 ms</td><td>155–167 ms</td><td>no long frame (UI 11–15 ms)</td></tr>
+          <tr><th scope="row">A purchase</th><td>911 ms (the whole store rebuilt) + 73 ms save</td><td colspan="2">the store's own work 3.8–10 ms; the save still serializes on the tap's frame (74 ms), so the frame is 111 ms</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="steps">
+        <li><b>Kept, not rebuilt.</b> The full-screen shell keeps one page per screen, each on its own canvas. A closed
+          page is hidden by switching its canvas off, never deactivated. Switching it back on would make every label in
+          it lay out its text again, and that was the cost of opening. Only a change in what a page is built from
+          rebuilds it: the theme, the school (Career), or a new item in the list.</li>
+        <li><b>A purchase builds nothing.</b> The bought tile's chip changes, the other chips follow the new balance,
+          and the sheet's Buy becomes Carry or Wear. The figure in the Wardrobe is kept between opens too. Its camera
+          rests while the screen is closed, and it turns back to face the front when the screen opens again.</li>
+        <li><b>Still open: the save.</b> A purchase saves on the same frame, as it should, so a crash or an app kill
+          never loses it. Serializing a long career takes 74 ms on the A15, and it grows with every exam played. The
+          follow-up is to cache each finished exam's saved text, since a finished exam never changes. It needs a guard
+          that no code writes to a finished exam, plus a round-trip test against the full save. It is scheduled for
+          Phase 6.</li>
+      </ul>
+
+      <div class="grid-3">
+        <figure><img src="img/p3-phone-hub.jpg" alt="The hub on the Galaxy A15, a long career at Kingsley Academy: Career 19 more exams here, Shop 3 you can afford, Wardrobe 30 you can afford" width="540" height="1170" loading="lazy"><figcaption><b>On the phone</b>the long career after the migration</figcaption></figure>
+        <figure><img src="img/p3-phone-wardrobe.jpg" alt="The Wardrobe on the phone: the figure, Tops, tiles with gold price chips" width="540" height="1170" loading="lazy"><figcaption><b>Wardrobe</b>on the A15</figcaption></figure>
+        <figure><img src="img/p3-phone-sheet.jpg" alt="Navy Shirt picked on the phone: tried on, the sheet offers Buy 60" width="540" height="1170" loading="lazy"><figcaption><b>Picked</b>Buy 60 on the sheet</figcaption></figure>
+      </div>
+      <p class="muted" style="max-width:80ch">On that career the Career tile reads "19 more exams here". That is M134's rule as
+        written: for a save from before M134 the stay at Kingsley (30 exams) counts from the start of the career (11
+        exams so far). The screens show the core's number as it is; whether an old save should count as having served
+        the stay is for the balance work to decide.</p>
+
+      <h3>Where the brief left room</h3>
+      <ul class="steps">
+        <li><b>One pattern for buying: pick, then a sheet.</b> The sheet docks at the foot of the screen, under the grid, not over
+          it, so the Wardrobe's figure stays in view while you try something on. Picking a clothes tile also tries it on.
+          Tapping the same tile again, or ×, puts it down.</li>
+        <li><b>The Wardrobe's row</b> is Tops · Bottoms · Hats · Extras · Pins · Crests · Hair. Man / Woman and the
+          hairstyle moved into the Hair segment as two short rows of buttons, so they are no longer a second row of
+          segments. The Shop is Tools · Medicine, plus Support only when the real-money products are on offer.</li>
+        <li><b>Three columns in the Wardrobe, two in the Shop.</b> A crest's tile names only its school
+          ("State University"), because "Crests" is already the segment name. The full name did not fit a narrow tile's
+          two lines at the largest text size. The sheet gives the full name.</li>
+        <li><b>The "keep some coins" hint</b> is on the sheet under Buy, in six words: "Leaves 80. Keep 112 for bills."
+          The balance card that used to explain it is gone.</li>
+        <li><b>A tool's line</b> is on the sheet, with its uses: "Finds phones nearby. A lead, not proof. 2 uses per
+          exam." The tile itself carries no description and no button.</li>
+        <li><b>Found and fixed: the keep-awake rule.</b> A pre-exam event that was only waiting behind the hub held the
+          screen awake. It now counts only while the event is actually on screen, the same fix Phase 2 made for back.</li>
+      </ul>
+
+      <h3>Checked</h3>
+      <ul class="steps">
+        <li><b>Tests.</b> EditMode 2,440: 0 failed, 210 skipped (opt-in probes). PlayMode 96: 0 failed, 29 skipped (opt-in captures, this phase's included). New tests check the following. Every price matches the
+          shipped table, and the total is 4,370. No crest can be bought. A locked crest's progress comes from the career
+          API, and the Brightpath line is honest. The award card's words and picture are checked. A crest award never
+          opens the ad. The v7 migration is tested on a fresh save, a save with history, a pre-M129 save, a save with no
+          history, a second run, a crest that was bought, and a pre-exam move. The minimum stay shows on the tile and on
+          the bar. The keep-awake fix has its own test. Every Shop and Wardrobe tap and a purchase build no tile, page or
+          figure. Each segment stays under 120 words, and no "¢" appears. A layout guard checks every chip, name and
+          sheet button at the largest text size.</li>
+        <li><b>On the phone (Galaxy A15).</b> The dev build was installed with <code>adb install -r</code> on the long
+          career. It loads through the migration with nothing lost. Opening, closing and buying were measured as in
+          the table above, and one purchase was screen-recorded. Afterwards the app was stopped, the five save files
+          were put back, and their sha256 hashes match the backup.</li>
+      </ul>
+    </div>
+  </section>
+
   <section id="gallery">
     <div class="section-head">
       <span class="eyebrow">Screen inventory</span>
@@ -772,13 +942,13 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/p2-hub-dark-1080.jpg" alt="First hub: the school's picture, Start exam 1, four tiles" loading="lazy" width="432" height="936"><figcaption><b>Hub, first visit</b>34 words; rank on the bar, place on the picture</figcaption></figure>
       </div></div>
 
-    <div class="gal-group"><h3>Home <small>hub, Career, Shop, Wardrobe, Rules, Settings (Phase 2)</small></h3>
+    <div class="gal-group"><h3>Home <small>hub, Career, Rules, Settings (Phase 2); Shop and Wardrobe (Phase 3)</small></h3>
       <div class="strip">
         <figure><img src="img/p2-hub-dark-1080.jpg" alt="Hub" loading="lazy" width="432" height="936"><figcaption><b>Hub</b>Start under the picture, four tiles</figcaption></figure>
         <figure><img src="img/p2-career-dark-1080.jpg" alt="Career: stat bars and the ladder" loading="lazy" width="432" height="936"><figcaption><b>Career</b>bars, the ladder, a short log</figcaption></figure>
-        <figure><img src="img/p2-shop-dark-1080.jpg" alt="Shop" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>balance repeated from the top bar (Phase 3)</figcaption></figure>
-        <figure><img src="img/d-14-store-25.jpg" alt="Store: hat grid" loading="lazy" width="432" height="936"><figcaption><b>Clothes grid</b>prices as blue buttons, locks as grey (Phase 3)</figcaption></figure>
-        <figure><img src="img/p2-wardrobe-dark-1080.jpg" alt="Wardrobe" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>two nested segment rows (Phase 3)</figcaption></figure>
+        <figure><img src="img/p3-shop-tools-dark-1080.jpg" alt="Shop, Tools: one segment row, two tiles with price chips" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>segments, chips; no balance card</figcaption></figure>
+        <figure><img src="img/p3-shop-sheet-dark-1080.jpg" alt="Shop with Replay picked: the sheet and Buy 110" loading="lazy" width="432" height="936"><figcaption><b>Item sheet</b>one line, Buy with the coin</figcaption></figure>
+        <figure><img src="img/p3-wardrobe-tops-dark-1080.jpg" alt="Wardrobe, Tops: the figure, one row of segments, three columns of tiles" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>one segment row</figcaption></figure>
         <figure><img src="img/p2-rules-dark-1080.jpg" alt="Rules" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>868 words of prose (Phase 4)</figcaption></figure>
         <figure><img src="img/p2-settings-dark-1080.jpg" alt="Settings" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>clean; × goes back</figcaption></figure>
         <figure><img src="img/d-17-confirm-abandon.jpg" alt="Abandon this career confirmation" loading="lazy" width="432" height="936"><figcaption><b>Confirm</b>good: Danger tone carries the weight</figcaption></figure>
@@ -852,7 +1022,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
 <tr class="ok"><th scope="row">Hub, first visit</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>42<span class="all"> / 42</span></td><td>10</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: exam-issued scratch paper. Nothing else.</td></tr>
 <tr class="ok"><th scope="row">Hub</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>47<span class="all"> / 47</span></td><td>15</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</td></tr>
 <tr class="bad"><th scope="row">Career tab</th><td>33<span class="all"> / 65</span></td><td><span class="wbar"><i style="width:18%"></i></span>99<span class="all"> / 160</span></td><td>12</td><td>5<span class="all"> / 5</span></td><td class="q">Last change: an exam that went well - it helped your standing.</td></tr>
-<tr class="bad"><th scope="row">Store tab</th><td>24<span class="all"> / 172</span></td><td><span class="wbar"><i style="width:47%"></i></span>84<span class="all"> / 406</span></td><td>14</td><td>7<span class="all"> / 80</span></td><td class="q">Lists what you noticed in the last few seconds and where sounds came from.</td></tr>
+<tr class="bad"><th scope="row">Store tab (before Phase 3)</th><td>24<span class="all"> / 172</span></td><td><span class="wbar"><i style="width:47%"></i></span>84<span class="all"> / 406</span></td><td>14</td><td>7<span class="all"> / 80</span></td><td class="q">Lists what you noticed in the last few seconds and where sounds came from.</td></tr>
 <tr class="warn"><th scope="row">Settings</th><td>26<span class="all"> / 28</span></td><td><span class="wbar"><i style="width:7%"></i></span>56<span class="all"> / 59</span></td><td>12</td><td>13<span class="all"> / 13</span></td><td class="q">Abandoning your career deletes it. Anything you have paid for stays yours.</td></tr>
 <tr class="bad"><th scope="row">Manual</th><td>24<span class="all"> / 79</span></td><td><span class="wbar"><i style="width:100%"></i></span>208<span class="all"> / 868</span></td><td>54</td><td>5<span class="all"> / 5</span></td><td class="q">A buzz or a dropped object tells you which row it came from, counted from the front: Row 1 is the row nearest your desk, and each row&#x27;s number is pain…</td></tr>
 <tr class="ok"><th scope="row">Pre-exam brief (unwell)</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:4%"></i></span>34<span class="all"> / 34</span></td><td>16</td><td>1<span class="all"> / 1</span></td><td class="q">You are feverish and drained. Recently expired IDs may be accepted. Minor name mismatches are tolerated.</td></tr>
@@ -877,13 +1047,13 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <div class="grid-2">
       <div class="card"><h3>What the numbers say</h3>
         <p><b>The result card is not the text problem.</b> It has 17 words; its problem is that it has no payoff. The
-          words are in the Manual (868), the Store (406, with 80 buttons), the Career tab (160), and the event cards and
+          words are in the Manual (868), the Store (406 with 80 buttons before Phase 3; now 12 to 40 a segment), the Career tab (160), and the event cards and
           intro cards, which carry 30 to 40 word bodies.</p>
         <p><b>The best screens are already the shortest:</b> the exam HUD (6 words), the two-school offer (numbers in
           columns) and the parking fine (one line plus the price).</p></div>
       <div class="card"><h3>Worst offenders</h3>
         <p>1. Manual: 868 words, one 54-word paragraph.<br>
-          2. Store: 406 words, 80 buttons, 5 screens of scroll.<br>
+          2. Store: 406 words, 80 buttons, 5 screens of scroll (fixed in Phase 3).<br>
           3. Career tab: 160 words, repeating hub and top-bar facts.<br>
           4. Reassignment letter: 40-word body.<br>
           5. Manager meeting: 38-word body.<br>
@@ -896,8 +1066,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="rw"><span class="where">Result · salary</span><span class="from">Salary   +50 ¢</span><span class="arrow">→</span><span class="to">Gold coin tile "+50" that pays into a visible coin pill</span></div>
       <div class="rw"><span class="where">Result · title</span><span class="from">Exam complete · School Exam 1</span><span class="arrow">→</span><span class="to">Outcome chip "Good exam" with ★ +2</span></div>
       <div class="rw"><span class="where">Hub · next exam</span><span class="from">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</span><span class="arrow">→</span><span class="to">Rule chips: [Reference sheet] [Scratch paper] with paper icons</span></div>
-      <div class="rw"><span class="where">Store · tool</span><span class="from">Marks each nearby student with an active phone. A lead, not proof.</span><span class="arrow">→</span><span class="to">"Finds phones nearby" + (i) for the rest</span></div>
-      <div class="rw"><span class="where">Store · top</span><span class="from">Balance 600 ¢ · You can afford the White T-Shirt</span><span class="arrow">→</span><span class="to">Delete: the top bar already shows the balance; price chips go green or grey</span></div>
+      <div class="rw"><span class="where">Store · tool</span><span class="from">Marks each nearby student with an active phone. A lead, not proof.</span><span class="arrow">→</span><span class="to">Done in Phase 3: on the item sheet, "Finds phones nearby. A lead, not proof. 2 uses per exam."</span></div>
+      <div class="rw"><span class="where">Store · top</span><span class="from">Balance 600 ¢ · You can afford the White T-Shirt</span><span class="arrow">→</span><span class="to">Done in Phase 3: the balance card is gone; prices are gold chips, muted with "N short" when out of reach</span></div>
       <div class="rw"><span class="where">Career · header</span><span class="from">You are being noticed. People elsewhere have heard your name. Last change: an exam that went well - it helped your standing.</span><span class="arrow">→</span><span class="to">Reputation bar 42/100 with a ▲ +2 arrow</span></div>
       <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">(warn icon) Warned · Tolga Şahin</span></div>
       <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Chips: [ID: expired OK] [Name: typos OK]</span></div>
@@ -1015,7 +1185,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="anim-card"><div class="clip"><img src="vid/walkout.gif" alt="A removed student stands and walks out of the classroom door" width="270" height="585" loading="lazy"></div><div class="t"><h3>Walkout <span class="tag ok">works</span></h3><p>The same walk for anyone removed, so it says nothing about guilt.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/clock-warning.gif" alt="Exam HUD clock turns orange in the last 30 seconds" width="270" height="585" loading="lazy"></div><div class="t"><h3>Clock warning <span class="tag ok">works</span></h3><p>It eases once to orange and stays.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/p2-hub-career-shop-start.gif" alt="Hub, Career fades in, ×, Shop, ×, Start exam" width="270" height="585" loading="lazy"></div><div class="t"><h3>Screen change <span class="tag ok">Phase 2</span></h3><p>The Career ring became stat bars. Screens now fade in over the hub and out on ×.</p></div></div>
-      <div class="anim-card"><div class="clip"><img src="vid/store-purchase.gif" alt="Store: tapping 400 buys the Phone Detector; the tile turns to Carry, balance drops" width="270" height="585" loading="lazy"></div><div class="t"><h3>Purchase <span class="tag ok">subtle</span></h3><p>The tile pops; the top bar rolls down; the Store's balance card jumps.</p></div></div>
+      <div class="anim-card"><div class="clip"><img src="vid/p3-buy.gif" alt="Wardrobe: pick the cap, Buy; one coin flies from the balance pill to the tile, the pill rolls down, the tile pops and turns to Owned" width="270" height="585" loading="lazy"></div><div class="t"><h3>Purchase <span class="tag ok">Phase 3</span></h3><p>One coin flies from the balance to the tile, the balance rolls down, the tile pops and "Owned" fades in.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/p2-promotion.gif" alt="Hub shows Riverside Middle School: a brass shimmer, a pop, and Salary counting from 55 to 65" width="270" height="585" loading="lazy"></div><div class="t"><h3>Promotion <span class="tag ok">works</span></h3><p>One brass sweep and a pop, and since Phase 2 the new salary counts up from the old one.</p></div></div>
       <div class="anim-card"><div class="clip"><img src="vid/event-stamp.gif" alt="An event card: Accept is tapped, pops, Reject fades" width="270" height="585" loading="lazy"></div><div class="t"><h3>Event stamp <span class="tag ok">works</span></h3><p>The chosen answer pops and the other fades.</p></div></div>
     </div>
@@ -1460,9 +1630,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li>The promotion beat gains "salary old → new".</li></ul></div>
         <div class="est">6–7<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 3<small>Shop</small></div>
-        <div><b>Store split into Tools · Medicine · Clothes</b><ul>
-          <li>Segmented sub-pages; the balance card is deleted; price chips replace price buttons; one-line descriptions with (i) for detail.</li>
-          <li>Purchase: one coin flies out and the tile pops. The wardrobe preview stays as the Clothes header.</li></ul></div>
+        <div><b>Shop and Wardrobe</b> <span class="tag ok">shipped</span> — see <a href="#shop">Phase 3: Shop</a>.<ul>
+          <li>One segment row each (Shop: Tools · Medicine; Wardrobe: Tops · Bottoms · Hats · Extras · Pins · Crests · Hair); the balance card is deleted; price chips replace price buttons; one line per item on a pick-then-Buy sheet.</li>
+          <li>Purchase: one coin flies from the balance to the tile and the tile pops. The wardrobe preview stays at the top.</li>
+          <li>With M134: the shipped prices, crests earned and never sold, save v7, and the minimum stay on the Career tile and bar. Screens stay built, so opening one again has no long frame.</li></ul></div>
         <div class="est">3–4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 4<small>Words</small></div>
         <div><b>Events, intro, brief, Manual</b><ul>
