@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UI Overhaul</title>
-<meta name="description" content="Phase 0 of the UI overhaul: every screen captured, a text-density audit, the navigation map, a check of every M129 animation, why the salary shows as text, and three redesign directions with mockups.">
+<meta name="description" content="Phase 0 of the UI overhaul: every screen captured, a text-density audit, the navigation map, a check of every M129 animation, why the salary shows as text, and phone mockups of the redesign directions, with the tile hub and the payday receipt chosen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -34,7 +34,7 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; margin: 0; padding: 0 16px 72px; }
-.wrap { max-width: 1160px; margin: 0 auto; display: grid; gap: 72px; }
+.wrap { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 72px; }
 h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
 h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
@@ -68,7 +68,7 @@ header.top { padding-top: 36px; display: grid; gap: 22px; }
 .toc a { text-decoration: none; font-size: .9rem; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; }
 .toc a:hover { border-color: var(--accent); color: var(--accent); }
 
-section { display: grid; gap: 22px; scroll-margin-top: 16px; }
+section { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; scroll-margin-top: 16px; }
 .section-head { display: grid; gap: 8px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
 .card p { color: var(--muted); font-size: .96rem; }
@@ -90,7 +90,7 @@ section { display: grid; gap: 22px; scroll-margin-top: 16px; }
 .tag.info { background: var(--accent-soft); color: var(--accent); }
 
 /* ---------- diagnosis ---------- */
-.diag { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 3vw, 26px); }
+.diag { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 3vw, 26px); }
 .diag figure { margin: 0; display: grid; gap: 6px; }
 .diag figure img { border-radius: 10px; border: 1px solid var(--line); }
 figcaption { font-size: .86rem; color: var(--muted); }
@@ -289,23 +289,136 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
 .ph .clock b { font-size:13px; font-variant-numeric: tabular-nums; color: var(--g-warn); }
 .ph .cue { position:absolute; left:50%; transform:translateX(-50%); top:56px; font-size:10px; background: rgba(5,8,15,.7); padding:3px 9px; border-radius:99px; white-space:nowrap; }
 .ph .illus { height:120px; border-radius:16px; background: linear-gradient(160deg,#4a3a6b,#1e2340); display:grid; place-items:center; font-size:46px; }
-.ph .fly { position:absolute; z-index:5; pointer-events:none; }
-.ph .stack { position:relative; width:46px; height:44px; }
-.ph .stack .coin { position:absolute; left:12px; }
-/* coin flight + stack animation for the result mockups */
-@keyframes fly1 { 0%{ transform: translate(0,0) scale(0); opacity:0 } 15%{ transform: translate(-20px,-30px) scale(1.15); opacity:1 }
-  85%{ opacity:1 } 100%{ transform: translate(var(--dx), var(--dy)) scale(.7); opacity:0 } }
-@keyframes landpop { 0%,100%{ transform: scale(1) } 50%{ transform: scale(1.14) } }
-@keyframes stackin { 0% { transform: translateY(-26px); opacity:0 } 100% { transform: translateY(0); opacity:1 } }
-@keyframes rise { from { opacity:0; transform: translateY(6px) } to { opacity:1; transform:none } }
-.anim .fly .coin { animation: fly1 .9s cubic-bezier(.3,.7,.3,1) both; animation-iteration-count: 1; }
-.anim .stack .coin { animation: stackin .32s cubic-bezier(.2,1.4,.4,1) both; }
-.anim .land { animation: landpop .24s ease-out both; }
-.anim .rise { animation: rise .3s ease-out both; }
-@media (prefers-reduced-motion: reduce) { .anim * { animation: none !important; } }
-.replay { font-family: var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--line); background: var(--surface);
-  color: var(--accent); border-radius:6px; padding:5px 10px; cursor:pointer; }
-.replay:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+/* ---------- option mockups (hub + result): GameTheme.ModernDark values, coins gold as proposed ---------- */
+.compare { min-width: 0; display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: start; }
+.opt { min-width: 0; margin:0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 14px 18px; display:grid; grid-template-columns: minmax(0, 1fr); gap: 14px; justify-items: center; scroll-margin-top: 16px; }
+.opt.rec { border-color: color-mix(in srgb, var(--gold) 60%, transparent); box-shadow: 0 0 0 3px var(--gold-soft); }
+.oh { justify-self: stretch; display:flex; align-items:center; gap: 12px; }
+.oh .letter { width: 52px; height: 52px; border-radius: 14px; display:grid; place-items:center; flex:none; font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 1;
+  background: var(--accent-soft); color: var(--accent); }
+.opt.rec .oh .letter { background: var(--gold-soft); color: var(--gold); }
+.oh .nm { display:grid; gap: 3px; min-width: 0; }
+.oh .nm b { font-family: var(--display); font-size: 1.25rem; line-height: 1.1; }
+.recbadge { justify-self: start; display:inline-flex; align-items:center; gap: 4px; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 2px 9px 2px 7px; }
+.oh .nm .alt { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.opt .key { justify-self: stretch; text-align: center; font-size: .98rem; font-weight: 600; color: var(--ink); line-height: 1.35; text-wrap: balance; }
+.opt .txt { justify-self: stretch; display:grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.opt .txt h3 { font-size: 1rem; }
+.opt .txt ul { margin: 0; padding-left: 18px; color: var(--muted); display:grid; gap: 5px; font-size: .9rem; }
+.opt .txt ul b { color: var(--ink); }
+.opt .pick { font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.mklegend { display:flex; flex-wrap: wrap; gap: 8px 18px; font-size: .88rem; color: var(--muted); }
+.mklegend span { display:inline-flex; align-items:center; gap: 7px; }
+.mklegend i { display:inline-block; width: 26px; height: 0; border-top: 2px dashed; }
+.mklegend i.n { border-color: #ec4899; }
+.mklegend i.m { border-color: var(--gold); }
+
+.mk { --k-bg1:#111A31; --k-bg2:#05080F; --k-surface:#151E33; --k-raised:#1E2945; --k-high:#2A3760; --k-border:#2F3E68;
+  --k-stop:#1A2440; --k-sbot:#121A2C; --k-ptop:#4F93FF; --k-pbot:#2D6FE0; --k-primary:#3B82F6;
+  --k-success:#20A06C; --k-danger:#C14A45; --k-warn:#E0812F; --k-money:#4ADE80; --k-rep:#F5C04A;
+  --k-t1:#F3F7FF; --k-t2:#AFC0DE; --k-t3:#8C9DBB; --k-note:#F472B6; --k-loss:#F08A84;
+  width: 260px; aspect-ratio: 9 / 19.5; border-radius: 38px; padding: 8px; background: #04060b; position: relative; flex: none;
+  box-shadow: 0 0 0 1.5px #2c3753, inset 0 0 0 1px #1b2233, 0 26px 50px -24px rgba(4,8,20,.7); }
+.mk .scr { position:absolute; inset: 8px; border-radius: 30px; overflow: hidden; display:flex; flex-direction: column; color: var(--k-t1);
+  background: linear-gradient(180deg, var(--k-bg1), var(--k-bg2)); font-family: var(--body); font-size: 11px; line-height: 1.25; }
+.mk .scr::before { content:""; position:absolute; top: 7px; left: 50%; width: 64px; height: 17px; margin-left: -32px; border-radius: 10px; background: #04060b; z-index: 6; }
+.mk .scr::after { content:""; position:absolute; bottom: 6px; left: 50%; width: 80px; height: 4px; margin-left: -40px; border-radius: 4px; background: var(--k-t1); opacity: .45; z-index: 6; }
+.mk .sb { display:flex; justify-content: space-between; align-items: center; height: 26px; padding: 4px 20px 0 22px; font-size: 10px; font-weight: 700; flex: none; }
+.mk .sb i { width: 20px; height: 9px; border-radius: 3px; border: 1px solid var(--k-t1); opacity: .8; background: linear-gradient(90deg, var(--k-t1) 65%, transparent 65%); background-clip: content-box; padding: 1px; }
+.mk .tb { display:flex; align-items:center; gap: 5px; padding: 6px 10px 8px; flex: none; }
+.mk .who { flex: 1; min-width: 0; line-height: 1.15; }
+.mk .who b { display:block; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk .who span { display:block; font-size: 9px; color: var(--k-t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk .pl { display:inline-flex; align-items:center; gap: 4px; height: 22px; padding: 0 8px 0 4px; border-radius: 999px; font-weight: 700; font-size: 11px; font-variant-numeric: tabular-nums; flex: none; }
+.mk .pl.rep { background: color-mix(in srgb, var(--k-rep) 15%, transparent); color: var(--k-rep); padding-left: 6px; }
+.mk .pl.cn { background: var(--k-raised); border: 1px solid color-mix(in srgb, #F5C04A 55%, transparent); color: var(--k-t1); }
+.mk .pl.pop { box-shadow: 0 0 0 3px rgba(245,192,74,.28), 0 0 18px rgba(245,192,74,.55); }
+.mk .ib { width: 24px; height: 24px; border-radius: 8px; display:grid; place-items:center; background: var(--k-raised); border: 1px solid var(--k-border); color: var(--k-t2); flex: none; }
+.mk svg.i { width: 14px; height: 14px; flex: none; }
+.mk .pad { flex: 1; min-height: 0; display:flex; flex-direction: column; gap: 9px; padding: 2px 10px 18px; }
+.mk .scene { position: relative; border-radius: 16px; overflow: hidden; height: 126px; flex: none; border: 1px solid var(--k-border); }
+.mk .scene > svg { position:absolute; inset: 0; width: 100%; height: 100%; display:block; }
+.mk .scene .cap { position:absolute; left: 10px; right: 10px; bottom: 8px; line-height: 1.15; }
+.mk .cap small { display:block; font-size: 7.5px; font-weight: 800; letter-spacing: .1em; color: #2BBE80; }
+.mk .cap b { display:block; font-family: var(--display); font-size: 15px; color: #fff; }
+.mk .cap span { font-size: 8.5px; color: #cdd7ea; }
+.mk .cap span em { font-style: normal; color: #F5C04A; letter-spacing: 1px; }
+.mk .go { border-radius: 14px; background: linear-gradient(180deg, var(--k-ptop), var(--k-pbot)); color: #fff; text-align: center; font-weight: 700; font-size: 13.5px;
+  padding: 10px 8px; box-shadow: 0 10px 22px -10px rgba(59,130,246,.95), inset 0 1px 0 rgba(255,255,255,.25); flex: none; }
+.mk .go small { display:block; font-size: 9px; font-weight: 500; opacity: .88; margin-top: 1px; }
+.mk .go.xl { padding: 15px 8px; font-size: 16px; border-radius: 16px; }
+.mk .go.gold { background: linear-gradient(180deg, #FFD166, #E0A82E); color: #241A05; box-shadow: 0 10px 22px -10px rgba(245,192,74,.9), inset 0 1px 0 rgba(255,255,255,.4); }
+.mk .cd { background: linear-gradient(180deg, var(--k-stop), var(--k-sbot)); border: 1px solid var(--k-border); border-radius: 14px; padding: 9px 10px; flex: none; }
+.mk .tiles { flex: 1; display:grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 8px; min-height: 0; }
+.mk .tl { position: relative; border-radius: 15px; background: linear-gradient(180deg, var(--k-stop), var(--k-sbot)); border: 1px solid var(--k-border); padding: 10px; display:flex; flex-direction: column; justify-content: space-between; gap: 4px; }
+.mk .tl .ic { width: 32px; height: 32px; border-radius: 10px; display:grid; place-items:center; }
+.mk .tl .ic svg { width: 18px; height: 18px; }
+.mk .tl b { display:block; font-family: var(--display); font-size: 14px; }
+.mk .tl span { display:block; font-size: 9.5px; color: var(--k-t2); }
+.mk .tl em { position:absolute; top: 9px; right: 9px; font-style: normal; min-width: 17px; height: 17px; border-radius: 99px; background: var(--k-danger); color: #fff; font-size: 9px; font-weight: 800; display:grid; place-items:center; padding: 0 5px; }
+.mk .sbar { display:grid; grid-template-columns: 16px 1fr auto; gap: 4px 6px; align-items: center; font-size: 10.5px; }
+.mk .sbar b { font-variant-numeric: tabular-nums; }
+.mk .mt { grid-column: 2 / 4; height: 7px; border-radius: 99px; background: var(--k-high); overflow: hidden; }
+.mk .mt i { display:block; height: 100%; border-radius: 99px; }
+.mk .tabs { display:flex; padding: 7px 4px 20px; background: var(--k-surface); border-top: 1px solid var(--k-border); flex: none; }
+.mk .tabs div { flex: 1; display:grid; justify-items: center; gap: 2px; font-size: 8.5px; font-weight: 600; color: var(--k-t3); position: relative; }
+.mk .tabs svg { width: 17px; height: 17px; }
+.mk .tabs .on { color: var(--k-t1); }
+.mk .tabs .on svg { color: #5B9BFF; }
+.mk .tabs .on::before { content:""; position:absolute; top: -8px; width: 26px; height: 2.5px; border-radius: 2px; background: var(--k-primary); }
+.mk .row { display:flex; align-items:center; gap: 7px; font-size: 11px; }
+.mk .row .v { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mk .row + .row { border-top: 1px solid color-mix(in srgb, var(--k-border) 60%, transparent); padding-top: 7px; margin-top: 7px; }
+.mk .lbl { font-size: 8px; letter-spacing: .12em; font-weight: 800; color: var(--k-t3); text-transform: uppercase; }
+.mk .sub { font-size: 9.5px; color: var(--k-t3); }
+.mk .chip { display:inline-flex; align-items:center; gap: 4px; padding: 4px 9px; border-radius: 999px; font-weight: 700; font-size: 10px; background: var(--k-raised); border: 1px solid var(--k-border); color: var(--k-t2); }
+.mk .chip svg { width: 11px; height: 11px; }
+.mk .h { font-family: var(--display); font-weight: 800; font-size: 20px; line-height: 1.1; }
+.mk .num { font-family: var(--display); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.mk .up { color: var(--k-money); }
+.mk .dn { color: var(--k-loss); }
+.mk .gold { color: var(--k-rep); }
+.mk .fade { opacity: .55; }
+.mk .ico-wrap { width: 22px; height: 22px; border-radius: 7px; display:grid; place-items:center; flex: none; }
+.mk .ico-wrap svg { width: 13px; height: 13px; }
+.mk .ring { border-radius: 50%; display:grid; place-items:center; background: conic-gradient(#2BBE80 calc(var(--p) * 1%), var(--k-high) 0); }
+.mk .ring > div { border-radius: 50%; background: var(--k-surface); display:grid; place-items:center; text-align:center; line-height: 1; }
+.mk .fx { position:absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; overflow: visible; }
+.mk .fx .trail { fill: none; stroke: #F5C04A; stroke-width: 1.6; stroke-dasharray: 4 4; stroke-linecap: round; opacity: .9; }
+.mk .fx .plus { font-family: var(--display); font-weight: 800; font-size: 11px; fill: var(--k-money); }
+/* What makes each option different: dashed pink outline + a label */
+.mk .hl { position: relative; outline: 1.5px dashed var(--k-note); outline-offset: 2px; }
+.mk .hl::after { content: attr(data-note); position:absolute; z-index: 7; top: -9px; right: 8px; background: var(--k-note); color: #3a0a20; font-size: 8px; font-weight: 800;
+  letter-spacing: .03em; padding: 2px 7px; border-radius: 99px; white-space: nowrap; line-height: 1.3; }
+.mk .hl.l::after { right: auto; left: 8px; }
+.mk .hl.nb::after { top: auto; bottom: calc(100% - 6px); }
+.mk .tabs.hl { outline-offset: -3px; }
+.mk .tabs.hl::after { top: -9px; }
+/* Result C: two small frames, beat 1 then beat 2 */
+.beats { position: relative; width: 100%; max-width: 300px; height: 563px; }
+.beats .mk { position:absolute; width: 47%; border-radius: 24px; padding: 5px; }
+.beats .mk .scr { inset: 5px; border-radius: 20px; }
+.beats .mk .scr::before { top: 5px; width: 40px; height: 10px; margin-left: -20px; }
+.beats .mk .scr::after { width: 48px; margin-left: -24px; height: 3px; bottom: 4px; }
+.beats .b1 { left: 0; top: 0; }
+.beats .b2 { right: 0; bottom: 0; }
+.beats .mk .sb { height: 17px; padding: 3px 12px 0 14px; font-size: 7px; }
+.beats .mk .sb i { width: 13px; height: 6px; }
+.beats .mk .tb { padding: 3px 7px 4px; }
+.beats .mk .who b { font-size: 8.5px; }
+.beats .mk .who span { font-size: 7px; }
+.beats .mk .pl { height: 16px; font-size: 8.5px; padding: 0 6px 0 3px; gap: 3px; }
+.beats .mk .pad { padding: 2px 7px 12px; gap: 6px; }
+.beats .mk .go { font-size: 10.5px; padding: 8px 4px; border-radius: 10px; }
+.beats .step { position:absolute; display:grid; gap: 2px; font-size: .84rem; color: var(--muted); line-height: 1.3; }
+.beats .step b { font-family: var(--display); color: var(--ink); font-size: 1rem; }
+.beats .s1 { right: 0; top: 6%; width: 47%; }
+.beats .s2 { left: 0; bottom: 6%; width: 47%; text-align: right; }
+.beats .tapline { position:absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.beats .tapline path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 5 5; stroke-linecap: round; }
+.beats .tapnote { position:absolute; left: 50%; top: 54.5%; transform: translateX(-50%); font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+  background: var(--gold-soft); color: var(--gold); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
 </style>
 
 </head>
@@ -760,6 +873,35 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
       <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
       <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z" fill="currentColor"/></symbol>
+      <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9.5L12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.8 1.8 0 0 1 3.6 0V11l4.6.9a2 2 0 0 1 1.6 2.3l-.9 5A2.5 2.5 0 0 1 15.5 21H11a3 3 0 0 1-2.4-1.2L5.3 15.4a1.6 1.6 0 0 1 2.4-2.1L9 14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+      <radialGradient id="k-coin-g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF1BF"/><stop offset=".28" stop-color="#FFD966"/><stop offset=".7" stop-color="#F5B83A"/><stop offset="1" stop-color="#C88A1C"/></radialGradient>
+      <linearGradient id="k-edge-g" x1="0" x2="1"><stop offset="0" stop-color="#9C6610"/><stop offset=".45" stop-color="#D99A2B"/><stop offset="1" stop-color="#8F5B0C"/></linearGradient>
+      <symbol id="k-coin" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9.2" fill="url(#k-coin-g)" stroke="#A86F10" stroke-width="1.3"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#C88A1C" stroke-width="1.1" opacity=".75"/><path d="M6.3 6.2a5 5 0 0 1 4.2-1.9" stroke="#FFF6D6" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".9"/></symbol>
+      <symbol id="k-flat" viewBox="0 0 40 18"><ellipse cx="20" cy="11.5" rx="17" ry="5.5" fill="#8F5B0C"/><rect x="3" y="6.5" width="34" height="5" fill="url(#k-edge-g)"/><ellipse cx="20" cy="6.5" rx="17" ry="5.5" fill="url(#k-coin-g)" stroke="#A86F10" stroke-width=".9"/><ellipse cx="20" cy="6.5" rx="10.5" ry="3.3" fill="none" stroke="#C88A1C" stroke-width=".8" opacity=".75"/></symbol>
+      <marker id="k-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5L8 5 1 8.5" fill="none" stroke="#F5C04A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+      <linearGradient id="k-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0C1533"/><stop offset=".65" stop-color="#2B3566"/><stop offset="1" stop-color="#4A4170"/></linearGradient>
+      <linearGradient id="k-fade" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#05080F" stop-opacity="0"/><stop offset="1" stop-color="#05080F" stop-opacity=".92"/></linearGradient>
+      <symbol id="k-school" viewBox="0 0 240 126" preserveAspectRatio="xMidYMid slice">
+        <rect width="240" height="126" fill="url(#k-sky)"/>
+        <g fill="#fff"><circle cx="18" cy="14" r=".9"/><circle cx="52" cy="26" r=".7"/><circle cx="88" cy="10" r="1"/><circle cx="120" cy="22" r=".7"/><circle cx="150" cy="8" r=".9"/><circle cx="172" cy="30" r=".6"/><circle cx="226" cy="14" r=".8"/><circle cx="34" cy="38" r=".6"/><circle cx="140" cy="36" r=".6"/></g>
+        <circle cx="200" cy="24" r="7" fill="#FFF7DE"/><circle cx="200" cy="24" r="13" fill="#FFF7DE" opacity=".12"/>
+        <path d="M0 86 Q50 72 110 80 T240 76 V126 H0z" fill="#17244A"/>
+        <path d="M60 60 L118 40 L176 60z" fill="#8E3A2F"/><rect x="66" y="59" width="104" height="36" fill="#5E3530"/>
+        <path d="M168 66 L198 52 L226 66z" fill="#7A332B"/><rect x="172" y="65" width="50" height="30" fill="#52302C"/>
+        <g fill="#FFD98A"><rect x="74" y="67" width="10" height="11" rx="1"/><rect x="90" y="67" width="10" height="11" rx="1"/><rect x="138" y="67" width="10" height="11" rx="1"/><rect x="154" y="67" width="10" height="11" rx="1"/><rect x="180" y="72" width="9" height="10" rx="1"/><rect x="204" y="72" width="9" height="10" rx="1"/></g>
+        <g fill="#FFD98A" opacity=".25"><rect x="70" y="63" width="18" height="19" rx="4"/><rect x="86" y="63" width="18" height="19" rx="4"/><rect x="134" y="63" width="18" height="19" rx="4"/><rect x="150" y="63" width="18" height="19" rx="4"/></g>
+        <rect x="111" y="70" width="14" height="25" rx="1.5" fill="#DCE6F5"/><rect x="104" y="57" width="28" height="5" fill="#E9EEF8" opacity=".85"/>
+        <g fill="#8A3B2A"><circle cx="30" cy="58" r="17"/><circle cx="46" cy="66" r="13"/><circle cx="18" cy="70" r="12"/></g>
+        <g fill="#C26A3A"><circle cx="34" cy="52" r="9"/><circle cx="22" cy="62" r="7"/><circle cx="48" cy="60" r="6"/></g>
+        <rect x="31" y="74" width="4" height="22" fill="#3A2420"/>
+        <rect x="0" y="94" width="240" height="32" fill="#0E1830"/>
+        <g fill="#2A5A3E"><ellipse cx="80" cy="96" rx="9" ry="4"/><ellipse cx="100" cy="96" rx="8" ry="4"/><ellipse cx="140" cy="96" rx="9" ry="4"/><ellipse cx="160" cy="96" rx="8" ry="4"/></g>
+        <rect width="240" height="126" fill="url(#k-fade)"/>
+      </symbol>
       <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 15l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6v4H3zM3 15h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="17" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17" r="1.5" fill="currentColor"/></symbol>
     </defs>
   </svg>
@@ -786,175 +928,223 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
 
     <h3>The hub: three directions</h3>
-    <div class="options">
-      <div class="option" id="hub-a">
-        <div class="ph anim"><div class="scr">
-          <div class="bar"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary</span></div>
-            <span class="pill r"><span class="star"></span>42</span><span class="pill c"><span class="coin"></span>1,040</span></div>
-          <div class="body">
-            <div class="hero"><div class="bld"></div><div class="t"><small>★☆☆☆☆ · ELEMENTARY</small><b>Maple Elementary</b></div></div>
-            <div class="cta"><div>Start exam 3<small>School Exam · 4 candidates</small></div></div>
-            <div class="tiles">
-              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-accent) 18%,transparent);color:var(--g-accent)"><svg width="18" height="18"><use href="#i-ladder"/></svg></div><b>Career</b><span>2 to Riverside</span></div>
-              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-money) 18%,transparent);color:var(--g-money)"><svg width="18" height="18"><use href="#i-bag"/></svg></div><b>Shop</b><span>3 you can afford</span><em class="badge">3</em></div>
-              <div class="tile"><div class="ic" style="background:color-mix(in srgb,var(--g-primary) 18%,transparent);color:#8db6ff"><svg width="18" height="18"><use href="#i-shirt"/></svg></div><b>Wardrobe</b><span>2 new</span></div>
-              <div class="tile"><div class="ic" style="background:var(--g-high);color:var(--g-t2)"><svg width="18" height="18"><use href="#i-book"/></svg></div><b>Rules</b><span>Exam 3: 2 items</span></div>
+    <div class="mklegend"><span><i class="n"></i>what makes the option different</span><span>All three drawn with the game's ModernDark tokens; coins gold, "+" amounts green, as decided.</span></div>
+    <div class="compare">
+      <figure class="opt rec" id="hub-a">
+        <div class="oh"><span class="letter">A</span><div class="nm"><b>Tile hub</b><span class="recbadge"><svg width="11" height="11"><use href="#i-check"/></svg>Chosen</span></div></div>
+        <div class="mk" role="img" aria-label="Hub option A: top bar with reputation, coins and a gear; the school picture; a big Start exam 2 button; four tiles Career, Shop, Wardrobe and Rules; no tab bar"><div class="scr">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="tb"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary School</span></div>
+            <span class="pl rep"><svg class="i" style="width:11px;height:11px"><use href="#i-star"/></svg>42</span><span class="pl cn"><span class="coin"></span>1,040</span>
+            <span class="ib hl nb" data-note="Settings"><svg class="i"><use href="#i-gear"/></svg></span></div>
+          <div class="pad">
+            <div class="scene"><svg aria-hidden="true"><use href="#k-school"/></svg><div class="cap"><small>ASSISTANT SUPERVISOR</small><b>Maple Elementary School</b><span><em>★☆☆☆☆</em> Elementary school</span></div></div>
+            <div class="go xl hl" data-note="1 big button">Start exam 2<small>School Exam · 3 candidates</small></div>
+            <div class="tiles hl" data-note="4 big tiles">
+              <div class="tl"><div class="ic" style="background:color-mix(in srgb,#5B9BFF 20%,transparent);color:#8DB6FF"><svg><use href="#i-bank"/></svg></div><div><b>Career</b><span>2 to Riverside</span></div></div>
+              <div class="tl"><div class="ic" style="background:color-mix(in srgb,#F5C04A 18%,transparent);color:#F5C04A"><svg><use href="#i-bag"/></svg></div><em>3</em><div><b>Shop</b><span>3 you can afford</span></div></div>
+              <div class="tl"><div class="ic" style="background:color-mix(in srgb,#A98BF5 22%,transparent);color:#C3ADFF"><svg><use href="#i-shirt"/></svg></div><div><b>Wardrobe</b><span>2 new</span></div></div>
+              <div class="tl"><div class="ic" style="background:color-mix(in srgb,#2BBE80 20%,transparent);color:#5BD9A2"><svg><use href="#i-book"/></svg></div><div><b>Rules</b><span>Exam 2: 2 items</span></div></div>
             </div>
           </div>
         </div></div>
+        <figcaption class="key">No tab bar: one big Start button and four tiles. The gear opens Settings.</figcaption>
         <div class="txt"><span class="pick">Option A · Tile hub (closest to NSS)</span><h3>One big button, four big tiles, no tab bar</h3>
           <ul><li><b>Navigation:</b> the hub is home, and each tile opens a full screen with a close (×) button. The tab bar goes; Settings stays on the gear.</li>
             <li><b>Hierarchy:</b> top bar numbers, then where you work, then <b>Start exam</b> directly under the picture, then tiles that each carry one live fact.</li>
             <li><b>Text:</b> 34 words, against 47 today. No rule sentences; the Rules tile shows a count.</li>
             <li><b>Cost:</b> new navigation model (router + Back policy), medium risk. It reads most like a game.</li></ul></div>
-      </div>
+      </figure>
 
-      <div class="option" id="hub-b">
-        <div class="ph"><div class="scr">
-          <div class="bar"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary</span></div>
-            <span class="pill c"><span class="coin"></span>1,040</span><svg width="22" height="22" style="color:var(--g-t3)"><use href="#i-gear"/></svg></div>
-          <div class="body">
-            <div class="hero" style="min-height:100px"><div class="bld"></div><div class="t"><small>★☆☆☆☆ · ELEMENTARY</small><b>Maple Elementary</b></div></div>
-            <div class="card" style="display:grid;gap:8px">
-              <div class="stat"><span class="star"></span><span>Reputation</span><b>42</b><div class="meter"><i style="width:42%;background:var(--g-accent)"></i></div></div>
-              <div class="stat"><svg width="16" height="16" style="color:#8db6ff"><use href="#i-ladder"/></svg><span>To Riverside</span><b>2 exams</b><div class="meter"><i style="width:78%;background:var(--g-primary)"></i></div></div>
-              <div class="stat"><svg width="16" height="16" style="color:var(--g-warn)"><use href="#i-warn"/></svg><span>Probation</span><b>3 clean</b><div class="meter"><i style="width:25%;background:var(--g-warn)"></i></div></div>
+      <figure class="opt" id="hub-b">
+        <div class="oh"><span class="letter">B</span><div class="nm"><b>Tab bar + stat bars</b><span class="alt">Lowest risk</span></div></div>
+        <div class="mk" role="img" aria-label="Hub option B: top bar with coins and a gear only; a smaller school picture; three stat bars for reputation, the next posting and probation; the next exam; Start exam 2; a tab bar Home, Career, Shop, Wardrobe"><div class="scr">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="tb"><div class="who"><b>Assistant Supervisor</b><span>Maple Elementary School</span></div>
+            <span class="pl cn"><span class="coin"></span>1,040</span><span class="ib"><svg class="i"><use href="#i-gear"/></svg></span></div>
+          <div class="pad">
+            <div class="scene" style="height:92px"><svg aria-hidden="true"><use href="#k-school"/></svg><div class="cap"><small>ASSISTANT SUPERVISOR</small><b>Maple Elementary School</b></div></div>
+            <div class="cd hl" data-note="3 stat bars" style="display:grid;gap:9px;padding:11px 10px">
+              <div class="sbar"><svg class="i gold" style="width:13px;height:13px"><use href="#i-star"/></svg><span>Reputation</span><b class="gold">42</b><div class="mt"><i style="width:42%;background:linear-gradient(90deg,#E0A82E,#FFD166)"></i></div></div>
+              <div class="sbar"><svg class="i" style="width:13px;height:13px;color:#8DB6FF"><use href="#i-bank"/></svg><span>To Riverside</span><b>2 exams</b><div class="mt"><i style="width:78%;background:linear-gradient(90deg,#2D6FE0,#4F93FF)"></i></div></div>
+              <div class="sbar"><svg class="i" style="width:13px;height:13px;color:var(--k-warn)"><use href="#i-warn"/></svg><span>Probation</span><b>3 clean</b><div class="mt"><i style="width:25%;background:linear-gradient(90deg,#C66C22,#F2933C)"></i></div></div>
             </div>
-            <div class="card row"><svg width="18" height="18" style="color:#8db6ff"><use href="#i-paper"/></svg><div><b style="font-size:12px">School Exam · 4</b><div class="sub">Allowed: reference sheet, scratch paper</div></div></div>
+            <div class="cd row"><span class="ico-wrap" style="background:color-mix(in srgb,#5B9BFF 20%,transparent);color:#8DB6FF"><svg><use href="#i-cal"/></svg></span><div><b style="font-size:11.5px">School Exam 2 · 3</b><div class="sub">Reference sheet, scratch paper <span style="color:#8DB6FF">ⓘ</span></div></div></div>
             <div style="flex:1"></div>
-            <div class="cta">Start exam 3</div>
+            <div class="go">Start exam 2</div>
           </div>
-          <div class="tabs"><div class="on"><i></i>Home</div><div><i></i>Career</div><div><i></i>Shop</div><div><i></i>Wardrobe</div></div>
+          <div class="tabs hl" data-note="4 tabs, renamed">
+            <div class="on"><svg><use href="#i-home"/></svg>Home</div><div><svg><use href="#i-bank"/></svg>Career</div><div><svg><use href="#i-bag"/></svg>Shop</div><div><svg><use href="#i-shirt"/></svg>Wardrobe</div></div>
         </div></div>
+        <figcaption class="key">Keeps a tab bar (Home · Career · Shop · Wardrobe) and adds three stat bars.</figcaption>
         <div class="txt"><span class="pick">Option B · Tab bar + stat bars (lowest risk)</span><h3>Keep the bar, rename it, and fill the hub with three bars</h3>
           <ul><li><b>Navigation:</b> 4 tabs named after nouns the player wants: Home · Career · Shop · Wardrobe. The Manual moves to Settings and an ⓘ on the rules card.</li>
             <li><b>Hierarchy:</b> NSS-style stat bars (Reputation, next posting, probation) replace three cards and the Career tab's prose header.</li>
             <li><b>Text:</b> 31 words. Reputation leaves the top bar, which keeps coins only.</li>
             <li><b>Cost:</b> mostly content and component work; the router stays. This is the fastest route.</li></ul></div>
-      </div>
+      </figure>
 
-      <div class="option" id="hub-c">
-        <div class="ph"><div class="scr">
-          <div class="bar"><div class="who"><b>Exam 3 · Tuesday</b><span>Maple Elementary</span></div>
-            <span class="pill r"><span class="star"></span>42</span><span class="pill c"><span class="coin"></span>1,040</span></div>
-          <div class="body">
-            <div class="card" style="padding:0;overflow:hidden;border-radius:20px">
-              <div class="hero" style="border-radius:0;min-height:150px"><div class="bld" style="top:24px"></div><div class="t"><small>NEXT · SCHOOL EXAM</small><b>4 candidates</b></div></div>
-              <div style="padding:10px;display:grid;gap:8px">
-                <div class="row"><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-paper"/></svg>Ref. sheet</span><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-paper"/></svg>Scratch</span></div>
-                <div class="cta">Start</div>
+      <figure class="opt" id="hub-c">
+        <div class="oh"><span class="letter">C</span><div class="nm"><b>Today card stack</b><span class="alt">Shows the rhythm</span></div></div>
+        <div class="mk" role="img" aria-label="Hub option C: a large next-exam card with its picture, allowed items and Start; below it a Coming up list with the Riverside offer, monthly bills and probation; a tab bar Today, Career, Shop, More"><div class="scr">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="tb"><div class="who"><b>Exam 2 · Tuesday</b><span>Maple Elementary School</span></div>
+            <span class="pl rep"><svg class="i" style="width:11px;height:11px"><use href="#i-star"/></svg>42</span><span class="pl cn"><span class="coin"></span>1,040</span></div>
+          <div class="pad">
+            <div class="cd hl" data-note="next exam card" style="padding:0;overflow:visible;border-radius:18px">
+              <div class="scene" style="height:150px;border:0;border-radius:18px 18px 0 0"><svg aria-hidden="true"><use href="#k-school"/></svg><div class="cap"><small style="color:#8DB6FF">NEXT · SCHOOL EXAM</small><b style="font-size:18px">3 candidates</b></div></div>
+              <div style="padding:9px 10px 10px;display:grid;gap:8px">
+                <div class="row" style="gap:5px"><span class="chip"><svg><use href="#i-paper"/></svg>Ref. sheet</span><span class="chip"><svg><use href="#i-paper"/></svg>Scratch</span></div>
+                <div class="go xl">Start</div>
               </div>
             </div>
-            <div class="sub" style="font-family:var(--mono);letter-spacing:.08em">COMING UP</div>
-            <div class="card row"><svg width="18" height="18" style="color:var(--g-accent)"><use href="#i-ladder"/></svg><span>Riverside offer</span><span class="v" style="color:var(--g-accent)">2 exams</span></div>
-            <div class="card row"><span class="coin"></span><span>Monthly bills</span><span class="v" style="color:var(--g-t3)">next exam</span></div>
+            <div class="hl" data-note="coming up" style="display:grid;gap:6px;border-radius:12px;margin-top:4px">
+              <span class="lbl">Coming up</span>
+              <div class="cd row" style="padding:7px 9px"><span class="ico-wrap" style="background:color-mix(in srgb,#5B9BFF 20%,transparent);color:#8DB6FF"><svg><use href="#i-bank"/></svg></span>Riverside offer<span class="v gold">2 exams</span></div>
+              <div class="cd row" style="padding:7px 9px"><span class="ico-wrap" style="background:color-mix(in srgb,#F5C04A 16%,transparent)"><span class="coin" style="width:12px;height:12px"></span></span>Monthly bills<span class="v" style="color:var(--k-t3)">next exam</span></div>
+            </div>
           </div>
-          <div class="tabs"><div class="on"><i></i>Today</div><div><i></i>Career</div><div><i></i>Shop</div><div><i></i>More</div></div>
+          <div class="tabs">
+            <div class="on"><svg><use href="#i-cal"/></svg>Today</div><div><svg><use href="#i-bank"/></svg>Career</div><div><svg><use href="#i-bag"/></svg>Shop</div><div><svg><use href="#i-dots"/></svg>More</div></div>
         </div></div>
+        <figcaption class="key">One big next-exam card, then a short "coming up" list. Tabs: Today · Career · Shop · More.</figcaption>
         <div class="txt"><span class="pick">Option C · Today card stack</span><h3>The next exam is a card; what's coming is a short list</h3>
           <ul><li><b>Navigation:</b> tab bar (Today · Career · Shop · More). "More" holds Manual and Settings.</li>
             <li><b>Hierarchy:</b> one large card for the next exam, its picture and Start, and below it what is coming: an offer, bills, probation. Each item is a fact already decided, never a forecast.</li>
             <li><b>Text:</b> 25 words. This one shows best that a career has a rhythm.</li>
             <li><b>Cost:</b> needs a new "coming up" model built from Core state (bill cadence, progress); medium.</li></ul></div>
-      </div>
+      </figure>
     </div>
 
     <h3>The result card: three directions, each with coins you can see</h3>
     <p class="muted">All three show a read-only coin pill on the result card. The salary pays into it on this screen, and
-      costs leave it as separate beats afterwards, so the salary is always seen. Press replay to run the motion;
-      Reduce motion shows the end state.</p>
-    <div class="options">
-      <div class="option" id="res-a">
-        <div class="ph anim" data-replay><div class="scr">
-          <div class="bar"><div class="who"><b>School Exam 2</b><span>Maple Elementary</span></div><span class="pill c land" style="animation-delay:1.6s"><span class="coin"></span><span class="cnt" data-from="990" data-to="1040">1,040</span></span></div>
-          <div class="body" style="justify-content:center;gap:12px">
-            <div style="text-align:center;display:grid;gap:8px;justify-items:center" class="rise">
-              <span class="chip" style="background:color-mix(in srgb,var(--g-success) 22%,transparent);color:#5be0a0;font-size:13px;padding:6px 14px"><svg width="14" height="14"><use href="#i-check"/></svg>Good exam</span>
+      costs leave it as separate beats afterwards, so the salary is always seen.</p>
+    <div class="mklegend"><span><i class="m"></i>where the coins move</span><span><i class="n"></i>what makes the option different</span></div>
+    <div class="compare">
+      <figure class="opt" id="res-a">
+        <div class="oh"><span class="letter">A</span><div class="nm"><b>Scoreboard</b><span class="alt">Headline + number tiles</span></div></div>
+        <div class="mk" role="img" aria-label="Result option A: a Good exam chip and the headline Well handled; two big tiles, plus 2 reputation and plus 50 salary; five gold coins arc from the salary tile up to the coin pill, which reads 1,040; then a Warned row, a bills row and Continue"><div class="scr">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="tb"><div class="who"><b>School Exam 2</b><span>Maple Elementary School</span></div><span class="pl cn pop"><span class="coin"></span>1,040</span></div>
+          <div class="pad" style="gap:12px;padding-top:14px">
+            <div class="hl l" data-note="verdict" style="display:grid;gap:8px;justify-items:center;text-align:center;border-radius:14px;padding:6px 0 4px;margin:0 44px 0 20px">
+              <span class="chip" style="background:color-mix(in srgb,#20A06C 24%,transparent);border-color:color-mix(in srgb,#2BBE80 60%,transparent);color:#6EE7B0;font-size:13px;padding:6px 14px"><svg style="width:14px;height:14px"><use href="#i-check"/></svg>Good exam</span>
               <div class="h" style="font-size:22px">Well handled</div>
             </div>
-            <div class="grid2">
-              <div class="card rise" style="text-align:center;display:grid;gap:4px;justify-items:center;animation-delay:.15s"><span class="coin lg"></span><b style="font-size:22px;color:var(--g-accent)">+50</b><span class="sub">Salary</span></div>
-              <div class="card rise" style="text-align:center;display:grid;gap:4px;justify-items:center;animation-delay:.25s"><span class="star" style="width:22px;height:22px"></span><b style="font-size:22px;color:var(--g-accent)">+2</b><span class="sub">Reputation</span></div>
+            <div class="hl l" data-note="2 big numbers" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:14px">
+              <div class="cd" style="display:grid;justify-items:center;gap:5px;padding:14px 6px"><svg style="width:24px;height:24px;color:#F5C04A"><use href="#i-star"/></svg><span class="num gold" style="font-size:26px">+2</span><span class="sub">Reputation</span></div>
+              <div class="cd" style="display:grid;justify-items:center;gap:5px;padding:14px 6px;border-color:color-mix(in srgb,#F5C04A 55%,transparent);box-shadow:0 0 24px -6px rgba(245,192,74,.45)"><span class="coin" style="width:24px;height:24px"></span><span class="num up" style="font-size:26px">+50</span><span class="sub">Salary</span></div>
             </div>
-            <div class="card rise" style="display:grid;gap:6px;animation-delay:.35s">
-              <div class="row"><svg width="14" height="14" style="color:var(--g-warn)"><use href="#i-warn"/></svg>Warned<span class="v sub">Tolga Ş.</span></div>
-              <div class="row"><span class="coin"></span>Bills<span class="v" style="color:var(--g-danger)">−160</span></div>
+            <div class="cd">
+              <div class="row"><span class="ico-wrap" style="background:color-mix(in srgb,#E0812F 22%,transparent);color:#F2933C"><svg><use href="#i-warn"/></svg></span>Warned<span class="v sub" style="font-size:10.5px">Tolga Şahin</span></div>
+              <div class="row fade"><span class="ico-wrap" style="background:var(--k-raised)"><span class="coin" style="width:12px;height:12px"></span></span>Monthly bills<span class="v dn">−160</span></div>
             </div>
-            <div class="cta">Continue</div>
+            <div style="flex:1"></div>
+            <div class="go">Continue</div>
           </div>
-          <div class="fly" style="left:58px;top:250px">
-            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.7s"></span>
-            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.78s"></span>
-            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.86s"></span>
-            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:.94s"></span>
-            <span class="coin" style="position:absolute;--dx:160px;--dy:-222px;animation-delay:1.02s"></span>
-          </div>
+          <svg class="fx" viewBox="0 0 244 547" aria-hidden="true">
+            <path class="trail" d="M178 196 C 236 160, 238 100, 214 64" marker-end="url(#k-arr)"/>
+            <g stroke="#F5C04A" stroke-width="1.5" stroke-linecap="round" opacity=".85"><path d="M168 194l-5-7M178 190v-9M188 194l5-7"/></g>
+            <use href="#k-coin" x="193" y="170" width="11" height="11" opacity=".55"/>
+            <use href="#k-coin" x="212" y="148" width="12" height="12" opacity=".7"/>
+            <use href="#k-coin" x="222" y="122" width="13" height="13" opacity=".85"/>
+            <use href="#k-coin" x="222" y="96" width="14" height="14"/>
+            <use href="#k-coin" x="213" y="72" width="14" height="14"/>
+          </svg>
         </div></div>
+        <figcaption class="key">A Good / Mixed / Poor headline and two big tiles. +50 bursts coins into the pill.</figcaption>
         <div class="txt"><span class="pick">Option A · Scoreboard</span><h3>The outcome headline, then two big number tiles, then the details</h3>
           <ul><li><b>Headline:</b> the Good / Mixed / Poor chip (Success / Neutral / Warning tones) from <code>EvaluateExam</code>. It is a verdict on the exam the player just ran, never on one student.</li>
             <li><b>Payday:</b> the +50 tile bursts 5 gold coins that fly to the pill and tick it 990 → 1,040, with a single pop at the end. Bills then roll it down quietly.</li>
-            <li><b>Text:</b> about 14 words. Decisions become icon rows.</li></ul>
-          <button class="replay" type="button" data-for="res-a"><svg width="12" height="12" style="vertical-align:-1px"><use href="#i-replay"/></svg> Replay</button></div>
-      </div>
+            <li><b>Text:</b> about 14 words. Decisions become icon rows.</li></ul></div>
+      </figure>
 
-      <div class="option" id="res-b">
-        <div class="ph anim" data-replay><div class="scr">
-          <div class="bar"><div class="who"><b>Payday</b><span>School Exam 2</span></div><span class="pill c land" style="animation-delay:2.1s"><span class="coin"></span>1,040</span></div>
-          <div class="body" style="gap:10px">
-            <div class="card" style="display:grid;justify-items:center;gap:10px;padding:16px 10px">
-              <div class="stack">
-                <span class="coin lg" style="bottom:0;animation-delay:.2s"></span><span class="coin lg" style="bottom:5px;animation-delay:.32s"></span><span class="coin lg" style="bottom:10px;animation-delay:.44s"></span><span class="coin lg" style="bottom:15px;animation-delay:.56s"></span><span class="coin lg" style="bottom:20px;animation-delay:.68s"></span>
-              </div>
-              <b style="font-family:var(--display);font-size:34px;line-height:1;color:var(--g-accent)">+50</b>
-              <span class="sub">Salary · Maple Elementary</span>
+      <figure class="opt rec" id="res-b">
+        <div class="oh"><span class="letter">B</span><div class="nm"><b>Payday receipt</b><span class="recbadge"><svg width="11" height="11"><use href="#i-check"/></svg>Chosen</span></div></div>
+        <div class="mk" role="img" aria-label="Result option B: a Payday card where five gold coins sit in a stacked pile above a large plus 50; the pile pours along a dashed arrow into the coin pill; below, a short receipt with Salary plus 50 and Monthly bills minus 160 marked as leaving after the pour, then reputation and Continue"><div class="scr">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="tb"><div class="who"><b>Payday</b><span>School Exam 2 · Maple Elementary</span></div><span class="pl cn pop"><span class="coin"></span>1,040</span></div>
+          <div class="pad" style="gap:10px;padding-top:12px">
+            <div class="cd hl l" data-note="coin pile" style="display:grid;justify-items:center;gap:6px;padding:16px 10px 14px;border-radius:18px;background:radial-gradient(120px 80px at 50% 35%,rgba(245,192,74,.18),transparent 70%),linear-gradient(180deg,var(--k-stop),var(--k-sbot))">
+              <svg width="120" height="78" viewBox="0 0 120 78" aria-hidden="true">
+                <ellipse cx="60" cy="70" rx="40" ry="6" fill="#000" opacity=".35"/>
+                <use href="#k-flat" x="38" y="56" width="44" height="20"/>
+                <use href="#k-flat" x="38" y="48" width="44" height="20"/>
+                <use href="#k-flat" x="38" y="40" width="44" height="20"/>
+                <use href="#k-flat" x="38" y="32" width="44" height="20"/>
+                <use href="#k-flat" x="39" y="24" width="44" height="20"/>
+                <use href="#k-flat" x="12" y="56" width="34" height="16"/>
+                <use href="#k-flat" x="77" y="58" width="32" height="15"/>
+                <use href="#k-coin" x="51" y="0" width="18" height="18" transform="rotate(-18 60 9)"/>
+              </svg>
+              <span class="num up" style="font-size:36px">+50</span>
+              <span class="sub">Salary</span>
             </div>
-            <div class="card" style="display:grid;gap:7px">
-              <div class="row rise" style="animation-delay:.9s"><span class="coin"></span>Salary<span class="v" style="color:var(--g-accent)">+50</span></div>
-              <div class="row rise" style="animation-delay:1.1s"><span class="coin"></span>Monthly bills<span class="v" style="color:var(--g-danger)">−160</span></div>
-              <div class="row rise" style="animation-delay:1.3s"><span class="coin"></span>Detector<span class="v" style="color:var(--g-danger)">−400</span></div>
+            <div class="cd" style="padding:9px 10px">
+              <span class="lbl">Receipt</span>
+              <div class="row" style="margin-top:6px"><span class="coin"></span>Salary<span class="v up">+50</span></div>
+              <div class="row fade"><span class="coin" style="filter:grayscale(.6)"></span>Monthly bills<span class="v dn">−160</span></div>
+              <div style="font-size:8.5px;color:var(--k-t3);text-align:right;margin-top:3px">costs leave after the pour</div>
             </div>
-            <div class="row card rise" style="animation-delay:1.5s"><span class="star"></span>Reputation<span class="v" style="color:var(--g-accent)">42 ▲2</span></div>
+            <div class="cd row" style="padding:8px 10px"><svg class="i gold"><use href="#i-star"/></svg>Reputation<span class="v gold">42 ▲2</span></div>
             <div style="flex:1"></div>
-            <div class="cta">Continue</div>
+            <div class="go">Continue</div>
           </div>
-          <div class="fly" style="left:120px;top:110px">
-            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.7s"></span>
-            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.8s"></span>
-            <span class="coin" style="position:absolute;--dx:100px;--dy:-80px;animation-delay:1.9s"></span>
-          </div>
+          <svg class="fx" viewBox="0 0 244 547" aria-hidden="true">
+            <path class="trail" d="M136 100 C 168 86, 196 84, 210 64" marker-end="url(#k-arr)"/>
+            <use href="#k-coin" x="150" y="83" width="12" height="12" opacity=".7"/>
+            <use href="#k-coin" x="172" y="78" width="13" height="13" opacity=".85"/>
+            <use href="#k-coin" x="193" y="68" width="13" height="13"/>
+          </svg>
         </div></div>
+        <figcaption class="key">Salary coins stack on the card, then pour into the balance. Costs leave after.</figcaption>
         <div class="txt"><span class="pick">Option B · Payday receipt</span><h3>Coins stack up first, then pour into the balance</h3>
           <ul><li><b>The stack:</b> salary coins drop into a pile on the card (one per 10, capped at 8), the total counts up beside it, and then the pile pours into the pill. This is the "stacking" the player asked for, read literally.</li>
             <li><b>Receipt:</b> income and costs as one short list, with costs leaving after the pour, quietly.</li>
-            <li><b>Decisions</b> move to a second card ("What you did"), or into the Career log.</li></ul>
-          <button class="replay" type="button" data-for="res-b"><svg width="12" height="12" style="vertical-align:-1px"><use href="#i-replay"/></svg> Replay</button></div>
-      </div>
+            <li><b>Decisions</b> move to a second card ("What you did"), or into the Career log.</li></ul></div>
+      </figure>
 
-      <div class="option" id="res-c">
-        <div class="mockrow">
-          <div class="ph"><div class="scr">
-            <div class="bar"><div class="who"><b>Exam 2</b><span>1 of 2</span></div></div>
-            <div class="body" style="justify-content:center;gap:14px;text-align:center">
-              <div class="ring" style="--p:72;margin:0 auto;width:110px;height:110px"><div style="width:88px;height:88px"><b style="font-size:22px">Good</b><span class="sub">exam</span></div></div>
-              <div class="h">Steady hands</div>
-              <div class="row" style="justify-content:center;gap:14px"><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12" style="color:var(--g-warn)"><use href="#i-warn"/></svg>1 warned</span><span class="chip" style="background:var(--g-raised)"><svg width="12" height="12"><use href="#i-person"/></svg>4 sat</span></div>
-              <div style="flex:1"></div><div class="cta">Get paid</div>
-            </div></div></div>
-          <div class="ph"><div class="scr">
-            <div class="bar"><div class="who"><b>Exam 2</b><span>2 of 2</span></div><span class="pill c"><span class="coin"></span>1,040</span></div>
-            <div class="body" style="justify-content:center;gap:12px;text-align:center">
-              <span class="coin lg" style="width:64px;height:64px;margin:0 auto"></span>
-              <b style="font-family:var(--display);font-size:36px;color:var(--g-accent)">+50</b><span class="sub">Salary</span>
-              <div class="card row"><span class="coin"></span>Bills<span class="v" style="color:var(--g-danger)">−160</span></div>
-              <div class="card row"><span class="star"></span>Reputation<span class="v" style="color:var(--g-accent)">+2</span></div>
-              <div style="flex:1"></div><div class="cta">Continue</div>
-            </div></div></div>
+      <figure class="opt" id="res-c">
+        <div class="oh"><span class="letter">C</span><div class="nm"><b>Two beats</b><span class="alt">One extra tap</span></div></div>
+        <div class="beats" role="img" aria-label="Result option C in two frames: beat 1 shows a Good exam ring, the line Steady hands, two chips and a Get paid button; a dashed arrow labelled tap leads to beat 2, where one large gold coin flies to the coin pill above plus 50 Salary and Continue">
+          <div class="mk b1"><div class="scr">
+            <div class="sb"><span>9:41</span><i></i></div>
+            <div class="tb"><div class="who"><b>School Exam 2</b><span>1 of 2</span></div></div>
+            <div class="pad" style="justify-content:center;align-items:center;text-align:center">
+              <div class="ring hl" data-note="outcome" style="--p:72;width:78px;height:78px"><div style="width:62px;height:62px"><b style="font-size:15px;font-family:var(--display)">Good</b><span class="sub" style="font-size:8px">exam</span></div></div>
+              <div class="h" style="font-size:14px">Steady hands</div>
+              <div class="row" style="gap:4px;justify-content:center"><span class="chip" style="font-size:7.5px;padding:2px 6px"><svg style="width:8px;height:8px;color:#F2933C"><use href="#i-warn"/></svg>1 warned</span><span class="chip" style="font-size:7.5px;padding:2px 6px"><svg style="width:8px;height:8px"><use href="#i-person"/></svg>3 sat</span></div>
+              <div style="flex:1"></div>
+              <div class="go gold" style="align-self:stretch">Get paid</div>
+            </div>
+          </div></div>
+          <div class="step s1"><b>1 · How it went</b>One ring, one line, two chips.</div>
+          <div class="mk b2"><div class="scr">
+            <div class="sb"><span>9:41</span><i></i></div>
+            <div class="tb"><div class="who"><b>School Exam 2</b><span>2 of 2</span></div><span class="pl cn pop"><span class="coin" style="width:10px;height:10px"></span>1,040</span></div>
+            <div class="pad" style="justify-content:center;align-items:center;text-align:center;gap:4px">
+              <div style="height:24px"></div>
+              <svg class="hl" data-note="1 big coin" width="58" height="58" viewBox="0 0 20 20" style="border-radius:50%;outline-offset:4px;overflow:visible" aria-hidden="true"><use href="#k-coin" width="20" height="20"/></svg>
+              <span class="num up" style="font-size:26px;margin-top:6px">+50</span>
+              <span class="sub" style="font-size:8.5px">Salary</span>
+              <div class="cd row" style="align-self:stretch;padding:5px 7px;font-size:8.5px;margin-top:4px"><span class="coin" style="width:9px;height:9px"></span>Bills<span class="v dn">−160</span></div>
+              <div style="flex:1"></div>
+              <div class="go" style="align-self:stretch">Continue</div>
+            </div>
+            <svg class="fx" viewBox="0 0 132 284" aria-hidden="true">
+              <path class="trail" d="M84 92 C 104 74, 112 56, 112 38" marker-end="url(#k-arr)"/>
+            </svg>
+          </div></div>
+          <div class="step s2"><b>2 · What you earned</b>One coin flies to the pill.</div>
+          <svg class="tapline" viewBox="0 0 300 563" preserveAspectRatio="none" aria-hidden="true"><path d="M120 262 C 150 300, 140 320, 168 312" marker-end="url(#k-arr)"/></svg>
+          <span class="tapnote">tap Get paid</span>
         </div>
+        <figcaption class="key">Two cards: how it went, then tap Get paid and one big coin flies. One extra tap.</figcaption>
         <div class="txt"><span class="pick">Option C · Two beats</span><h3>"How did it go", then "what you earned"</h3>
           <ul><li><b>Beat 1:</b> a large outcome ring and one line, with the counts as chips. The button says <b>Get paid</b>, which is a reason to tap.</li>
             <li><b>Beat 2:</b> one giant coin, +50, which flies to the pill; bills and reputation sit underneath.</li>
             <li><b>Cost:</b> one extra tap per exam. It gives the most drama and the least text per screen.</li></ul></div>
-      </div>
+      </figure>
     </div>
 
     <h3>Store, exam HUD and event card</h3>
@@ -1046,23 +1236,23 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <span class="eyebrow">Phased plan</span>
       <h2>Payday first, then the hub, then everything else</h2>
       <p class="muted">Each phase ships on its own, with captures and a device check on the A15. The estimates are
-        agent-days of implementation and verification, assuming hub option B. Options A and C add about 2 days to Phase 2.</p>
+        agent-days of implementation and verification, for the chosen tile hub (A) and payday receipt (B).</p>
     </div>
     <div class="phases">
       <div class="phase"><div class="num">Phase 1<small>Payday</small></div>
         <div><b>Result card + coin system</b><ul>
           <li><b>Coin role and gold coin icon</b>; "¢" removed from every screen (Store, Career, events, offers).</li>
-          <li><b>Read-only coin pill on the result card</b>; income rows pay into it via <code>FlightLayer</code> from the row, with a stack if option B wins. Costs leave as separate beats, so a salary is never netted away.</li>
-          <li><b>Outcome chip</b> (Good / Mixed / Poor); the chosen result layout (A, B or C).</li>
+          <li><b>Read-only coin pill on the result card</b>; income rows pay into it via <code>FlightLayer</code> from the row, through the coin stack. Costs leave as separate beats, so a salary is never netted away.</li>
+          <li><b>Outcome chip</b> (Good / Mixed / Poor); the payday receipt layout (B).</li>
           <li><b>Fixes:</b> the clipped top-bar rank line, the notice that bleeds onto the result, and the first-frame overlap on the hub.</li></ul></div>
         <div class="est">3–4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 2<small>Home</small></div>
         <div><b>Hub + navigation</b><ul>
-          <li>The chosen hub (A, B or C); tabs renamed; the Manual moves out of the tab bar.</li>
+          <li>The tile hub (A): the tab bar goes, each tile opens a full screen with a close (×) button, and Settings stays on the gear.</li>
           <li><b>Stat bars</b> for reputation, next posting and probation (new <code>Ui.StatBar</code>).</li>
           <li><b>Career tab</b> trimmed to the ladder of schools and a short log; repeats of the top bar removed.</li>
           <li>The promotion beat gains "salary old → new".</li></ul></div>
-        <div class="est">4–5<small>days</small></div></div>
+        <div class="est">6–7<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 3<small>Shop</small></div>
         <div><b>Store split into Tools · Medicine · Clothes</b><ul>
           <li>Segmented sub-pages; the balance card is deleted; price chips replace price buttons; one-line descriptions with (i) for detail.</li>
@@ -1086,10 +1276,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li><code>UI-DESIGN-SYSTEM.md</code> and the reference image updated to the chosen direction.</li></ul></div>
         <div class="est">2–3<small>days</small></div></div>
     </div>
-    <div class="card"><h3>Decisions needed before Phase 1</h3>
-      <p>1. Result card: <a href="#res-a">A, scoreboard</a> · <a href="#res-b">B, payday receipt with a coin stack</a> · <a href="#res-c">C, two beats</a>.<br>
-        2. Hub: <a href="#hub-a">A, tiles with no tab bar</a> · <a href="#hub-b">B, tab bar with stat bars</a> · <a href="#hub-c">C, a Today card stack</a>.<br>
-        3. Money colour: should coins become gold (new <code>Coin</code> role) while "+" amounts stay Money green?</p></div>
+    <div class="card"><h3>Decided before Phase 1</h3>
+      <p>1. Result card: <a href="#res-b">B, payday receipt with a coin stack</a>.<br>
+        2. Hub: <a href="#hub-a">A, tiles with no tab bar</a>.<br>
+        3. Money colour: coins become gold (new <code>Coin</code> role), and "+" amounts stay Money green.</p></div>
   </section>
 
   <footer>
@@ -1102,25 +1292,5 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <p>Related: <a href="../game-feel/">Game Feel</a> (the M129 motion as built) · <a href="../light-theme/">Light Theme</a>.</p>
   </footer>
 </div>
-<script>
-// Replays a mockup's one-shot CSS animation; Reduce motion disables the animations themselves.
-document.querySelectorAll('.replay').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var ph = document.querySelector('#' + b.dataset.for + ' .ph');
-    if (!ph) return;
-    ph.classList.remove('anim'); void ph.offsetWidth; ph.classList.add('anim');
-  });
-});
-// Mockups animate when they scroll into view, once.
-if ('IntersectionObserver' in window) {
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var ph = e.target; ph.classList.remove('anim'); void ph.offsetWidth; ph.classList.add('anim'); io.unobserve(ph);
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.ph[data-replay]').forEach(function (p) { io.observe(p); });
-}
-</script>
 </body>
 </html>
