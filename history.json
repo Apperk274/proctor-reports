@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 4, Words: one sentence a card, known costs as coin chips on the answers, the rules as chips, the Rules as short rows that open, and the text audit as it now stands."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Added Phase 3, Shop: one segment row, price chips and a pick-then-Buy sheet, earned crests, save v7, and faster screens on the A15."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 test totals now come from the run after the last merge with main (EditMode 2,421, PlayMode 95, none failed)."},
   {"date": "2026-11-01", "author": "ardakabadayi", "slug": "ui-overhaul", "change": "Phase 2 Home shipped: the tile hub and its full screens with a close in Dark and Light at both phone sizes, the phone check, and the navigation map as it now stands."},

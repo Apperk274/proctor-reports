@@ -427,17 +427,17 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
   <header class="top">
     <a class="back" href="../">← All reports</a>
     <div class="herobox">
-      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–3 shipped</span>
+      <span class="eyebrow">Exam Supervisor Simulator · UI overhaul · Phase 0 audit and proposal · Phases 1–4 shipped</span>
       <h1>Fewer words.<br>Bigger moments.<br><span>A payday you can see.</span></h1>
       <p>The UI as it stands today: every screen captured at phone size, how much text each one carries, how the screens
         connect, and whether each M129 animation actually plays. Below that are three directions for a simpler,
         prettier game. <a href="#payday">Phase 1, Payday</a>, has shipped: the result card now pays the salary in as
         gold coins. <a href="#home">Phase 2, Home</a>, has shipped too: the hub is one big Start button and four
         tiles, and every screen they open closes with a ×. The tab bar is gone. <a href="#shop">Phase 3, Shop</a>,
-        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps.</p>
+        has shipped: one row of segments, a price chip on every tile, and a sheet with Buy, so buying is two deliberate taps. <a href="#words">Phase 4, Words</a>, has shipped: one sentence a card, costs as coin chips on the answers, the rules as chips, and the Rules as short rows that open.</p>
       <div class="kpis">
         <div class="kpi"><b>141</b><span>captures of every screen and state, in Dark, Light and 720-wide</span></div>
-        <div class="kpi"><b>868</b><span>words in the Manual tab. The Store had 406; each Shop and Wardrobe segment now reads in 12 to 40 (Phase 3)</span></div>
+        <div class="kpi"><b>251</b><span>words on the Rules screen with its rows closed, down from 868; a card body is 14 words at most, down from 42 (Phase 4)</span></div>
         <div class="kpi"><b>9 / 13</b><span>M129 motions that work; 1 works but is easy to miss, 3 were never built</span></div>
         <div class="kpi"><b>~1.2 s</b><span>for a salary to drop, stack and pour into the result card's own balance (Phase 1)</span></div>
         <div class="kpi"><b>34</b><span>words on the hub, status bar included, down from 47 (Phase 2)</span></div>
@@ -445,7 +445,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
+      <a href="#summary">Summary</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#gallery">Screens</a><a href="#audit">Text audit</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -470,21 +470,21 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
       <div class="problem"><h3>The Store was one 5-screen scroll <span class="tag ok">fixed in Phase 3</span></h3>
         <p>The Shop and the Wardrobe are two screens, each with one row of segments, tiles with a price chip and a
           pick-then-Buy sheet. 12 to 40 words a segment. <a href="#shop">Phase 3: Shop</a>.</p></div>
-      <div class="problem"><h3>Events are told in paragraphs</h3>
-        <p>Event cards run 40 to 58 words, with a 30 to 40 word body. The price and the stakes sit in the middle of
-          prose ("…something for 120 coins - otherwise…").</p></div>
+      <div class="problem"><h3>Events were told in paragraphs <span class="tag ok">fixed in Phase 4</span></h3>
+        <p>A card is now one sentence of 14 words at most, with its facts as chips and a known cost on its answer
+          ("Fix it (coin) 80"). Cards average 20 words, down from 33. <a href="#words">Phase 4: Words</a>.</p></div>
       <div class="problem"><h3>The hub repeated itself and then went empty <span class="tag ok">fixed in Phase 2</span></h3>
         <p>The rank is on the status bar only and the picture names the place. Start sits under the picture, and four
           tiles fill the rest. <a href="#home">Phase 2: Home</a>.</p></div>
       <div class="problem"><h3>The Manual was a tab <span class="tag ok">fixed in Phase 2</span></h3>
         <p>It is now the Rules screen behind the Rules tile. It opens with the next exam's own rules. The Settings row
-          opens the same screen. Its 868 words are still prose; Phase 4 shortens them.</p></div>
+          opens the same screen. Since Phase 4 it is short rows that open, 251 words with every row closed.</p></div>
       <div class="problem"><h3>Tab names did not say what was behind them <span class="tag ok">fixed in Phase 2</span></h3>
         <p>No tab bar any more. Each tile says where it goes and one live fact about it. The gear means Settings only;
           in the room the control is a pause button.</p></div>
-      <div class="problem"><h3>Onboarding is three text walls</h3>
-        <p>Three cards of 29 to 43 words each, with no picture, before the first tap that matters. The ideas in them are
-          good, but they arrive as reading.</p></div>
+      <div class="problem"><h3>Onboarding was three text walls <span class="tag ok">words fixed in Phase 4</span></h3>
+        <p>The three cards are one sentence each now, 16 to 20 words a card (were 29 to 43). They still have no
+          picture of their own.</p></div>
       <div class="problem"><h3>The admission desk is a data table</h3>
         <p>75 words: ten rows comparing document against exam in small type, plus the rules in prose. It is the game's
           core puzzle, presented as a form.</p></div>
@@ -560,8 +560,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         side view of the same coin. There is no "¢" next to a balance, because the coin is the unit. A gain is still
         written in green (<code>+50</code>) and a cost in the danger colour (<code>-160</code>). In the light theme, the
         balance number uses a dark gold that clears 4.5:1.
-        Phase 2 took "¢" off the Career screen and Phase 3 off every price in the Shop and the Wardrobe. Event text and
-        the Career log keep it until Phase 4.</p>
+        Phase 2 took "¢" off the Career screen, Phase 3 off every price in the Shop and the Wardrobe, and Phase 4 off
+        everything left; a test now fails on one.</p>
 
       <h3>The three visual bugs from Phase 0</h3>
       <ul class="steps">
@@ -715,7 +715,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <li><b>In the room the gear became a pause glyph</b>, because it opens "Exam paused". The gear now means
           Settings and nothing else.</li>
         <li><b>The onboarding tip stays on the hub for the first few exams</b> as one slim card under the tiles. It is
-          not counted in the 34 words, and Phase 4 shortens it.</li>
+          not counted in the 34 words.</li>
         <li><b>Probation moved into the Career tile's fact</b>, in the warning colour, and into a bar on the Career
           screen. The probation card on the hub is gone.</li>
         <li><b>The Career screen</b> is now three bars (reputation, next posting, and probation when it applies), the
@@ -741,8 +741,8 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           swallowed back everywhere. Now an event blocks back only while it is actually showing.</li>
         <li><b>Opening a screen used to cost one long frame</b> while its cards were built (Career 208 ms, Shop 229 ms,
           Settings 136 ms, Wardrobe 724 ms on the A15). Fixed in <a href="#shop">Phase 3</a> for Career, Shop, Wardrobe
-          and Settings: each stays built once opened, and opening it again has no long frame. The Rules screen is
-          rebuilt for each exam and waits for its Phase 4 rewrite.</li>
+          and Settings, and in <a href="#words">Phase 4</a> for the Rules: each stays built once opened, and opening it
+          again has no long frame.</li>
       </ul>
       <figure>
         <img src="img/p2-phone-strip.jpg" alt="Ten phone screenshots: Career, hub, Shop, hub, Wardrobe, hub, Rules, hub, Settings, hub" width="1900" height="390" loading="lazy">
@@ -880,10 +880,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/p3-phone-wardrobe.jpg" alt="The Wardrobe on the phone: the figure, Tops, tiles with gold price chips" width="540" height="1170" loading="lazy"><figcaption><b>Wardrobe</b>on the A15</figcaption></figure>
         <figure><img src="img/p3-phone-sheet.jpg" alt="Navy Shirt picked on the phone: tried on, the sheet offers Buy 60" width="540" height="1170" loading="lazy"><figcaption><b>Picked</b>Buy 60 on the sheet</figcaption></figure>
       </div>
-      <p class="muted" style="max-width:80ch">On that career the Career tile reads "19 more exams here". That is M134's rule as
-        written: for a save from before M134 the stay at Kingsley (30 exams) counts from the start of the career (11
-        exams so far). The screens show the core's number as it is; whether an old save should count as having served
-        the stay is for the balance work to decide.</p>
+      <p class="muted" style="max-width:80ch">On that career the Career tile read "19 more exams here": the move to v7 left
+        the career's minimum-stay clock at its first exam. Fixed with Phase 4 (<a href="#words">Checked</a>): the
+        migration now reads the last promotion from the career's own timeline, and the same career reads "28 more
+        exams here".</p>
 
       <h3>Where the brief left room</h3>
       <ul class="steps">
@@ -922,6 +922,163 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     </div>
   </section>
 
+  <!-- ================================================================ WORDS (Phase 4) -->
+  <section id="words">
+    <div class="section-head">
+      <span class="eyebrow">Phase 4 · Words · shipped</span>
+      <h2>One sentence, and the numbers as chips</h2>
+      <p class="muted">The goal was: <i>"We should not choke the user with many texts; each text should be concise and
+        understandable easily."</i> Every event card is now a picture, a kicker of three words at most, a title of one or
+        two words, <b>one sentence of at most fourteen words</b>, its facts as chips, and answers that are verbs. A cost
+        the card has told you sits <b>on the answer</b> as a gold coin and a number. A card whose consequences are hidden
+        has <b>no chip on any answer</b>. The pre-exam brief shows the exam's rules as chips. The Rules screen is a list
+        of short rows that open. These limits are enforced: a test reads every player-facing string, and the card
+        template checks its own slots. No "¢" is left anywhere.</p>
+    </div>
+    <div class="diag">
+      <h3>Before and after, in words</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Screen</th><th>Before</th><th>After</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Rules, every row closed</th><td>872</td><td><b>251</b></td><td>short rows that open; the details are one tap away</td></tr>
+          <tr><th scope="row">Rules, first view</th><td>207</td><td><b>91</b></td><td>the next exam as chips, then names and short lines</td></tr>
+          <tr><th scope="row">Brief (unwell)</th><td>36</td><td><b>26</b></td><td>rules as chips; "Running late" as a chip</td></tr>
+          <tr><th scope="row">Brief (first exam, with the lesson)</th><td>54</td><td><b>30</b></td><td>the lesson is one sentence</td></tr>
+          <tr><th scope="row">Intro cards 1 / 2 / 3</th><td>29 / 43 / 41</td><td><b>16 / 20 / 19</b></td><td>one sentence each</td></tr>
+          <tr><th scope="row">Settings</th><td>46</td><td><b>41</b></td><td>two notes cut to one short line</td></tr>
+          <tr><th scope="row">Career</th><td>64</td><td>64</td><td>log lines now six words at most</td></tr>
+          <tr><th scope="row">Event cards, mean of every kind</th><td>33</td><td><b>20</b></td><td>one sentence, chips, verbs</td></tr>
+          <tr><th scope="row">Longest card body</th><td>42</td><td><b>14</b></td><td>the template refuses more</td></tr>
+          <tr><th scope="row">Event: car trouble</th><td>47</td><td><b>23</b></td><td>the 80 is on Fix it</td></tr>
+          <tr><th scope="row">Event: illness</th><td>43</td><td><b>22</b></td><td>the price is on Buy medicine</td></tr>
+          <tr><th scope="row">Event: bribe</th><td>42</td><td><b>25</b></td><td>the sum is a chip; no price on an answer</td></tr>
+          <tr><th scope="row">Event: manager meeting</th><td>53</td><td><b>23</b></td><td>"Accept the finding and close it sooner, or explain and let your notes decide."</td></tr>
+          <tr><th scope="row">Event: reassignment</th><td>57</td><td><b>23</b></td><td>one sentence over the comparison</td></tr>
+          <tr><th scope="row">Offer: one school / better pay</th><td>56 / 71</td><td><b>34 / 40</b></td><td>salary as coins, no "¢", no exam list</td></tr>
+          <tr><th scope="row">Offer: two schools</th><td>61</td><td><b>54</b></td><td>mostly the two comparisons</td></tr>
+          <tr><th scope="row">Event: national exam</th><td>50</td><td><b>23</b></td><td>"+200 bonus" and "Closely watched" as chips</td></tr>
+          <tr><th scope="row">Event: cover shift</th><td>53</td><td><b>26</b></td><td>Cover it (coin) +90</td></tr>
+          <tr><th scope="row">Event: final warning</th><td>48</td><td><b>19</b></td><td>"Above 20" and "3 exams" as chips</td></tr>
+          <tr><th scope="row">Event: admissions audit</th><td>19–32</td><td><b>15–16</b></td><td>the fault is the title; star -4</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="max-width:80ch">Counted by building each screen and each card and adding up the words a
+        player sees (<code>Phase4WordProbe</code>, the same fixtures before and after). An event card's figure is its
+        longest wording, with the kicker, title, speaker, sentence, chips and answers. The Rules are counted with every
+        row closed. "First view" is what shows on a 1080 × 2340 screen before any scroll.</p>
+
+      <h3>The event card</h3>
+      <div class="strip">
+        <figure><img src="img/p4-event-car-dark-1080.jpg" alt="Car trouble: THIS MORNING, Car trouble, Your car won't start: pay to fix it, or risk arriving late. Buttons Fix it with a gold coin chip 60, and Risk it" loading="lazy" width="432" height="936"><figcaption><b>A known cost</b>the 60 rides on Fix it</figcaption></figure>
+        <figure><img src="img/p4-event-bribe-dark-1080.jpg" alt="BEFORE THE EXAM, An envelope, A parent; the quote; a chip 150 offered; buttons Take it and Refuse with no chips" loading="lazy" width="432" height="936"><figcaption><b>Hidden consequences</b>the sum is a fact; no price on an answer</figcaption></figure>
+        <figure><img src="img/p4-event-offer-dark-1080.jpg" alt="POSTING OFFERED, A move up; Eastgate Evening College, rating 2 to 2.5 stars, salary coin 65 to coin 75 +10; one sentence; Join Eastgate Evening College, Stay here" loading="lazy" width="432" height="936"><figcaption><b>An offer</b>salary as coins, no "¢"</figcaption></figure>
+        <figure><img src="img/p4-event-fine-dark-1080.jpg" alt="PENALTY NOTICE, A fine; one sentence; Pay with a coin chip 30" loading="lazy" width="432" height="936"><figcaption><b>A notice</b>Pay (coin) 30</figcaption></figure>
+        <figure><img src="img/p4-event-reward-dark-1080.jpg" alt="CAREER REWARD, A reward; A career bonus is waiting for you to claim.; Claim with a coin chip +80" loading="lazy" width="432" height="936"><figcaption><b>A reward</b>Claim (coin) +80</figcaption></figure>
+        <figure><img src="img/p4-event-audit-dark-1080.jpg" alt="ADMISSIONS AUDIT, Expired ID, the candidate's name; An audit flagged your admission of the candidate.; a red star chip -4; Continue" loading="lazy" width="432" height="936"><figcaption><b>A finding</b>the fault is the title; star -4</figcaption></figure>
+        <figure><img src="img/p4-event-warning-dark-1080.jpg" alt="FROM THE BOARD, Final warning; Lift your standing in time, or your appointment ends.; chips: star Above 20, clock 3 exams; Continue" loading="lazy" width="432" height="936"><figcaption><b>Final warning</b>the two numbers as chips</figcaption></figure>
+        <figure><img src="img/p4-event-car-light-1080.jpg" alt="Car trouble, light" loading="lazy" width="432" height="936"><figcaption><b>Known cost</b>Light</figcaption></figure>
+        <figure><img src="img/p4-event-bribe-light-720.jpg" alt="Bribe card, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Hidden</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p4-event-offer-light-720.jpg" alt="Offer card, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Offer</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p4-event-reward-light-1080.jpg" alt="Reward card, light" loading="lazy" width="432" height="936"><figcaption><b>Reward</b>Light</figcaption></figure>
+        <figure><img src="img/p4-event-audit-dark-720.jpg" alt="Audit card, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Finding</b>720 × 1560</figcaption></figure>
+      </div>
+      <ul class="steps">
+        <li><b>The template.</b> Picture · KICKER (≤ 3 words) · Title (≤ 4, usually one or two, on one line) · the speaker, when
+          the game knows one · "Earlier: you removed …" (≤ 10) · one sentence (≤ 14 words, no number in it) · the facts as chips
+          · the answers (≤ 4 words, a verb). <code>EventSceneView</code> checks each slot and reports any that are over in the
+          editor and in development builds. A test checks every wording of every card kind.</li>
+        <li><b>Known costs on the answer.</b> These are the repair, the medicine, the fine and the bills on Pay, the pay for
+          covering a room (+) on Accept, and a coin reward (+) on Claim. Only amounts the card has already told you get a chip.</li>
+        <li><b>No chips when the outcome is hidden.</b> This covers the bribe, the refund demand, blackmail, the manager
+          meeting, the coworker's favour, the door, the national exam and a witness interview. A priced answer beside an
+          unpriced one would hint which way the hidden part goes. <b>Fairness comes first:</b> when such a card names a sum
+          ("150 offered", "120 demanded"), the sum is still on the card as a fact chip.</li>
+        <li><b>The red "Cost" box is now a chip.</b> What a finding takes from your standing is a star and "-4". The national
+          exam's stake is two chips, "+200 bonus" and "Closely watched", under one sentence that says the bonus is paid if
+          it goes well.</li>
+        <li><b>The card arrives by fading in</b> (it used to rise 70 px). The fade and the hold after an answer are theme
+          tokens now, and Reduce motion shows the card at once.</li>
+      </ul>
+
+      <h3>The brief and the Rules</h3>
+      <div class="strip">
+        <figure><img src="img/p4-brief-unwell-dark-1080.jpg" alt="Before you begin, School Exam; chips Running late, Scratch paper, Nothing else, ID: expired OK, Name: typos OK; the You're unwell row; Begin exam" loading="lazy" width="432" height="936"><figcaption><b>The brief</b>rules as chips</figcaption></figure>
+        <figure><img src="img/p4-brief-unwell-light-720.jpg" alt="The brief, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Brief</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p4-rules-dark-1080.jpg" alt="Rules: Next exam chips; The job with three rows; Actions with Observe, Inspect, Warn, Confiscate, Remove, Talk, each a name and one short line with a chevron" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>chips, then rows that open</figcaption></figure>
+        <figure><img src="img/p4-rules-open-dark-1080.jpg" alt="Rules with Odd is not guilty opened: the full sentence under it" loading="lazy" width="432" height="936"><figcaption><b>A row opened</b>the detail is one tap away</figcaption></figure>
+        <figure><img src="img/p4-rules-light-1080.jpg" alt="Rules, light" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>Light</figcaption></figure>
+        <figure><img src="img/p4-rules-open-light-720.jpg" alt="Rules with a row opened, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Opened</b>Light · 720</figcaption></figure>
+        <figure><img src="img/p4-career-log-dark-1080.jpg" alt="Career, the ladder with coin salaries and the Recent log: You moved to Riverside Middle School, An audit flagged an admission, You paid a parking fine" loading="lazy" width="432" height="936"><figcaption><b>Career log</b>six words a line</figcaption></figure>
+        <figure><img src="img/p4-career-log-light-720.jpg" alt="Career log, light, 720 wide" loading="lazy" width="432" height="936"><figcaption><b>Career log</b>Light · 720</figcaption></figure>
+      </div>
+      <ul class="steps">
+        <li><b>The brief</b> has at most one sentence: the lesson, during the first exams. Below it are the unwell row and
+          chips. "Running late" comes first, then the exam's rules. A check means allowed ("Scratch paper", "ID: expired OK"),
+          a cross means not allowed ("Nothing else", "Name: exact"), and a document means required ("2nd ID needed"). These come
+          from the same rule profile the consequences use. The door keeps its rule lines until Phase 5.</li>
+        <li><b>The Rules screen</b> starts with the same chips for the next exam. Then come seven sections of rows. Each row
+          shows a name and one short line (≤ 8 words), and a tap opens the full explanation under it. Every explanation is
+          still there, including the ones the tests protect: "Paper being visible is not a reason", that Remove being
+          available "does not mean it is justified", and "not the truth of the room".</li>
+        <li><b>Built once, kept.</b> The Rules used to be built again for every exam. They are now built once per theme and text
+          size, and the next exam's chips change in place (<code>ManualScreen.Refresh</code>). On the A15 (a long career, the in-app frame probe), opening the Rules again takes <b>27 ms</b> with no long frame, every time. The first open of a session still builds the page, in 467 ms; before, that build ran again for every exam (512 ms).</li>
+        <li><b>Short everywhere else too.</b> The three intro cards are one sentence each (16 to 20 words a card, from 29 to 43).
+          The save-damaged, dismissed and confirm cards are one sentence each. Career log lines are six words at most, and
+          the support and ad toasts are a few words.</li>
+      </ul>
+
+      <h3>The guard</h3>
+      <ul class="steps">
+        <li><b><code>TextRuleTests</code></b> reads every string literal in the player-facing sources: GameText, the screens and
+          the router. Any literal over fourteen words fails, unless the allowlist names it with a reason. The allowlist
+          has two groups. The Rules' details sit behind a row the player opens, and a separate check keeps each row's
+          visible line short. The room's hints and the inspection and observation lines belong to Phase 5. A second check
+          fails on any "¢" in Game or Core.</li>
+        <li>It also builds every event card in every wording and checks the template. It checks that no card body holds a
+          number, that a known cost is on its answer, and that a hidden card shows no price. It checks that log lines, the
+          intro, the brief chips and the cards around a career fit the limits.</li>
+        <li><b>Word budgets for whole screens:</b> the hub ≤ 36 and each Shop or Wardrobe segment ≤ 120 (these already
+          existed); Career ≤ 70, Settings ≤ 50, and the Rules ≤ 100 in the first view, ≤ 280 with every row closed and
+          ≤ 65 per section.</li>
+      </ul>
+
+      <h3>Where the brief left room</h3>
+      <ul class="steps">
+        <li><b>Titles are one or two words, not always one.</b> Two audits in a row must not look like one audit shown twice
+          (M108), so an audit's title is its fault: "Expired ID", "Photo mismatch". A review's title is its finding:
+          "Supported", "Against you", "No finding", "No credit".</li>
+        <li><b>Car trouble keeps its chip.</b> Paying has a certain result. "Risk it" has an uncertain one, and the card says
+          so in words ("or risk arriving late"). The witness card is treated as hidden, because admitting a mistake has a cost
+          the card does not state.</li>
+        <li><b>A card of several witnesses has one line per witness</b>, each a single sentence. Testimony is never cut to fit.</li>
+        <li><b>Two sentences keep their number:</b> the crest award ("Earned in 6 exams at Riverside.", approved in Phase 3)
+          and a tool-use reward, where the count is the whole sentence.</li>
+        <li><b>The reassignment and offer letters</b> no longer list which exams the school sets, because the card already
+          shows the school, its kind, its rating and its pay.</li>
+        <li><b>No localisation table exists.</b> All text is English and lives in GameText, so no other language is out of
+          date. Kept as before: the bribe's speaker stays "A parent", the witness title says what they "say", and a reaction
+          never mentions coins or a later consequence.</li>
+      </ul>
+
+
+      <h3>On the Galaxy A15</h3>
+      <div class="grid-3">
+        <figure><img src="img/p4-phone-car-large.jpg" alt="On the phone, Large text: THIS MORNING, Car trouble, A tyre is going soft: fix it now, or risk arriving late. Fix it with a coin chip 80, Risk it" width="540" height="1170" loading="lazy"><figcaption><b>A real morning</b>Large text, Fix it (coin) 80</figcaption></figure>
+        <figure><img src="img/p4-phone-rules-large.jpg" alt="On the phone, Large text: the Rules with the next exam's chips and the rows" width="540" height="1170" loading="lazy"><figcaption><b>Rules</b>Large text</figcaption></figure>
+        <figure><img src="img/p4-phone-hub.jpg" alt="The hub on the phone: Kingsley Academy, Career 28 more exams here" width="540" height="1170" loading="lazy"><figcaption><b>The hub</b>"28 more exams here" after the save fix</figcaption></figure>
+      </div>
+
+      <h3>Checked</h3>
+      <ul class="steps">
+        <li><b>Tests.</b> EditMode 2,463: 0 failed, 211 skipped (opt-in probes, this phase's word probe included). PlayMode 97: 0 failed, 30 skipped (opt-in captures, this phase's included). New: <code>TextRuleTests</code> (the source scan, every card in every wording, the chips, the log, the intro and brief, screen budgets, the Rules rows and that the Rules stay built), a regression test for the navigation loop below, and the save fixes' tests. Tests that checked old wording now check the same fact where it lives today, a chip or a title.</li>
+        <li><b>Captures.</b> The cards, the brief, the Rules (closed and opened) and the Career log in Dark and Light at 1080 × 2340 and 720 × 1560 (<code>WordsCaptures</code>).</li>
+        <li><b>On the phone (Galaxy A15).</b> The dev build was installed with <code>adb install -r</code> on the long career and checked at the game's Normal and Large text sizes. The cards, the chips and the Rules read cleanly at both; at Large the chips still wrap two or three to a line. A real morning card came up (car trouble, "Fix it" with its 80). The Rules reopen in 27 ms. Afterwards the app was stopped, the five save files were put back, and their sha256 hashes match the backup.</li>
+        <li><b>Found on the phone and fixed:</b> the Rules opened from the hub, then the gear, then the Rules row in Settings: × on each sent you to the other, forever. Settings now returns to where the Rules were opened from.</li>
+        <li><b>The save fixes, in the same merge.</b> An old career moved to v7 now counts its minimum stay from its last promotion, not from its first exam: the phone's Kingsley career reads "28 more exams here" (it read 19). And an exam played after a move answered before it counts toward the new school's stay and grace, as it already did for its crest.</li>
+      </ul>
+    </div>
+  </section>
+
   <section id="gallery">
     <div class="section-head">
       <span class="eyebrow">Screen inventory</span>
@@ -949,7 +1106,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
         <figure><img src="img/p3-shop-tools-dark-1080.jpg" alt="Shop, Tools: one segment row, two tiles with price chips" loading="lazy" width="432" height="936"><figcaption><b>Shop</b>segments, chips; no balance card</figcaption></figure>
         <figure><img src="img/p3-shop-sheet-dark-1080.jpg" alt="Shop with Replay picked: the sheet and Buy 110" loading="lazy" width="432" height="936"><figcaption><b>Item sheet</b>one line, Buy with the coin</figcaption></figure>
         <figure><img src="img/p3-wardrobe-tops-dark-1080.jpg" alt="Wardrobe, Tops: the figure, one row of segments, three columns of tiles" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>one segment row</figcaption></figure>
-        <figure><img src="img/p2-rules-dark-1080.jpg" alt="Rules" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>868 words of prose (Phase 4)</figcaption></figure>
+        <figure><img src="img/p4-rules-dark-1080.jpg" alt="Rules: the next exam's chips and short rows that open" loading="lazy" width="432" height="936"><figcaption><b>Rules</b>chips and rows that open (Phase 4)</figcaption></figure>
         <figure><img src="img/p2-settings-dark-1080.jpg" alt="Settings" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>clean; × goes back</figcaption></figure>
         <figure><img src="img/d-17-confirm-abandon.jpg" alt="Abandon this career confirmation" loading="lazy" width="432" height="936"><figcaption><b>Confirm</b>good: Danger tone carries the weight</figcaption></figure>
       </div></div>
@@ -1006,72 +1163,65 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <div class="section-head">
       <span class="eyebrow">Text-density audit</span>
       <h2>Where the words are</h2>
-      <p class="muted">Counted from the live UI tree at capture time: every visible TMP label and every live button. Each
-        cell shows <b>in view</b> / <i>whole screen including scroll</i>. The top bar and tab bar are included; HUD text
-        behind a staged card and the dev "End exam" button are not. Red rows are over 150 words or have a single 35-word
-        string; amber rows are over 50 words or have a 25-word string.</p>
+      <p class="muted">Every visible word on each screen as it stands after Phase 4, beside the Phase 0 count. The screens
+        and cards are built and counted by <code>Phase4WordProbe</code> and the capture runs (status bar included; an
+        event card is its longest wording; the cards around a career are counted from their strings). The longest string is the longest sentence a player can see without a tap.
+        Amber rows are over 50 words. The exam HUD and the admission desk are Phase 5's.</p>
     </div>
     <div class="tablewrap">
       <table>
-        <thead><tr><th scope="col">Screen</th><th scope="col">Labels</th><th scope="col">Words</th><th scope="col">Longest</th><th scope="col">Buttons</th><th scope="col">Longest string</th></tr></thead>
+        <thead><tr><th scope="col">Screen</th><th scope="col">Words now</th><th scope="col">Phase 0</th><th scope="col">Longest string now</th></tr></thead>
         <tbody>
-<tr class="ok"><th scope="row">Title</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:2%"></i></span>11<span class="all"> / 11</span></td><td>4</td><td>3<span class="all"> / 3</span></td><td class="q">Real decisions. Real consequences.</td></tr>
-<tr class="ok"><th scope="row">Intro card 1</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>29<span class="all"> / 29</span></td><td>24</td><td>1<span class="all"> / 1</span></td><td class="q">You supervise the room. Watch people, understand what you are seeing, and decide what to do about it.  Not every odd movement is misconduct.</td></tr>
-<tr class="bad"><th scope="row">Intro card 2</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:5%"></i></span>43<span class="all"> / 43</span></td><td>36</td><td>1<span class="all"> / 1</span></td><td class="q">Get closer. Watch someone properly, or read what is out on their desk.  The actions you are offered depend on what you have seen. If somebody has give…</td></tr>
-<tr class="bad"><th scope="row">Intro card 3</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:5%"></i></span>41<span class="all"> / 41</span></td><td>35</td><td>1<span class="all"> / 1</span></td><td class="q">What you do here does not end with the exam. Complaints, reviews and recognition can arrive several exams later.  The Supervisor Manual on the home sc…</td></tr>
-<tr class="ok"><th scope="row">Hub, first visit</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>42<span class="all"> / 42</span></td><td>10</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: exam-issued scratch paper. Nothing else.</td></tr>
-<tr class="ok"><th scope="row">Hub</th><td>16<span class="all"> / 16</span></td><td><span class="wbar"><i style="width:5%"></i></span>47<span class="all"> / 47</span></td><td>15</td><td>6<span class="all"> / 6</span></td><td class="q">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</td></tr>
-<tr class="bad"><th scope="row">Career tab</th><td>33<span class="all"> / 65</span></td><td><span class="wbar"><i style="width:18%"></i></span>99<span class="all"> / 160</span></td><td>12</td><td>5<span class="all"> / 5</span></td><td class="q">Last change: an exam that went well - it helped your standing.</td></tr>
-<tr class="bad"><th scope="row">Store tab (before Phase 3)</th><td>24<span class="all"> / 172</span></td><td><span class="wbar"><i style="width:47%"></i></span>84<span class="all"> / 406</span></td><td>14</td><td>7<span class="all"> / 80</span></td><td class="q">Lists what you noticed in the last few seconds and where sounds came from.</td></tr>
-<tr class="warn"><th scope="row">Settings</th><td>26<span class="all"> / 28</span></td><td><span class="wbar"><i style="width:7%"></i></span>56<span class="all"> / 59</span></td><td>12</td><td>13<span class="all"> / 13</span></td><td class="q">Abandoning your career deletes it. Anything you have paid for stays yours.</td></tr>
-<tr class="bad"><th scope="row">Manual</th><td>24<span class="all"> / 79</span></td><td><span class="wbar"><i style="width:100%"></i></span>208<span class="all"> / 868</span></td><td>54</td><td>5<span class="all"> / 5</span></td><td class="q">A buzz or a dropped object tells you which row it came from, counted from the front: Row 1 is the row nearest your desk, and each row&#x27;s number is pain…</td></tr>
-<tr class="ok"><th scope="row">Pre-exam brief (unwell)</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:4%"></i></span>34<span class="all"> / 34</span></td><td>16</td><td>1<span class="all"> / 1</span></td><td class="q">You are feverish and drained. Recently expired IDs may be accepted. Minor name mismatches are tolerated.</td></tr>
-<tr class="warn"><th scope="row">Admission desk</th><td>28<span class="all"> / 28</span></td><td><span class="wbar"><i style="width:9%"></i></span>75<span class="all"> / 75</span></td><td>13</td><td>2<span class="all"> / 2</span></td><td class="q">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</td></tr>
-<tr class="ok"><th scope="row">Exam HUD</th><td>2<span class="all"> / 2</span></td><td><span class="wbar"><i style="width:2%"></i></span>6<span class="all"> / 6</span></td><td>3</td><td>1<span class="all"> / 1</span></td><td class="q">University exam 2</td></tr>
-<tr class="ok"><th scope="row">Exam HUD + cue + toast</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>24<span class="all"> / 24</span></td><td>12</td><td>1<span class="all"> / 1</span></td><td class="q">You warned Tolga Şahin. They stop, and look back at their paper.</td></tr>
-<tr class="ok"><th scope="row">Result card</th><td>9<span class="all"> / 9</span></td><td><span class="wbar"><i style="width:2%"></i></span>17<span class="all"> / 17</span></td><td>3</td><td>1<span class="all"> / 1</span></td><td class="q">School Exam 1</td></tr>
-<tr class="warn"><th scope="row">Event: illness</th><td>5<span class="all"> / 5</span></td><td><span class="wbar"><i style="width:5%"></i></span>40<span class="all"> / 40</span></td><td>31</td><td>2<span class="all"> / 2</span></td><td class="q">Your throat is raw and your head is heavy. The pharmacy can give you something for 120 coins - otherwise you will be slower than you want to be all mo…</td></tr>
-<tr class="warn"><th scope="row">Event: car trouble</th><td>5<span class="all"> / 5</span></td><td><span class="wbar"><i style="width:4%"></i></span>37<span class="all"> / 37</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">Your car won&#x27;t start this morning. The mechanic can fix it right away for 120 coins - or you find another way in and hope you make it on time.</td></tr>
-<tr class="warn"><th scope="row">Event: bribe</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:5%"></i></span>41<span class="all"> / 41</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">A man you have never met falls into step beside you on the way in. &quot;[name] is my child. This exam means everything to us.&quot; He holds out 120 coins.</td></tr>
-<tr class="warn"><th scope="row">Event: coworker favour</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:5%"></i></span>42<span class="all"> / 42</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">A coworker catches you in the corridor: &quot;Could you help me get this paperwork in before the exam? I&#x27;ll remember it.&quot; It would make you late into your …</td></tr>
-<tr class="bad"><th scope="row">Event: manager meeting</th><td>6<span class="all"> / 6</span></td><td><span class="wbar"><i style="width:6%"></i></span>54<span class="all"> / 54</span></td><td>38</td><td>2<span class="all"> / 2</span></td><td class="q">Your manager wants to discuss the complaint from a previous exam. You can accept the finding and have the matter closed sooner, or give your account -…</td></tr>
-<tr class="bad"><th scope="row">Event: reassignment</th><td>11<span class="all"> / 11</span></td><td><span class="wbar"><i style="width:7%"></i></span>58<span class="all"> / 58</span></td><td>40</td><td>1<span class="all"> / 1</span></td><td class="q">A letter from the board: your services are no longer required here. You have been reassigned to City High School. Your assignments there will be Schoo…</td></tr>
-<tr class="warn"><th scope="row">Offer: one school</th><td>12<span class="all"> / 12</span></td><td><span class="wbar"><i style="width:6%"></i></span>55<span class="all"> / 55</span></td><td>30</td><td>2<span class="all"> / 2</span></td><td class="q">Riverside Middle School has taken notice of your record and offers you a supervising position. Your assignments there will be School Exam and Universi…</td></tr>
-<tr class="warn"><th scope="row">Offer: two schools</th><td>21<span class="all"> / 21</span></td><td><span class="wbar"><i style="width:7%"></i></span>63<span class="all"> / 63</span></td><td>13</td><td>3<span class="all"> / 3</span></td><td class="q">Both schools have written to you. Take one, or stay where you are.</td></tr>
-<tr class="ok"><th scope="row">Confirm: abandon</th><td>4<span class="all"> / 4</span></td><td><span class="wbar"><i style="width:3%"></i></span>25<span class="all"> / 25</span></td><td>19</td><td>2<span class="all"> / 2</span></td><td class="q">This career will be deleted and you will return to the start. Anything you have paid for is kept.</td></tr>
-<tr class="ok"><th scope="row">Dismissed</th><td>9<span class="all"> / 9</span></td><td><span class="wbar"><i style="width:5%"></i></span>43<span class="all"> / 43</span></td><td>22</td><td>1<span class="all"> / 1</span></td><td class="q">The board will not be sending you to another examination. What you did is on the record, and the record is closed.</td></tr>
-
+<tr class="ok"><th scope="row">Title</th><td><span class="wbar"><i style="width:4%"></i></span>11</td><td>11</td><td class="q">Real decisions. Real consequences.</td></tr>
+<tr class="ok"><th scope="row">Intro cards 1 / 2 / 3</th><td><span class="wbar"><i style="width:6%"></i></span>16 / 20 / 19</td><td>29 / 43 / 41</td><td class="q">Complaints and praise can come exams later; the Rules tile explains it all.</td></tr>
+<tr class="ok"><th scope="row">Hub</th><td><span class="wbar"><i style="width:13%"></i></span>34</td><td>47</td><td class="q">Professional Certification · 7 candidates</td></tr>
+<tr class="ok"><th scope="row">Career</th><td><span class="wbar"><i style="width:24%"></i></span>64</td><td>160</td><td class="q">You moved to Riverside Middle School</td></tr>
+<tr class="ok"><th scope="row">Shop or Wardrobe segment</th><td><span class="wbar"><i style="width:2%"></i></span>≤ 120</td><td>406 (one Store)</td><td class="q">Finds phones nearby. A lead, not proof. 2 uses per exam.</td></tr>
+<tr class="ok"><th scope="row">Settings</th><td><span class="wbar"><i style="width:15%"></i></span>41</td><td>59</td><td class="q">Follow phone uses your phone&#x27;s dark or light mode.</td></tr>
+<tr class="warn"><th scope="row">Rules, rows closed (first view)</th><td><span class="wbar"><i style="width:96%"></i></span>251 (91)</td><td>868 (208)</td><td class="q">Always there, not always justified. (the detail opens on a tap)</td></tr>
+<tr class="ok"><th scope="row">Pre-exam brief (unwell)</th><td><span class="wbar"><i style="width:10%"></i></span>26</td><td>34</td><td class="q">You see and hear less today.</td></tr>
+<tr class="warn"><th scope="row">Admission desk (Phase 5)</th><td><span class="wbar"><i style="width:28%"></i></span>75</td><td>75</td><td class="q">• A secondary document is required for entry.</td></tr>
+<tr class="ok"><th scope="row">Exam HUD</th><td><span class="wbar"><i style="width:2%"></i></span>6</td><td>6</td><td class="q">University exam 2</td></tr>
+<tr class="ok"><th scope="row">Exam HUD + cue + toast (Phase 5)</th><td><span class="wbar"><i style="width:9%"></i></span>24</td><td>24</td><td class="q">You warned Tolga Şahin. They stop, and look back at their paper.</td></tr>
+<tr class="ok"><th scope="row">Result card</th><td><span class="wbar"><i style="width:6%"></i></span>17</td><td>17</td><td class="q">School Exam 1</td></tr>
+<tr class="ok"><th scope="row">Event: illness</th><td><span class="wbar"><i style="width:8%"></i></span>22</td><td>40</td><td class="q">Your throat is raw; without medicine, you will be slow all morning.</td></tr>
+<tr class="ok"><th scope="row">Event: car trouble</th><td><span class="wbar"><i style="width:8%"></i></span>23</td><td>37</td><td class="q">A tyre is going soft: fix it now, or risk arriving late.</td></tr>
+<tr class="ok"><th scope="row">Event: bribe</th><td><span class="wbar"><i style="width:9%"></i></span>25</td><td>41</td><td class="q">A stranger falls into step: &quot;[name] is my child. Please.&quot;</td></tr>
+<tr class="ok"><th scope="row">Event: coworker favour</th><td><span class="wbar"><i style="width:8%"></i></span>22</td><td>42</td><td class="q">&quot;Help me get this paperwork in? I&#x27;ll remember it.&quot; You would arrive late.</td></tr>
+<tr class="ok"><th scope="row">Event: manager meeting</th><td><span class="wbar"><i style="width:8%"></i></span>23</td><td>54</td><td class="q">Accept the finding and close it sooner, or explain and let your notes decide.</td></tr>
+<tr class="ok"><th scope="row">Event: reassignment</th><td><span class="wbar"><i style="width:8%"></i></span>23</td><td>58</td><td class="q">The board has moved you to City High School.</td></tr>
+<tr class="ok"><th scope="row">Offer: one school</th><td><span class="wbar"><i style="width:13%"></i></span>34</td><td>55</td><td class="q">Riverside Middle School has noticed your record and offers you a post.</td></tr>
+<tr class="warn"><th scope="row">Offer: two schools</th><td><span class="wbar"><i style="width:20%"></i></span>54</td><td>63</td><td class="q">Both schools want you: take one, or stay where you are.</td></tr>
+<tr class="ok"><th scope="row">Confirm: abandon</th><td><span class="wbar"><i style="width:6%"></i></span>17</td><td>25</td><td class="q">This career will be deleted; anything you paid for is kept.</td></tr>
+<tr class="ok"><th scope="row">Dismissed</th><td><span class="wbar"><i style="width:12%"></i></span>33</td><td>43</td><td class="q">The board will not send you to another exam; the record is closed.</td></tr>
         </tbody>
       </table>
     </div>
     <div class="grid-2">
       <div class="card"><h3>What the numbers say</h3>
-        <p><b>The result card is not the text problem.</b> It has 17 words; its problem is that it has no payoff. The
-          words are in the Manual (868), the Store (406 with 80 buttons before Phase 3; now 12 to 40 a segment), the Career tab (160), and the event cards and
-          intro cards, which carry 30 to 40 word bodies.</p>
-        <p><b>The best screens are already the shortest:</b> the exam HUD (6 words), the two-school offer (numbers in
-          columns) and the parking fine (one line plus the price).</p></div>
-      <div class="card"><h3>Worst offenders</h3>
-        <p>1. Manual: 868 words, one 54-word paragraph.<br>
-          2. Store: 406 words, 80 buttons, 5 screens of scroll (fixed in Phase 3).<br>
-          3. Career tab: 160 words, repeating hub and top-bar facts.<br>
-          4. Reassignment letter: 40-word body.<br>
-          5. Manager meeting: 38-word body.<br>
-          6. Intro card 2: 36-word body.<br>
-          7. Admission desk: 75 words in a 10-row table.</p></div>
+        <p><b>No card body is longer than one 14-word sentence</b>, and a test holds every string a player reads to that,
+          with a short, reasoned allowlist (the Rules' details behind an opening row, and the room's hints, which are
+          Phase 5's). Event cards average 20 words, down from 33.</p>
+        <p><b>Numbers are chips now:</b> a price on its answer, a sum or a standing beside the sentence. No "¢" is left.</p></div>
+      <div class="card"><h3>What is still long</h3>
+        <p>1. Admission desk: 75 words in a 10-row table (Phase 5).<br>
+          2. Career: 64 words, mostly the ladder's eight schools.<br>
+          3. Offer, two schools: 54 words, mostly the two comparisons.<br>
+          4. The room's hints: up to 21 words (Phase 5).</p></div>
     </div>
-    <h3>Text that can become an icon, a number or a short label</h3>
+    <h3>Text that became an icon, a number or a short label</h3>
     <div class="rewrite">
-      <div class="rw"><span class="where">Event · illness</span><span class="from">Your throat is raw and your head is heavy. The pharmacy can give you something for 120 coins - otherwise you will be slower than you want to be all morning.</span><span class="arrow">→</span><span class="to">"Feverish this morning." · buttons [Medicine · coin 120] [Push through · slower]</span></div>
-      <div class="rw"><span class="where">Result · salary</span><span class="from">Salary   +50 ¢</span><span class="arrow">→</span><span class="to">Gold coin tile "+50" that pays into a visible coin pill</span></div>
-      <div class="rw"><span class="where">Result · title</span><span class="from">Exam complete · School Exam 1</span><span class="arrow">→</span><span class="to">Outcome chip "Good exam" with ★ +2</span></div>
-      <div class="rw"><span class="where">Hub · next exam</span><span class="from">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</span><span class="arrow">→</span><span class="to">Rule chips: [Reference sheet] [Scratch paper] with paper icons</span></div>
+      <div class="rw"><span class="where">Event · illness</span><span class="from">Your throat is raw and your head is heavy. The pharmacy can give you something for 120 coins - otherwise you will be slower than you want to be all morning.</span><span class="arrow">→</span><span class="to">Done in Phase 4: "Your throat is raw; without medicine, you will be slow all morning." · [Buy medicine (coin) 35] [Push through]</span></div>
+      <div class="rw"><span class="where">Result · salary</span><span class="from">Salary   +50 ¢</span><span class="arrow">→</span><span class="to">Done in Phase 1: a gold coin line "+50" that pays into the card's coin pill</span></div>
+      <div class="rw"><span class="where">Result · title</span><span class="from">Exam complete · School Exam 1</span><span class="arrow">→</span><span class="to">Done in Phase 1: a Good / Mixed / Poor chip</span></div>
+      <div class="rw"><span class="where">Brief and Rules · next exam</span><span class="from">• Allowed at the desk: the official reference sheet and exam-issued scratch paper. Nothing else.</span><span class="arrow">→</span><span class="to">Done in Phase 4: chips [✓ Reference sheet] [✓ Scratch paper] [✗ Nothing else] [✓ ID: expired OK]</span></div>
       <div class="rw"><span class="where">Store · tool</span><span class="from">Marks each nearby student with an active phone. A lead, not proof.</span><span class="arrow">→</span><span class="to">Done in Phase 3: on the item sheet, "Finds phones nearby. A lead, not proof. 2 uses per exam."</span></div>
-      <div class="rw"><span class="where">Store · top</span><span class="from">Balance 600 ¢ · You can afford the White T-Shirt</span><span class="arrow">→</span><span class="to">Done in Phase 3: the balance card is gone; prices are gold chips, muted with "N short" when out of reach</span></div>
-      <div class="rw"><span class="where">Career · header</span><span class="from">You are being noticed. People elsewhere have heard your name. Last change: an exam that went well - it helped your standing.</span><span class="arrow">→</span><span class="to">Reputation bar 42/100 with a ▲ +2 arrow</span></div>
-      <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">(warn icon) Warned · Tolga Şahin</span></div>
-      <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Chips: [ID: expired OK] [Name: typos OK]</span></div>
-      <div class="rw"><span class="where">Intro card 2</span><span class="from">Get closer. Watch someone properly, or read what is out on their desk. The actions you are offered depend on what you have seen…</span><span class="arrow">→</span><span class="to">One picture + "Look first. Act second." (4 words)</span></div>
+      <div class="rw"><span class="where">Event · bribe</span><span class="from">… He holds out 120 coins.</span><span class="arrow">→</span><span class="to">Done in Phase 4: a chip "(coin) 120 offered"; no price on Take it or Refuse</span></div>
+      <div class="rw"><span class="where">Career · header</span><span class="from">You are being noticed. People elsewhere have heard your name. Last change: an exam that went well - it helped your standing.</span><span class="arrow">→</span><span class="to">Done in Phase 2: a reputation bar, "41 · Watched"</span></div>
+      <div class="rw"><span class="where">Event · audit</span><span class="from">Reputation -4 (a red box) · An admissions audit has flagged your admission of …: their ID expired last month.</span><span class="arrow">→</span><span class="to">Done in Phase 4: title "Expired ID", one sentence, a chip (star) -4</span></div>
+      <div class="rw"><span class="where">Exam · toast</span><span class="from">You warned Tolga Şahin. They stop, and look back at their paper.</span><span class="arrow">→</span><span class="to">Phase 5: (warn icon) Warned · Tolga Şahin</span></div>
+      <div class="rw"><span class="where">Admission · rules</span><span class="from">• Recently expired IDs may be accepted. • Minor name mismatches are tolerated.</span><span class="arrow">→</span><span class="to">Phase 5 at the door; the brief and the Rules already show [ID: expired OK] [Name: typos OK]</span></div>
+      <div class="rw"><span class="where">Intro card 2</span><span class="from">Get closer. Watch someone properly, or read what is out on their desk. The actions you are offered depend on what you have seen…</span><span class="arrow">→</span><span class="to">Done in Phase 4: "Get closer and look; what you have seen decides what you can do."</span></div>
     </div>
   </section>
 
@@ -1616,7 +1766,7 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
     <div class="phases">
       <div class="phase"><div class="num">Phase 1<small>Payday</small></div>
         <div><b>Result card + coin system</b> <span class="tag ok">shipped</span> — see <a href="#payday">Phase 1: Payday</a>.
-          "¢" is gone from the balance and the result card; prices, the Career tab and event text keep it until Phases 3 and 4.<ul>
+          "¢" is gone from the balance and the result card; Phases 2 to 4 removed it everywhere else.<ul>
           <li><b>Coin role and gold coin icon</b>; "¢" removed from every screen (Store, Career, events, offers).</li>
           <li><b>Read-only coin pill on the result card</b>; income rows pay into it via <code>FlightLayer</code> from the row, through the coin stack. Costs leave as separate beats, so a salary is never netted away.</li>
           <li><b>Outcome chip</b> (Good / Mixed / Poor); the payday receipt layout (B).</li>
@@ -1636,10 +1786,10 @@ footer { color: var(--muted); font-size: .88rem; display: grid; gap: 8px; }
           <li>With M134: the shipped prices, crests earned and never sold, save v7, and the minimum stay on the Career tile and bar. Screens stay built, so opening one again has no long frame.</li></ul></div>
         <div class="est">3–4<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 4<small>Words</small></div>
-        <div><b>Events, intro, brief, Manual</b><ul>
-          <li>The event card template enforces at most 4 title words and a 14-word body, and puts known costs on the buttons. All event copy is rewritten (about 25 kinds).</li>
-          <li>Intro becomes 3 picture cards with at most 15 words each. Brief rules become icon chips. The Manual gets collapsible sections and is opened in context from (i).</li>
-          <li>A text-length guard test, in the style of the existing M111 guards, so prose cannot creep back.</li></ul></div>
+        <div><b>Events, intro, brief, Manual</b> <span class="tag ok">shipped</span> — see <a href="#words">Phase 4: Words</a>.<ul>
+          <li>The event card template enforces a 4-word title and a one-sentence, 14-word body; known costs ride on the answers as coin chips, and cards with hidden consequences carry none. All event copy is rewritten.</li>
+          <li>The intro cards are one sentence each (no pictures yet). The brief's rules are chips. The Rules are short rows that open, built once and kept.</li>
+          <li><code>TextRuleTests</code> guards every player-facing string, with a reasoned allowlist, and the screens' word budgets.</li></ul></div>
         <div class="est">4–5<small>days</small></div></div>
       <div class="phase"><div class="num">Phase 5<small>Room</small></div>
         <div><b>Exam HUD + admission desk</b><ul>
