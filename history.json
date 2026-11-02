@@ -2,6 +2,12 @@
   {
     "date": "2026-11-01",
     "author": "ardakabadayi",
+    "slug": "classroom-door",
+    "change": "Rewritten for the eight school rooms: every walk measured, the real doorway and opening door, before and after clips, and why the old fix never shipped."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
     "slug": "ui-qa-playthrough",
     "change": "Added the UI QA Playthrough: a new player's pass through the overhauled UI on a Galaxy A15, 33 ranked findings with screenshots, clips and fixes."
   },

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Classroom Door</title>
-<meta name="description" content="A student removed during the exam stands up, walks the aisle, goes out through the open door and is gone; the door closes behind them. Before and after, the route from every seat, and how the door is shared with admission.">
+<title>Classroom Door and Walking Paths</title>
+<meta name="description" content="Every walk a student takes in the eight exam rooms: why they walked into the back wall, the queue, desks and each other, the doorway and opening door now, and the numbers from every room, device and seat.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -22,9 +22,10 @@
   --bad: #b4433a;
   --plan-floor: #f4ead9;
   --plan-wall: #8a7f72;
-  --plan-corridor: #e2e6e7;
   --plan-desk: #d9b98a;
-  --plan-chair: #7d97b0;
+  --plan-seated: #7d97b0;
+  --plan-bag: #b9a58c;
+  --plan-door: #5b4a3a;
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -33,79 +34,78 @@
   :root:not([data-theme="light"]) {
     --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
     --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
-    --plan-floor: #2a2620; --plan-wall: #6f665c; --plan-corridor: #1b2326; --plan-desk: #6e5a3d; --plan-chair: #4a6075;
+    --plan-floor: #2a2620; --plan-wall: #6f665c; --plan-desk: #6e5a3d; --plan-seated: #4a6075; --plan-bag: #5c5040; --plan-door: #9c8a74;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
   --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
-  --plan-floor: #2a2620; --plan-wall: #6f665c; --plan-corridor: #1b2326; --plan-desk: #6e5a3d; --plan-chair: #4a6075;
+  --plan-floor: #2a2620; --plan-wall: #6f665c; --plan-desk: #6e5a3d; --plan-seated: #4a6075; --plan-bag: #5c5040; --plan-door: #9c8a74;
   color-scheme: dark;
 }
-
 * { box-sizing: border-box; }
-body {
-  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
-  padding-inline: 16px; padding-block: 0 56px; margin: 0;
-}
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
 .wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
 h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
 h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
 h2 { font-size: 1.6rem; font-weight: 700; }
 h3 { font-size: 1.1rem; font-weight: 500; }
-p { margin: 0; max-width: 68ch; }
+p { margin: 0; max-width: 72ch; }
 .eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
 a { color: var(--accent); }
 img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
 code { font-family: var(--mono); font-size: 0.85em; }
-
 header { padding-block: 40px 0; display: grid; gap: 16px; }
 .lede { color: var(--muted); font-size: 1.1rem; }
-
 section { display: grid; gap: 20px; }
 .section-head { display: grid; gap: 6px; }
-
 figure { margin: 0; display: grid; gap: 8px; align-content: start; }
 figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 4px; }
 figcaption b { color: var(--ink); font-weight: 600; }
 .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-
-.lead-row { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 24px; align-items: start; }
-@media (max-width: 760px) { .lead-row { grid-template-columns: 1fr; } }
-
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
 .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .card h3 { font-size: 1rem; font-weight: 700; }
 .card p { font-size: 0.95rem; color: var(--muted); }
-
 .tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; justify-self: start; }
 .tag.good { color: var(--good); border: 1px solid var(--good); }
 .tag.bad { color: var(--bad); border: 1px solid var(--bad); }
 .tag.care { color: var(--warn); border: 1px solid var(--warn); }
-
-.notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
 .notes li { color: var(--muted); }
 .notes b { color: var(--ink); font-weight: 600; }
-
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-weight: 600; color: var(--muted); font-size: 0.82rem; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.85rem; }
+tr:last-child td { border-bottom: none; }
+.bad-n { color: var(--bad); } .good-n { color: var(--good); }
 .plan { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
-.plan svg { width: 100%; height: auto; display: block; }
+.plan svg { width: 100%; height: auto; display: block; max-height: 560px; }
 .plan .floor { fill: var(--plan-floor); }
 .plan .wall { fill: var(--plan-wall); }
-.plan .corridor { fill: var(--plan-corridor); }
-.plan .doorway { fill: var(--plan-corridor); }
-.plan .desk { fill: var(--plan-desk); }
-.plan .chair { fill: var(--plan-chair); }
-.plan .leaf { stroke: var(--plan-wall); stroke-width: 4; stroke-linecap: round; }
-.plan .route { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; opacity: 0.85; }
-.plan .alt { fill: none; stroke: var(--warn); stroke-width: 1.8; stroke-dasharray: 5 4; stroke-linejoin: round; }
-.plan .start { fill: var(--accent); }
-.plan .end { fill: var(--ink); }
-.plan .label { fill: var(--muted); font-family: var(--mono); font-size: 10px; }
+.plan .furn { fill: var(--plan-desk); }
+.plan .seated { fill: var(--plan-seated); opacity: 0.55; }
+.plan .bag { fill: var(--plan-bag); opacity: 0.6; }
+.plan .door { fill: var(--plan-door); }
+.plan .oldwall { fill: none; stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.plan .standing { fill: none; stroke: var(--warn); stroke-width: 2; }
+.plan .old { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 6 4; }
+.plan .new { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+.plan .old-end { fill: none; stroke: var(--bad); stroke-width: 1.5; }
+.plan .new-end { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.plan .hit { fill: var(--bad); opacity: 0.25; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.9rem; color: var(--muted); }
 .legend span::before { content: ""; display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; border-top: 3px solid var(--accent); }
-.legend span.alt::before { border-top: 2px dashed var(--warn); }
+.legend span.old::before { border-top: 2px dashed var(--bad); }
+.legend span.q::before { width: 10px; height: 10px; border: 2px solid var(--warn); border-radius: 50%; }
+.legend span.hit::before { width: 10px; height: 10px; border: none; background: var(--bad); opacity: 0.35; border-radius: 50%; }
 .back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
 .back:hover { text-decoration: underline; }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -115,149 +115,181 @@ figcaption b { color: var(--ink); font-weight: 600; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · during the exam</span>
-    <h1>Classroom Door</h1>
-    <p class="lede">When the supervisor removes a student during the exam, the student stands up and walks out. The owner saw
-      them walk inside the back wall to get to the door. Now they walk the aisle and the passage behind the back row, go
-      through the door, which opens for them, and are gone. The door closes behind them. Captured in Play mode on the room
-      camera at 1080×2340 portrait with six students. The rest of the screen is hidden to show the room.</p>
+    <span class="eyebrow">Exam Supervisor Simulator · every room, every walk</span>
+    <h1>Classroom Door and Walking Paths</h1>
+    <p class="lede">The owner saw students walk into walls and the door when they left the class. Measured across all eight
+      school rooms, on a phone and a tablet, from every seat: almost every walk a student took went into something. Now
+      each walk follows the room's clear floor, goes through the middle of a real doorway, the door opens before anybody
+      reaches it and closes behind them, and nobody walks through anybody.</p>
   </header>
 
   <section>
     <div class="section-head">
       <h2>Verdict</h2>
-      <p class="muted">Fixed. From every seat, with or without a bag, the body stays out of the walls, desks, chairs, bags and
-        other students, and leaves only through the doorway. Removal itself is unchanged: the student is out the moment the
-        supervisor decides, and cannot be tapped while they walk.</p>
+      <p class="muted">Fixed in every room and on both devices: 0 of 1,920 walks touch anything, against 1,882 before.
+        Checked on a Galaxy A15 in Kingsley's room.</p>
     </div>
     <div class="verdicts">
-      <div class="card"><span class="tag bad">before</span><h3>Into the wall</h3>
-        <p>Up the aisle into the back wall, along the wall half inside it, then gone in front of a closed door.</p></div>
-      <div class="card"><span class="tag good">after</span><h3>Out through the door</h3>
-        <p>Up the left of the aisle, along the passage behind the back row, through the doorway and out of sight.</p></div>
-      <div class="card"><span class="tag good">after</span><h3>The door opens for them</h3>
-        <p>It opens as they stand up and closes once they are gone. Admission's use of the door is unchanged.</p></div>
-      <div class="card"><span class="tag care">close</span><h3>Behind the back row</h3>
-        <p>The passage is 0.3 m behind the back-row chairs. From the camera, a student walking it passes just above the
-          back-row heads. In plan they are 0.6 m apart.</p></div>
+      <div class="card"><span class="tag bad">before</span><h3>Into the wall beside the door</h3>
+        <p>The back wall was solid and the door painted on it. Every removed or turned-away student walked along the
+          wall, 0.39 m inside it, and vanished 0.8 m to the right of the door.</p></div>
+      <div class="card"><span class="tag good">after</span><h3>Through an open door</h3>
+        <p>A doorway in the wall, a frame, a leaf that swings out on a hinge, and a short corridor behind. People walk
+          through the middle of the opening and out of sight.</p></div>
+      <div class="card"><span class="tag good">after</span><h3>Nobody through anybody</h3>
+        <p>Out of a desk backwards, not sideways through the neighbour and the bags. Past the admission queue, not through
+          it. Through the doorway one direction at a time.</p></div>
+      <div class="card"><span class="tag care">close</span><h3>Tight, but clear</h3>
+        <p>The narrowest gap is 2 cm, where a single-desk aisle passes bags on both sides in the exam hall. That assumes a
+          bag at every desk; usually half have one.</p></div>
     </div>
   </section>
 
   <section>
     <div class="section-head">
-      <h2>Before</h2>
-      <p class="muted">The middle-right student, removed. Left to right, top to bottom: standing up, crossing to the aisle,
-        walking up it, sunk into the back wall (only a foot and a shoulder show), walking along the wall inside it, and
-        switched off at the closed door.</p>
+      <h2>Before and after</h2>
+      <p class="muted">Maple, phone room, from a camera standing in the room facing the door. Frames every 0.2 s from Play
+        mode, old code and new code, the same students.</p>
     </div>
-    <figure>
-      <img src="img/before_walk.jpg" width="1104" height="776" alt="Six frames of the old walk-out: a student stands up, walks to the centre aisle and up it, disappears into the back wall leaving only a foot and a shoulder visible, slides along the wall half inside it, and reaches the closed door">
-      <figcaption><b>Why.</b> The old walk-out was three points for the student's root: across to the aisle, up to
-        z = 10.4, along to the door. The wall's room face is at z = 10.425, so the last leg ran along the wall, 2.5 cm in front
-        of it, and every body on it was half inside the wall. The body is also drawn 0.25 m ahead of the root, so on the way
-        up the body went 0.25 m further, through the whole wall, before turning. The walk ended on the room side of the door,
-        with the body 0.26 m left of the doorway inside the wall. The door stayed closed.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/before_bag.jpg" width="1104" height="840" alt="Six close frames of the back-left student leaving the old way: she stands, walks sideways through the bag beside her desk, goes up into the wall and along it to the closed door">
-      <figcaption><b>Through the bag.</b> The back-left student has a bag on the aisle side. The old walk stepped straight
-        across it, then into the wall.</figcaption>
-    </figure>
+    <div class="pair">
+      <figure><img src="img/before_removal.gif" width="480" height="360" alt="Before: a removed student walks to the back of the room and into the wall beside the closed door, half inside it, then disappears">
+        <figcaption><b>Before: removed.</b> Up the aisle and into the wall to the right of the painted door, then
+          switched off there.</figcaption></figure>
+      <figure><img src="img/after_removal.gif" width="480" height="360" alt="After: the door swings open as the removed student approaches, she walks through the middle of the doorway and out, and the door closes">
+        <figcaption><b>After: removed.</b> The door opens as she comes up the aisle, she goes through the middle of the
+          doorway, and it closes behind her.</figcaption></figure>
+      <figure><img src="img/before_rejected.gif" width="480" height="360" alt="Before: a student turned away at the check-in walks back toward the door straight through the next student walking in">
+        <figcaption><b>Before: turned away.</b> She walks back through the next person in line, who is walking
+          through her the other way.</figcaption></figure>
+      <figure><img src="img/after_rejected.gif" width="480" height="360" alt="After: the turned-away student leaves through the open door while the next students wait; nobody overlaps">
+        <figcaption><b>After: turned away.</b> She goes round the people queuing and out of the door; people coming in
+          wait outside until she is through.</figcaption></figure>
+    </div>
+    <div class="pair">
+      <figure><img src="img/before_player_view.jpg" width="1218" height="533" alt="Four frames from the player's camera, old code: the removed student reaches the back wall beside a closed door">
+        <figcaption><b>The player's view, before.</b> The door never opens; the student ends inside the wall at the
+          top left.</figcaption></figure>
+      <figure><img src="img/after_player_view.jpg" width="1218" height="533" alt="Four frames from the player's camera, new code: the door at the top left opens and the student walks out through it">
+        <figcaption><b>The player's view, after.</b> The door at the top left opens and the student walks out. Only the
+          doorway shows the corridor; the back wall hides the rest of it.</figcaption></figure>
+    </div>
   </section>
 
   <section>
     <div class="section-head">
-      <h2>After</h2>
-      <p class="muted">The same students, removed the same way.</p>
+      <h2>On the phone</h2>
+      <p class="muted">Galaxy A15, Kingsley Academy, a removal followed by the room camera. Left to right: standing up,
+        up the aisle, toward the open door, into the doorway, through its middle, out into the corridor.</p>
     </div>
-    <figure>
-      <img src="img/after_walk.jpg" width="1112" height="588" alt="Eight frames: the door closed; the door opening as the student stands up; the student crossing to the aisle; walking up the left of the aisle; walking along the passage behind the back row; stepping into the dark doorway; gone with the door closing; the door closed again">
-      <figcaption><b>Middle right.</b> Left to right, top to bottom: the room before; the door opens as the student stands
-        up; across to the left of the aisle; up the aisle; along the passage behind the back row; into the doorway; gone,
-        the door closing; closed.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/after_door.jpg" width="1112" height="324" alt="Four close frames at the door: the student walking behind the back-left student toward the open door; stepping into the dark doorway; the doorway empty; the door swinging shut">
-      <figcaption><b>At the door, closer.</b> The open leaf stands against the wall on the left. The student steps into the
-        dark doorway and is hidden by it before the body is switched off, 0.25 m into the corridor. Then the door swings
-        shut.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/after_bag.jpg" width="1104" height="840" alt="Six close frames of the back-left student: seated with a bag on her right; stepping out on her left as the door opens; walking up past her chair; passing the open door leaf; stepping into the doorway; the door closed">
-      <figcaption><b>Back left, bag on the aisle side.</b> She steps out on the side away from her bag and walks up past
-        her chair to the door. The open leaf is about half a metre to her left as she passes; from the camera her arm swings in front of
-        it.</figcaption>
-    </figure>
+    <figure><img src="img/phone_kingsley_removal.jpg" width="2190" height="780" alt="Six phone frames: a removed student stands up at his desk, walks up the aisle between desks, reaches the open door, steps into the middle of the doorway and walks out into the corridor beyond it">
+      <figcaption><b>Through the middle of the doorway.</b> Nothing clips. The leaf opens outward, so from inside the room
+        it is out of sight behind the frame. At the door, the hand-over to the next person was immediate. On the phone the
+        door's cards fill the screen, so the walk in is not seen there.</figcaption></figure>
   </section>
 
   <section>
     <div class="section-head">
-      <h2>The way out from every seat</h2>
+      <h2>Why it happened</h2>
+      <p class="muted">Line numbers are in <code>5c6d204</code>, the code before the fix.</p>
     </div>
-    <div class="lead-row">
-      <figure class="plan">
-        <svg viewBox="0 0 369.6 589.6" role="img" aria-labelledby="plan-title plan-desc" xmlns="http://www.w3.org/2000/svg">
-<title id="plan-title">The way out from every seat, seen from above</title>
-<desc id="plan-desc">Plan of the classroom with the back wall at the top. From each seat a line runs sideways to the left side of the centre aisle, up the aisle to a passage behind the back row, left along the passage to the door, and through the doorway into the corridor. Dashed lines show the way round the other side of the chair when a bag is on the aisle side.</desc>
-<rect class="floor" x="12.1" y="56.1" width="345.4" height="521.4"/>
-<rect class="wall" x="4.4" y="49.5" width="360.8" height="6.6"/>
-<rect class="doorway" x="67.8" y="48.4" width="40.5" height="8.8"/>
-<rect class="corridor" x="4.4" y="4.4" width="360.8" height="45.1"/>
-<text class="label" x="246.4" y="34.8">corridor</text>
-<text class="label" x="184.8" y="552.2" text-anchor="middle">front of the room</text>
-<line class="leaf" x1="68.0" y1="57.9" x2="61.0" y2="97.7"/>
-<text class="label" x="88.0" y="41.8" text-anchor="middle">door</text>
-<rect class="desk" x="143.0" y="458.5" width="83.6" height="33.4"/>
-<rect class="desk" x="92.4" y="426.4" width="52.8" height="27.3"/>
-<rect class="chair" x="109.1" y="395.6" width="19.4" height="18.5"/>
-<rect class="desk" x="224.4" y="426.4" width="52.8" height="27.3"/>
-<rect class="chair" x="241.1" y="395.6" width="19.4" height="18.5"/>
-<rect class="desk" x="92.4" y="294.4" width="52.8" height="27.3"/>
-<rect class="chair" x="109.1" y="263.6" width="19.4" height="18.5"/>
-<rect class="desk" x="224.4" y="294.4" width="52.8" height="27.3"/>
-<rect class="chair" x="241.1" y="263.6" width="19.4" height="18.5"/>
-<rect class="desk" x="92.4" y="162.4" width="52.8" height="27.3"/>
-<rect class="chair" x="109.1" y="131.6" width="19.4" height="18.5"/>
-<rect class="desk" x="224.4" y="162.4" width="52.8" height="27.3"/>
-<rect class="chair" x="241.1" y="131.6" width="19.4" height="18.5"/>
-<polyline class="alt" points="118.8,415.8 81.4,415.8 81.4,378.4 169.4,378.4 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="alt" points="250.8,415.8 288.2,415.8 288.2,378.4 169.4,378.4 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="alt" points="118.8,283.8 81.4,283.8 81.4,246.4 169.4,246.4 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="alt" points="250.8,283.8 288.2,283.8 288.2,246.4 169.4,246.4 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="alt" points="118.8,151.8 81.4,151.8 81.4,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="alt" points="250.8,151.8 288.2,151.8 288.2,114.4 88.0,114.4 88.0,19.8"/>
-<polyline class="route" points="118.8,415.8 169.4,415.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="118.8" cy="415.8" r="4"/>
-<polyline class="route" points="250.8,415.8 169.4,415.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="250.8" cy="415.8" r="4"/>
-<polyline class="route" points="118.8,283.8 169.4,283.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="118.8" cy="283.8" r="4"/>
-<polyline class="route" points="250.8,283.8 169.4,283.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="250.8" cy="283.8" r="4"/>
-<polyline class="route" points="118.8,151.8 169.4,151.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="118.8" cy="151.8" r="4"/>
-<polyline class="route" points="250.8,151.8 169.4,151.8 169.4,114.4 88.0,114.4 88.0,19.8"/>
-<circle class="start" cx="250.8" cy="151.8" r="4"/>
-<circle class="end" cx="88.0" cy="19.8" r="5"/>
-</svg>
-        <figcaption class="legend"><span>no bag on the aisle side</span><span class="alt">bag on the aisle side</span></figcaption>
-      </figure>
-      <ul class="notes">
-        <li><b>Planned for the body.</b> The walking clip draws the body 0.25 m ahead of the student's root. The route is
-          the path of the body, and the root follows 0.25 m behind it, turning round behind it at corners. The route starts
-          where the student stands up, 0.25 m in front of the chair.</li>
-        <li><b>The admission lanes.</b> It reuses the line at the door's geometry. Up the left side of the centre aisle
-          (x = −1.35, the side people already leave by), along the passage behind the back row (z = 9.1), through the
-          doorway at x = −3.2 and into the corridor.</li>
-        <li><b>Round the bag.</b> If the student's bag is on the aisle side, they step out on the other side, walk up past
-          their chair and come back to the aisle behind it. From the back row, the space behind the chair is the passage,
-          so they go straight to the door.</li>
-        <li><b>Out of sight first.</b> The body is switched off only once all of it is behind the wall, 0.25 m into the
-          corridor. Until then it is visible in the doorway, and the dark doorway hides it as it goes through.</li>
-        <li><b>One at a time.</b> If a second student is removed while someone is still walking out, they stand at their
-          desk until the first is gone, then set off. Nobody walks into anybody.</li>
-      </ul>
+    <ul class="notes">
+      <li><b>There was no doorway.</b> The back wall was one solid box (<code>RoomDresser.cs:202</code>) and the door a
+        prefab slab in front of it (<code>:234</code>) that never moved. Nothing could walk through it.</li>
+      <li><b>The way out ended beside the door, against the wall.</b> <code>RoomLayout.ExitPoint</code>
+        (<code>RoomLayout.cs:111</code>) was at <code>MinX + 1.8</code>, 0.8 m right of the door's middle, and 0.1 m
+        from the wall's centre. The last leg of every route ran along the wall at that depth, so a 0.34 m body was
+        0.39 m inside the wall and the door frame. M130 derived the door's place per room (<code>:108</code>), but the
+        exit point was never moved onto it.</li>
+      <li><b>Out of a desk sideways.</b> <code>RoomLayout.Route</code> (<code>:338</code>, <code>:345</code>) left and
+        entered every seat along the row at the seat's own depth: through the bags beside the desks, and at shared tables
+        (Eastgate, Brightpath, State University) through the neighbour sitting there.</li>
+      <li><b>The queue was walked through.</b> The admission choreographer planned the walk to a desk and the walk out
+        from the check-in spot as if nobody were standing behind it (<code>AdmissionChoreographer.cs:333</code>,
+        <code>:340</code>). The queue stands exactly there.</li>
+      <li><b>The next person walked back to the door first.</b> The person stepping up from the queue got the walk from
+        the door to the desk (<code>:317</code>) while standing 1.15 m from the desk. They went back to the door's corner,
+        through the desks, and came back: 3.3 to 7.4 s instead of half a second.</li>
+      <li><b>The queue was a straight line from the door.</b> A queue place was a single point (<code>:321</code>), so
+        people walked straight to it through chairs and desks.</li>
+      <li><b>The body walked 0.25 m ahead of every route.</b> The standing and walking clips put the hips 0.25 m in front of
+        the root (measured in the room: 0.249 m walking). Routes are planned for the root, so the body overshot every
+        line by 0.25 m. At the door that is the whole wall's depth; standing up, it slid the body toward the desk.</li>
+      <li><b>An earlier fix never reached the rooms.</b> The published version of this report described a door that
+        opened. That work is on the branches <code>removal-walkout</code> and <code>door-queue</code>, made for the old
+        single classroom before M130, and was never merged.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Every walk, measured</h2>
+      <p class="muted">All eight rooms × phone and tablet × every seat. Each walk sampled every centimetre with the body as a
+        0.34 m disc (the tap capsule, and how far a standing body's hands hang). Obstacles: walls, door frame and open
+        leaf, corridor, desks, chairs, the supervisor's desk, wall fixtures and each school's dressing, everybody seated,
+        a bag on both sides of every desk, and the two people queuing.</p>
     </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Walk</th><th class="num">Walks</th><th class="num">Touched, before</th><th class="num">Before, no bags</th><th class="num">Touched, after</th><th class="num">Closest, after</th></tr></thead>
+      <tbody>
+        <tr><td>Removed, seat to door</td><td class="num">156</td><td class="num bad-n">156</td><td class="num bad-n">156</td><td class="num good-n">0</td><td class="num">0.029 m</td></tr>
+        <tr><td>Moved to the free desk, seat to seat</td><td class="num">1,512</td><td class="num bad-n">1,512</td><td class="num bad-n">72</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
+        <tr><td>Admitted, check-in to desk</td><td class="num">156</td><td class="num bad-n">156</td><td class="num bad-n">114</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
+        <tr><td>Turned away, check-in to door</td><td class="num">16</td><td class="num bad-n">16</td><td class="num bad-n">16</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
+        <tr><td>First person in, door to check-in</td><td class="num">16</td><td class="num">0</td><td class="num">0</td><td class="num good-n">0</td><td class="num">0.080 m</td></tr>
+        <tr><td>Into the queue from the door</td><td class="num">32</td><td class="num bad-n">31</td><td class="num bad-n">29</td><td class="num good-n">0</td><td class="num">0.080 m</td></tr>
+        <tr><td>Stepping up in the queue</td><td class="num">32</td><td class="num bad-n">11</td><td class="num bad-n">11</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
+        <tr><td><b>All</b></td><td class="num"><b>1,920</b></td><td class="num bad-n"><b>1,882</b></td><td class="num bad-n"><b>398</b></td><td class="num good-n"><b>0</b></td><td class="num"><b>0.020 m</b></td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">"Before, no bags": a bag is a coin flip per desk, so this is the floor without any. Even then every
+      removal and every turned-away student went into the wall or through the queue.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>The worst cases, from above</h2>
+      <p class="muted">Back wall at the top, the corridor behind it. Red dashes: the old walk, its worst contact shaded.
+        Green: the new walk. Circles at the end: the body.</p>
+    </div>
+    <div class="legend"><span class="old">before</span><span>after</span><span class="q">somebody queuing</span><span class="hit">worst contact before</span></div>
+    <div class="figs">
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 506 643' role='img' aria-label='City High, phone: removal from the back-left desk'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='611.6' width='476.1' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='482.8' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='405.5' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.4' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='105.8' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='123.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='432.4' r='11.5'/><circle class='bag' cx='108.1' cy='437.0' r='8.7'/><circle class='bag' cx='158.7' cy='437.0' r='8.7'/><rect class='furn' x='242.9' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='432.4' r='11.5'/><circle class='bag' cx='227.7' cy='437.0' r='8.7'/><circle class='bag' cx='278.3' cy='437.0' r='8.7'/><rect class='furn' x='362.5' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='432.4' r='11.5'/><circle class='bag' cx='347.3' cy='437.0' r='8.7'/><circle class='bag' cx='397.9' cy='437.0' r='8.7'/><rect class='furn' x='123.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='308.2' r='11.5'/><circle class='bag' cx='108.1' cy='312.8' r='8.7'/><circle class='bag' cx='158.7' cy='312.8' r='8.7'/><rect class='furn' x='242.9' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='308.2' r='11.5'/><circle class='bag' cx='227.7' cy='312.8' r='8.7'/><circle class='bag' cx='278.3' cy='312.8' r='8.7'/><rect class='furn' x='362.5' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='308.2' r='11.5'/><circle class='bag' cx='347.3' cy='312.8' r='8.7'/><circle class='bag' cx='397.9' cy='312.8' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='242.9' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='184.0' r='11.5'/><circle class='bag' cx='227.7' cy='188.6' r='8.7'/><circle class='bag' cx='278.3' cy='188.6' r='8.7'/><rect class='furn' x='362.5' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='184.0' r='11.5'/><circle class='bag' cx='347.3' cy='188.6' r='8.7'/><circle class='bag' cx='397.9' cy='188.6' r='8.7'/><rect class='furn' x='208.8' y='488.8' width='88.3' height='38.0'/><rect class='furn' x='193.2' y='95.0' width='119.6' height='5.1'/><rect class='furn' x='351.9' y='91.1' width='78.2' height='6.9'/><rect class='furn' x='19.3' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='479.8' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='479.8' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='156.4' y='604.9' width='193.2' height='9.2'/><rect class='furn' x='463.5' y='109.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='132.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='155.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='178.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='201.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='224.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='247.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='270.0' width='20.7' height='21.2'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><polyline class='old' points='133.4,184.0 75.9,184.0 75.9,96.6 101.2,96.6'/><circle class='old-end' cx='101.2' cy='96.6' r='15.6'/><polyline class='new' points='133.4,184.0 133.4,128.8 66.2,128.8 66.2,55.2 105.8,55.2'/><circle class='new-end' cx='105.8' cy='55.2' r='15.6'/><circle class='hit' cx='75.9' cy='96.6' r='15.6'/></svg>
+        <figcaption><b>City High, phone: removed from the back-left desk.</b> Before: sideways through the bag, along the back wall 0.39 m inside it, ending beside the door. After: back into the cross-aisle and out through the door.</figcaption></figure>
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 506 643' role='img' aria-label='City High, phone: removal from the front-right desk'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='611.6' width='476.1' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='482.8' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='405.5' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.4' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='105.8' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='454.9' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='330.7' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='225.4' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='345.0' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='123.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='432.4' r='11.5'/><circle class='bag' cx='108.1' cy='437.0' r='8.7'/><circle class='bag' cx='158.7' cy='437.0' r='8.7'/><rect class='furn' x='242.9' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='432.4' r='11.5'/><circle class='bag' cx='227.7' cy='437.0' r='8.7'/><circle class='bag' cx='278.3' cy='437.0' r='8.7'/><rect class='furn' x='362.5' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='432.4' r='11.5'/><circle class='bag' cx='347.3' cy='437.0' r='8.7'/><circle class='bag' cx='397.9' cy='437.0' r='8.7'/><rect class='furn' x='123.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='308.2' r='11.5'/><circle class='bag' cx='108.1' cy='312.8' r='8.7'/><circle class='bag' cx='158.7' cy='312.8' r='8.7'/><rect class='furn' x='242.9' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='308.2' r='11.5'/><circle class='bag' cx='227.7' cy='312.8' r='8.7'/><circle class='bag' cx='278.3' cy='312.8' r='8.7'/><rect class='furn' x='362.5' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='308.2' r='11.5'/><circle class='bag' cx='347.3' cy='312.8' r='8.7'/><circle class='bag' cx='397.9' cy='312.8' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='242.9' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='253.0' cy='184.0' r='11.5'/><circle class='bag' cx='227.7' cy='188.6' r='8.7'/><circle class='bag' cx='278.3' cy='188.6' r='8.7'/><rect class='furn' x='362.5' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='372.6' cy='184.0' r='11.5'/><circle class='bag' cx='347.3' cy='188.6' r='8.7'/><circle class='bag' cx='397.9' cy='188.6' r='8.7'/><rect class='furn' x='208.8' y='488.8' width='88.3' height='38.0'/><rect class='furn' x='193.2' y='95.0' width='119.6' height='5.1'/><rect class='furn' x='351.9' y='91.1' width='78.2' height='6.9'/><rect class='furn' x='19.3' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='479.8' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='479.8' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='156.4' y='604.9' width='193.2' height='9.2'/><rect class='furn' x='463.5' y='109.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='132.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='155.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='178.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='201.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='224.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='247.0' width='20.7' height='21.2'/><rect class='furn' x='463.5' y='270.0' width='20.7' height='21.2'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><polyline class='old' points='372.6,432.4 430.1,432.4 430.1,128.8 75.9,128.8 75.9,96.6 101.2,96.6'/><circle class='old-end' cx='101.2' cy='96.6' r='15.6'/><polyline class='new' points='372.6,432.4 372.6,390.1 75.9,390.1 75.9,128.8 66.2,128.8 66.2,55.2 105.8,55.2'/><circle class='new-end' cx='105.8' cy='55.2' r='15.6'/><circle class='hit' cx='75.9' cy='96.6' r='15.6'/></svg>
+        <figcaption><b>City High, phone: removed from the front-right desk.</b> The longest way out. Before, it ran into the wall at the end too. After: back into the gap behind the row, along it, up the left aisle and out.</figcaption></figure>
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 405 643' role='img' aria-label='Eastgate, tablet: moved to another desk at a shared table'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='611.6' width='374.9' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='381.6' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='304.3' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.5' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='105.8' y='454.9' width='193.2' height='28.5'/><rect class='furn' x='105.8' y='330.7' width='193.2' height='28.5'/><rect class='furn' x='105.8' y='206.5' width='193.2' height='28.5'/><rect class='furn' x='123.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='432.4' r='11.5'/><circle class='bag' cx='108.1' cy='437.0' r='8.7'/><circle class='bag' cx='158.7' cy='437.0' r='8.7'/><rect class='furn' x='192.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='202.4' cy='432.4' r='11.5'/><circle class='bag' cx='177.1' cy='437.0' r='8.7'/><circle class='bag' cx='227.7' cy='437.0' r='8.7'/><rect class='furn' x='261.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='271.4' cy='432.4' r='11.5'/><circle class='bag' cx='246.1' cy='437.0' r='8.7'/><circle class='bag' cx='296.7' cy='437.0' r='8.7'/><rect class='furn' x='123.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='308.2' r='11.5'/><circle class='bag' cx='108.1' cy='312.8' r='8.7'/><circle class='bag' cx='158.7' cy='312.8' r='8.7'/><rect class='furn' x='192.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='202.4' cy='308.2' r='11.5'/><circle class='bag' cx='177.1' cy='312.8' r='8.7'/><circle class='bag' cx='227.7' cy='312.8' r='8.7'/><rect class='furn' x='261.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='271.4' cy='308.2' r='11.5'/><circle class='bag' cx='246.1' cy='312.8' r='8.7'/><circle class='bag' cx='296.7' cy='312.8' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='192.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='202.4' cy='184.0' r='11.5'/><circle class='bag' cx='177.1' cy='188.6' r='8.7'/><circle class='bag' cx='227.7' cy='188.6' r='8.7'/><rect class='furn' x='261.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='271.4' cy='184.0' r='11.5'/><circle class='bag' cx='246.1' cy='188.6' r='8.7'/><circle class='bag' cx='296.7' cy='188.6' r='8.7'/><rect class='furn' x='158.2' y='488.8' width='88.3' height='38.0'/><rect class='furn' x='142.6' y='95.0' width='119.6' height='5.1'/><rect class='furn' x='19.3' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='378.6' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='378.6' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='105.8' y='604.9' width='193.2' height='9.2'/><rect class='furn' x='374.9' y='115.0' width='4.6' height='64.4'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><polyline class='old' points='133.4,432.4 75.9,432.4 75.9,308.2 202.4,308.2'/><circle class='old-end' cx='202.4' cy='308.2' r='15.6'/><polyline class='new' points='133.4,432.4 133.4,390.1 75.9,390.1 75.9,265.9 202.4,265.9 202.4,308.2'/><circle class='new-end' cx='202.4' cy='308.2' r='15.6'/><circle class='hit' cx='133.4' cy='308.2' r='15.6'/></svg>
+        <figcaption><b>Eastgate, tablet: moved to the middle of the next table back.</b> Before: up the aisle, then sideways along the table, straight through the person sitting at its end (0.59 m into them). After: back, along the gaps behind the rows, and into the desk from behind.</figcaption></figure>
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 414 643' role='img' aria-label='Brightpath, tablet: turned away with two people queuing'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='611.6' width='384.1' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='390.8' y='88.6' width='9.7' height='531.3'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='313.5' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.4' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='105.8' y='454.9' width='202.4' height='28.5'/><rect class='furn' x='105.8' y='330.7' width='202.4' height='28.5'/><rect class='furn' x='105.8' y='206.5' width='202.4' height='28.5'/><rect class='furn' x='123.3' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='432.4' r='11.5'/><circle class='bag' cx='108.1' cy='437.0' r='8.7'/><circle class='bag' cx='158.7' cy='437.0' r='8.7'/><rect class='furn' x='196.9' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='207.0' cy='432.4' r='11.5'/><circle class='bag' cx='181.7' cy='437.0' r='8.7'/><circle class='bag' cx='232.3' cy='437.0' r='8.7'/><rect class='furn' x='270.5' y='422.5' width='20.2' height='19.6'/><circle class='seated' cx='280.6' cy='432.4' r='11.5'/><circle class='bag' cx='255.3' cy='437.0' r='8.7'/><circle class='bag' cx='305.9' cy='437.0' r='8.7'/><rect class='furn' x='123.3' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='308.2' r='11.5'/><circle class='bag' cx='108.1' cy='312.8' r='8.7'/><circle class='bag' cx='158.7' cy='312.8' r='8.7'/><rect class='furn' x='196.9' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='207.0' cy='308.2' r='11.5'/><circle class='bag' cx='181.7' cy='312.8' r='8.7'/><circle class='bag' cx='232.3' cy='312.8' r='8.7'/><rect class='furn' x='270.5' y='298.3' width='20.2' height='19.6'/><circle class='seated' cx='280.6' cy='308.2' r='11.5'/><circle class='bag' cx='255.3' cy='312.8' r='8.7'/><circle class='bag' cx='305.9' cy='312.8' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='196.9' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='207.0' cy='184.0' r='11.5'/><circle class='bag' cx='181.7' cy='188.6' r='8.7'/><circle class='bag' cx='232.3' cy='188.6' r='8.7'/><rect class='furn' x='270.5' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='280.6' cy='184.0' r='11.5'/><circle class='bag' cx='255.3' cy='188.6' r='8.7'/><circle class='bag' cx='305.9' cy='188.6' r='8.7'/><rect class='furn' x='162.8' y='488.8' width='88.3' height='38.0'/><rect class='furn' x='147.2' y='95.0' width='119.6' height='5.1'/><rect class='furn' x='305.9' y='91.1' width='78.2' height='6.9'/><rect class='furn' x='19.3' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='387.8' y='439.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='387.8' y='255.3' width='6.9' height='78.2'/><rect class='furn' x='110.4' y='604.9' width='193.2' height='9.2'/><rect class='furn' x='366.9' y='133.4' width='2.3' height='156.4'/><rect class='furn' x='371.2' y='104.4' width='16.6' height='16.6'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><circle class='standing' cx='75.9' cy='271.4' r='15.6'/><circle class='standing' cx='75.9' cy='218.5' r='15.6'/><polyline class='old' points='75.9,324.3 75.9,324.3 75.9,96.6 101.2,96.6'/><circle class='old-end' cx='101.2' cy='96.6' r='15.6'/><polyline class='new' points='75.9,324.3 75.9,390.1 42.8,390.1 42.8,128.8 66.2,128.8 66.2,55.2 105.8,55.2'/><circle class='new-end' cx='105.8' cy='55.2' r='15.6'/><circle class='hit' cx='75.9' cy='271.3' r='15.6'/></svg>
+        <figcaption><b>Brightpath, tablet: turned away with two people queuing.</b> Before: straight back through both people queuing. After: forward, out to the passing lane by the wall, past them, and out.</figcaption></figure>
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 377 873' role='img' aria-label='Kingsley, phone: the next person steps up from the queue'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='841.6' width='347.3' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='761.3'/><rect class='wall' x='354.0' y='88.6' width='9.7' height='761.3'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='276.7' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.5' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='105.8' y='684.9' width='55.2' height='28.5'/><rect class='furn' x='216.2' y='684.9' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='565.3' width='55.2' height='28.5'/><rect class='furn' x='216.2' y='565.3' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='445.7' width='55.2' height='28.5'/><rect class='furn' x='216.2' y='445.7' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='326.1' width='55.2' height='28.5'/><rect class='furn' x='216.2' y='326.1' width='55.2' height='28.5'/><rect class='furn' x='105.8' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='216.2' y='206.5' width='55.2' height='28.5'/><rect class='furn' x='123.3' y='652.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='662.4' r='11.5'/><circle class='bag' cx='108.1' cy='667.0' r='8.7'/><circle class='bag' cx='158.7' cy='667.0' r='8.7'/><rect class='furn' x='233.7' y='652.5' width='20.2' height='19.6'/><circle class='seated' cx='243.8' cy='662.4' r='11.5'/><circle class='bag' cx='218.5' cy='667.0' r='8.7'/><circle class='bag' cx='269.1' cy='667.0' r='8.7'/><rect class='furn' x='123.3' y='532.9' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='542.8' r='11.5'/><circle class='bag' cx='108.1' cy='547.4' r='8.7'/><circle class='bag' cx='158.7' cy='547.4' r='8.7'/><rect class='furn' x='233.7' y='532.9' width='20.2' height='19.6'/><circle class='seated' cx='243.8' cy='542.8' r='11.5'/><circle class='bag' cx='218.5' cy='547.4' r='8.7'/><circle class='bag' cx='269.1' cy='547.4' r='8.7'/><rect class='furn' x='123.3' y='413.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='423.2' r='11.5'/><circle class='bag' cx='108.1' cy='427.8' r='8.7'/><circle class='bag' cx='158.7' cy='427.8' r='8.7'/><rect class='furn' x='233.7' y='413.3' width='20.2' height='19.6'/><circle class='seated' cx='243.8' cy='423.2' r='11.5'/><circle class='bag' cx='218.5' cy='427.8' r='8.7'/><circle class='bag' cx='269.1' cy='427.8' r='8.7'/><rect class='furn' x='123.3' y='293.7' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='303.6' r='11.5'/><circle class='bag' cx='108.1' cy='308.2' r='8.7'/><circle class='bag' cx='158.7' cy='308.2' r='8.7'/><rect class='furn' x='233.7' y='293.7' width='20.2' height='19.6'/><circle class='seated' cx='243.8' cy='303.6' r='11.5'/><circle class='bag' cx='218.5' cy='308.2' r='8.7'/><circle class='bag' cx='269.1' cy='308.2' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='233.7' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='243.8' cy='184.0' r='11.5'/><circle class='bag' cx='218.5' cy='188.6' r='8.7'/><circle class='bag' cx='269.1' cy='188.6' r='8.7'/><rect class='furn' x='144.4' y='718.8' width='88.3' height='38.0'/><rect class='furn' x='128.8' y='95.0' width='119.6' height='5.1'/><rect class='furn' x='19.3' y='669.3' width='6.9' height='78.2'/><rect class='furn' x='351.0' y='669.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='485.3' width='6.9' height='78.2'/><rect class='furn' x='351.0' y='485.3' width='6.9' height='78.2'/><rect class='furn' x='19.3' y='301.3' width='6.9' height='78.2'/><rect class='furn' x='351.0' y='301.3' width='6.9' height='78.2'/><rect class='furn' x='92.0' y='834.9' width='193.2' height='9.2'/><rect class='furn' x='144.9' y='96.6' width='41.4' height='0.9'/><rect class='furn' x='200.1' y='96.6' width='41.4' height='0.9'/><rect class='furn' x='255.3' y='96.6' width='41.4' height='0.9'/><rect class='furn' x='310.5' y='96.6' width='41.4' height='0.9'/><rect class='furn' x='334.7' y='133.4' width='20.7' height='101.2'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><polyline class='old' points='188.6,411.7 75.9,133.4 75.9,128.8 188.6,128.8 188.6,464.6 188.6,464.6'/><circle class='old-end' cx='188.6' cy='464.6' r='15.6'/><polyline class='new' points='188.6,411.7 188.6,464.6'/><circle class='new-end' cx='188.6' cy='464.6' r='15.6'/><circle class='hit' cx='113.8' cy='226.9' r='15.6'/></svg>
+        <figcaption><b>Kingsley, phone: the next person steps up.</b> Before: from the queue back to the door corner, through the back-row desks, and all the way back: 7.4 s. After: 1.15 m along the line, 0.5 s.</figcaption></figure>
+      <figure class="plan"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 570 726' role='img' aria-label='National, tablet: admitted to a back-row desk'><rect class='floor' x='0' y='0' width='100%' height='100%'/><rect class='wall' x='15.0' y='694.4' width='540.5' height='9.7'/><rect class='wall' x='13.6' y='88.6' width='9.7' height='614.1'/><rect class='wall' x='547.2' y='88.6' width='9.7' height='614.1'/><rect class='wall' x='15.0' y='87.2' width='28.3' height='9.7'/><rect class='wall' x='85.6' y='87.2' width='469.9' height='9.7'/><rect class='door' x='40.3' y='88.6' width='3.0' height='10.3'/><rect class='door' x='85.6' y='88.6' width='3.0' height='10.3'/><rect class='door' x='43.2' y='50.1' width='3.7' height='42.3'/><rect class='wall' x='26.5' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='134.6' y='18.4' width='6.9' height='73.6'/><rect class='wall' x='26.5' y='14.9' width='115.0' height='6.9'/><rect class='furn' x='113.5' y='540.6' width='39.7' height='22.8'/><rect class='furn' x='214.7' y='540.6' width='39.7' height='22.8'/><rect class='furn' x='315.9' y='540.6' width='39.7' height='22.8'/><rect class='furn' x='417.1' y='540.6' width='39.7' height='22.8'/><rect class='furn' x='113.5' y='430.2' width='39.7' height='22.8'/><rect class='furn' x='214.7' y='430.2' width='39.7' height='22.8'/><rect class='furn' x='315.9' y='430.2' width='39.7' height='22.8'/><rect class='furn' x='417.1' y='430.2' width='39.7' height='22.8'/><rect class='furn' x='113.5' y='319.8' width='39.7' height='22.8'/><rect class='furn' x='214.7' y='319.8' width='39.7' height='22.8'/><rect class='furn' x='315.9' y='319.8' width='39.7' height='22.8'/><rect class='furn' x='417.1' y='319.8' width='39.7' height='22.8'/><rect class='furn' x='113.5' y='209.4' width='39.7' height='22.8'/><rect class='furn' x='214.7' y='209.4' width='39.7' height='22.8'/><rect class='furn' x='315.9' y='209.4' width='39.7' height='22.8'/><rect class='furn' x='417.1' y='209.4' width='39.7' height='22.8'/><rect class='furn' x='123.3' y='505.3' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='515.2' r='11.5'/><circle class='bag' cx='108.1' cy='519.8' r='8.7'/><circle class='bag' cx='158.7' cy='519.8' r='8.7'/><rect class='furn' x='224.5' y='505.3' width='20.2' height='19.6'/><circle class='seated' cx='234.6' cy='515.2' r='11.5'/><circle class='bag' cx='209.3' cy='519.8' r='8.7'/><circle class='bag' cx='259.9' cy='519.8' r='8.7'/><rect class='furn' x='325.7' y='505.3' width='20.2' height='19.6'/><circle class='seated' cx='335.8' cy='515.2' r='11.5'/><circle class='bag' cx='310.5' cy='519.8' r='8.7'/><circle class='bag' cx='361.1' cy='519.8' r='8.7'/><rect class='furn' x='426.9' y='505.3' width='20.2' height='19.6'/><circle class='seated' cx='437.0' cy='515.2' r='11.5'/><circle class='bag' cx='411.7' cy='519.8' r='8.7'/><circle class='bag' cx='462.3' cy='519.8' r='8.7'/><rect class='furn' x='123.3' y='394.9' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='404.8' r='11.5'/><circle class='bag' cx='108.1' cy='409.4' r='8.7'/><circle class='bag' cx='158.7' cy='409.4' r='8.7'/><rect class='furn' x='224.5' y='394.9' width='20.2' height='19.6'/><circle class='seated' cx='234.6' cy='404.8' r='11.5'/><circle class='bag' cx='209.3' cy='409.4' r='8.7'/><circle class='bag' cx='259.9' cy='409.4' r='8.7'/><rect class='furn' x='325.7' y='394.9' width='20.2' height='19.6'/><circle class='seated' cx='335.8' cy='404.8' r='11.5'/><circle class='bag' cx='310.5' cy='409.4' r='8.7'/><circle class='bag' cx='361.1' cy='409.4' r='8.7'/><rect class='furn' x='426.9' y='394.9' width='20.2' height='19.6'/><circle class='seated' cx='437.0' cy='404.8' r='11.5'/><circle class='bag' cx='411.7' cy='409.4' r='8.7'/><circle class='bag' cx='462.3' cy='409.4' r='8.7'/><rect class='furn' x='123.3' y='284.5' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='294.4' r='11.5'/><circle class='bag' cx='108.1' cy='299.0' r='8.7'/><circle class='bag' cx='158.7' cy='299.0' r='8.7'/><rect class='furn' x='224.5' y='284.5' width='20.2' height='19.6'/><circle class='seated' cx='234.6' cy='294.4' r='11.5'/><circle class='bag' cx='209.3' cy='299.0' r='8.7'/><circle class='bag' cx='259.9' cy='299.0' r='8.7'/><rect class='furn' x='325.7' y='284.5' width='20.2' height='19.6'/><circle class='seated' cx='335.8' cy='294.4' r='11.5'/><circle class='bag' cx='310.5' cy='299.0' r='8.7'/><circle class='bag' cx='361.1' cy='299.0' r='8.7'/><rect class='furn' x='426.9' y='284.5' width='20.2' height='19.6'/><circle class='seated' cx='437.0' cy='294.4' r='11.5'/><circle class='bag' cx='411.7' cy='299.0' r='8.7'/><circle class='bag' cx='462.3' cy='299.0' r='8.7'/><rect class='furn' x='123.3' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='133.4' cy='184.0' r='11.5'/><circle class='bag' cx='108.1' cy='188.6' r='8.7'/><circle class='bag' cx='158.7' cy='188.6' r='8.7'/><rect class='furn' x='224.5' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='234.6' cy='184.0' r='11.5'/><circle class='bag' cx='209.3' cy='188.6' r='8.7'/><circle class='bag' cx='259.9' cy='188.6' r='8.7'/><rect class='furn' x='325.7' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='335.8' cy='184.0' r='11.5'/><circle class='bag' cx='310.5' cy='188.6' r='8.7'/><circle class='bag' cx='361.1' cy='188.6' r='8.7'/><rect class='furn' x='426.9' y='174.1' width='20.2' height='19.6'/><circle class='seated' cx='437.0' cy='184.0' r='11.5'/><circle class='bag' cx='411.7' cy='188.6' r='8.7'/><circle class='bag' cx='462.3' cy='188.6' r='8.7'/><rect class='furn' x='241.0' y='571.6' width='88.3' height='38.0'/><rect class='furn' x='188.6' y='687.7' width='193.2' height='9.2'/><rect class='furn' x='23.0' y='606.1' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='578.5' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='550.9' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='523.3' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='495.7' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='468.1' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='440.5' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='412.9' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='385.3' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='357.7' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='330.1' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='302.5' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='274.9' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='247.3' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='219.7' width='1.8' height='2.3'/><rect class='furn' x='23.0' y='192.1' width='1.8' height='2.3'/><rect class='oldwall' x='40.3' y='92.5' width='48.3' height='6.4'/><circle class='standing' cx='285.2' cy='319.7' r='15.6'/><circle class='standing' cx='285.2' cy='266.8' r='15.6'/><polyline class='old' points='285.2,372.6 285.2,372.6 285.2,128.8 184.0,128.8 184.0,184.0 133.4,184.0'/><circle class='old-end' cx='133.4' cy='184.0' r='15.6'/><polyline class='new' points='285.2,372.6 285.2,368.0 184.0,368.0 184.0,128.8 133.4,128.8 133.4,184.0'/><circle class='new-end' cx='133.4' cy='184.0' r='15.6'/><circle class='hit' cx='285.2' cy='319.6' r='15.6'/></svg>
+        <figcaption><b>National, tablet: admitted to a back-row desk.</b> Before: back up the aisle through the queue. After: across to the next aisle, round the queue, and into the desk from behind.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>How they walk now</h2>
+    </div>
+    <ul class="notes">
+      <li><b>Lanes.</b> Every walk follows the room's clear floor: the aisles, the gap behind each row (half way between
+        the seated backs and the next row's desks), the cross-aisle at the back, and the door lane through the middle of
+        the doorway. The shortest way along them is taken. Every room's lanes are worked out from its seats, so all eight
+        rooms and both devices get theirs.</li>
+      <li><b>Out of a desk backwards.</b> A student leaves their desk straight back into the gap behind their row, and
+        comes into a desk the same way.</li>
+      <li><b>Past people standing.</b> Somebody leaving the check-in spot does not take a lane past the people queuing if
+        there is another: the next aisle, or, in rooms of long tables where the check-in spot is on a side aisle, a
+        passing lane between the queue and the wall. The Eastgate coat rail moved to the right wall to make room for it.</li>
+      <li><b>Waiting and going round.</b> A walker never steps into somebody walking or standing. Held up for half a second,
+        it looks for another way round them. Of two people in each other's way, only the one who set off later turns.
+        After 2.5 s it walks on, so the room can never stall.</li>
+      <li><b>The doorway, one way at a time.</b> People going the same way follow each other through. Somebody coming in
+        waits outside, out of sight, while somebody goes out, and the other way round.</li>
+      <li><b>The body over its root.</b> The standing and walking poses now draw the body over the point the walk plans
+        (0.001 m ahead on average, measured), blended in as the student stands up. Seated poses are unchanged.</li>
+    </ul>
   </section>
 
   <section>
@@ -265,19 +297,39 @@ figcaption b { color: var(--ink); font-weight: 600; }
       <h2>The door</h2>
     </div>
     <ul class="notes">
-      <li><b>Held open, not set open.</b> The door is open while anyone holds it open and closed when nobody does. The
-        admission holds it during admission. The walk-out holds it from the moment of removal until the student is gone.
-        Neither can close it on the other.</li>
-      <li><b>Open in time.</b> Standing up takes 0.6 s and the shortest walk to the doorway is about 2.7 m, so the door
-        (a 0.7 s swing) is always fully open before anyone reaches it.</li>
-      <li><b>The bell.</b> If the exam ends while someone is walking out, they are out at once, as before, and the door
-        is let go.</li>
-      <li><b>Bathroom trips do not use the door.</b> A student who goes out to the bathroom still disappears where they
-        stand, by design: being away is about presence, not location. Only a removal goes through the door.</li>
-      <li><b>Unchanged.</b> The student is marked removed the moment the supervisor decides, cannot be tapped while
-        walking out, and is never walked out again after loading a save. With Reduce motion on there is no walk and the
-        door stays shut.</li>
+      <li><b>A real doorway.</b> The back wall is built either side of a 0.92 m opening and above it. The door's slab
+        became two jambs and a head, and the leaf and handle hang from a hinge on the left.</li>
+      <li><b>Open before anyone gets there.</b> A walker asks for the door a few steps ahead: its pace times the 0.45 s
+        swing, plus the leaf's reach. Nobody may be where the leaf swings, or in the doorway, unless it is wide open. If
+        they arrive early they wait there. Checked every frame from every seat, at 60 and 10 frames a second.</li>
+      <li><b>Closed behind them.</b> When nobody holds it, it swings shut after 0.3 s. Somebody leaving steps out and right
+        along the corridor, beyond the leaf's reach, before they are switched off.</li>
+      <li><b>It swings out.</b> The leaf opens into the corridor, so it never sweeps the room. Wide open it lies along the
+        corridor's left side, with 8 cm to the walker's shoulder.</li>
+      <li><b>Reduce motion.</b> The door is simply open or shut, with no swing. A removal still has no walk, as before.</li>
     </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>How long the walks take</h2>
+      <p class="muted">Seconds at the game's walking speeds (2.6 m/s shown out, 2.2 m/s otherwise), the mean over every
+        room, device and seat. No gameplay rule reads these: a removal, a relocation and an admission are decided in the
+        simulation at once. Bathroom trips have no walk.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Walk</th><th class="num">Before</th><th class="num">After</th><th class="num">Change</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Removed (with the 0.6 s stand)</td><td class="num">4.67</td><td class="num">4.83</td><td class="num">+3%</td><td>Every room's mean within −1% to +6%. The door is 1 m further than the old end point.</td></tr>
+        <tr><td>Moved to the free desk</td><td class="num">5.53</td><td class="num">3.92</td><td class="num">−29%</td><td>The old route changed aisles only behind the back row; the row gaps are shorter.</td></tr>
+        <tr><td>Admitted to a desk</td><td class="num">4.00</td><td class="num">3.51</td><td class="num">−12%</td><td>Shorter lanes, longer only where the queue is in the way.</td></tr>
+        <tr><td>Turned away</td><td class="num">3.89</td><td class="num">5.35</td><td class="num">+38%</td><td>The old walk went through the queue; this one goes round it.</td></tr>
+        <tr><td>First person in</td><td class="num">3.68</td><td class="num">4.53</td><td class="num">+23%</td><td>They used to appear inside the room. Now they come through the door.</td></tr>
+        <tr><td>Next person up after a decision</td><td class="num">5.51</td><td class="num">0.52</td><td class="num">−91%</td><td>The walk back to the door is gone: they step up 1.15 m.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">The door's stamp is on screen for 0.94 s after a decision. The next person is now at the desk after
+      0.52 s, before their card arrives; before, the card waited 3.3 to 7.4 s for them.</p>
   </section>
 
   <section>
@@ -285,19 +337,37 @@ figcaption b { color: var(--ink); font-weight: 600; }
       <h2>Tests</h2>
     </div>
     <ul class="notes">
-      <li><b>From every seat, every bag case.</b> Every body position on the way out stays 0.2 m clear of every desk, every
-        other chair and its sitter, every bag, the teacher's desk, the side and front walls and the open door leaf. It meets
-        the back wall only at the doorway's centre line and ends with the whole body behind the wall.</li>
-      <li><b>The live walk.</b> Driving the real walk-out tick by tick from every seat, the student's root + 0.25 m stays on
-        that route and clear of the same things.</li>
-      <li><b>The door.</b> Held open from removal until the student is gone, then let go; never closed on the admission; let
-        go at the bell. A second removal waits for the first.</li>
-      <li><b>In the real room.</b> Booting the classroom and removing students one after another, every frame: the walking
-        student's hips never cross the wall except in the doorway, never enter a desk or a bag, and never come within 0.45 m
-        of another student. The door is fully open whenever they are near it, the body is switched off only behind the wall,
-        and the door is fully closed 1.5 s after they are gone.</li>
-      <li><b>Nothing else moved.</b> The full EditMode suite passes, and so do the admission queue, the door, the bathroom,
-        presence, seat-move and relocation scene tests.</li>
+      <li><b>Every walk clears everything</b> (<code>RoomWalkClearanceTests</code>): the 1,920 walks above, against
+        everything in the room. The same check of the old routes finds 1,882 touching.</li>
+      <li><b>The built room is the measured room</b> (<code>WalkDoorTests</code>): every renderer the room builder makes at
+        body height lies inside one of the footprints the clearance test uses, in every room on both devices.</li>
+      <li><b>The door before the body</b> (<code>WalkDoorTests</code>): a removal from every seat of every room, at 60 and
+        10 frames a second. Wide open whenever the body is in its swing, through the middle of the doorway, shut behind
+        them, nobody still holding it.</li>
+      <li><b>One way at a time, and nobody through anybody</b> (<code>WalkDoorTests</code>): somebody coming in and somebody
+        going out meet at the door. A walker waits for somebody standing in its way, and is never stopped for good.</li>
+      <li><b>In the real room</b> (<code>WalkPathSceneTests</code>): a whole admission with a rejection, then a removal, in
+        the Classroom scene. On every frame: no body in a wall, desk or the door, nobody in anybody, nobody in the doorway
+        unless the door is wide open. The next person reaches the desk within the stamp's time plus 1.5 s; the walking body
+        is over its root.</li>
+      <li><b>Everything else</b>: the full EditMode suite (2,506 tests, 0 failed, 211 skipped) and the full PlayMode suite
+        (110 tests, 74 passed, 0 failed, 36 skipped (the explicit capture tests)) pass. No fingerprint changed.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Not covered</h2>
+    </div>
+    <ul class="notes">
+      <li><b>Bathroom trips and the end of the exam have no walk.</b> A student going to the bathroom switches off where
+        they sit and comes back at their desk, and at the bell everybody stays seated. Nothing walks, so nothing collides.
+        Giving them a walk would be a new feature.</li>
+      <li><b>One room on the phone.</b> The phone check was in Kingsley's room only; every room was checked in the
+        editor.</li>
+      <li><b>Head-on in an aisle.</b> If two walkers meet head-on and neither can find another way round, they walk on
+        after 2.5 s. No walk in the tested set does this.</li>
+      <li><b>Own chair.</b> Standing up and sitting down still pass the student's own chair, as they always have.</li>
     </ul>
   </section>
 </div>
