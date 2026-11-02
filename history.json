@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-11-02",
+    "author": "ardakabadayi",
+    "slug": "ui-qa-playthrough",
+    "change": "Every finding now shows how the game behaves after the fixes (29 fixed, 4 partly fixed), with after screenshots from the phone and the editor and a summary at the top."
+  },
+  {
     "date": "2026-11-01",
     "author": "ardakabadayi",
     "slug": "classroom-door",
