@@ -2,6 +2,12 @@
   {
     "date": "2026-11-01",
     "author": "ardakabadayi",
+    "slug": "ui-qa-playthrough",
+    "change": "Added the UI QA Playthrough: a new player's pass through the overhauled UI on a Galaxy A15, 33 ranked findings with screenshots, clips and fixes."
+  },
+  {
+    "date": "2026-11-01",
+    "author": "ardakabadayi",
     "slug": "calm-students",
     "change": "Added the Calm Students report: why students were always moving, the fix, before and after numbers and phone clips."
   },

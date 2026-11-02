@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UI QA Playthrough</title>
+<meta name="description" content="A first-time player's pass through the overhauled UI on a Galaxy A15: confusing screens, missing facts, visual bugs and charm gaps, ranked with fixes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec;
+  --high: #b3412f; --high-soft: #f7dfda; --med: #a8661a; --med-soft: #f6e8d3;
+  --low: #3b6fb6; --low-soft: #dde8f6; --pol: #56666c; --pol-soft: #e6ebed; --blk: #7a1f12;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38;
+    --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16;
+    --low: #7fa9e8; --low-soft: #1b2a40; --pol: #94a5ab; --pol-soft: #233034; --blk: #ff9a85; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38;
+  --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16;
+  --low: #7fa9e8; --low-soft: #1b2a40; --pol: #94a5ab; --pol-soft: #233034; --blk: #ff9a85; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.82em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 18px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; justify-items: start; }
+.stat b { font-family: var(--display); font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+.sev { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+.sev-blocker { background: var(--high-soft); color: var(--blk); }
+.sev-high { background: var(--high-soft); color: var(--high); }
+.sev-medium { background: var(--med-soft); color: var(--med); }
+.sev-low { background: var(--low-soft); color: var(--low); }
+.sev-polish { background: var(--pol-soft); color: var(--pol); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: inherit; font-size: 0.9rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.list { display: grid; gap: 14px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+.finding[data-sev="high"] { border-left: 4px solid var(--high); }
+.finding[data-sev="medium"] { border-left: 4px solid var(--med); }
+.finding[data-sev="low"] { border-left: 4px solid var(--low); }
+.finding[data-sev="polish"] { border-left: 4px solid var(--pol); }
+.fhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.num { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.fbody { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.ftext { display: grid; gap: 8px; }
+.ftext p { font-size: 0.97rem; }
+.fix { color: var(--accent); }
+.files { font-size: 0.8rem; color: var(--muted); }
+.pics { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 360px; }
+.pics img { width: 110px; height: auto; border-radius: 8px; border: 1px solid var(--line); display: block; }
+.pics a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+@media (max-width: 680px) { .fbody { grid-template-columns: 1fr; } .pics { justify-content: flex-start; max-width: none; } .pics img { width: 96px; } }
+.clips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 300px)); gap: 16px; }
+figure { margin: 0; display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+video { width: 100%; height: auto; border-radius: 6px; background: #0b1220; display: block; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · look &amp; feel · fresh-eyes QA</span>
+    <h1>UI QA Playthrough</h1>
+    <p class="lede">I played the overhauled UI as someone who has never seen the game. I started a new career on the Galaxy A15
+      and played nine exams at Maple Elementary, using the development build's "End exam (dev)" button to move faster. Below are
+      the places a new player gets confused, misses a fact they need, or sees something broken or plain, ranked by severity,
+      each with a one-line fix. Nothing here blocks play. The high findings are a raw id on screen, three critical facts that are
+      missing or misleading, and two screens where the next step isn't clear.</p>
+  </header>
+
+  <section>
+    <div class="stats"><div class="stat"><b>0</b><span class="sev sev-blocker">blocker</span></div><div class="stat"><b>7</b><span class="sev sev-high">high</span></div><div class="stat"><b>15</b><span class="sev sev-medium">medium</span></div><div class="stat"><b>8</b><span class="sev sev-low">low</span></div><div class="stat"><b>3</b><span class="sev sev-polish">polish</span></div></div>
+  </section>
+
+  <section>
+    <h2>What I covered</h2>
+    <div class="cards">
+      <div class="card"><h3>Played on the phone</h3><ul>
+        <li>Title, a new career, the three intro cards and the first hub</li>
+        <li>Rules, with a row opened</li>
+        <li>Exams 1–9: the room, the HUD, candidate panel, Observe, Warn, the Replay tool, pause, the bell, result cards</li>
+        <li>The door in exams 3–9, including a turn-away</li>
+        <li>Events: Unwell (took a pill), Car trouble twice (couldn't afford it, then paid), A second room (accepted), an admissions audit, probation</li>
+        <li>Career, Shop (bought Pills), Wardrobe (tried on the Navy Shirt), Settings: Light and back, Large text, Reduce motion</li>
+      </ul></div>
+      <div class="card"><h3>Not reached live</h3><ul>
+        <li>No promotion offer: reputation went down to 34 after the audit, and Riverside needs 46. The crest card is judged from the
+          Phase 3 capture (finding #31).</li>
+        <li>No confiscation came up in my exams (no phone or notes in the open while I watched).</li>
+      </ul></div>
+      <div class="card"><h3>Build and device</h3><ul>
+        <li>Development APK, the same tree as main 5c6d204 (the calm-students merge), installed on a Galaxy A15 at 1080 × 2340</li>
+        <li>The player's own save was backed up first and restored afterwards with matching checksums. No save data is in this report.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Findings</h2>
+    <div class="filters" role="group" aria-label="Filter by severity">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="high" aria-pressed="false">High</button>
+      <button type="button" data-f="medium" aria-pressed="false">Medium</button>
+      <button type="button" data-f="low" aria-pressed="false">Low</button>
+      <button type="button" data-f="polish" aria-pressed="false">Polish</button>
+    </div>
+    <div class="list">
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#1</span><h3>Result card (money)</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> After covering a second room, the ledger line reads <code>cover_shift</code> +70, the raw internal reason id.</p>
+          <p><b>Why it matters.</b> Looks broken, and the player cannot tell what the 70 coins were for. The same gap hits the clean-record bonus (<code>performance_bonus</code>), which has no player text either.</p>
+          <p class="fix"><b>Fix.</b> Add Cover shift and Clean-record bonus to <code>GameText.ReasonText</code>, and make its default case never return the raw id.</p>
+          <p class="files"><code>82_ex7_result.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/82_ex7_result.jpg"><img src="img/82_ex7_result.jpg" alt="Result card (money): screenshot 82_ex7_result" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#2</span><h3>Shop and Wardrobe item sheet</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Buying shows "Leaves 76. Keep 80 for bills." Two exams later the result card takes <b>Monthly expenses −150</b>. The 80 is really the surprise reserve (car repair, medicine). Before the overhaul it said "Keep some coins for emergencies: about 80 covers surprises like a car repair or medicine at the door."</p>
+          <p><b>Why it matters.</b> "Bills" now reads as the monthly bill, so a new player believes 80 is safe, then sees a 150 bill nobody mentioned. This is a critical fact that got lost when the text was shortened.</p>
+          <p class="fix"><b>Fix.</b> Say "Keep 80 for surprises" and show the next monthly bill ("150 due after exam 8") somewhere on the hub or in the Career screen.</p>
+          <p class="files"><code>30_bought.jpg</code>, <code>61_ex4_result.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/30_bought.jpg"><img src="img/30_bought.jpg" alt="Shop and Wardrobe item sheet: screenshot 30_bought" loading="lazy"></a><a href="img/61_ex4_result.jpg"><img src="img/61_ex4_result.jpg" alt="Shop and Wardrobe item sheet: screenshot 61_ex4_result" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#3</span><h3>Car trouble (morning event)</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> With 53 coins, "Fix it 80" is a slightly darker blue. Tapping it does nothing, and the card doesn't show your balance or say you're short.</p>
+          <p><b>Why it matters.</b> The player taps, nothing happens, and they think the game is broken. They also cannot see their coins to understand why.</p>
+          <p class="fix"><b>Fix.</b> Disable it visibly the way the Shop does, with a "27 short" chip or a line saying "You have 53".</p>
+          <p class="files"><code>63_ex5_start.jpg</code>, <code>64_car_fix_tap.jpg</code>, <code>84_ex8_a.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/63_ex5_start.jpg"><img src="img/63_ex5_start.jpg" alt="Car trouble (morning event): screenshot 63_ex5_start" loading="lazy"></a><a href="img/64_car_fix_tap.jpg"><img src="img/64_car_fix_tap.jpg" alt="Car trouble (morning event): screenshot 64_car_fix_tap" loading="lazy"></a><a href="img/84_ex8_a.jpg"><img src="img/84_ex8_a.jpg" alt="Car trouble (morning event): screenshot 84_ex8_a" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#4</span><h3>Hub after an audit (probation)</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> One admissions audit (−7) sent reputation to 34 and started probation. The only signal is the Career tile's orange subtitle "Probation: 3 left". No card says what probation is or what happens if you fail it.</p>
+          <p><b>Why it matters.</b> Probation can end the career, but a new player won't notice it, or will read "3 left" as 3 of something good.</p>
+          <p class="fix"><b>Fix.</b> Show a one-time card when probation starts: what it is, "3 clean exams", and what happens if one goes wrong.</p>
+          <p class="files"><code>76_next.jpg</code>, <code>77_career_probation.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/76_next.jpg"><img src="img/76_next.jpg" alt="Hub after an audit (probation): screenshot 76_next" loading="lazy"></a><a href="img/77_career_probation.jpg"><img src="img/77_career_probation.jpg" alt="Hub after an audit (probation): screenshot 77_career_probation" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#5</span><h3>Pause</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Pause is the full Settings page. The only way back to the exam is the small × at the top left. The one wide, coloured button on the page, at the bottom, is the red "Abandon career".</p>
+          <p><b>Why it matters.</b> Every mobile player looks for a big Resume. Here the eye lands on the destructive action, while the room waits behind.</p>
+          <p class="fix"><b>Fix.</b> Add a primary "Resume" button at the top or bottom, and move Abandon career behind a smaller row.</p>
+          <p class="files"><code>17_pause.jpg</code>, <code>18_pause_light2.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/17_pause.jpg"><img src="img/17_pause.jpg" alt="Pause: screenshot 17_pause" loading="lazy"></a><a href="img/18_pause_light2.jpg"><img src="img/18_pause_light2.jpg" alt="Pause: screenshot 18_pause_light2" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#6</span><h3>Hub tip strip</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The hub's tip strip shows lessons written for a moment in the room, before the exam starts: "A prohibited item is out in the open. You can take it.", "A raised hand won't wait forever; go over and ask.", "Tap the floor to walk…".</p>
+          <p><b>Why it matters.</b> On the hub, nothing is out in the open and there is no floor. The player can't connect the tip to anything, so they learn to ignore the strip.</p>
+          <p class="fix"><b>Fix.</b> Rephrase the brief tips as advice ("If a banned item is out in the open, you can take it"), or show them as the moment happens in the room.</p>
+          <p class="files"><code>06_after_intro.jpg</code>, <code>54_after3.jpg</code>, <code>42_hub_large.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/06_after_intro.jpg"><img src="img/06_after_intro.jpg" alt="Hub tip strip: screenshot 06_after_intro" loading="lazy"></a><a href="img/54_after3.jpg"><img src="img/54_after3.jpg" alt="Hub tip strip: screenshot 54_after3" loading="lazy"></a><a href="img/42_hub_large.jpg"><img src="img/42_hub_large.jpg" alt="Hub tip strip: screenshot 42_hub_large" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="high">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">#7</span><h3>Door (admission)</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> After each decision the next ID card appears, but Admit and Turn away stay dimmed for about 3.5 s while the candidate walks up behind the full-screen card. Taps in that window are dropped silently. In my runs, 2 of 4 taps at a 3.5 s pace did nothing.</p>
+          <p><b>Why it matters.</b> The buttons look dead and the reason is invisible. A player who reads fast taps and gets nothing back.</p>
+          <p class="fix"><b>Fix.</b> Show the walk-up ("Next person is coming…" or a small progress ring on the buttons), or shorten the lock to the stamp.</p>
+          <p class="files"><code>49_adm4.jpg</code>, <code>66_ex5_room.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/49_adm4.jpg"><img src="img/49_adm4.jpg" alt="Door (admission): screenshot 49_adm4" loading="lazy"></a><a href="img/66_ex5_room.jpg"><img src="img/66_ex5_room.jpg" alt="Door (admission): screenshot 66_ex5_room" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#8</span><h3>Room: replay and feedback text</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The Replay tool says "Merve Polat – leaning toward the next desk." But nobody in the room has a name over them, so you have to tap each person to find Merve.</p>
+          <p><b>Why it matters.</b> The clue can't be acted on in time, so a paid tool feels useless.</p>
+          <p class="fix"><b>Fix.</b> Add the desk to the line ("Merve Polat, row 1 left"), or briefly ring that candidate in the world.</p>
+          <p class="files"><code>52_replay_a.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/52_replay_a.jpg"><img src="img/52_replay_a.jpg" alt="Room: replay and feedback text: screenshot 52_replay_a" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#9</span><h3>Room: tool button</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> From exam 3, a round clock-arrow icon with a blue "2" badge appears at the bottom right. It has no label, and nothing introduced it.</p>
+          <p><b>Why it matters.</b> A new player doesn't know it is Replay, what it does, or that the 2 is uses left.</p>
+          <p class="fix"><b>Fix.</b> Label it once ("Replay · 2") or show a one-time hint the first time it appears.</p>
+          <p class="files"><code>51_ex3_room2.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/51_ex3_room2.jpg"><img src="img/51_ex3_room2.jpg" alt="Room: tool button: screenshot 51_ex3_room2" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#10</span><h3>First exams: rules before the room</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The first two exams go straight from "Start exam" into a running room with no brief. The allowed items appear only on the Rules tile ("1 item allowed"). "Before you begin" with the rule chips appears only when a condition applies (worn out).</p>
+          <p><b>Why it matters.</b> A new player starts the first exam without seeing what is allowed, though that decides every confiscation.</p>
+          <p class="fix"><b>Fix.</b> Show the "Before you begin" card (rule chips plus "Open the doors" or "Start") before every exam, or at least the first few.</p>
+          <p class="files"><code>10_brief.jpg</code>, <code>79_after_offer.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/10_brief.jpg"><img src="img/10_brief.jpg" alt="First exams: rules before the room: screenshot 10_brief" loading="lazy"></a><a href="img/79_after_offer.jpg"><img src="img/79_after_offer.jpg" alt="First exams: rules before the room: screenshot 79_after_offer" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#11</span><h3>Career screen</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Reputation reads "37 · Watched", schools need "Standing 46", and the next-school bar says "4 more exams here". After the audit it says "12 to go". These are two words for one number, a tier word that is never explained, and a unit that changes without a label.</p>
+          <p><b>Why it matters.</b> The player can't tell whether a promotion needs more exams or more reputation, which is exactly "why no promotion came".</p>
+          <p class="fix"><b>Fix.</b> Use one word (Reputation) everywhere, write "12 reputation to Riverside", and explain "Watched" in one line.</p>
+          <p class="files"><code>36_career.jpg</code>, <code>77_career_probation.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/36_career.jpg"><img src="img/36_career.jpg" alt="Career screen: screenshot 36_career" loading="lazy"></a><a href="img/77_career_probation.jpg"><img src="img/77_career_probation.jpg" alt="Career screen: screenshot 77_career_probation" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#12</span><h3>Shop and Wardrobe tiles</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Items you don't own sit under a grey veil that changes their colour: the Navy Shirt thumbnail looks lavender and Charcoal looks pale grey, though on the body they are navy and charcoal. Pills you can afford look just as greyed out as locked items.</p>
+          <p><b>Why it matters.</b> You choose clothes by colour, so a lavender "Navy" misleads, and affordable items look unavailable.</p>
+          <p class="fix"><b>Fix.</b> Show true colours with a small price or lock badge, and keep the veil for locked items only.</p>
+          <p class="files"><code>31_wardrobe.jpg</code>, <code>32_wardrobe_try.jpg</code>, <code>28_shop_med.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/31_wardrobe.jpg"><img src="img/31_wardrobe.jpg" alt="Shop and Wardrobe tiles: screenshot 31_wardrobe" loading="lazy"></a><a href="img/32_wardrobe_try.jpg"><img src="img/32_wardrobe_try.jpg" alt="Shop and Wardrobe tiles: screenshot 32_wardrobe_try" loading="lazy"></a><a href="img/28_shop_med.jpg"><img src="img/28_shop_med.jpg" alt="Shop and Wardrobe tiles: screenshot 28_shop_med" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#13</span><h3>Shop tile</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The Phone Detector tile says "290 short". The price (400) and what it does ("Finds phones nearby. A lead, not proof. 2 uses per exam.") appear only after tapping it.</p>
+          <p><b>Why it matters.</b> Browsing, the player sees neither the cost nor the purpose of the most important purchase.</p>
+          <p class="fix"><b>Fix.</b> Show the price on the tile, with "290 short" as a second line, and one short purpose line under the name.</p>
+          <p class="files"><code>26_shop_light.jpg</code>, <code>27_shop_detector.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/26_shop_light.jpg"><img src="img/26_shop_light.jpg" alt="Shop tile: screenshot 26_shop_light" loading="lazy"></a><a href="img/27_shop_detector.jpg"><img src="img/27_shop_detector.jpg" alt="Shop tile: screenshot 27_shop_detector" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#14</span><h3>Light: disabled Buy</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> On the disabled Buy button in Light, the coin icon renders as a solid black dot ("Buy ● 400"). The enabled button shows the gold coin.</p>
+          <p><b>Why it matters.</b> It looks like a missing image or a stray glyph.</p>
+          <p class="fix"><b>Fix.</b> Keep the coin's own colours when the button is disabled (fade it with alpha, don't tint it to text colour).</p>
+          <p class="files"><code>27_shop_detector.jpg</code>, <code>29_pills_sheet.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/27_shop_detector.jpg"><img src="img/27_shop_detector.jpg" alt="Light: disabled Buy: screenshot 27_shop_detector" loading="lazy"></a><a href="img/29_pills_sheet.jpg"><img src="img/29_pills_sheet.jpg" alt="Light: disabled Buy: screenshot 29_pills_sheet" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#15</span><h3>Light: hub</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> In Light the school picture is washed out by a white gradient (the building looks ghosted), and the filled rating stars on the hub and in Career are black/brown instead of gold.</p>
+          <p><b>Why it matters.</b> The hub's hero image, the most charming thing on the screen, looks faded, and black stars read as "empty".</p>
+          <p class="fix"><b>Fix.</b> Fade to a coloured scrim (or none) in Light, and keep stars on the gold Reward role.</p>
+          <p class="files"><code>21_afterA.jpg</code>, <code>36_career.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/21_afterA.jpg"><img src="img/21_afterA.jpg" alt="Light: hub: screenshot 21_afterA" loading="lazy"></a><a href="img/36_career.jpg"><img src="img/36_career.jpg" alt="Light: hub: screenshot 36_career" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#16</span><h3>Admissions audit card</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "Wrong exam · Ayşe Bulut · Earlier: you let Ayşe Bulut into School Exam 5. · An audit flagged your admission of Ayşe Bulut. · ☆ −7". It doesn't say what was on her ID, and the name appears three times.</p>
+          <p><b>Why it matters.</b> The player is punished without learning what to check next time.</p>
+          <p class="fix"><b>Fix.</b> One line with the fact: "Her ID was for Maths 2, not School Exam 5." Label the chip "Reputation −7".</p>
+          <p class="files"><code>75_ex7_start.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/75_ex7_start.jpg"><img src="img/75_ex7_start.jpg" alt="Admissions audit card: screenshot 75_ex7_start" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#17</span><h3>Room: Warn without evidence</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Warn is a bright one-tap button even with "Nothing on record". Warning Tolga with no reason cost −3 reputation and "An intervention had little documented basis. It is on the record."</p>
+          <p><b>Why it matters.</b> The first exam punishes curiosity without warning first, and the result text is official jargon.</p>
+          <p class="fix"><b>Fix.</b> When there's nothing on record, have Warn ask once ("You've seen nothing yet. Warn anyway?"); result line: "You warned Tolga without a reason."</p>
+          <p class="files"><code>13_warn.jpg</code>, <code>20_endA.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/13_warn.jpg"><img src="img/13_warn.jpg" alt="Room: Warn without evidence: screenshot 13_warn" loading="lazy"></a><a href="img/20_endA.jpg"><img src="img/20_endA.jpg" alt="Room: Warn without evidence: screenshot 20_endA" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#18</span><h3>Result card text</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "Marking found misconduct that nobody recorded in the room" doesn't say who or what. "Nothing more today." sits under the title for no clear reason.</p>
+          <p><b>Why it matters.</b> A Mixed grade with no clue what was missed teaches nothing.</p>
+          <p class="fix"><b>Fix.</b> Name the desk or behaviour ("Row 2 copied; nobody noticed"), and drop "Nothing more today."</p>
+          <p class="files"><code>24_after_bell.jpg</code>, <code>73_ex6_result.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/24_after_bell.jpg"><img src="img/24_after_bell.jpg" alt="Result card text: screenshot 24_after_bell" loading="lazy"></a><a href="img/73_ex6_result.jpg"><img src="img/73_ex6_result.jpg" alt="Result card text: screenshot 73_ex6_result" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#19</span><h3>Door: the ID card</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The ID's date line has only a calendar icon, so you can't tell an expiry date from a birth date. Dates are US style (06/28/2027 next to "03/01/2026 today"). "In person" is a generic person icon, not a face, so you compare text with text.</p>
+          <p><b>Why it matters.</b> The core puzzle depends on reading the date and the face, and both are unclear.</p>
+          <p class="fix"><b>Fix.</b> Label the line "Expires 28 Jun 2027", use a month name, and put the candidate's portrait in the slot.</p>
+          <p class="files"><code>44_after_pill.jpg</code>, <code>48_adm3.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/44_after_pill.jpg"><img src="img/44_after_pill.jpg" alt="Door: the ID card: screenshot 44_after_pill" loading="lazy"></a><a href="img/48_adm3.jpg"><img src="img/48_adm3.jpg" alt="Door: the ID card: screenshot 48_adm3" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#20</span><h3>Result card and brief picture</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The card always shows the same dim high-school hall with blue chairs, even after an exam in Maple's bright yellow elementary room.</p>
+          <p><b>Why it matters.</b> The picture is back, but it doesn't match the room you just played, so it reads as stock art.</p>
+          <p class="fix"><b>Fix.</b> Use the current school's room render, or an image for each school tier.</p>
+          <p class="files"><code>53_ex3_result.jpg</code>, <code>14_floor.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/53_ex3_result.jpg"><img src="img/53_ex3_result.jpg" alt="Result card and brief picture: screenshot 53_ex3_result" loading="lazy"></a><a href="img/14_floor.jpg"><img src="img/14_floor.jpg" alt="Result card and brief picture: screenshot 14_floor" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#21</span><h3>Room: evidence chip</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> The evidence chip row under a candidate's name is sometimes missing (no "Nothing on record"), and the panel changes height. Seen after a theme switch and in a later exam.</p>
+          <p><b>Why it matters.</b> The panel layout jumps, and the player can't tell "nothing seen" from "not loaded".</p>
+          <p class="fix"><b>Fix.</b> Rebuild the chip row when the panel is rebuilt (reset <code>_evidenceSignature</code> on rebuild or theme change).</p>
+          <p class="files"><code>23_ex2_late.jpg</code>, <code>72_ex6_obs.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/23_ex2_late.jpg"><img src="img/23_ex2_late.jpg" alt="Room: evidence chip: screenshot 23_ex2_late" loading="lazy"></a><a href="img/72_ex6_obs.jpg"><img src="img/72_ex6_obs.jpg" alt="Room: evidence chip: screenshot 72_ex6_obs" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">#22</span><h3>Bell / Time&#x27;s up</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> When time runs out, a small "Time's up" pill appears over one desk for about 1 s, the candidate panel disappears, and the result card cuts in.</p>
+          <p><b>Why it matters.</b> The end of the exam, the biggest moment of the loop, is barely marked.</p>
+          <p class="fix"><b>Fix.</b> A centred "Time's up" banner with the bell, held about 1.2 s before the card.</p>
+          <p class="files"><code>24_after_bell.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/24_after_bell.jpg"><img src="img/24_after_bell.jpg" alt="Bell / Time&#x27;s up: screenshot 24_after_bell" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#23</span><h3>Intro cards</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Three cards float on a black screen. Each repeats "Exam Supervisor" as its subtitle, there are no progress dots, and there is no picture.</p>
+          <p><b>Why it matters.</b> A plain first impression where the hub's art would sell the game.</p>
+          <p class="fix"><b>Fix.</b> Add the classroom or school art behind the card and 1/3 dots, and drop the repeated subtitle.</p>
+          <p class="files"><code>03_intro1.jpg</code>, <code>05_intro3.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/03_intro1.jpg"><img src="img/03_intro1.jpg" alt="Intro cards: screenshot 03_intro1" loading="lazy"></a><a href="img/05_intro3.jpg"><img src="img/05_intro3.jpg" alt="Intro cards: screenshot 05_intro3" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#24</span><h3>Status-bar strip</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> On the event cards, Settings and the room, the top system-bar area shows the 3D world's beige or brown colour above a dark or light screen.</p>
+          <p><b>Why it matters.</b> A stray band at the top of otherwise polished screens.</p>
+          <p class="fix"><b>Fix.</b> Fill the safe-area strip with the screen's Background role.</p>
+          <p class="files"><code>43_ex3.jpg</code>, <code>87_settings_light_rm.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/43_ex3.jpg"><img src="img/43_ex3.jpg" alt="Status-bar strip: screenshot 43_ex3" loading="lazy"></a><a href="img/87_settings_light_rm.jpg"><img src="img/87_settings_light_rm.jpg" alt="Status-bar strip: screenshot 87_settings_light_rm" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#25</span><h3>Hub tiles</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Each tile has an icon at the top, about 70 px of empty space, then the title and subtitle at the bottom.</p>
+          <p><b>Why it matters.</b> The tiles look sparse, not "2026 charming".</p>
+          <p class="fix"><b>Fix.</b> Shorten the tiles or put a small illustration or progress in the gap.</p>
+          <p class="files"><code>06_after_intro.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/06_after_intro.jpg"><img src="img/06_after_intro.jpg" alt="Hub tiles: screenshot 06_after_intro" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#26</span><h3>Morning event chips</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "+ 1 at home" on the Unwell card uses a plus sign for a stock count. The offer's reward "+70" and the car trouble's cost "80" use the same gold tag.</p>
+          <p><b>Why it matters.</b> "+1" reads as "you gain a pill". A cost and a reward look identical.</p>
+          <p class="fix"><b>Fix.</b> "1 pill at home" with a pill icon, and a red-edged "−80" for costs.</p>
+          <p class="files"><code>43_ex3.jpg</code>, <code>78_ex7_a.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/43_ex3.jpg"><img src="img/43_ex3.jpg" alt="Morning event chips: screenshot 43_ex3" loading="lazy"></a><a href="img/78_ex7_a.jpg"><img src="img/78_ex7_a.jpg" alt="Morning event chips: screenshot 78_ex7_a" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#27</span><h3>Offer: A second room</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "…but you'll be less sharp" doesn't say what that means in play (you see and hear less).</p>
+          <p><b>Why it matters.</b> The risk can't be weighed.</p>
+          <p class="fix"><b>Fix.</b> "…but you'll see and hear less in your own room."</p>
+          <p class="files"><code>78_ex7_a.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/78_ex7_a.jpg"><img src="img/78_ex7_a.jpg" alt="Offer: A second room: screenshot 78_ex7_a" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#28</span><h3>Result ledger: Shop purchases</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Pills bought in the Shop between exams appear as "Pills −17" on the next exam's result card.</p>
+          <p><b>Why it matters.</b> It reads as if the exam cost 17.</p>
+          <p class="fix"><b>Fix.</b> Leave shop purchases off the card, or group them as "Spent in the Shop".</p>
+          <p class="files"><code>53_ex3_result.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/53_ex3_result.jpg"><img src="img/53_ex3_result.jpg" alt="Result ledger: Shop purchases: screenshot 53_ex3_result" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#29</span><h3>Wardrobe layout</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "Mustard T-Shirt" wraps as "Mustard T-" / "Shirt", and the selected tab pill's width changes between Tops and Bottoms.</p>
+          <p><b>Why it matters.</b> Small signs of unfinished polish.</p>
+          <p class="fix"><b>Fix.</b> Use a non-breaking hyphen, and give the segment pills equal widths.</p>
+          <p class="files"><code>31_wardrobe.jpg</code>, <code>34_wardrobe_bottoms.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/31_wardrobe.jpg"><img src="img/31_wardrobe.jpg" alt="Wardrobe layout: screenshot 31_wardrobe" loading="lazy"></a><a href="img/34_wardrobe_bottoms.jpg"><img src="img/34_wardrobe_bottoms.jpg" alt="Wardrobe layout: screenshot 34_wardrobe_bottoms" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="low">
+      <div class="fhead"><span class="sev sev-low">low</span><span class="num">#30</span><h3>Light: door chips and disabled buttons</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> In Light the rule chips ("ID: expired OK") are grey, so they look disabled. The disabled Admit and Turn away are pastel and still look tappable.</p>
+          <p><b>Why it matters.</b> In Light it's hard to tell an active control from an inactive one.</p>
+          <p class="fix"><b>Fix.</b> Keep the green Success tint on the rule chips in Light, and fade disabled buttons with alpha only.</p>
+          <p class="files"><code>88_ex9_a.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/88_ex9_a.jpg"><img src="img/88_ex9_a.jpg" alt="Light: door chips and disabled buttons: screenshot 88_ex9_a" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="polish">
+      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">#31</span><h3>Crest card (Phase 3 capture, not reached live)</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> "CREST EARNED · Riverside Crest earned · Earned in 6 exams at Riverside. · Claim". "Earned" appears three times, and the card never says you can wear the crest.</p>
+          <p><b>Why it matters.</b> A reward moment that feels like a receipt.</p>
+          <p class="fix"><b>Fix.</b> "New crest! Wear it in the Wardrobe", with a shine on the badge.</p>
+          <p class="files"><code>p3-crest-award-dark-1080.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/p3-crest-award-dark-1080.jpg"><img src="img/p3-crest-award-dark-1080.jpg" alt="Crest card (Phase 3 capture, not reached live): screenshot p3-crest-award-dark-1080" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="polish">
+      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">#32</span><h3>Settings icons</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Text size and Reduce motion use the same monitor icon.</p>
+          <p><b>Why it matters.</b> The rows are harder to scan.</p>
+          <p class="fix"><b>Fix.</b> Use an "Aa" icon for Text size and a motion icon for Reduce motion.</p>
+          <p class="files"><code>17_pause.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/17_pause.jpg"><img src="img/17_pause.jpg" alt="Settings icons: screenshot 17_pause" loading="lazy"></a></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="polish">
+      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">#33</span><h3>Paying a cost</h3></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What I saw.</b> Fixing the car (80) or taking a pill gives no feedback: the card fades and the door opens, and your balance isn't shown. Reduce motion was on for the car payment.</p>
+          <p><b>Why it matters.</b> The player isn't sure the money was taken.</p>
+          <p class="fix"><b>Fix.</b> Show a brief −80 on the coin chip, even with Reduce motion on (as a fade).</p>
+          <p class="files"><code>85_after_fix.jpg</code></p>
+        </div>
+        <div class="pics"><a href="img/85_after_fix.jpg"><img src="img/85_after_fix.jpg" alt="Paying a cost: screenshot 85_after_fix" loading="lazy"></a></div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Clips</h2>
+    <div class="clips">
+      <figure><video src="vid/bell.mp4" controls muted playsinline preload="metadata"></video>
+        <figcaption><b>The bell.</b> The last 7 seconds of exam 2, then the result card. The small "Time's up" pill shows for about a
+          second over one desk (#22). The coin flight lands on the balance chip correctly.</figcaption></figure>
+      <figure><video src="vid/door.mp4" controls muted playsinline preload="metadata"></video>
+        <figcaption><b>The door lock.</b> Admit at 1 s stamps the card. The next card is up at 1.7 s, but its buttons stay dim until
+          about 5.3 s, and the tap at about 4 s is ignored (#7).</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>What already works</h2>
+    <div class="cards">
+      <div class="card"><p>The coin flight on the result card and in the Shop goes the right way (to the balance on payday, from the
+        balance when you buy), and the numbers count up.</p></div>
+      <div class="card"><p>The result card's picture and the car-trouble price (both fixed after the user's feedback) are present and
+        readable in Dark and Light.</p></div>
+      <div class="card"><p>Wardrobe try-on is instant and goes back when you close the sheet. Locked items say why ("Reach
+        Supervisor").</p></div>
+      <div class="card"><p>The Worn-out brief and the darkened edges of the room make the condition easy to feel.</p></div>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var items = document.querySelectorAll('.finding');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      buttons.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      items.forEach(function (it) { it.hidden = !(f === 'all' || it.getAttribute('data-sev') === f); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

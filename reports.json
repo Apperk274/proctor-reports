@@ -39,6 +39,12 @@
       "summary": "How fast careers climb, how easily they change schools, what they earn and when the store is bought, before and after the shipped Target tuning."
     },
     {
+      "slug": "ui-qa-playthrough",
+      "title": "UI QA Playthrough",
+      "category": "look-and-feel",
+      "summary": "A first-time player's run through the overhauled UI on a Galaxy A15, with 33 findings ranked by severity: confusion, missing facts, visual bugs and charm gaps, each with a fix."
+    },
+    {
       "slug": "ui-overhaul",
       "title": "UI Overhaul",
       "category": "look-and-feel",
