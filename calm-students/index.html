@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calm Students</title>
+<meta name="description" content="Why exam students were always moving, what changed so they mostly write, and the before and after measured in the simulation and on a Galaxy A15.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --good: #2f7d4f; --warn: #a8661a;
+  --still: #e3e9eb; --amb: #c98a2b; --sus: #3b6fb6; --vio: #b3412f;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f;
+    --still: #233034; --amb: #e0a24f; --sus: #6f9fe0; --vio: #e06a55; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f;
+  --still: #233034; --amb: #e0a24f; --sus: #6f9fe0; --vio: #e06a55; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 48px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 18px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; }
+.stat b { font-family: var(--display); font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 0.92rem; }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); white-space: nowrap; }
+th { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border-top: 0; }
+td.n { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.85rem; }
+.timeline { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; }
+.timeline svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.88rem; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.clips { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+figure { margin: 0; display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+video { width: 100%; height: auto; border-radius: 6px; background: #0b1220; display: block; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · classroom behaviour</span>
+    <h1>Calm Students</h1>
+    <p class="lede">Students in the exam room used to be busy all the time. Each one started a new visible gesture every five or
+      six seconds, and the animation stretched a short stretch into five seconds of arms in the air. Now students mostly
+      write. Gestures are rarer and shorter, and the things worth watching stand out. Cheating, raised hands and the sounds
+      the room makes are unchanged, and stillness gives nobody away: honest students and cheaters fidget at the same rate.</p>
+  </header>
+
+  <section>
+    <div class="stats">
+      <div class="stat"><b>37.7% → 16.7%</b><span>A Maple student's time spent visibly doing something</span></div>
+      <div class="stat"><b>30.2% → 10.8%</b><span>The same for a National tablet hall</span></div>
+      <div class="stat"><b>70% → 21%</b><span>Time two or more students move at once (tablet hall)</span></div>
+      <div class="stat"><b>5.4 s → 2.1 s</b><span>How long a stretch holds the body</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>What the room looks like now</h2></div>
+    <p class="muted">Recorded on a Galaxy A15 from the calm-students build: about 20 seconds of an exam at each school, starting right after admission. Nobody is
+      steered; this is the ordinary room. The frame rate held at 45 fps throughout, and logcat showed no errors from the game.</p>
+    <div class="clips">
+      <figure><video src="vid/maple.mp4" poster="img/maple-poster.jpg" controls muted loop playsinline preload="metadata"></video>
+        <figcaption><b>Maple Elementary</b>, 3 students. Everyone writes. A phone buzzes from rows 1–2 (the toast), and one student
+          reaches for the bag. Both are things worth walking over for.</figcaption></figure>
+      <figure><video src="vid/city-high.mp4" poster="img/city-high-poster.jpg" controls muted loop playsinline preload="metadata"></video>
+        <figcaption><b>City High</b>, 7 students. The calmest of the three. Movement shows in 7 of 19 seconds, and never more than one desk at a time.</figcaption></figure>
+      <figure><video src="vid/national.mp4" poster="img/national-poster.jpg" controls muted loop playsinline preload="metadata"></video>
+        <figcaption><b>National Examination Centre</b>, 9 students. Mostly heads down. A short stretch at about 2:08 is over in
+          about two seconds.</figcaption></figure>
+    </div>
+    <p class="muted">No animation pops. The largest single-frame change in each clip, below the timer, is the Buzz toast appearing.
+      Student motion never moved more than 0.3% of the room's pixels in one frame.</p>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>One exam, before and after</h2></div>
+    <p class="muted">The same exam seed, simulated with the old and new behaviour. Each row is a student and each column is half a
+      second of a 150-second exam. Blank means writing.</p>
+    <div class="legend"><span><i style="background:var(--still)"></i>writing</span><span><i style="background:var(--amb)"></i>ordinary or nervous gesture</span>
+      <span><i style="background:var(--sus)"></i>something worth a look (reach, glance, paper, whisper, hand)</span><span><i style="background:var(--vio)"></i>cheating</span></div>
+    <div class="timeline" id="tl"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Measured across many exams</h2></div>
+    <p class="muted">Each row is 640 exams in the real rooms, with the real cohorts and start spot, and the careful bot supervising.
+      "With the animation" adds the time a gesture's clip keeps playing after the simulation has moved on.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Room (mean students)</th><th>Visible, sim</th><th>Visible, with the animation</th><th>Anyone moving</th><th>Two or more moving</th><th>Good exams</th><th>Cheaters per exam</th></tr></thead>
+      <tbody>
+        <tr><td>Maple (3.1)</td><td class="n">37.7% → 16.7%</td><td class="n">58.4% → 25.1%</td><td class="n">70% → 37%</td><td class="n">29% → 9%</td><td class="n">98.6% → 99.4%</td><td class="n">0.47 → 0.46</td></tr>
+        <tr><td>City High (4.9)</td><td class="n">34.3% → 14.4%</td><td class="n">54.0% → 21.5%</td><td class="n">80% → 45%</td><td class="n">47% → 14%</td><td class="n">77.8% → 77.0%</td><td class="n">1.09 → 1.16</td></tr>
+        <tr><td>National, phone (6.3)</td><td class="n">31.2% → 12.7%</td><td class="n">50.2% → 19.1%</td><td class="n">84% → 49%</td><td class="n">53% → 17%</td><td class="n">71.1% → 73.0%</td><td class="n">1.38 → 1.31</td></tr>
+        <tr><td>National, tablet (8.7)</td><td class="n">30.2% → 10.8%</td><td class="n">49.5% → 16.5%</td><td class="n">91% → 56%</td><td class="n">70% → 21%</td><td class="n">57.2% → 58.4%</td><td class="n">1.48 → 1.48</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">A second seed block of 640 exams per room gives the same picture. The Good share moves by −4 to +2 points with
+      no consistent direction, so the difficulty for this bot is unchanged.</p>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Stillness is not a tell</h2></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Share of free time spent fidgeting</th><th>Honest students</th><th>Students who cheat that exam</th></tr></thead>
+      <tbody>
+        <tr><td>Before</td><td class="n">26.2–30.1%</td><td class="n">25.3–29.6%</td></tr>
+        <tr><td>After</td><td class="n">6.4–6.5%</td><td class="n">5.9–6.7%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">The rule is the same for everyone: it reads no personality and no guilt. It applies only to ordinary and
+      nervous gestures, never to anything a cheat or an innocent pocket, paper or whisper arc does. A test pins the equal
+      rates. Innocent glances (look around) are kept more common than the other gestures, so a glance stays ambiguous.</p>
+    <p class="muted">The sounds are unchanged. Buzzes and whispers come only from arcs this does not touch. A test replays exams
+      with the change on and off and finds every cheat and every buzz at the same instant. Only stretching scrapes a chair,
+      so the scrape's chance per second was raised to keep scrapes per exam where they were (0.44–1.47 heard, against 0.47–1.48 before).</p>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Why they were always moving, and what changed</h2></div>
+    <div class="cards">
+      <div class="card"><h3>Ordinary gestures were constant</h3>
+        <p>Stretching, fidgeting, checking the clock, drinking and looking around ran outside every rule that paces the room.
+          Each student rested only 1–3.5 s between them, and writing was a fifth of the choices.</p>
+        <p><b>Now:</b> 80% of those picks become writing (50% for look around). The ones that remain are 0.7× as long.</p></div>
+      <div class="card"><h3>The animation stretched them</h3>
+        <p>A stretch of 1–2 s played its whole 5.4 s clip. A third of the students cycled through an erasing clip, and idle
+          students swung their arms through a reading clip.</p>
+        <p><b>Now:</b> the stretch plays at 2.5× (about 2.1 s, the whole gesture). Writing uses only the two still writing clips,
+          and idle uses only the calm idle.</p></div>
+      <div class="card"><h3>Kept as they were</h3>
+        <ul><li>Every cheating route, the innocent pockets, papers and whispers, raised hands and bathroom requests</li>
+          <li>The room's pace for incidents (quiet spell and simultaneous incidents by room size)</li>
+          <li>Animation blend times: shorter fades were tried and made a raised hand drop 7–8 cm in one frame</li></ul></div>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  const data = {"national": {"before": ["aaaaaa....aaa...aaa.....aaa................aaaa.....aaa....aaa....aaaaa.............a................aa.............aa..............................aaaa.......aaa.....aaa......aaaa.....aaaa.....aa......aa.......aaaaaa....aaaa......................................aa......aaaaa................aaaaa...", "aaaa......aaaa......aa......aa..................aa.............aaa...aa..aa.......aa.......a....aaaaaa.....aaaaa..a....aaaaaa.....aaaaa.................aaaa.....aaaa....aa.....aa....SSSSS.......aaaa......aaa.....aaa..aaaa......aa......aaaa...aa....aaa....SSSSSS......aa...aaaaa.....aa.....aaa..aaa...", "aa.......aaaaaa...aa....aaaaa.................................SSS                                                  aaaa...aaaa....aaa..aaa......aaaaa.....aaaa......................aaa..........aaaa................aaaaa.....aaaa.......aaa......aaa.....aaaa...aa....aaa..............aaa.......aaaa....a", "SSS....aa.......aaaaa....aaaa..aaaaa.....aaaaaa.......aaaa...............SSSSS..............aaaa......aaa....SSSSSSSS........................aaaaaa...............aaaaa..aaaa...aaaaaa.............aaa....aaaaa...aaa......aa....aaa.......aaaaa....................aa....aa....aa.....a....aa...aaaaa......", "SSSSSSSSSSSSSSS........aaa...aaa....aaaaa.....aaaaa...aaaaa......aaa.....SSSSS.......aaaa.......aaaaa...aaaa.....aaaaaa.......aaaa.....aaa...............aaaa...........aa...................aa.......aaa.....................aaaaaa......aaa............aa....aaaaaa..........................aa.....aaaaaa", "SSSSSSSSSS...................aa...aaa.....................aa.....aaaa..............aaaa.......aa.....aaaa.....aa..aa......................aa...aa.......aa......aa..............aa...aaaa.......aa...aa....aa......aaaaa..SSSSSS.......aaaa............aaaaaa.....aaa...............................VVVVVVVa", "SSSSSaaaaaa....aaaaaa...............SSSSSSSS......aaa....aaaa.....aa..aaaaa.................................aaaaa.......aa..aaaa...aaa...aaaa....SSSSSSSSSSSS.........aaa.....aa......aaaaa......aaa..................aaaaSSSSSS................aaaaa......aaaaa....aaaa....aaa.....aa......aaa............a", "SSS...aaaa...a......aaaaa...aa......aaaaaa....aa....aa..................aa...............aa...aaaaa......aaa..aaaa...aa.....aa......aa..aaaa...a....aaaaa...aaa...aaaa....aaaaaa......aaaaa.....aa..................aaa..aa..aa..................aaa.....................aa.....aa.....aaa...........aa.....", "SSS....aa.......aaaa.....aaaaaa....aa...aaa......aa.................aaaa..aaaa.....aaa......aaaaaa..............aaa.....aaaa...aaaa...aaaa.................aa...aaa...aaaaa.....aa......aaaaaa....aaaa....aa.....aaa...aaaa.....aaa...............aaaaaa..aa...aaaa.......aaa...aaa........................."], "after": ["..........................a...aa.....................................aa....................SSSSSSSSSSS.............................SSSSS................aaaa...a............aaaa......................................................................aa.......SSSS.......................aaa...aa..SSSSSSSS", ".............................aaaa......aaaa..............aa..aaa................................aaaa...aaa............aa.........................aaa......................................................aaa............aaa...................................SS.......................................aaaa", "......................................SSSSS..................aSSSS                                                  ...........................aaa.....................SSSSSS............a.....aaaa.............................................................SS..........................................", "SSS...........................aaa................aa.....aa...................aaaa.............SSSSS.SS..........................................................................................aa.........aaa......................................SSSSS........SSS..................aa....................", "SSSSSSSSSSSSSSS....................................................aa.........................SSSSS.....aa.....................................aa...................................aa............................aa.........aa...aaa................aaa.......SSS..aaa...........aaaa....aaa...............", "SSSSSSSSSSSSSS...........................................aaaa.............VVVVVVVVV......                                                                                                                                                                                                                   ", "SSSSSaaa.....aaaa...aaaa...............aa......aaa..........................................SS...........................................aa..................................................................VVVVVVVVVVVVV.........                                                                         ", "SSS......................................................................................aa.................................................................aa..aaaa.................aaaaaa..........aa.......................aa...............................................aaaa.........................", "SSS.........aaaa.....aa.................aa.................................................SSSSSSSS.....................................aaaa.............aa..........................................aaaa.................................................SSSSSSS.........................................aa"]}, "maple": {"before": ["SSSS.......aaaa.....aaaaa...aaa..SS....SSSS.........aaa.......                                                   aaaaa...................SSSSS.................aaaaaa......aaaaa......aa......aaaaa...aaaaa............aaaaaa.......SSSSS................SS...................aa...aaaaaa..aaa..aaaa......SS", "aaaaa....aaa...aaaaa.....aaa.....SS......aaaaa..aaaaaa....SS.....SSSSS...................SSS...aaaaaa..SSSSSS.....aaaaa....a..aaaaaa...aaaaa....aa......aaaaa...aa.....SSSS.......aaaa................aaaa....SSSSS......................aaaaa................aaaaa............SSSSS.....aa...aaa...........", "aaaaa...aaaaa.......aaaa....aaaaa...aaaaa........................aaa....aaaa..............SSS...aaaaa.......aa.....aaaaa.......aaaaaa...aa...aaa......aa...aaa......SSSSS.....................aaaaaa......aaa....aaa.....aa..aa...SSSSS........aaaa....aaaa...................SSSSS.......aaaaa......aaaa..."], "after": ["SSSS...................aa...SS................................                                                   SSSS.............aaa.....SSS....................................aaa....................................aaa.................................SSS...........................SS......SSSS......", "...................................a.....aaa.......aaa.........................aaa.............................SSS...aaaa.....a........................SSSSSS....................aaa......aaa.....SSSSSS.........................SS.........................SSSSS.......................SSS....aaaSSS.......", "...............................aaa....SSSS.................................SSSSSS........................aaaa.....................................a.......................................SSSS..................................aaaa..........aa.......SSSSS............................S..................."]}};
+  const host = document.getElementById('tl');
+  const css = getComputedStyle(document.documentElement);
+  const col = { '.': css.getPropertyValue('--still'), 'a': css.getPropertyValue('--amb'), 'S': css.getPropertyValue('--sus'), 'V': css.getPropertyValue('--vio') };
+  function strip(title, rows) {
+    const T = Math.min(...rows.map(r => r.length)), cw = 3, rh = 12, gap = 3, left = 0;
+    const h = rows.length * (rh + gap);
+    let s = `<svg viewBox="0 0 ${T * cw} ${h}" role="img" aria-label="${title}">`;
+    rows.forEach((r, y) => {
+      for (let x = 0; x < T; x++) {
+        const c = r[x];
+        if (c === ' ') continue;
+        s += `<rect x="${left + x * cw}" y="${y * (rh + gap)}" width="${cw}" height="${rh}" fill="${col[c] || col['.']}"/>`;
+      }
+    });
+    const vis = rows.reduce((a, r) => a + [...r.slice(0, T)].filter(c => c !== '.' && c !== ' ').length, 0);
+    const all = rows.reduce((a, r) => a + [...r.slice(0, T)].filter(c => c !== ' ').length, 0);
+    return `<div><h3>${title} <span class="muted" style="font-weight:400">· ${Math.round(100 * vis / all)}% of student time visible</span></h3>${s}</svg></div>`;
+  }
+  host.innerHTML =
+    strip('National, before', data.national.before) + strip('National, after', data.national.after) +
+    strip('Maple, before', data.maple.before) + strip('Maple, after', data.maple.after);
+})();
+</script>
+</body>
+</html>

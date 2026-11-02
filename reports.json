@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "calm-students",
+      "title": "Calm Students",
+      "category": "classroom",
+      "summary": "Why exam students were always moving, and the calmer room now: mostly writing, shorter gestures, the same cheating and sounds, checked on a phone."
+    },
+    {
       "slug": "career-balance",
       "title": "Career Balance",
       "category": "career",
