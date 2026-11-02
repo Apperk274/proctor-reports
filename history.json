@@ -2,6 +2,12 @@
   {
     "date": "2026-11-02",
     "author": "ardakabadayi",
+    "slug": "classroom-door",
+    "change": "Added bathroom trips: students now walk out through the door and back to their desk, with every seat measured and the trip's timing unchanged."
+  },
+  {
+    "date": "2026-11-02",
+    "author": "ardakabadayi",
     "slug": "ui-qa-playthrough",
     "change": "Every finding now shows how the game behaves after the fixes (29 fixed, 4 partly fixed), with after screenshots from the phone and the editor and a summary at the top."
   },

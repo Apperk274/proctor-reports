@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Classroom Door and Walking Paths</title>
-<meta name="description" content="Every walk a student takes in the eight exam rooms: why they walked into the back wall, the queue, desks and each other, the doorway and opening door now, and the numbers from every room, device and seat.">
+<meta name="description" content="Every walk a student takes in the eight exam rooms, now including bathroom trips: why they walked into the back wall, the queue, desks and each other, the doorway and opening door now, and the numbers from every room, device and seat.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -238,7 +238,8 @@ tr:last-child td { border-bottom: none; }
         <tr><td>First person in, door to check-in</td><td class="num">16</td><td class="num">0</td><td class="num">0</td><td class="num good-n">0</td><td class="num">0.080 m</td></tr>
         <tr><td>Into the queue from the door</td><td class="num">32</td><td class="num bad-n">31</td><td class="num bad-n">29</td><td class="num good-n">0</td><td class="num">0.080 m</td></tr>
         <tr><td>Stepping up in the queue</td><td class="num">32</td><td class="num bad-n">11</td><td class="num bad-n">11</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
-        <tr><td><b>All</b></td><td class="num"><b>1,920</b></td><td class="num bad-n"><b>1,882</b></td><td class="num bad-n"><b>398</b></td><td class="num good-n"><b>0</b></td><td class="num"><b>0.020 m</b></td></tr>
+        <tr><td>Bathroom trip, out and back</td><td class="num">312</td><td class="num">–</td><td class="num">–</td><td class="num good-n">0</td><td class="num">0.020 m</td></tr>
+        <tr><td><b>All</b></td><td class="num"><b>2,232</b></td><td class="num bad-n"><b>1,882</b></td><td class="num bad-n"><b>398</b></td><td class="num good-n"><b>0</b></td><td class="num"><b>0.020 m</b></td></tr>
       </tbody>
     </table></div>
     <p class="muted">"Before, no bags": a bag is a coin flip per desk, so this is the floor without any. Even then every
@@ -289,6 +290,33 @@ tr:last-child td { border-bottom: none; }
         waits outside, out of sight, while somebody goes out, and the other way round.</li>
       <li><b>The body over its root.</b> The standing and walking poses now draw the body over the point the walk plans
         (0.001 m ahead on average, measured), blended in as the student stands up. Seated poses are unchanged.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Bathroom trips</h2>
+      <p class="muted">A student allowed out stands up, walks out through the door and is gone once in the corridor.
+        Near the end of the trip they come back in the same way, walk to their own desk and sit down. Before, the body
+        switched off in the chair and switched on again.</p>
+    </div>
+    <figure><img src="img/after_bathroom.gif" width="480" height="360" alt="A student walks from the back row out through the open door, the room stays empty with her desk unoccupied, and later she comes back in through the door and walks to her desk">
+      <figcaption><b>Out and back, in the editor.</b> Maple, phone room. The middle of the trip, the empty room, is shortened in the clip.</figcaption></figure>
+    <ul class="notes">
+      <li><b>Over the game's own trip, never changing it.</b> The trip lasts 25 s, as before. The walk out starts the
+        moment the trip does; the walk back starts early enough to be seated when the trip ends: the walk in, plus
+        0.6 s to sit, plus 1 s to spare for the door or somebody in the way. Measured with and without the walk, the
+        trip starts and ends at the same moments.</li>
+      <li><b>The numbers.</b> Out: 2.9 to 9.8 s, depending on the seat. Back: started 3.9 to 10.8 s before the trip
+        ends. The longest pair is 20.7 s (Kingsley, tablet), inside the 25 s trip in every room, so the desk is empty
+        for at least 4 s of every trip. A trip too short for both walks is drawn as before.</li>
+      <li><b>Nothing to read into it.</b> Every student walks the same way at the same pace; nothing in the walk knows
+        why they went. They cannot be tapped from the first step to the moment they are back, and the game sees them
+        as out of the room the whole time, exactly as before.</li>
+      <li><b>The same floor as everybody.</b> The same lanes, door and give-way rules as a removal: 312 walks out and back,
+        every seat of every room on both devices, 0 touching anything (closest 2 cm, at a bag).</li>
+      <li><b>Edges.</b> The bell puts anybody walking or out back at their desk, as before. A save loaded mid-trip shows
+        them out, and they walk back in at the usual time. With Reduce motion on there is no walk.</li>
     </ul>
   </section>
 
@@ -350,8 +378,13 @@ tr:last-child td { border-bottom: none; }
         the Classroom scene. On every frame: no body in a wall, desk or the door, nobody in anybody, nobody in the doorway
         unless the door is wide open. The next person reaches the desk within the stamp's time plus 1.5 s; the walking body
         is over its root.</li>
-      <li><b>Everything else</b>: the full EditMode suite (2,506 tests, 0 failed, 211 skipped) and the full PlayMode suite
-        (110 tests, 74 passed, 0 failed, 36 skipped (the explicit capture tests)) pass. No fingerprint changed.</li>
+      <li><b>Bathroom trips</b> (<code>BathroomWalkTests</code>, <code>BathroomWalkSceneTests</code>): a trip from every seat
+        of every room on both devices, out and back. The door is wide open whenever the body is in its swing, the body
+        is untappable throughout and switched off only in the corridor, and they are seated before the trip ends (at least
+        1.2 s before). Also covered: two trips close together, the bell mid-walk, and a trip too short to walk. In the
+        real room, the trip lasts 25.00 s with the walk and 25.00 s without it.</li>
+      <li><b>Everything else</b>: the full EditMode suite (2,510 tests, 0 failed, 211 skipped) and the full PlayMode suite
+        (112 tests, 75 passed, 0 failed, 37 skipped (the explicit capture tests)) pass. No fingerprint changed.</li>
     </ul>
   </section>
 
@@ -360,9 +393,10 @@ tr:last-child td { border-bottom: none; }
       <h2>Not covered</h2>
     </div>
     <ul class="notes">
-      <li><b>Bathroom trips and the end of the exam have no walk.</b> A student going to the bathroom switches off where
-        they sit and comes back at their desk, and at the bell everybody stays seated. Nothing walks, so nothing collides.
-        Giving them a walk would be a new feature.</li>
+      <li><b>The end of the exam has no walk.</b> At the bell everybody stays seated and the result card comes
+        straight up, by choice: the player wants the results quickly.</li>
+      <li><b>Bathroom trips not yet seen on a phone.</b> The phone exam brought only seat problems, so the trip was
+        checked in the editor: every seat of every room, and the real room at full length.</li>
       <li><b>One room on the phone.</b> The phone check was in Kingsley's room only; every room was checked in the
         editor.</li>
       <li><b>Head-on in an aisle.</b> If two walkers meet head-on and neither can find another way round, they walk on
