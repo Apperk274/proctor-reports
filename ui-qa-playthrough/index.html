@@ -125,19 +125,57 @@ figcaption { font-size: 0.9rem; color: var(--muted); }
 
   <section class="summary">
     <h2>Summary</h2>
-    <p><b>29 fixed, 4 partly fixed, none untouched.</b> All 7 high findings are fixed. Of the 15 medium ones, 13 are fixed and 2 are partly fixed: the result card's missed-cheating line names no desk on purpose, and the door has no portrait art yet. Each partly fixed item says what is still open and why.</p>
+    <p><b>30 fixed, 3 partly fixed, none untouched.</b> All 7 high findings are fixed. Of the 15 medium ones, 13 are fixed and 2 are partly fixed: the result card's missed-cheating line names no desk on purpose, and the door has no portrait art yet. Each partly fixed item says what is still open and why.</p>
 <ul>
   <li><b>Facts a player needs are back:</b> no raw ids on the result card, the next monthly bill beside the surprise reserve, the balance and the shortfall on any cost you cannot pay, and probation explained when it starts.</li>
   <li><b>No silent taps:</b> the door takes Admit and Turn away as soon as the card is up and stamps at once. An unaffordable answer says “You have 53, 27 short.” Warn asks once when there is nothing on record.</li>
   <li><b>Clearer screens:</b> the pause leads with Resume, the first exams open with the rules, room lessons appear just before the room, tools are named in the dock, “Time's up” is a banner, and the result card shows the room you were just in.</li>
   <li><b>Fairness kept:</b> nothing at the door or in the room hints at guilt or correctness. The audit card explains the fault after the decision, which is allowed.</li>
 </ul>
-<p>Checked on a Galaxy A15 with a development build of the fixes merged with current main (new walking paths included). Tests: EditMode 2532 run, 0 failed; PlayMode 115 run, 0 failed. Cards that a short run cannot reach on demand (car trouble you cannot afford, an audit, probation, the bell) are rendered by an in-editor capture test through the real game flow. The player's own save was backed up first and restored afterwards with matching checksums. No save data is in this report.</p>
+<p>Checked on a Galaxy A15 with a development build of the fixes merged with current main (new walking paths included). Tests (after the follow-ups): EditMode 2546 run, 0 failed; PlayMode 136 run, 0 failed. Cards that a short run cannot reach on demand (car trouble you cannot afford, an audit, probation, the bell) are rendered by an in-editor capture test through the real game flow. The player's own save was backed up first and restored afterwards with matching checksums. No save data is in this report.</p>
 
   </section>
 
   <section>
-    <div class="stats"><div class="stat"><b>29</b><span class="status st-fixed">fixed</span></div><div class="stat"><b>4</b><span class="status st-partly">partly fixed</span></div><div class="stat"><b>0</b><span class="status st-open">open</span></div><div class="stat"><b>7</b><span class="sev sev-high">high</span></div><div class="stat"><b>15</b><span class="sev sev-medium">medium</span></div><div class="stat"><b>8</b><span class="sev sev-low">low</span></div><div class="stat"><b>3</b><span class="sev sev-polish">polish</span></div></div>
+    <div class="stats"><div class="stat"><b>30</b><span class="status st-fixed">fixed</span></div><div class="stat"><b>3</b><span class="status st-partly">partly fixed</span></div><div class="stat"><b>0</b><span class="status st-open">open</span></div><div class="stat"><b>7</b><span class="sev sev-high">high</span></div><div class="stat"><b>15</b><span class="sev sev-medium">medium</span></div><div class="stat"><b>8</b><span class="sev sev-low">low</span></div><div class="stat"><b>3</b><span class="sev sev-polish">polish</span></div></div>
+  </section>
+
+
+  <section id="follow-ups">
+    <h2>Follow-ups</h2>
+    <p class="muted">Three items found after the fixes shipped: a phone report about request answers, the door hiding the room, and the crest's missing shine.</p>
+    <div class="list">
+    <article class="finding" data-sev="high" data-st="fixed">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">F1</span><h3>Request answers did nothing (real bug)</h3><span class="status st-fixed">Fixed</span></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What was seen.</b> On the A15, “Move seat” on the “table is wet” card ignored 4 taps across two sessions, while Talk, Warn and Remove worked. One late tap landed after the card had closed and warned the student.</p>
+          <p><b>Cause.</b> The tap reached the button every time. The game sends a request answer to the simulation on its next step, every 0.1 s. On a frame with no step, the answer was taken off its list and never put back. At the phone's 45–60 fps, that lost 4 or 5 taps out of 6. Talk, Warn and Remove go through a different queue, which is only emptied during a step, so they always worked. The card closed by itself because a question expires about 20 s after Talk if nobody answers. That is a game rule, not a tap outside the card: nothing dismisses a card on a tap outside it.</p>
+          <p class="now"><b>Now.</b> An answer waits for the next step: at 45 fps, through a save, and through the app going to the background. On the phone, “Move seat” took one tap and the student moved. When a question closes on its own, the person's card takes no tap for 0.6 s, so a tap meant for an answer can't warn anyone. The three answers are stacked at full width: side by side, “Keep current seat” showed as “Keep cu…” and “Allow to leave” as “Allow t…”, which is likely the “Allow” in the report. New tests tap with a simulated finger, check every answer card (events, offers, the crest award, probation, pause, the door), and fail if any answer label on a request, event or offer card is cut at 720 × 1560 with Large text.</p>
+        </div>
+        <div class="pics"><figure><a href="img/followups/request-phone-before.jpg"><img src="img/followups/request-phone-before.jpg" alt="before (phone)" loading="lazy"></a><figcaption>before (phone)</figcaption></figure><figure><a href="img/followups/request-phone-move-seat.jpg"><img src="img/followups/request-phone-move-seat.jpg" alt="one tap: moved (phone)" loading="lazy"></a><figcaption>one tap: moved (phone)</figcaption></figure><figure><a href="img/followups/request-now-dark.jpg"><img src="img/followups/request-now-dark.jpg" alt="now" loading="lazy"></a><figcaption>now</figcaption></figure><figure><a href="img/followups/request-now-light-large.jpg"><img src="img/followups/request-now-light-large.jpg" alt="now, Light, Large" loading="lazy"></a><figcaption>now, Light, Large</figcaption></figure></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="medium" data-st="fixed">
+      <div class="fhead"><span class="sev sev-medium">medium</span><span class="num">F2</span><h3>The door hid the room</h3><span class="status st-fixed">Fixed</span></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>What was seen.</b> The admission screen filled the whole display, and the room camera stopped behind it. Students walking in from the corridor were never seen.</p>
+          <p class="now"><b>Now.</b> The queue floats at the top like the exam clock. Below it, the room shows the doorway and the walk in. The rules, the two cards, This exam, and Turn away / Admit sit in a panel over the lower part of the screen, sized to fit its contents. An ordinary card covers 58% of the screen (64% with Large text). The longest possible card still fits without scrolling, at 1080 × 2340 and 720 × 1560, with Large text, in Dark and Light. To make room, the face sits beside “In person”, the ID card is a little wider, and This exam puts room, time and date on one line. No fact was dropped, and nothing highlights a match or a mismatch: the test that checks both are drawn alike still passes. The stamp and the held-decision behaviour are unchanged.</p>
+        </div>
+        <div class="pics"><figure><a href="img/followups/door-before-dark.jpg"><img src="img/followups/door-before-dark.jpg" alt="before" loading="lazy"></a><figcaption>before</figcaption></figure><figure><a href="img/followups/door-now-walking-in-dark.jpg"><img src="img/followups/door-now-walking-in-dark.jpg" alt="now: walking in" loading="lazy"></a><figcaption>now: walking in</figcaption></figure><figure><a href="img/followups/door-now-light.jpg"><img src="img/followups/door-now-light.jpg" alt="now, Light" loading="lazy"></a><figcaption>now, Light</figcaption></figure><figure><a href="img/followups/door-now-light-720-large.jpg"><img src="img/followups/door-now-light-720-large.jpg" alt="720, Light, Large" loading="lazy"></a><figcaption>720, Light, Large</figcaption></figure><figure><a href="img/followups/door-phone.jpg"><img src="img/followups/door-phone.jpg" alt="phone" loading="lazy"></a><figcaption>phone</figcaption></figure><figure><a href="img/followups/door-phone-stamp.jpg"><img src="img/followups/door-phone-stamp.jpg" alt="phone: stamp" loading="lazy"></a><figcaption>phone: stamp</figcaption></figure></div>
+      </div>
+    </article>
+    <article class="finding" data-sev="polish" data-st="fixed">
+      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">F3</span><h3>Crest award shine</h3><span class="status st-fixed">Fixed</span></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p class="now"><b>Now.</b> After the card fades in, one band of the coin's gold sweeps across the crest. As it reaches the middle, the crest pops once inside its frame. It plays once per award, only on this card, and never loops. With Reduce motion on, nothing moves. Colours and timings come from the theme.</p>
+        </div>
+        <div class="pics"><figure><a href="img/followups/crest-sweep-dark.jpg"><img src="img/followups/crest-sweep-dark.jpg" alt="sweep" loading="lazy"></a><figcaption>sweep</figcaption></figure><figure><a href="img/followups/crest-pop-dark.jpg"><img src="img/followups/crest-pop-dark.jpg" alt="pop" loading="lazy"></a><figcaption>pop</figcaption></figure><figure><a href="img/followups/crest-sweep-light.jpg"><img src="img/followups/crest-sweep-light.jpg" alt="Light" loading="lazy"></a><figcaption>Light</figcaption></figure></div>
+      </div>
+    </article>
+    </div>
   </section>
 
   <section>
@@ -481,15 +519,15 @@ figcaption { font-size: 0.9rem; color: var(--muted); }
         <div class="pics"><figure><a href="img/88_ex9_a.jpg"><img src="img/88_ex9_a.jpg" alt="before: 88_ex9_a.jpg" loading="lazy"></a><figcaption>before</figcaption></figure></div>
       </div>
     </article>
-    <article class="finding" data-sev="polish" data-st="partly">
-      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">#31</span><h3>Crest card (Phase 3 capture, not reached live)</h3><span class="status st-partly">Partly fixed</span></div>
+    <article class="finding" data-sev="polish" data-st="fixed">
+      <div class="fhead"><span class="sev sev-polish">polish</span><span class="num">#31</span><h3>Crest card (Phase 3 capture, not reached live)</h3><span class="status st-fixed">Fixed</span></div>
       <div class="fbody">
         <div class="ftext">
           <p><b>What I saw.</b> "CREST EARNED · Riverside Crest earned · Earned in 6 exams at Riverside. · Claim". "Earned" appears three times, and the card never says you can wear the crest.</p>
           <p><b>Why it matters.</b> A reward moment that feels like a receipt.</p>
-          <p class="now"><b>Now.</b> <b>NEW CREST</b> · <b>Riverside Crest</b> · “Earned in 6 exams: yours to wear now.” <b>Still open:</b> no shine on the badge.</p>
+          <p class="now"><b>Now.</b> <b>NEW CREST</b> · <b>Riverside Crest</b> · “Earned in 6 exams: yours to wear now.” When the card opens, a single band of gold sweeps across the crest and the crest pops once. It plays once per award, never loops, and stays still with Reduce motion on (see Follow-ups).</p>
         </div>
-        <div class="pics"><figure><a href="img/p3-crest-award-dark-1080.jpg"><img src="img/p3-crest-award-dark-1080.jpg" alt="before: p3-crest-award-dark-1080.jpg" loading="lazy"></a><figcaption>before</figcaption></figure></div>
+        <div class="pics"><figure><a href="img/p3-crest-award-dark-1080.jpg"><img src="img/p3-crest-award-dark-1080.jpg" alt="before: p3-crest-award-dark-1080.jpg" loading="lazy"></a><figcaption>before</figcaption></figure><figure><a href="img/followups/crest-sweep-dark.jpg"><img src="img/followups/crest-sweep-dark.jpg" alt="now: the gold sweep crossing the crest" loading="lazy"></a><figcaption>now</figcaption></figure></div>
       </div>
     </article>
     <article class="finding" data-sev="polish" data-st="fixed">
