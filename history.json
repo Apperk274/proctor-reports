@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-11-14",
+    "author": "Apperk274",
+    "slug": "localization",
+    "change": "Added the Localization report: Settings in seven languages, career-language names, localized school and exam names, formats, fonts and what is still to do."
+  },
+  {
     "date": "2026-11-02",
     "author": "ardakabadayi",
     "slug": "ui-qa-playthrough",

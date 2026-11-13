@@ -27,6 +27,12 @@
   ],
   "reports": [
     {
+      "slug": "localization",
+      "title": "Localization",
+      "category": "look-and-feel",
+      "summary": "Seven languages: the Settings picker, names drawn in the career's language, localized school and exam names, number formats and the Japanese font; most screens still English."
+    },
+    {
       "slug": "calm-students",
       "title": "Calm Students",
       "category": "classroom",

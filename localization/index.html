@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Localization</title>
+<meta name="description" content="Seven languages in Exam Supervisor Simulator: the Settings picker, names drawn in the career's language, localized school and exam names, number and date formats, the Japanese font, and what is still English.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+figure { margin: 0; display: grid; gap: 8px; align-content: start; }
+figcaption { font-size: 0.92rem; color: var(--muted); display: grid; gap: 4px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.figs.wide { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+.lead-row { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 720px) { .lead-row { grid-template-columns: 1fr; } .lead-row figure { max-width: 300px; } }
+
+.verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; justify-self: start; }
+.tag.done { color: var(--good); border: 1px solid var(--good); }
+.tag.todo { color: var(--warn); border: 1px solid var(--warn); }
+
+.callout { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 16px; max-width: 76ch; }
+.callout b { font-weight: 600; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.code { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+td .alt { color: var(--muted); }
+.nowrap { white-space: nowrap; }
+
+.notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.notes li { color: var(--muted); }
+.notes b { color: var(--ink); font-weight: 600; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · languages</span>
+    <h1>Localization</h1>
+    <p class="lede">The game now runs in seven languages: English, Turkish, French, Spanish (Latin American), Brazilian
+      Portuguese, Russian and Japanese. The foundation is in place: a language setting, one string table per language,
+      plural and number rules, names drawn in each language, localized school and exam names, and a Japanese font. Only the
+      Settings screen is fully translated so far. Every screenshot is a capture of the real screen code at 1080×2340
+      portrait, shown at half size, rendered from a fresh fixed-seed career with no player save involved.</p>
+  </header>
+
+  <div class="callout"><b>English text in the screenshots is expected, not a bug.</b> About 1,100 strings (the HUD, the
+    Manual, event sentences and most screen labels) have not been moved to the string tables yet, so most screens still
+    show English around the parts that are localized. The work is not finished, and the status section at the bottom
+    lists what is left.</div>
+
+  <section>
+    <div class="section-head">
+      <h2>Status</h2>
+    </div>
+    <div class="verdicts">
+      <div class="card"><span class="tag done">done</span><h3>Foundation</h3>
+        <ul>
+          <li>Language setting. On first launch it picks the device language.</li>
+          <li>One flat JSON string table per language.</li>
+          <li>Plural rules, male and female variants, number and date formats, and Turkish-aware capitals (i → İ).</li>
+          <li>Saves record the career's language.</li>
+        </ul></div>
+      <div class="card"><span class="tag done">done</span><h3>Settings screen</h3>
+        <p>Fully translated, as the pilot screen. One row in it, Rules, still reads in English, because that row shows the
+          Manual's title, and the Manual has not been converted yet.</p></div>
+      <div class="card"><span class="tag done">done</span><h3>Names and catalog names</h3>
+        <ul>
+          <li>Character names come from a name pool for each language.</li>
+          <li>School, exam, tool, cosmetic and product names are drawn from ids in each language.</li>
+          <li>The appearance lines on the ID card are localized the same way.</li>
+        </ul></div>
+      <div class="card"><span class="tag todo">not yet</span><h3>The remaining ~1,100 strings</h3>
+        <p>Event sentences, the Manual, the HUD and the other screens. This includes Turkish suffixes and Russian case
+          endings around inserted names.</p></div>
+      <div class="card"><span class="tag todo">not yet</span><h3>Layout checks per language</h3>
+        <p>A long pseudo-language to find overflow, the fit tests run in each language, and a character budget for
+          Japanese in the text rules.</p></div>
+      <div class="card"><span class="tag todo">not yet</span><h3>Native-speaker review</h3>
+        <p>No translation has been checked by a native speaker yet. Nine open questions are written down for that review.
+          Examples: the Russian word for the supervisor, the Spanish register (usted or tú), the Turkish coin word, and
+          whether any of the invented school names matches a famous real one.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Settings in seven languages</h2>
+      <p class="muted">The Settings screen is the one screen that is fully translated. The rows a player sees first: Sound,
+        Display and help, then Career below the fold.</p>
+    </div>
+    <div class="figs">
+      <figure><img src="img/settings-en.png" width="540" height="1170" alt="Settings screen in English: Sound, Overall volume, Effects, Display and help, Theme, Language English, Text size, Hints, Reduce motion, Rules">
+        <figcaption><b>English</b></figcaption></figure>
+      <figure><img src="img/settings-tr.png" width="540" height="1170" alt="Settings screen in Turkish">
+        <figcaption><b>Türkçe</b></figcaption></figure>
+      <figure><img src="img/settings-fr.png" width="540" height="1170" alt="Settings screen in French">
+        <figcaption><b>Français</b></figcaption></figure>
+      <figure><img src="img/settings-es.png" width="540" height="1170" alt="Settings screen in Latin American Spanish">
+        <figcaption><b>Español</b> (Latin American)</figcaption></figure>
+      <figure><img src="img/settings-pt-BR.png" width="540" height="1170" alt="Settings screen in Brazilian Portuguese">
+        <figcaption><b>Português (Brasil)</b></figcaption></figure>
+      <figure><img src="img/settings-ru.png" width="540" height="1170" alt="Settings screen in Russian">
+        <figcaption><b>Русский</b></figcaption></figure>
+      <figure><img src="img/settings-ja.png" width="540" height="1170" alt="Settings screen in Japanese">
+        <figcaption><b>日本語</b> Kana and kanji come from the Noto Sans JP fallback.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>The language picker</h2>
+    </div>
+    <div class="lead-row">
+      <figure>
+        <img src="img/settings-en-picker.png" width="540" height="1170" alt="The Language row opened in English Settings, listing English, Türkçe, Français, Español, Português (Brasil), Русский and 日本語, with English ticked">
+        <figcaption>The Language row, opened.</figcaption>
+      </figure>
+      <ul class="notes">
+        <li><b>One row, opened in place.</b> The current language shows on the row. Tapping it opens the list under it.</li>
+        <li><b>Each language under its own name.</b> English, Türkçe, Français, Español, Português (Brasil), Русский, 日本語.
+          A player who cannot read the current language can still find their own.</li>
+        <li><b>Live switch.</b> Picking a language rebuilds the UI at once, with no restart.</li>
+        <li><b>First launch</b> picks the device language when it is one of the seven, and English otherwise. Automated
+          tests always start in English.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="career-language">
+    <div class="section-head">
+      <h2>The career's language is locked</h2>
+      <p class="muted">A career keeps the language it was started in, and its people's names are drawn from that
+        language's pool. UI text follows Settings. Switching the language halfway through a career changes the screens,
+        but never renames the students that career already knows.</p>
+    </div>
+    <div class="figs wide">
+      <figure><img src="img/id-en.png" width="540" height="755" alt="The admission card in English for an English career: Chloe Walker, University Entrance, Valid until 28 Jun 2027, Today 13 Nov 2026">
+        <figcaption><b>English career, English UI.</b> Chloe Walker.</figcaption></figure>
+      <figure><img src="img/id-ru.png" width="540" height="755" alt="The admission card for a Russian career with Russian UI: Ольга Попова, Вступительный экзамен, Valid until 28 июн. 2027 г.">
+        <figcaption><b>Russian career, Russian UI.</b> Ольга Попова, with the feminine surname. The exam name, the date and
+          the appearance lines are Russian. "Valid until", "Today", the rule chips and the buttons are still English.</figcaption></figure>
+      <figure><img src="img/id-ja.png" width="540" height="755" alt="The admission card for a Japanese career with Japanese UI: 高橋　彩 written family name first, 大学入試, 2027年6月28日">
+        <figcaption><b>Japanese career, Japanese UI.</b> 高橋　彩: family name first, then a full-width space. The exam is
+          大学入試, and the dates use the 年月日 form.</figcaption></figure>
+      <figure><img src="img/id-en-ru-career.png" width="540" height="755" alt="The admission card with English UI for a career started in Russian: the name Ольга Попова stays Russian while everything else is English">
+        <figcaption><b>Russian career, English UI.</b> The same person after the player switched Settings to English. The
+          name stays Ольга Попова. The exam, the dates and the appearance lines follow the UI language.</figcaption></figure>
+    </div>
+    <ul class="notes">
+      <li><b>How these were captured.</b> The admission card was rendered on its own, without the classroom behind it and
+        without the photo booth. With no photos available, the card falls back to describing the look in words, which shows
+        the localized appearance lines. In a normal run the two photos replace those words: see
+        <a href="../admission-photo/">Admission Photo Check</a>.</li>
+      <li><b>The door compares exam ids, not printed names.</b> A Japanese ticket that says 大学入試 is checked against the
+        exam's id, so the check does not depend on the language the ticket is printed in. Older saves are converted
+        from printed exam names to ids.</li>
+      <li><b>Older saves</b> from before localization are treated as Turkish careers. That matches the names already
+        stored in them.</li>
+    </ul>
+  </section>
+
+  <section id="names">
+    <div class="section-head">
+      <h2>Names in each language</h2>
+      <p class="muted">Four people from the same four seeds in each language, two women and two men. Each pool has 8 male
+        given names, 8 female given names and 16 family names, so a seed draws the same position in every language. The near-miss column is the variant
+        a fake ID would print instead.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Language</th><th>Seed 1 · woman</th><th>Seed 18 · man</th><th>Seed 35 · woman</th><th>Seed 52 · man</th><th>Near-miss example</th></tr></thead>
+        <tbody>
+          <tr><td>English</td><td>Sarah Smith</td><td>Ryan Clark</td><td>Chloe Walker</td><td>Nathan Hall</td><td>Smith → Smyth</td></tr>
+          <tr><td>Türkçe</td><td>Zeynep Kaya</td><td>Burak Demir</td><td>Selin Şahin</td><td>Onur Yıldız</td><td>Kaya → Kayan, Kayin, Kayil or Kayaoğlu</td></tr>
+          <tr><td>Français</td><td>Manon Martin</td><td>Hugo Dubois</td><td>Julie Petit</td><td>Julien Durand</td><td>Dubois → Dubos</td></tr>
+          <tr><td>Español</td><td>Sofía García</td><td>Andrés López</td><td>Camila Pérez</td><td>Raúl Gómez</td><td>Pérez → Páez</td></tr>
+          <tr><td>Português (Brasil)</td><td>Beatriz Silva</td><td>Pedro Santos</td><td>Isabela Souza</td><td>Bruno Oliveira</td><td>Souza → Sousa</td></tr>
+          <tr><td>Русский</td><td>Мария Иванова</td><td>Павел Смирнов</td><td>Ольга Попова</td><td>Максим Петров</td><td>Попова → Попкова</td></tr>
+          <tr><td>日本語</td><td class="nowrap">佐藤　結衣</td><td class="nowrap">鈴木　和也</td><td class="nowrap">高橋　彩</td><td class="nowrap">田中　悠斗</td><td>高橋 → 古橋, 田中 → 田仲</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="notes">
+      <li><b>Japanese puts the family name first</b>, with a full-width space (U+3000) between the two names, as on a real
+        exam ticket: 佐藤　結衣 is Satō Yui.</li>
+      <li><b>Russian surnames follow gender.</b> Иванова and Попова for women, Смирнов and Петров for men. The near-miss
+        variants are gendered too (Попов → Попков, Попова → Попкова). Surnames ending in -ых and -енко are the same for
+        men and women.</li>
+      <li><b>Each language has its own near-miss list.</b> Every variant is a plausible real surname, not a typo:
+        Smith/Smyth, Dubois/Dubos, López/Lopes, Souza/Sousa, Соколов/Соколовский. In Japanese most variants swap one
+        kanji for a lookalike (木/本, 林/森, 口/田). The others keep the reading but change the character (藤 → 東,
+        中 → 仲). Variant forms of the same name (髙橋 for 高橋) are left out on purpose, because a Japanese reader treats
+        them as the same person.</li>
+      <li><b>Turkish keeps its historical rule.</b> Turkish has no list. It picks one of four endings for each document:
+        stem+an, stem+in, stem+il or surname+oğlu, exactly as before localization. Turkish names are the old list in the
+        old order. Tests over about 2,500 seeds pin both, so existing Turkish careers keep the same people and the same fake IDs.</li>
+      <li><b>One family name per person</b>, also in Spanish and Portuguese, where real documents often carry two. One name
+        keeps the cards short.</li>
+    </ul>
+  </section>
+
+  <section id="schools">
+    <div class="section-head">
+      <h2>School and exam names</h2>
+      <p class="muted">Each school name is adapted to sound like a real school of that kind in that country. It keeps the
+        motif drawn on the school's crest, shown in brackets. Names are drawn from the school's id, so the Career screen
+        lists them in the UI language.</p>
+    </div>
+    <div class="figs wide">
+      <figure><img src="img/career-en.png" width="540" height="1090" alt="The Career screen in English with the school ladder from Maple Elementary School to National Examination Centre">
+        <figcaption><b>English.</b> The school ladder on the Career screen.</figcaption></figure>
+      <figure><img src="img/career-fr.png" width="540" height="1090" alt="The Career screen in French UI with school names from École élémentaire des Érables to Centre national des examens">
+        <figcaption><b>French.</b> School names are French. The labels around them (Reputation, Bills, You are here) are
+          not converted yet.</figcaption></figure>
+      <figure><img src="img/career-ja.png" width="540" height="1090" alt="The Career screen in Japanese UI with school names from かえで小学校 to 全国試験センター">
+        <figcaption><b>Japanese.</b> かえで小学校 to 全国試験センター. "Next" uses the short name, 川辺中.</figcaption></figure>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>English (crest)</th><th>tr</th><th>fr</th><th>es</th><th>pt-BR</th><th>ru</th><th>ja</th></tr></thead>
+        <tbody>
+          <tr><td>Maple Elementary School <span class="alt">(leaf)</span></td><td>Çınar İlkokulu</td><td>École élémentaire des Érables</td><td>Escuela Primaria Los Arces</td><td>Escola Municipal Ipê</td><td>Начальная школа «Клён»</td><td>かえで小学校</td></tr>
+          <tr><td>Riverside Middle School <span class="alt">(waves)</span></td><td>Dereboyu Ortaokulu</td><td>Collège des Rives</td><td>Escuela Secundaria La Ribera</td><td>Escola Estadual Beira-Rio</td><td>Школа «Заречье»</td><td>川辺中学校</td></tr>
+          <tr><td>Eastgate Evening College <span class="alt">(gate)</span></td><td>Doğukapı Akşam Okulu</td><td>Cours du soir de la Porte-Est</td><td>Colegio Nocturno Puerta Oriente</td><td>Colégio Noturno Portal Leste</td><td>Вечерний колледж «Восточные ворота»</td><td>東門夜間学院</td></tr>
+          <tr><td>City High School <span class="alt">(clock tower)</span></td><td>Kent Lisesi</td><td>Lycée du Centre</td><td>Colegio Central</td><td>Colégio Central</td><td>Городской лицей</td><td>市立中央高校</td></tr>
+          <tr><td>Brightpath Prep Centre <span class="alt">(storefront)</span></td><td>Başarı Yolu Kurs Merkezi</td><td>Institut Clairvoie</td><td>Academia Buen Rumbo</td><td>Cursinho Rumo Certo</td><td>Учебный центр «Ориентир»</td><td>ブライト進学塾</td></tr>
+          <tr><td>Kingsley Academy <span class="alt">(castle)</span></td><td>Kale Koleji</td><td>Institut du Château</td><td>Colegio El Castillo</td><td>Colégio Castelo Real</td><td>Гимназия «Цитадель»</td><td>城山学院</td></tr>
+          <tr><td>State University <span class="alt">(dome)</span></td><td>Devlet Üniversitesi</td><td>Université d'État</td><td>Universidad Estatal</td><td>Universidade Estadual</td><td>Государственный университет</td><td>県立大学</td></tr>
+          <tr><td>National Examination Centre <span class="alt">(columns)</span></td><td>Ulusal Sınav Merkezi</td><td>Centre national des examens</td><td>Centro Nacional de Exámenes</td><td>Centro Nacional de Exames</td><td>Национальный экзаменационный центр</td><td>全国試験センター</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Exam</th><th>tr</th><th>fr</th><th>es</th><th>pt-BR</th><th>ru</th><th>ja</th></tr></thead>
+        <tbody>
+          <tr><td>School Exam</td><td>Okul Sınavı</td><td>Examen scolaire</td><td>Examen escolar</td><td>Prova escolar</td><td>Школьный экзамен</td><td>定期試験</td></tr>
+          <tr><td>University Entrance</td><td>Üniversite Giriş Sınavı</td><td>Examen d'entrée à l'université</td><td>Examen de admisión</td><td>Vestibular</td><td>Вступительный экзамен</td><td>大学入試</td></tr>
+          <tr><td>Professional Certification</td><td>Sertifika Sınavı</td><td>Certification professionnelle</td><td>Certificación profesional</td><td>Certificação profissional</td><td>Квалификационный экзамен</td><td>資格試験</td></tr>
+          <tr><td>National Examination</td><td>Ulusal Sınav</td><td>Examen national</td><td>Examen nacional</td><td>Exame Nacional</td><td>Государственный экзамен</td><td>全国統一試験</td></tr>
+          <tr><td>Placement Test</td><td>Seviye Belirleme Sınavı</td><td>Test de niveau</td><td>Examen de ubicación</td><td>Prova de nivelamento</td><td>Распределительный тест</td><td>クラス分けテスト</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Every school also has a short name for tight places, such as 川辺中 above or «Клён» in Russian. The
+      school names are invented, and the native-speaker review will check that none of them matches a well-known real one.</p>
+  </section>
+
+  <section id="formats">
+    <div class="section-head">
+      <h2>Numbers and dates</h2>
+      <p class="muted">What the code prints for each language today. Dates are stored as month/day/year and always shown with
+        the month written out, so 06/11 cannot be read the wrong way round.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Language</th><th>Code</th><th>1234 coins</th><th>1234567</th><th>13 November 2026</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>English</td><td class="code">en</td><td>1,234</td><td>1,234,567</td><td>13 Nov 2026</td><td></td></tr>
+          <tr><td>Türkçe</td><td class="code">tr</td><td>1.234</td><td>1.234.567</td><td>13 Kas 2026</td><td>Percent sign first: %50</td></tr>
+          <tr><td>Français</td><td class="code">fr</td><td>1&#x202F;234</td><td>1&#x202F;234&#x202F;567</td><td>13 nov. 2026</td><td>Groups with a narrow no-break space (U+202F)</td></tr>
+          <tr><td>Español</td><td class="code">es</td><td>1,234</td><td>1,234,567</td><td>13 nov 2026</td><td>Latin American: four-digit numbers group too</td></tr>
+          <tr><td>Português (Brasil)</td><td class="code">pt-BR</td><td>1.234</td><td>1.234.567</td><td>13 de nov. de 2026</td><td>Plural: "0 moedas"</td></tr>
+          <tr><td>Русский</td><td class="code">ru</td><td>1&#xA0;234</td><td>1&#xA0;234&#xA0;567</td><td>13 нояб. 2026 г.</td><td>No-break space; month in the genitive; one/few/many plurals</td></tr>
+          <tr><td>日本語</td><td class="code">ja</td><td>1,234</td><td>1,234,567</td><td>2026年11月13日</td><td>Year, month, day</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">English output is unchanged, except that the hints about being short of coins now group amounts of
+      1,000 or more. A number that must not be grouped, such as a year or a room number, is passed in as text.</p>
+  </section>
+
+  <section id="font">
+    <div class="section-head">
+      <h2>Fonts</h2>
+    </div>
+    <ul class="notes">
+      <li><b>Latin and Cyrillic</b> still come from Liberation Sans. It already covers Turkish (ğ ş ı İ), French (œ « »),
+        Spanish, Portuguese and Russian, as the screenshots above show.</li>
+      <li><b>Japanese</b> uses Noto Sans JP (SIL Open Font License 1.1). It is a dynamic global fallback in TextMesh Pro,
+        so a character Liberation Sans lacks is drawn from Noto Sans JP the first time it is needed. No screen picks a font
+        by language.</li>
+      <li><b>Size.</b> The Japanese font adds about 4.5 MB to the build.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
