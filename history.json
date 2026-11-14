@@ -2,6 +2,12 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "proctor-creator",
+    "change": "Added the Proctor Creator report: the proctor in the game, its career-start creator and the Wardrobe's You segment, with captures in English and Japanese."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "proctor-character",
     "change": "Added the Proctor Character report: the Quaternius-based man and woman with their presets, colours, clips and a three-item wardrobe refit."
   },

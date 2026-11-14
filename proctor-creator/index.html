@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proctor Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num, code { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.88em; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.figs.phone { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.figs.close { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.figs.two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul, .card ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.92rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tbody th { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+.tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; border: 1px solid currentColor; }
+.tag.good { color: var(--good); } .tag.warn { color: var(--warn); } .tag.bad { color: var(--bad); }
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: var(--mono); font-size: 0.8rem; }
+nav.toc a { text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · the proctor in the game · M135</span>
+    <h1>Proctor Creator</h1>
+    <p class="lede">The player's proctor is now the Quaternius-based character from the
+      <a href="../proctor-character/">Proctor Character</a> report, in the game: chosen at the start of every new
+      career and changed any time in the Wardrobe's new <b>You</b> segment, for free. Body, face, brows, hair, facial
+      hair, build, skin, hair and eye colours. Every Wardrobe item is worn on it, refitted by the art pipeline. All
+      images are captures of the game (Unity, editor, a 1080 × 2340 phone screen). Students are unchanged.</p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#creator">Create your proctor</a><a href="#you">The You segment</a><a href="#looks">Looks and builds</a>
+      <a href="#outfits">Outfits</a><a href="#room">In the room</a><a href="#japanese">Japanese</a>
+      <a href="#how">How it works</a><a href="#saves">Saves</a><a href="#tests">Tests</a><a href="#open">Open questions</a>
+    </nav>
+    <div class="stats">
+      <div class="stat"><span class="big">2 × 4</span><span>faces, man and woman</span></div>
+      <div class="stat"><span class="big">7 + 6</span><span>hairstyles: the man's (with bald) and the woman's</span></div>
+      <div class="stat"><span class="big">3</span><span>builds, as blend shapes on body and clothes</span></div>
+      <div class="stat"><span class="big">43 / 43</span><span>Wardrobe items worn on the proctor, both bodies</span></div>
+    </div>
+  </header>
+
+  <section id="creator">
+    <div class="section-head">
+      <h2>Create your proctor</h2>
+      <p class="muted">A new career opens on this screen before the hub. It starts from the last career's look (the
+        default proctor for a first career); bought clothes are not carried. Every choice is free and shows at once on
+        the preview, framed on the head and shoulders. <b>Start career</b>, the ×, and Android back all keep the look
+        and go to the hub. The page scrolls under the docked button at phone width.</p>
+    </div>
+    <div class="figs phone">
+      <figure><img src="img/creator-man.jpg" alt="The Your supervisor screen with a bearded man in the preview, the Body, Face, Brows and Hair rows below, and Start career docked at the foot" loading="lazy"><figcaption>Opening on the previous career's look: a broad face, full brows, swept-back hair, a beard, a heavy build.</figcaption></figure>
+      <figure><img src="img/creator-man-scrolled.jpg" alt="The same screen scrolled to the Build row and the skin, hair and eye colour swatches" loading="lazy"><figcaption>Scrolled: build, then the skin, hair colour and eye swatches (the classroom's own palette, plus grey hair).</figcaption></figure>
+      <figure><img src="img/creator-woman.jpg" alt="The screen after choosing Woman: the woman's faces, brows and hairstyles" loading="lazy"><figcaption>Woman: her own faces, brows and hairstyles; no facial hair row. Build and colours are shared with the man.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="you">
+    <div class="section-head">
+      <h2>The You segment</h2>
+      <p class="muted">The Wardrobe's last segment, which was Hair, now holds the whole look with the same rows as the
+        creator. A tap saves (there is nothing to buy) and changes only the row it touches; switching Man / Woman
+        refills the rows. On the clothes segments the preview goes back to the whole figure, and try-on works as before.</p>
+    </div>
+    <div class="figs phone">
+      <figure><img src="img/you-m-beard.jpg" alt="The Wardrobe on the You segment with the bearded man in the preview" loading="lazy"><figcaption>The Wardrobe, You segment, man.</figcaption></figure>
+      <figure><img src="img/you-f-bob.jpg" alt="The Wardrobe on the You segment with a slim auburn-haired woman" loading="lazy"><figcaption>Woman: square face, auburn bob, slim build, light skin.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="looks">
+    <div class="section-head">
+      <h2>Looks and builds</h2>
+      <p class="muted">Eight looks as the You segment's preview shows them (head and shoulders), then the same eight on a
+        clothes segment (whole figure). Slim and heavy are the art's <code>build_slim</code> / <code>build_heavy</code>
+        blend shapes on the body, the issued tee and the legs.</p>
+    </div>
+    <div class="figs close">
+      <figure><img src="img/face-m-default.jpg" alt="Default man" loading="lazy"><figcaption>Man, default.</figcaption></figure>
+      <figure><img src="img/face-m-beard.jpg" alt="Broad face, swept-back black hair, beard" loading="lazy"><figcaption>Broad, swept back, beard, heavy.</figcaption></figure>
+      <figure><img src="img/face-m-bald.jpg" alt="Long face, bald, grey moustache, dark skin" loading="lazy"><figcaption>Long, bald, grey moustache.</figcaption></figure>
+      <figure><img src="img/face-m-slim.jpg" alt="Round face, spiky fair hair, stubble, light skin" loading="lazy"><figcaption>Round, spiky, stubble, slim.</figcaption></figure>
+      <figure><img src="img/face-f-default.jpg" alt="Default woman" loading="lazy"><figcaption>Woman, default.</figcaption></figure>
+      <figure><img src="img/face-f-bun.jpg" alt="Heart face, black bun, dark skin, heavy" loading="lazy"><figcaption>Heart, bun, heavy.</figcaption></figure>
+      <figure><img src="img/face-f-bob.jpg" alt="Square face, auburn bob, light skin" loading="lazy"><figcaption>Square, auburn bob, slim.</figcaption></figure>
+      <figure><img src="img/face-f-grey.jpg" alt="Round face, grey pixie cut, tan skin" loading="lazy"><figcaption>Round, grey pixie.</figcaption></figure>
+    </div>
+    <div class="figs close">
+      <figure><img src="img/body-m-default.jpg" alt="Default man, whole figure" loading="lazy"><figcaption>Average.</figcaption></figure>
+      <figure><img src="img/body-m-beard.jpg" alt="Heavy man, whole figure" loading="lazy"><figcaption>Heavy.</figcaption></figure>
+      <figure><img src="img/body-m-bald.jpg" alt="Average man, whole figure" loading="lazy"><figcaption>Average.</figcaption></figure>
+      <figure><img src="img/body-m-slim.jpg" alt="Slim man, whole figure" loading="lazy"><figcaption>Slim.</figcaption></figure>
+      <figure><img src="img/body-f-default.jpg" alt="Default woman, whole figure" loading="lazy"><figcaption>Average.</figcaption></figure>
+      <figure><img src="img/body-f-bun.jpg" alt="Heavy woman, whole figure" loading="lazy"><figcaption>Heavy.</figcaption></figure>
+      <figure><img src="img/body-f-bob.jpg" alt="Slim woman, whole figure" loading="lazy"><figcaption>Slim.</figcaption></figure>
+      <figure><img src="img/body-f-grey.jpg" alt="Average woman, whole figure" loading="lazy"><figcaption>Average.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="outfits">
+    <div class="section-head">
+      <h2>Outfits</h2>
+      <p class="muted">Wardrobe items worn on the proctor: tops, trousers and shoes are the art agent's refits, hats bring
+        their own hair-under-hat variant, the lanyard is the one laid on the top worn, the badge sits on the chest at a
+        pose measured on that top and build.</p>
+    </div>
+    <div class="figs close">
+      <figure><img src="img/outfit-casual.jpg" alt="Cap, mustard tee, jeans, sneakers, watch" loading="lazy"><figcaption>Cap, mustard tee, jeans, sneakers, watch.</figcaption></figure>
+      <figure><img src="img/outfit-formal.jpg" alt="Shirt and tie, formal trousers, loafers, square glasses, silver pin" loading="lazy"><figcaption>Shirt &amp; tie, formal trousers, loafers, square glasses, silver pin.</figcaption></figure>
+      <figure><img src="img/outfit-headteacher.jpg" alt="Blazer, round glasses, lanyard, boots" loading="lazy"><figcaption>Blazer, round glasses, lanyard, boots.</figcaption></figure>
+      <figure><img src="img/outfit-weekend.jpg" alt="Beanie, hoodie, chinos, running shoes" loading="lazy"><figcaption>Beanie, hoodie, chinos, runners.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="room">
+    <div class="section-head">
+      <h2>In the room</h2>
+      <p class="muted">The proctor in a running exam at Maple, among the students (who keep their own body), seen from
+        above the game camera and closer in. The figure stands about 1.8 m with its hair, over the agent, and walks with
+        the kit's own clips.</p>
+    </div>
+    <div class="figs two">
+      <figure><img src="img/room-wide-man.jpg" alt="The classroom with seated students and the proctor in shirt and tie" loading="lazy"><figcaption>The room: the bearded proctor in shirt and tie.</figcaption></figure>
+      <figure><img src="img/room-wide-woman.jpg" alt="The classroom with the woman proctor" loading="lazy"><figcaption>The same exam after a change of look.</figcaption></figure>
+      <figure><img src="img/room-close-man.jpg" alt="Close view of the bearded proctor by a student's desk" loading="lazy"><figcaption>Closer, from the game camera's side.</figcaption></figure>
+      <figure><img src="img/room-close-woman.jpg" alt="Close view of the woman proctor" loading="lazy"><figcaption>The woman, same spot.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="japanese">
+    <div class="section-head">
+      <h2>Japanese</h2>
+      <p class="muted">Every new word is in all seven languages (written for each, not copied from English), and
+        Japanese is drawn with the bundled Noto Sans JP. The You segment is 外見 (Appearance), as in the glossary.</p>
+    </div>
+    <div class="figs phone">
+      <figure><img src="img/creator-ja.jpg" alt="The creator in Japanese" loading="lazy"><figcaption>監督の外見: the creator in Japanese, the woman selected.</figcaption></figure>
+      <figure><img src="img/you-ja.jpg" alt="The Wardrobe's You segment in Japanese" loading="lazy"><figcaption>衣装 → 外見.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p class="muted">The art agent's manifest is the contract: the game reads part, role and shape names from it,
+        never mesh indices, so a new export is three files copied and the prefab built again.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>The look</h3><p>Body, face, brows, hair, facial hair, build, skin, hair colour and eye
+        colour. Face, brows and hair are kept per body, so Man / Woman brings each one's own back; build and colours are
+        shared. Nothing in the simulation reads any of it.</p></div>
+      <div class="card"><h3>Assembling the figure</h3><p>Both rigs and every part are in the prefab. Dressing turns on
+        exactly the body's parts, the face, brows, hair (or its under-hat variant), facial hair cut for that face, and
+        each worn item's parts, turning off what an item hides (a top hides the issued tee). Wardrobe parts are attached
+        and bound to the rig's bones by name.</p></div>
+      <div class="card"><h3>Colour by role</h3><p>One white material, tinted per surface by its role: skin, hair, eyes,
+        top, legwear and shoes times their factor; stubble half skin, half hair; the pupil a fixed near-black (it used
+        to take the shoes' colour); Wardrobe surfaces the item's own three colours.</p></div>
+      <div class="card"><h3>Build</h3><p>Slim and heavy set their blend shape to full on every shown mesh that has it;
+        average is zero. The badge pose is measured per top and per build so it stays on the cloth.</p></div>
+      <div class="card"><h3>A missing item</h3><p>If an item ever lacks proctor art, it is worn cleanly: the slot keeps
+        nothing visible, a top falls back to the issued tee in the item's colour, and no part of the old student-body
+        wardrobe is ever drawn. Today every item has art.</p></div>
+      <div class="card"><h3>Words</h3><p>Titles and buttons at most four words, the creator's note one sentence, the You
+        segment inside the Wardrobe's 120-word budget; every key in English, Turkish, French, Spanish, Brazilian
+        Portuguese, Russian and Japanese.</p></div>
+    </div>
+  </section>
+
+  <section id="saves">
+    <div class="section-head">
+      <h2>Saves</h2>
+      <p class="muted">No save version bump. The look is a new field: a save without it loads as the default proctor.
+        The old hairstyles are mapped on every load (it is idempotent) to the nearest new one:</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Old hairstyle</th><th>New hairstyle</th></tr></thead>
+        <tbody>
+          <tr><th>Short (man's default)</th><td>Side part (the man's default)</td></tr>
+          <tr><th>Cropped</th><td>Buzz cut</td></tr>
+          <tr><th>Curly</th><td>Swept back</td></tr>
+          <tr><th>Long (woman's default)</th><td>Layered (the woman's default)</td></tr>
+          <tr><th>Bob</th><td>Bob</td></tr>
+          <tr><th>Bun</th><td>Bun</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">A new career keeps the look of the career before it (running, abandoned this session, or saved on
+      the device) and never its clothes.</p>
+  </section>
+
+  <section id="tests">
+    <div class="section-head">
+      <h2>Tests</h2>
+      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Suite</th><th>Result</th><th>Covers</th></tr></thead>
+        <tbody>
+          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,645</span> passed, <span class="num">6</span> failed, <span class="num">212</span> skipped, <span class="num">142 s</span>. The 6 are the students' admission-photo tests, which need a graphics device; run with one they pass, 18 of 18.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the lanyard per top; hair under every hat; words and fit in every language; the creator and the You segment.</td></tr>
+          <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">93</span> passed, <span class="num">1</span> failed, <span class="num">50</span> skipped (captures), <span class="num">196 s</span>. The failure, a timing test of the first payday, passed 4 of 4 when run again.</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub) and the You segment redressing the preview and the room, plus every existing scene test.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="open">
+    <div class="section-head">
+      <h2>Open questions</h2>
+    </div>
+    <ul class="limits">
+      <li><b>Five brows for the man.</b> The decision was three per body; the art adds two softer ones as the faces'
+        defaults. The game offers what the art lists.</li>
+      <li><b>Mohawks.</b> Offered because the art lists them; they read loud for a proctor and can be dropped there.</li>
+      <li><b>Art polish</b> carried over from the art pipeline: the woman's hoodie hem, the lanyard dipping into some
+        tops in the reach, the man's broad shirt collar.</li>
+      <li><b>Not yet on a phone.</b> These are editor captures; the Galaxy A15 check (frame cost of a look tap, the
+        preview's portrait framing) is still to do.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

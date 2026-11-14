@@ -169,6 +169,12 @@
       "summary": "The game on a real Galaxy A15: the new app icon, shop tiles and Wardrobe on the latest build, plus every school room, offers and event art."
     },
     {
+      "slug": "proctor-creator",
+      "title": "Proctor Creator",
+      "category": "look-and-feel",
+      "summary": "The new proctor in the game: a free create-your-proctor step at each new career and the Wardrobe's You segment, with faces, hair, builds and colours on every outfit."
+    },
+    {
       "slug": "proctor-character",
       "title": "Proctor Character",
       "category": "look-and-feel",
