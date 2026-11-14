@@ -119,12 +119,17 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <p class="muted">A new career opens on this screen before the hub. It starts from the last career's look (the
         default proctor for a first career); bought clothes are not carried. Every choice is free and shows at once on
         the preview, framed on the head and shoulders. <b>Start career</b>, the ×, and Android back all keep the look
-        and go to the hub. The page scrolls under the docked button at phone width.</p>
+        and go to the hub; a career left on this screen (the app closed or sent to the background) opens on it again
+        at Continue. The page keeps room under its last row, so every row scrolls clear of the docked button.</p>
+      <p class="muted">The face, brows, hair, facial hair and build choices are a grid: up to four on a line, then
+        three. A long label wraps onto two lines and shrinks a little before anything is cut, which a test checks for
+        every choice in all seven languages at both text sizes.</p>
     </div>
     <div class="figs phone">
-      <figure><img src="img/creator-man.jpg" alt="The Your supervisor screen with a bearded man in the preview, the Body, Face, Brows and Hair rows below, and Start career docked at the foot" loading="lazy"><figcaption>Opening on the previous career's look: a broad face, full brows, swept-back hair, a beard, a heavy build.</figcaption></figure>
-      <figure><img src="img/creator-man-scrolled.jpg" alt="The same screen scrolled to the Build row and the skin, hair and eye colour swatches" loading="lazy"><figcaption>Scrolled: build, then the skin, hair colour and eye swatches (the classroom's own palette, plus grey hair).</figcaption></figure>
-      <figure><img src="img/creator-woman.jpg" alt="The screen after choosing Woman: the woman's faces, brows and hairstyles" loading="lazy"><figcaption>Woman: her own faces, brows and hairstyles; no facial hair row. Build and colours are shared with the man.</figcaption></figure>
+      <figure><img src="img/creator-man.jpg" alt="The Your supervisor screen with a bearded man in the preview, the Body, Face, Brows and Hair rows below, and Start career docked at the foot" loading="lazy"><figcaption>Opening on the previous career's look: a broad face, full brows, swept-back hair, a beard, a heavy build. The man's five brows take two lines.</figcaption></figure>
+      <figure><img src="img/creator-man-bottom.jpg" alt="The same screen scrolled to the end: hair, facial hair, build and the three colour rows, all above the Start career button" loading="lazy"><figcaption>Scrolled to the end: the eye colours sit clear of <b>Start career</b>. The swatches are the manifest's palettes (the classroom's own colours, plus grey hair).</figcaption></figure>
+      <figure><img src="img/creator-woman.jpg" alt="The screen after choosing Woman, with her preview" loading="lazy"><figcaption>Woman: her own faces, brows and hairstyles, and no facial hair row. Build and colours are shared with the man.</figcaption></figure>
+      <figure><img src="img/creator-ru-rows.jpg" alt="The creator in Russian: every face, brow, hairstyle and build label shown whole" loading="lazy"><figcaption>Russian, the longest words: Классическое shrinks to fit its cell, nothing is cut.</figcaption></figure>
     </div>
   </section>
 
@@ -227,8 +232,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
         each worn item's parts, turning off what an item hides (a top hides the issued tee). Wardrobe parts are attached
         and bound to the rig's bones by name.</p></div>
       <div class="card"><h3>Colour by role</h3><p>One white material, tinted per surface by its role: skin, hair, eyes,
-        top, legwear and shoes times their factor; stubble half skin, half hair; the pupil a fixed near-black (it used
-        to take the shoes' colour); Wardrobe surfaces the item's own three colours.</p></div>
+        top, legwear and shoes times their factor; stubble skin and hair mixed by the art's factor; a beard or moustache
+        the hair colour with a fifth of the skin mixed in, because a beard is thinner than scalp hair and a pure black
+        one read as a flat mask; the pupil a fixed near-black (it used to take the shoes' colour); Wardrobe surfaces
+        the item's own three colours.</p></div>
+      <div class="card"><h3>The preview</h3><p>One preview stage serves the creator and the Wardrobe. Whichever page is
+        shown binds it to its own picture and framing (head and shoulders for the look, the whole figure for clothes),
+        so returning to a kept Wardrobe after a new career never shows the creator's frozen frame.</p></div>
       <div class="card"><h3>Build</h3><p>Slim and heavy set their blend shape to full on every shown mesh that has it;
         average is zero. The badge pose is measured per top and per build so it stays on the cloth.</p></div>
       <div class="card"><h3>A missing item</h3><p>If an item ever lacks proctor art, it is worn cleanly: the slot keeps
@@ -272,8 +282,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <table>
         <thead><tr><th>Suite</th><th>Result</th><th>Covers</th></tr></thead>
         <tbody>
-          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,645</span> passed, <span class="num">6</span> failed, <span class="num">212</span> skipped, <span class="num">142 s</span>. The 6 are the students' admission-photo tests, which need a graphics device; run with one they pass, 18 of 18.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the lanyard per top; hair under every hat; words and fit in every language; the creator and the You segment.</td></tr>
-          <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">93</span> passed, <span class="num">1</span> failed, <span class="num">50</span> skipped (captures), <span class="num">196 s</span>. The failure, a timing test of the first payday, passed 4 of 4 when run again.</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub) and the You segment redressing the preview and the room, plus every existing scene test.</td></tr>
+          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,660</span> passed, <span class="num">0</span> failed, <span class="num">210</span> skipped, <span class="num">152 s</span>.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the lanyard per top; hair under every hat; words in every language, and every choice fitting its cell in all seven at both text sizes; the creator and the You segment; the preview bound back to a reopened page; which career a new one takes its look from; the beard's colour.</td></tr>
+          <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">96</span> passed, <span class="num">0</span> failed, <span class="num">50</span> skipped (captures), <span class="num">196 s</span>.</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub); a creator left open reopening on Continue; an abandoned career's look used once; the You segment redressing the preview and the room; plus every existing scene test.</td></tr>
         </tbody>
       </table>
     </div>
