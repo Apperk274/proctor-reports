@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>App Icon and Shop Art</title>
-<meta name="description" content="The new Exam Supervisor Simulator app icon, a calm exam room, at launcher sizes and under adaptive masks, and the Blender shop tiles as the game draws them.">
+<meta name="description" content="The Exam Supervisor Simulator app icon, a calm exam room, and eight simpler alternatives for Pencils Down! at launcher sizes, under adaptive masks and on mock home screens, plus the Blender shop tiles as the game draws them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -80,20 +80,25 @@ section { display: grid; gap: 20px; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles in the game · icon on a branch</span>
+    <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles in the game · icon on a branch · icon alternatives for review</span>
     <h1>App Icon and Shop Art</h1>
-    <p class="lede">The game's new launcher icon at the sizes a phone shows it, and the Blender shop tiles as the Store
-      draws them.</p>
+    <p class="lede">The game's launcher icon at the sizes a phone shows it, eight simpler alternatives that read at
+      a glance, and the Blender shop tiles as the Store draws them.</p>
     <p class="muted">Icon: one full-bleed 1024 px render used as the adaptive icon's background layer, with an empty
       foreground. It is shown through the circle, squircle and rounded-square masks at 192, 96 and 48 px on a light and
-      a dark wallpaper, and in a home-screen row. Shop: the Store, captured from the game at 1080 × 2340 in both
-      themes.</p>
+      a dark wallpaper, and in a home-screen row. It is a whole classroom, too busy to recognise at launcher size, so
+      <a href="#alternatives">Icon alternatives</a> tries six bolder single-idea directions and two colour variants,
+      each next to the current icon at true size, under four masks and on a mock home screen. Shop: the Store,
+      captured from the game at 1080 × 2340 in both themes.</p>
   </header>
 
   <section id="summary">
     <div class="cards">
       <div class="card"><span class="big">Icon → a calm exam room</span><p>Six students at their desks in three-quarter view,
         all in the same blue. Nobody is singled out. It is on the <code>app-icon</code> branch.</p></div>
+      <div class="card"><span class="big">Icon → 8 alternatives</span><p>The room is unreadable at 48 px. Six simpler
+        directions and two colour variants, for review. <a href="#recommendation">Top pick: Side-Eye</a>, then Pencil !
+        for the name “Pencils Down!”.</p></div>
       <div class="card"><span class="big">Shop → in the game</span><p>Phone Detector, Pills (an amber bottle), the three shirts
         (on hangers) and the five badges (shield pins) are Blender renders. Replay keeps its drawing.</p></div>
       <div class="card"><span class="big">Tests</span><p>EditMode and PlayMode both pass. No Meshy credits were used.</p></div>
@@ -116,8 +121,9 @@ section { display: grid; gap: 20px; }
           desks with white papers, on a blue floor. Each of the three layers (floor, desks and papers, students) has its
           own lightness, so the room survives being shrunk. The floor is lifted off navy so the icon keeps its edge on a
           dark wallpaper.</p>
-          <p class="verdict"><b>At 48 px:</b> it reads as rows of people at desks, and its edge holds on both wallpapers.
-            Single desks and papers are not distinct at that size; the regular pattern carries it.</p></div></div>
+          <p class="verdict"><b>At 48 px:</b> its edge holds on both wallpapers, but the room turns into a blue texture. Single
+            students, desks and papers are not distinct, and in a grid of other apps you can't tell what it is without
+            the label. That is why the alternatives below exist.</p></div></div>
       <div class="shot"><img src="img/icon/icon-layers.png" alt="The background layer, the empty foreground, and the composite with the 72 dp viewport and the 66 dp safe circle" loading="lazy"></div>
       <div class="shot"><img src="img/icon/icon-sizes.png" alt="The icon at 192, 96 and 48 px in circle, squircle and rounded masks on a light and a dark wallpaper" loading="lazy"></div>
       <div class="duo">
@@ -128,6 +134,118 @@ section { display: grid; gap: 20px; }
         <p class="muted">At a true 48 px on light and dark, then the same 48 px pixels enlarged four times without
           smoothing.</p></figure>
     </article>
+  </section>
+
+  <section id="alternatives">
+    <div class="section-head">
+      <h2>Icon alternatives</h2>
+      <p class="muted">Six simpler directions and two colour variants. Each one has a single focal idea, a few large
+        shapes and strong contrast, and no text. Most lean on the working title <b>Pencils Down!</b>. They are concepts
+        for review: the game still ships the exam room above.</p>
+      <p class="muted">Every concept is a real adaptive icon: a background and a foreground layer on a 108 dp canvas, with
+        the subject inside the 66 dp safe circle, plus a flat 512 px Play Store version. All of them were drawn by a
+        script. No generator credits were used.</p>
+      <p class="muted"><b>Real size.</b> The size strips, the 48 px line-up and the phones are drawn at 2× and shown at
+        half size. On a wide enough screen a “48 px” icon really is 48 CSS px, about what a phone shows at arm’s length.
+        The home screens are 360 dp wide: a 4 × 5 grid of generic placeholder apps, with the concept in the
+        third row. The light wallpaper uses circle masks and the dark one squircle masks. Every mock-up labels the app
+        “Pencils Down!”, including the current icon, so the label doesn’t favour any of them.</p>
+    </div>
+
+    <figure class="item" style="margin:0"><h3>All of them at 48 px</h3>
+      <div class="shot true light" style="max-width:1024px"><img src="img/concepts/lineup-48.png" width="1024" height="200" alt="The current icon and the eight concepts at a true 48 px with circle masks, on a light and a dark strip"></div>
+      <p class="muted">The current icon first, then each concept, at true launcher size on light and dark.</p>
+    </figure>
+
+    <figure class="item" style="margin:0"><h3>Baseline: the current icon on the same home screens</h3>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/current-home.jpg" width="832" height="828" alt="The current exam-room icon on the same 4 by 5 home screens, light and dark" loading="lazy"></div>
+      <p class="muted">In the grid it is a blue texture with flecks of brown. You can’t tell it is a classroom without
+        reading the label.</p>
+    </figure>
+
+    <article class="concept" id="alt-side-eye">
+      <div class="concept-top"><img src="img/concepts/side-eye-512.png" alt="Concept Side-Eye: round glasses and stern brows on yellow, eyes glancing sideways, 512 px Play Store version" width="160" height="160">
+        <div><h3>Side-Eye <span class="tag rec">Recommended · 1st</span></h3><p class="muted">The supervisor as a face: big round glasses, eyes glancing sideways, one brow down and one raised. A suspicious look, on brass yellow.</p>
+          <p class="verdict"><b>At launcher size:</b> Nothing else on a home screen looks like it. The two lenses and the brows still hold at 32 px. The ring of dark frames gives a strong edge on both wallpapers. It is a character rather than an object, so it also says “game”.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/side-eye-sizes.png" width="1116" height="480" alt="Side-Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/side-eye-masks.png" width="638" height="320" alt="Side-Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/side-eye-home.jpg" width="832" height="828" alt="Side-Eye on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-side-eye-blue">
+      <div class="concept-top"><img src="img/concepts/side-eye-blue-512.png" alt="Concept Side-Eye, blue: the blue face with glasses, 512 px Play Store version" width="160" height="160">
+        <div><h3>Side-Eye, blue <span class="tag">Colour variant</span></h3><p class="muted">The same face on the game’s Primary blue instead of brass.</p>
+          <p class="verdict"><b>At launcher size:</b> Closer to the game’s own palette. On a light wallpaper it reads as well as the yellow one, but it is quieter in a grid full of blue icons (Messages, Browser, Games). Yellow is the better choice.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/side-eye-blue-sizes.png" width="1116" height="480" alt="Side-Eye, blue and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/side-eye-blue-masks.png" width="638" height="320" alt="Side-Eye, blue and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/side-eye-blue-home.jpg" width="832" height="828" alt="Side-Eye, blue on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-pencil-bang">
+      <div class="concept-top"><img src="img/concepts/pencil-bang-512.png" alt="Concept Pencil !: a pencil-shaped exclamation mark on red, 512 px Play Store version" width="160" height="160">
+        <div><h3>Pencil ! <span class="tag rec">Recommended · 2nd</span></h3><p class="muted">An exclamation mark built from a chunky yellow pencil, tip down, with a white dot. The brief’s one glyph.</p>
+          <p class="verdict"><b>At launcher size:</b> The boldest silhouette in the set: one vertical stroke and a dot, on red. It is the most “Pencils Down!” of all, almost a logo. On its own it says “alert” or “warning” more than “exam”, so it leans on the name.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-bang-sizes.png" width="1116" height="480" alt="Pencil ! and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-bang-masks.png" width="638" height="320" alt="Pencil ! and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-bang-home.jpg" width="832" height="828" alt="Pencil ! on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-pencil-down">
+      <div class="concept-top"><img src="img/concepts/pencil-down-512.png" alt="Concept Pencil Down: a pencil lying on an exam sheet, on blue, 512 px Play Store version" width="160" height="160">
+        <div><h3>Pencil Down <span class="tag rec">Recommended · 3rd</span></h3><p class="muted">A yellow pencil laid down across a tilted exam sheet, on the game’s blue.</p>
+          <p class="verdict"><b>At launcher size:</b> The most literal reading of the name, and clean at 48 px: a white sheet and a yellow diagonal. It is also the most generic. Notes and editor apps use the same picture, so it says “writing app” before “exam game”.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-down-sizes.png" width="1116" height="480" alt="Pencil Down and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-down-masks.png" width="638" height="320" alt="Pencil Down and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-down-home.jpg" width="832" height="828" alt="Pencil Down on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-pencil-down-navy">
+      <div class="concept-top"><img src="img/concepts/pencil-down-navy-512.png" alt="Concept Pencil Down, navy: a pencil on an exam sheet, on navy, 512 px Play Store version" width="160" height="160">
+        <div><h3>Pencil Down, navy <span class="tag">Colour variant</span></h3><p class="muted">The same picture on the game’s navy ground, with a soft blue glow.</p>
+          <p class="verdict"><b>At launcher size:</b> Matches the in-game UI best, and the white sheet pops more on navy than on blue. On a dark wallpaper the navy edge disappears and only the sheet is left. The blue version keeps its shape.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-down-navy-sizes.png" width="1116" height="480" alt="Pencil Down, navy and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-down-navy-masks.png" width="638" height="320" alt="Pencil Down, navy and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-down-navy-home.jpg" width="832" height="828" alt="Pencil Down, navy on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-watchful-eye">
+      <div class="concept-top"><img src="img/concepts/watchful-eye-512.png" alt="Concept Watchful Eye: an eye above an exam paper, 512 px Play Store version" width="160" height="160">
+        <div><h3>Watchful Eye </h3><p class="muted">One wide-open eye looking down at an exam paper, on navy.</p>
+          <p class="verdict"><b>At launcher size:</b> Very legible: the white almond and blue iris read at 32 px, and the paper strip says “exam” at 96 px and up. The mood is surveillance rather than comedy. It could pass for a privacy or security app.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/watchful-eye-sizes.png" width="1116" height="480" alt="Watchful Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/watchful-eye-masks.png" width="638" height="320" alt="Watchful Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/watchful-eye-home.jpg" width="832" height="828" alt="Watchful Eye on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-times-up">
+      <div class="concept-top"><img src="img/concepts/times-up-512.png" alt="Concept Time’s Up: a stopwatch with a pencil for a hand, 512 px Play Store version" width="160" height="160">
+        <div><h3>Time’s Up </h3><p class="muted">A stopwatch whose hand is a pencil, pointing straight up at zero. The red ring says time is up.</p>
+          <p class="verdict"><b>At launcher size:</b> Clear and friendly, and it ties “time’s up” to “pencils down”. It reads as a timer first. Next to a Clock app it looks like a sibling, and the pencil hand is just a yellow line at 48 px.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/times-up-sizes.png" width="1116" height="480" alt="Time’s Up and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/times-up-masks.png" width="638" height="320" alt="Time’s Up and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/times-up-home.jpg" width="832" height="828" alt="Time’s Up on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-bubble-sheet">
+      <div class="concept-top"><img src="img/concepts/bubble-sheet-512.png" alt="Concept Bubble Sheet: a bubble answer sheet with a pencil, 512 px Play Store version" width="160" height="160">
+        <div><h3>Bubble Sheet </h3><p class="muted">A multiple-choice answer sheet close up: two rows of bubbles, two filled in, a pencil filling the second.</p>
+          <p class="verdict"><b>At launcher size:</b> “Exam” for anyone who has sat a bubble test, and the green stands out. It is the busiest of the set. At 32 px the bubbles become dots and it can read as dice or dominoes.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/bubble-sheet-sizes.png" width="1116" height="480" alt="Bubble Sheet and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/bubble-sheet-masks.png" width="638" height="320" alt="Bubble Sheet and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/bubble-sheet-home.jpg" width="832" height="828" alt="Bubble Sheet on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+
+    <div class="item" id="recommendation">
+      <h3>Recommendation</h3>
+      <ol class="next">
+        <li><b>Side-Eye (yellow).</b> It stands out most in a crowded grid and holds at 32 px. It is the only one that
+          shows the player’s role, the suspicious supervisor, rather than an exam object, and it works under either
+          name. Of the eight it is also the only one that looks like a game rather than a utility.</li>
+        <li><b>Pencil !</b> The strongest pure silhouette, and practically a logo for “Pencils Down!”. Choose it if
+          the name changes. Under the current name it is just an alert sign.</li>
+        <li><b>Pencil Down (blue).</b> The safest and most literal “exam” picture, in the product’s own blue. It is
+          clean at every size but generic: it competes with every notes app.</li>
+      </ol>
+      <p class="verdict"><b>Fit with the name.</b> With <b>Pencils Down!</b>: Pencil !, Pencil Down, Time’s Up and
+        Bubble Sheet all illustrate the title. With <b>Exam Supervisor Simulator</b>: Side-Eye and Watchful Eye show
+        the supervisor. Side-Eye is the one that fits both.</p>
+      <p class="muted">Tried and dropped: a raised “stop” hand (clear, but it says “stop” or “high five”, not
+        “exam”), and a cheat note under a spotlight (the beam turned to a grey smudge at 48 px and the note read as a
+        generic notes app).</p>
+    </div>
   </section>
 
   <section id="shop">
@@ -183,7 +301,9 @@ section { display: grid; gap: 20px; }
     <p class="muted">Sources: <code>ArtSource/UI/imgq/blender/icon_scene.py</code> (the <code>angled</code> scene) and
       <code>shop.py</code>; <code>make_branding.py</code>, <code>compose_icons.py</code> and
       <code>build_icon_shop_report.py</code>. The Store captures come from the PlayMode test
-      <code>StoreTileCaptures</code>.</p>
+      <code>StoreTileCaptures</code>. The icon alternatives are drawn by <code>ArtSource/Branding/IconConcepts/concepts.py</code>
+      (adaptive layers and the 512 px Play Store version per concept), and their review sheets by <code>review.py</code>
+      in the same folder.</p>
   </section>
 </div>
 </body>
