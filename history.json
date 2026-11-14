@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-11-15",
+    "author": "Apperk274",
+    "slug": "proctor-character",
+    "change": "Re-rendered every image from the fixed art (no lanyards, distinct brows, hair-only facial hair, whole-body builds, sealed seams, skin-lined necklines, upper-chest badges) and added Fit details, the new checks and the current open problems."
+  },
+  {
+    "date": "2026-11-15",
+    "author": "Apperk274",
+    "slug": "proctor-creator",
+    "change": "Replaced the captures with ones of the fixed art, dropped the lanyard outfit and the room stills taken before the fixes, and updated the counts, tests and open questions."
+  },
+  {
     "date": "2026-11-14",
     "author": "Apperk274",
     "slug": "app-icon-shop",

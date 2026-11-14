@@ -109,7 +109,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <div class="stat"><span class="big">2 × 4</span><span>faces, man and woman</span></div>
       <div class="stat"><span class="big">7 + 6</span><span>hairstyles: the man's (with bald) and the woman's</span></div>
       <div class="stat"><span class="big">3</span><span>builds, as blend shapes on body and clothes</span></div>
-      <div class="stat"><span class="big">43 / 43</span><span>Wardrobe items worn on the proctor, both bodies</span></div>
+      <div class="stat"><span class="big">42 / 42</span><span>Wardrobe items in 7 slots, worn on the proctor, both bodies</span></div>
     </div>
   </header>
 
@@ -151,7 +151,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <h2>Looks and builds</h2>
       <p class="muted">Eight looks as the You segment's preview shows them (head and shoulders), then the same eight on a
         clothes segment (whole figure). Slim and heavy are the art's <code>build_slim</code> / <code>build_heavy</code>
-        blend shapes on the body, the issued tee and the legs.</p>
+        blend shapes: they reshape the whole body (torso, shoulders, arms, hips and legs), and every top and trouser cut
+        follows, with the hem and the waistband meeting in every build. Facial hair is hair only, so the face's own mouth
+        shows through the beard and moustache.</p>
     </div>
     <div class="figs close">
       <figure><img src="img/face-m-default.jpg" alt="Default man" loading="lazy"><figcaption>Man, default.</figcaption></figure>
@@ -178,15 +180,16 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   <section id="outfits">
     <div class="section-head">
       <h2>Outfits</h2>
-      <p class="muted">Wardrobe items worn on the proctor: tops, trousers and shoes are the art agent's refits, hats bring
-        their own hair-under-hat variant, the lanyard is the one laid on the top worn, the badge sits on the chest at a
-        pose measured on that top and build.</p>
+      <p class="muted">Wardrobe items worn on the proctor, in seven slots: hat, top, trousers, shoes, badge, glasses and
+        wrist. Tops, trousers and shoes are the art's refits, each top with a skin lining at the neck so the head never
+        floats above it; hats bring their own hair-under-hat variant; the badge clips on the upper chest at a spot set per
+        body, with its own spot on the tops whose front opens (the cardigan, blazer, hoodie and shirt and tie) so it stays
+        on plain cloth.</p>
     </div>
     <div class="figs close">
       <figure><img src="img/outfit-casual.jpg" alt="Cap, mustard tee, jeans, sneakers, watch" loading="lazy"><figcaption>Cap, mustard tee, jeans, sneakers, watch.</figcaption></figure>
       <figure><img src="img/outfit-formal.jpg" alt="Shirt and tie, formal trousers, loafers, square glasses, silver pin" loading="lazy"><figcaption>Shirt &amp; tie, formal trousers, loafers, square glasses, silver pin.</figcaption></figure>
-      <figure><img src="img/outfit-headteacher.jpg" alt="Blazer, round glasses, lanyard, watch, boots" loading="lazy"><figcaption>Blazer, round glasses, lanyard, watch, boots.</figcaption></figure>
-      <figure><img src="img/outfit-lanyard.jpg" alt="Sweater, lanyard, watch, chinos and the woman's new boots" loading="lazy"><figcaption>Sweater, lanyard (laid on the sweater), watch, chinos, the woman's new boots.</figcaption></figure>
+      <figure><img src="img/outfit-headteacher.jpg" alt="Blazer, round glasses, watch, boots" loading="lazy"><figcaption>Blazer, round glasses, watch, boots.</figcaption></figure>
       <figure><img src="img/outfit-weekend.jpg" alt="Beanie, hoodie, chinos, running shoes" loading="lazy"><figcaption>Beanie, hoodie, chinos, runners.</figcaption></figure>
     </div>
   </section>
@@ -194,17 +197,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   <section id="room">
     <div class="section-head">
       <h2>In the room</h2>
-      <p class="muted">The proctor in a running exam at Maple, among the students (who keep their own body), seen from
-        above the game camera and closer in. The figure stands about 1.8 m with its hair, over the agent, and walks with
-        the kit's own clips.</p>
+      <p class="muted">The proctor in a running exam at Maple, among the students (who keep their own body). The figure
+        stands about 1.8 m with its hair, over the agent, and walks with the kit's own clips. Stills of the room with the
+        fixed art are still to be taken; until then the art side's renders from the game camera are in
+        <a href="../proctor-character/#room">Proctor Character</a>.</p>
     </div>
-    <div class="figs two">
-      <figure><img src="img/room-wide-man.jpg" alt="The classroom with seated students and the proctor in shirt and tie" loading="lazy"><figcaption>The room: the bearded proctor in shirt and tie.</figcaption></figure>
-      <figure><img src="img/room-wide-woman.jpg" alt="The classroom with the woman proctor" loading="lazy"><figcaption>The same exam after a change of look.</figcaption></figure>
-      <figure><img src="img/room-close-man.jpg" alt="Close view of the bearded proctor by a student's desk" loading="lazy"><figcaption>Closer, from the game camera's side.</figcaption></figure>
-      <figure><img src="img/room-close-woman.jpg" alt="Close view of the woman proctor" loading="lazy"><figcaption>The woman, same spot.</figcaption></figure>
-    </div>
-    <p class="muted">The woman walking across the room, four frames about a tenth of a second apart. Each clip carries a
+    <p class="muted">The woman walking across the room (average build, shirt and tie, formal trousers, loafers), four frames
+      about a tenth of a second apart. Each clip carries a
       set of channels for each rig, and the game plays her own set on her rig: her knees stay at least 0.18 m apart
       and her feet at least 0.16 m apart through a whole stride, and they never cross (a test holds this).</p>
     <div class="figs close">
@@ -242,15 +241,20 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
         each worn item's parts, turning off what an item hides (a top hides the issued tee). Wardrobe parts are attached
         and bound to the rig's bones by name.</p></div>
       <div class="card"><h3>Colour by role</h3><p>One white material, tinted per surface by its role: skin, hair, eyes,
-        top, legwear and shoes times their factor; stubble skin and hair mixed by the art's factor; a beard or moustache's
-        hair the hair colour with a fifth of the skin mixed in, because a beard is thinner than scalp hair and a pure
-        black one read as a flat mask, while its lips keep the skin shade and its mouth line the fixed near-black; the pupil a fixed near-black (it used to take the shoes' colour); Wardrobe surfaces
-        the item's own three colours.</p></div>
+        top, legwear and shoes times their factor; stubble <code>lerp(skin, hair, 0.6)</code>, the art's factor; a beard
+        or moustache's hair the hair colour with a fifth of the skin mixed in, because a beard is thinner than scalp hair
+        and a pure black one read as a flat mask; facial hair carries no mouth of its own, the face's shows through it; the
+        pupil a fixed near-black; each top's neck lining the skin colour; Wardrobe surfaces the item's own three
+        colours.</p></div>
       <div class="card"><h3>The preview</h3><p>One preview stage serves the creator and the Wardrobe. Whichever page is
         shown binds it to its own picture and framing (head and shoulders for the look, the whole figure for clothes),
         so returning to a kept Wardrobe after a new career never shows the creator's frozen frame.</p></div>
       <div class="card"><h3>Build</h3><p>Slim and heavy set their blend shape to full on every shown mesh that has it;
-        average is zero. The badge pose is measured per top and per build so it stays on the cloth.</p></div>
+        average is zero. The body, the issued tee, the default legs and every top and trouser cut carry dense shapes, and a
+        test checks that each one has both and that heavy moves it.</p></div>
+      <div class="card"><h3>Badges</h3><p>The prefab builder reads the badge rule from the manifest: a height below the
+        shoulders and a side offset per body, and a top's own entry where its front opens. The badge pose is measured per
+        top and per build, so it stays on plain cloth on the upper chest.</p></div>
       <div class="card"><h3>A missing item</h3><p>If an item ever lacks proctor art, it is worn cleanly: the slot keeps
         nothing visible, a top falls back to the issued tee in the item's colour, and no part of the old student-body
         wardrobe is ever drawn. Today every item has art.</p></div>
@@ -286,13 +290,18 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   <section id="tests">
     <div class="section-head">
       <h2>Tests</h2>
-      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1.</p>
+      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1. The full suites below ran before the art fixes;
+        after the fixed art came in, the proctor tests were run on their own (EditMode <span class="num">154</span> passed,
+        PlayMode <span class="num">5</span> passed, none failed), including new ones for the per-top badge rule, the
+        dense build shapes on every body, top and legwear part, a beard with no mouth, and the neck lining taking the skin
+        colour. An editor review scene lays out every combination these two reports show:
+        <span class="num">462</span> figures in <span class="num">32</span> sections.</p>
     </div>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Suite</th><th>Result</th><th>Covers</th></tr></thead>
         <tbody>
-          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,660</span> passed, <span class="num">0</span> failed, <span class="num">210</span> skipped, <span class="num">155 s</span>, on the final art.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the lanyard per top; hair under every hat; words in every language, and every choice fitting its cell in all seven at both text sizes; the creator and the You segment; the preview bound back to a reopened page; which career a new one takes its look from; the beard's colour.</td></tr>
+          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,660</span> passed, <span class="num">0</span> failed, <span class="num">210</span> skipped, <span class="num">155 s</span>, on the final art.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the badge spot per body and top; hair under every hat; words in every language, and every choice fitting its cell in all seven at both text sizes; the creator and the You segment; the preview bound back to a reopened page; which career a new one takes its look from; the beard's colour.</td></tr>
           <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">96</span> passed, <span class="num">0</span> failed, <span class="num">50</span> skipped (captures), <span class="num">196 s</span>.</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub); a creator left open reopening on Continue; an abandoned career's look used once; the You segment redressing the preview and the room; plus every existing scene test.</td></tr>
         </tbody>
       </table>
@@ -307,8 +316,12 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <li><b>Five brows for the man.</b> The decision was three per body; the art adds two softer ones as the faces'
         defaults. The game offers what the art lists.</li>
       <li><b>Mohawks.</b> Offered because the art lists them; they read loud for a proctor and can be dropped there.</li>
-      <li><b>Art polish</b> carried over from the art pipeline: the woman's hoodie hem, the lanyard dipping into some
-        tops in the reach, the man's broad shirt collar.</li>
+      <li><b>Art polish</b> still open in the art pipeline: thin slivers at the woman's cardigan neckline and round the
+        man's sweater collar; slim reads only a little slimmer than average; the woman's sneakers show a sock-like ankle
+        between the shoe and the hem; the heaviest dressed figure is about 8.7k triangles, over the 8k target. See
+        <a href="../proctor-character/#problems">Proctor Character</a>.</li>
+      <li><b>Room stills to retake.</b> The in-exam captures were taken before the art fixes and are left out until they
+        are taken again with the fixed art.</li>
       <li><b>Not yet on a phone.</b> These are editor captures; the Galaxy A15 check (frame cost of a look tap, the
         preview's portrait framing) is still to do.</li>
     </ul>
