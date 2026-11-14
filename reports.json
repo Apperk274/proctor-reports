@@ -30,7 +30,7 @@
       "slug": "localization",
       "title": "Localization",
       "category": "look-and-feel",
-      "summary": "Seven languages: the Settings picker, names drawn in the career's language, localized school and exam names, number formats and the Japanese font; most screens still English."
+      "summary": "Seven languages with every player-facing string translated, names drawn in the career's language, layout checked in each language and a Japanese font."
     },
     {
       "slug": "calm-students",

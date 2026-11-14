@@ -3,6 +3,12 @@
     "date": "2026-11-14",
     "author": "Apperk274",
     "slug": "localization",
+    "change": "Updated to the current state: all player text translated in seven languages, per-language layout checks, compact exam action rows and matched Japanese line heights, with new Russian, French and Japanese screenshots."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
+    "slug": "localization",
     "change": "Added the Localization report: Settings in seven languages, career-language names, localized school and exam names, formats, fonts and what is still to do."
   },
   {

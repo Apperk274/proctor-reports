@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Localization</title>
-<meta name="description" content="Seven languages in Exam Supervisor Simulator: the Settings picker, names drawn in the career's language, localized school and exam names, number and date formats, the Japanese font, and what is still English.">
+<meta name="description" content="Seven languages in Exam Supervisor Simulator: every player-facing string translated, names drawn in the career's language, layout checked per language, compact exam action rows, number and date formats and the Japanese font.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -93,6 +93,8 @@ td .alt { color: var(--muted); }
 .notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
 .notes li { color: var(--muted); }
 .notes b { color: var(--ink); font-weight: 600; }
+.group { display: grid; gap: 10px; }
+.group + .group { margin-top: 12px; }
 .back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
 .back:hover { text-decoration: underline; }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -104,94 +106,169 @@ td .alt { color: var(--muted); }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · languages</span>
     <h1>Localization</h1>
-    <p class="lede">The game now runs in seven languages: English, Turkish, French, Spanish (Latin American), Brazilian
-      Portuguese, Russian and Japanese. The foundation is in place: a language setting, one string table per language,
-      plural and number rules, names drawn in each language, localized school and exam names, and a Japanese font. Only the
-      Settings screen is fully translated so far. Every screenshot is a capture of the real screen code at 1080×2340
-      portrait, shown at half size, rendered from a fresh fixed-seed career with no player save involved.</p>
+    <p class="lede">The game runs in seven languages: English, Turkish, French, Spanish (Latin American), Brazilian
+      Portuguese, Russian and Japanese. Every piece of player-facing text comes from the string tables, with each
+      language's plural rules, number and date formats and quotation marks. People are named in the career's language, and
+      Japanese has its own font. Only the game's title wordmark stays in English. The screenshots are captures of the real
+      screen code in portrait (1080×1920, the door at 1080×2340), shown at half size, from an in-memory test career with
+      no player save involved.</p>
   </header>
 
-  <div class="callout"><b>English text in the screenshots is expected, not a bug.</b> About 1,100 strings (the HUD, the
-    Manual, event sentences and most screen labels) have not been moved to the string tables yet, so most screens still
-    show English around the parts that are localized. The work is not finished, and the status section at the bottom
-    lists what is left.</div>
+  <div class="callout"><b>No native speaker has reviewed the translations yet.</b> All six are complete and fit their
+    screens, but they are drafts until that review. The names on the HUD and door screenshots (Ada Yilmaz, Gülşen
+    Karaağaçlıoğlu) are test fixture data, not names a career generated.</div>
 
   <section>
     <div class="section-head">
       <h2>Status</h2>
     </div>
     <div class="verdicts">
-      <div class="card"><span class="tag done">done</span><h3>Foundation</h3>
+      <div class="card"><span class="tag done">done</span><h3>Language setting</h3>
         <ul>
-          <li>Language setting. On first launch it picks the device language.</li>
-          <li>One flat JSON string table per language.</li>
-          <li>Plural rules, male and female variants, number and date formats, and Turkish-aware capitals (i → İ).</li>
+          <li>The Settings language picker switches the UI live, with no restart.</li>
+          <li>On first launch the game follows the device language.</li>
           <li>Saves record the career's language.</li>
         </ul></div>
-      <div class="card"><span class="tag done">done</span><h3>Settings screen</h3>
-        <p>Fully translated, as the pilot screen. One row in it, Rules, still reads in English, because that row shows the
-          Manual's title, and the Manual has not been converted yet.</p></div>
+      <div class="card"><span class="tag done">done</span><h3>All player-facing text</h3>
+        <ul>
+          <li>About 1,100 strings in string tables split by domain: game text, the Manual, career, shop, HUD, event cards
+            and the admission door.</li>
+          <li>Sentences that used to be glued together from fragments are whole templates, so each language can put the
+            words in its own order.</li>
+          <li>The title wordmark stays in English.</li>
+        </ul></div>
+      <div class="card"><span class="tag done">done</span><h3>Grammar and formats</h3>
+        <ul>
+          <li>Plural rules for each language: one, few and many in Russian, and a zero form in Brazilian Portuguese.</li>
+          <li>Male and female variants.</li>
+          <li>Number and date formats for each language, and capitals that respect Turkish (i → İ).</li>
+        </ul></div>
       <div class="card"><span class="tag done">done</span><h3>Names and catalog names</h3>
         <ul>
-          <li>Character names come from a name pool for each language.</li>
-          <li>School, exam, tool, cosmetic and product names are drawn from ids in each language.</li>
-          <li>The appearance lines on the ID card are localized the same way.</li>
+          <li>Names come from the career's language: Japanese family name first, Russian surnames by gender.</li>
+          <li>Turkish careers keep exactly the names they had.</li>
+          <li>School, exam, tool, cosmetic and product names are drawn from ids, in the UI language.</li>
         </ul></div>
-      <div class="card"><span class="tag todo">not yet</span><h3>The remaining ~1,100 strings</h3>
-        <p>Event sentences, the Manual, the HUD and the other screens. This includes Turkish suffixes and Russian case
-          endings around inserted names.</p></div>
-      <div class="card"><span class="tag todo">not yet</span><h3>Layout checks per language</h3>
-        <p>A long pseudo-language to find overflow, the fit tests run in each language, and a character budget for
-          Japanese in the text rules.</p></div>
-      <div class="card"><span class="tag todo">not yet</span><h3>Native-speaker review</h3>
-        <p>No translation has been checked by a native speaker yet. Nine open questions are written down for that review.
-          Examples: the Russian word for the supervisor, the Spanish register (usted or tú), the Turkish coin word, and
-          whether any of the invented school names matches a famous real one.</p></div>
+      <div class="card"><span class="tag done">done</span><h3>Layout in every language</h3>
+        <p>A fit test covers every button, chip, stamp, shop sheet, rank chip, hub tile and event card in all seven
+          languages. About 45 translations were shortened to fit. See <a href="#layout">Layout</a>.</p></div>
+      <div class="card"><span class="tag done">done</span><h3>Japanese font</h3>
+        <p>Noto Sans JP as a fallback, with line heights matched to the Latin font. See <a href="#font">Fonts</a>.</p></div>
+      <div class="card"><span class="tag done">done</span><h3>Tests</h3>
+        <ul>
+          <li>EditMode: 2,630 passed, 0 failed, 210 skipped (Explicit or Ignored).</li>
+          <li>PlayMode: 92 passed, 0 failed, 48 skipped.</li>
+        </ul></div>
+      <div class="card"><span class="tag todo">open</span><h3>Native-speaker review</h3>
+        <p>None of the six translations has been checked by a native speaker. The questions for that review are listed in
+          the glossary. Examples: the Russian word for the supervisor, the Spanish register (usted or tú), the Turkish coin
+          word, and whether any invented school name matches a famous real one.</p></div>
+      <div class="card"><span class="tag todo">open</span><h3>One Turkish line</h3>
+        <p>The wording of "{name} adlı adayın yanına gidiyorsunuz…" (you walk over to the candidate {name}) is still to
+          be settled.</p></div>
     </div>
   </section>
 
-  <section>
+  <section id="screens">
     <div class="section-head">
-      <h2>Settings in seven languages</h2>
-      <p class="muted">The Settings screen is the one screen that is fully translated. The rows a player sees first: Sound,
-        Display and help, then Career below the fold.</p>
+      <h2>Screens in Russian, French and Japanese</h2>
+      <p class="muted">The three languages that push the layout hardest: long Russian words, long French phrases and
+        Japanese script. Every word on these screens comes from the string tables.</p>
+    </div>
+    <div class="group">
+      <h3>Settings</h3>
+      <div class="figs">
+        <figure><img src="img/ru-settings.png" width="540" height="960" alt="Settings screen in Russian: Звук, Общая громкость, Эффекты, Экран и справка, Тема, Тёмная, Светлая, Авто, Язык Русский, Размер текста Обычный, Подсказки Вкл., Меньше анимации Выкл.">
+          <figcaption><b>Русский.</b> The theme hint quotes «Авто» with Russian guillemets, and the Language row reads
+            Русский.</figcaption></figure>
+        <figure><img src="img/fr-settings.png" width="540" height="960" alt="Settings screen in French: Son, Volume général, Effets, Affichage et aide, Thème, Sombre, Clair, Auto, Langue Français, Taille du texte Normale, Astuces Oui, Réduire les animations Non">
+          <figcaption><b>Français.</b> « Auto » with the spaces French puts inside its quotation marks.</figcaption></figure>
+        <figure><img src="img/ja-settings.png" width="540" height="960" alt="Settings screen in Japanese: サウンド, 全体の音量, 効果音, 表示とヘルプ, テーマ, ダーク, ライト, 自動, 言語 日本語, 文字サイズ 標準, ヒント オン, 動きを減らす オフ">
+          <figcaption><b>日本語.</b> 「自動」 in Japanese corner brackets. Kana and kanji come from the Noto Sans JP
+            fallback.</figcaption></figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Hub</h3>
+      <div class="figs">
+        <figure><img src="img/ru-hub.png" width="540" height="960" alt="Hub screen in Russian: Школа «Заречье», Средняя школа, Начать экзамен 6, Вступительный экзамен · 4 участника, tiles Карьера, Магазин, Гардероб, Правила">
+          <figcaption><b>Русский.</b> Школа «Заречье». "4 участника" and "Разрешено 2 предмета" use the few form of the
+            Russian plural.</figcaption></figure>
+        <figure><img src="img/fr-hub.png" width="540" height="960" alt="Hub screen in French: Collège des Rives, Collège, Commencer l'examen 6, Examen d'entrée à l'université · 4 candidats, tiles Carrière, Boutique, Garde-robe, Règles">
+          <figcaption><b>Français.</b> Collège des Rives. The longest exam name, "Examen d'entrée à l'université", fits
+            under the start button.</figcaption></figure>
+        <figure><img src="img/ja-hub.png" width="540" height="960" alt="Hub screen in Japanese: 川辺中学校, 中学校, 第6回試験を開始, 大学入試 · 4人, tiles キャリア, ショップ, 衣装, ルール">
+          <figcaption><b>日本語.</b> 川辺中学校 and 第6回試験を開始: the exam number moves inside the phrase, which a
+            whole-sentence template allows.</figcaption></figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Event card</h3>
+      <div class="figs">
+        <figure><img src="img/ru-event.png" width="540" height="960" alt="Morning event card in Russian: СЕГОДНЯ УТРОМ, Нездоровится, a sentence about a headache and medicine for 120 coins, buttons Купить лекарство −120 and Перетерпеть">
+          <figcaption><b>Русский.</b> Нездоровится. "120 монет" takes the many form of the plural.</figcaption></figure>
+        <figure><img src="img/fr-event.png" width="540" height="960" alt="Morning event card in French: CE MATIN, Malade, Une migraine persiste ; le médicament coûte 120 pièces, buttons Acheter un médicament −120 and Tenir bon">
+          <figcaption><b>Français.</b> Malade. French spacing before the semicolon ("persiste ;"), and the longest
+            button, "Acheter un médicament", still fits beside the coin chip.</figcaption></figure>
+        <figure><img src="img/ja-event.png" width="540" height="960" alt="Morning event card in Japanese: 今朝, 体調不良, 頭痛が続き、薬は120コイン, buttons 薬を買う −120 and 我慢する">
+          <figcaption><b>日本語.</b> 体調不良. The kicker 今朝 stays in Japanese script, since there are no capitals to
+            switch to.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="action-rows">
+    <div class="section-head">
+      <h2>Exam action rows</h2>
+      <p class="muted">The six actions under a selected student. A row goes compact, dropping its icons and letting
+        labels wrap, only when one of its labels cannot fit at the minimum text size. Rows that fit are unchanged.</p>
     </div>
     <div class="figs">
-      <figure><img src="img/settings-en.png" width="540" height="1170" alt="Settings screen in English: Sound, Overall volume, Effects, Display and help, Theme, Language English, Text size, Hints, Reduce motion, Rules">
-        <figcaption><b>English</b></figcaption></figure>
-      <figure><img src="img/settings-tr.png" width="540" height="1170" alt="Settings screen in Turkish">
-        <figcaption><b>Türkçe</b></figcaption></figure>
-      <figure><img src="img/settings-fr.png" width="540" height="1170" alt="Settings screen in French">
-        <figcaption><b>Français</b></figcaption></figure>
-      <figure><img src="img/settings-es.png" width="540" height="1170" alt="Settings screen in Latin American Spanish">
-        <figcaption><b>Español</b> (Latin American)</figcaption></figure>
-      <figure><img src="img/settings-pt-BR.png" width="540" height="1170" alt="Settings screen in Brazilian Portuguese">
-        <figcaption><b>Português (Brasil)</b></figcaption></figure>
-      <figure><img src="img/settings-ru.png" width="540" height="1170" alt="Settings screen in Russian">
-        <figcaption><b>Русский</b></figcaption></figure>
-      <figure><img src="img/settings-ja.png" width="540" height="1170" alt="Settings screen in Japanese">
-        <figcaption><b>日本語</b> Kana and kanji come from the Noto Sans JP fallback.</figcaption></figure>
+      <figure><img src="img/ru-hud.png" width="540" height="960" alt="Exam HUD in Russian with the student panel for Ada Yilmaz: Присмотреться, Осмотреть, Поговорить, Всё равно предупредить on two lines, Изъять, Удалить">
+        <figcaption><b>Русский.</b> The compact rows, with "Всё равно предупредить" (Warn anyway) on two lines. The
+          Russian Warn label never fits on one line at the minimum size.</figcaption></figure>
+      <figure><img src="img/fr-hud.png" width="540" height="960" alt="Exam HUD in French: Observer de près on two lines, Inspecter, Parler, Avertir quand même on three lines, Confisquer, Exclure">
+        <figcaption><b>Français.</b> "Observer de près" wraps to two lines. "Avertir quand même" takes three lines and
+          fills its button from top to bottom, the tightest label in the set.</figcaption></figure>
+      <figure><img src="img/ja-hud.png" width="540" height="960" alt="Exam HUD in Japanese: よく観察する, 調べる, 話しかける, それでも注意する on two lines, 没収する, 退室させる">
+        <figcaption><b>日本語.</b> それでも注意する wraps to a second line. The other five labels fit on one.</figcaption></figure>
     </div>
+    <ul class="notes">
+      <li><b>English needed it too.</b> "Warn anyway" did not fit its button in English either, and the compact row
+        fixes that as well.</li>
+      <li><b>The 3D classroom is not drawn</b> behind these captures; only the HUD layer is rendered.</li>
+    </ul>
+  </section>
+
+  <section id="layout">
+    <div class="section-head">
+      <h2>Layout in every language</h2>
+    </div>
+    <ul class="notes">
+      <li><b>A fit test</b> checks every button, chip, stamp, shop sheet, rank chip, hub tile and event card in all seven
+        languages.</li>
+      <li><b>The other layout tests run in each language:</b> truncation, answer labels, the door, and the admission
+        card.</li>
+      <li><b>Overflow was fixed in the words, not by shrinking the layout.</b> About 45 translations were shortened, for
+        example shorter Russian school names and compact Japanese shop item names.</li>
+      <li><b>Japanese has a character budget</b> in the text rules.</li>
+      <li><b>Quotation marks follow each language.</b> The text rules cover «», „“ and 「」.</li>
+    </ul>
   </section>
 
   <section>
     <div class="section-head">
       <h2>The language picker</h2>
     </div>
-    <div class="lead-row">
-      <figure>
-        <img src="img/settings-en-picker.png" width="540" height="1170" alt="The Language row opened in English Settings, listing English, Türkçe, Français, Español, Português (Brasil), Русский and 日本語, with English ticked">
-        <figcaption>The Language row, opened.</figcaption>
-      </figure>
-      <ul class="notes">
-        <li><b>One row, opened in place.</b> The current language shows on the row. Tapping it opens the list under it.</li>
-        <li><b>Each language under its own name.</b> English, Türkçe, Français, Español, Português (Brasil), Русский, 日本語.
-          A player who cannot read the current language can still find their own.</li>
-        <li><b>Live switch.</b> Picking a language rebuilds the UI at once, with no restart.</li>
-        <li><b>First launch</b> picks the device language when it is one of the seven, and English otherwise. Automated
-          tests always start in English.</li>
-      </ul>
-    </div>
+    <ul class="notes">
+      <li><b>One row, opened in place.</b> The current language shows on the Language row in Settings, as in the
+        screenshots above. Tapping it opens the list under it.</li>
+      <li><b>Each language under its own name.</b> English, Türkçe, Français, Español, Português (Brasil), Русский, 日本語.
+        A player who cannot read the current language can still find their own.</li>
+      <li><b>Live switch.</b> Picking a language rebuilds the UI at once, with no restart.</li>
+      <li><b>First launch</b> follows the device language when it is one of the seven, and English otherwise. Automated
+        tests always start in English.</li>
+    </ul>
   </section>
 
   <section id="career-language">
@@ -201,24 +278,7 @@ td .alt { color: var(--muted); }
         language's pool. UI text follows Settings. Switching the language halfway through a career changes the screens,
         but never renames the students that career already knows.</p>
     </div>
-    <div class="figs wide">
-      <figure><img src="img/id-en.png" width="540" height="755" alt="The admission card in English for an English career: Chloe Walker, University Entrance, Valid until 28 Jun 2027, Today 13 Nov 2026">
-        <figcaption><b>English career, English UI.</b> Chloe Walker.</figcaption></figure>
-      <figure><img src="img/id-ru.png" width="540" height="755" alt="The admission card for a Russian career with Russian UI: Ольга Попова, Вступительный экзамен, Valid until 28 июн. 2027 г.">
-        <figcaption><b>Russian career, Russian UI.</b> Ольга Попова, with the feminine surname. The exam name, the date and
-          the appearance lines are Russian. "Valid until", "Today", the rule chips and the buttons are still English.</figcaption></figure>
-      <figure><img src="img/id-ja.png" width="540" height="755" alt="The admission card for a Japanese career with Japanese UI: 高橋　彩 written family name first, 大学入試, 2027年6月28日">
-        <figcaption><b>Japanese career, Japanese UI.</b> 高橋　彩: family name first, then a full-width space. The exam is
-          大学入試, and the dates use the 年月日 form.</figcaption></figure>
-      <figure><img src="img/id-en-ru-career.png" width="540" height="755" alt="The admission card with English UI for a career started in Russian: the name Ольга Попова stays Russian while everything else is English">
-        <figcaption><b>Russian career, English UI.</b> The same person after the player switched Settings to English. The
-          name stays Ольга Попова. The exam, the dates and the appearance lines follow the UI language.</figcaption></figure>
-    </div>
     <ul class="notes">
-      <li><b>How these were captured.</b> The admission card was rendered on its own, without the classroom behind it and
-        without the photo booth. With no photos available, the card falls back to describing the look in words, which shows
-        the localized appearance lines. In a normal run the two photos replace those words: see
-        <a href="../admission-photo/">Admission Photo Check</a>.</li>
       <li><b>The door compares exam ids, not printed names.</b> A Japanese ticket that says 大学入試 is checked against the
         exam's id, so the check does not depend on the language the ticket is printed in. Older saves are converted
         from printed exam names to ids.</li>
@@ -271,17 +331,9 @@ td .alt { color: var(--muted); }
     <div class="section-head">
       <h2>School and exam names</h2>
       <p class="muted">Each school name is adapted to sound like a real school of that kind in that country. It keeps the
-        motif drawn on the school's crest, shown in brackets. Names are drawn from the school's id, so the Career screen
-        lists them in the UI language.</p>
-    </div>
-    <div class="figs wide">
-      <figure><img src="img/career-en.png" width="540" height="1090" alt="The Career screen in English with the school ladder from Maple Elementary School to National Examination Centre">
-        <figcaption><b>English.</b> The school ladder on the Career screen.</figcaption></figure>
-      <figure><img src="img/career-fr.png" width="540" height="1090" alt="The Career screen in French UI with school names from École élémentaire des Érables to Centre national des examens">
-        <figcaption><b>French.</b> School names are French. The labels around them (Reputation, Bills, You are here) are
-          not converted yet.</figcaption></figure>
-      <figure><img src="img/career-ja.png" width="540" height="1090" alt="The Career screen in Japanese UI with school names from かえで小学校 to 全国試験センター">
-        <figcaption><b>Japanese.</b> かえで小学校 to 全国試験センター. "Next" uses the short name, 川辺中.</figcaption></figure>
+        motif drawn on the school's crest, shown in brackets. Names are drawn from the school's id, so every screen
+        shows them in the UI language: the hub screenshots above show Riverside Middle School in Russian, French and
+        Japanese.</p>
     </div>
     <div class="table-wrap">
       <table>
@@ -289,12 +341,12 @@ td .alt { color: var(--muted); }
         <tbody>
           <tr><td>Maple Elementary School <span class="alt">(leaf)</span></td><td>Çınar İlkokulu</td><td>École élémentaire des Érables</td><td>Escuela Primaria Los Arces</td><td>Escola Municipal Ipê</td><td>Начальная школа «Клён»</td><td>かえで小学校</td></tr>
           <tr><td>Riverside Middle School <span class="alt">(waves)</span></td><td>Dereboyu Ortaokulu</td><td>Collège des Rives</td><td>Escuela Secundaria La Ribera</td><td>Escola Estadual Beira-Rio</td><td>Школа «Заречье»</td><td>川辺中学校</td></tr>
-          <tr><td>Eastgate Evening College <span class="alt">(gate)</span></td><td>Doğukapı Akşam Okulu</td><td>Cours du soir de la Porte-Est</td><td>Colegio Nocturno Puerta Oriente</td><td>Colégio Noturno Portal Leste</td><td>Вечерний колледж «Восточные ворота»</td><td>東門夜間学院</td></tr>
+          <tr><td>Eastgate Evening College <span class="alt">(gate)</span></td><td>Doğukapı Akşam Okulu</td><td>Cours du soir de la Porte-Est</td><td>Colegio Puerta Oriente</td><td>Colégio Noturno Portal Leste</td><td>Колледж «Восточные ворота»</td><td>東門夜間学院</td></tr>
           <tr><td>City High School <span class="alt">(clock tower)</span></td><td>Kent Lisesi</td><td>Lycée du Centre</td><td>Colegio Central</td><td>Colégio Central</td><td>Городской лицей</td><td>市立中央高校</td></tr>
           <tr><td>Brightpath Prep Centre <span class="alt">(storefront)</span></td><td>Başarı Yolu Kurs Merkezi</td><td>Institut Clairvoie</td><td>Academia Buen Rumbo</td><td>Cursinho Rumo Certo</td><td>Учебный центр «Ориентир»</td><td>ブライト進学塾</td></tr>
           <tr><td>Kingsley Academy <span class="alt">(castle)</span></td><td>Kale Koleji</td><td>Institut du Château</td><td>Colegio El Castillo</td><td>Colégio Castelo Real</td><td>Гимназия «Цитадель»</td><td>城山学院</td></tr>
           <tr><td>State University <span class="alt">(dome)</span></td><td>Devlet Üniversitesi</td><td>Université d'État</td><td>Universidad Estatal</td><td>Universidade Estadual</td><td>Государственный университет</td><td>県立大学</td></tr>
-          <tr><td>National Examination Centre <span class="alt">(columns)</span></td><td>Ulusal Sınav Merkezi</td><td>Centre national des examens</td><td>Centro Nacional de Exámenes</td><td>Centro Nacional de Exames</td><td>Национальный экзаменационный центр</td><td>全国試験センター</td></tr>
+          <tr><td>National Examination Centre <span class="alt">(columns)</span></td><td>Ulusal Sınav Merkezi</td><td>Centre national des examens</td><td>Centro Nacional de Exámenes</td><td>Centro Nacional de Exames</td><td>Национальный центр тестов</td><td>全国試験センター</td></tr>
         </tbody>
       </table>
     </div>
@@ -310,7 +362,7 @@ td .alt { color: var(--muted); }
         </tbody>
       </table>
     </div>
-    <p class="muted">Every school also has a short name for tight places, such as 川辺中 above or «Клён» in Russian. The
+    <p class="muted">Every school also has a short name for tight places, such as 川辺中 or «Клён» in Russian. The
       school names are invented, and the native-speaker review will check that none of them matches a well-known real one.</p>
   </section>
 
@@ -342,14 +394,25 @@ td .alt { color: var(--muted); }
     <div class="section-head">
       <h2>Fonts</h2>
     </div>
-    <ul class="notes">
-      <li><b>Latin and Cyrillic</b> still come from Liberation Sans. It already covers Turkish (ğ ş ı İ), French (œ « »),
-        Spanish, Portuguese and Russian, as the screenshots above show.</li>
-      <li><b>Japanese</b> uses Noto Sans JP (SIL Open Font License 1.1). It is a dynamic global fallback in TextMesh Pro,
-        so a character Liberation Sans lacks is drawn from Noto Sans JP the first time it is needed. No screen picks a font
-        by language.</li>
-      <li><b>Size.</b> The Japanese font adds about 4.5 MB to the build.</li>
-    </ul>
+    <div class="lead-row">
+      <figure>
+        <img src="img/ja-door.png" width="540" height="1170" alt="The admission door screen in Japanese: chips 身分証：有効, 氏名：完全一致, 要身分証2点, the in-person and ID columns with appearance lines, この試験, and the buttons 入室を断る and 入室させる">
+        <figcaption><b>The admission door in Japanese.</b> The multi-line text in both columns is evenly spaced, and the
+          card stays below the doorway. The very long Turkish fixture surname is longer than the column, so it breaks
+          inside the word.</figcaption>
+      </figure>
+      <ul class="notes">
+        <li><b>Latin and Cyrillic</b> come from Liberation Sans. It covers Turkish (ğ ş ı İ), French (œ « »), Spanish,
+          Portuguese and Russian.</li>
+        <li><b>Japanese</b> uses Noto Sans JP (SIL Open Font License 1.1). It is a dynamic global fallback in TextMesh Pro,
+          so a character Liberation Sans lacks is drawn from Noto Sans JP the first time it is needed. No screen picks a
+          font by language.</li>
+        <li><b>Matched line heights.</b> Noto Sans JP's line metrics are set to match Liberation Sans, so a Japanese line
+          is as tall as a Latin one. Without that, the taller Japanese lines pushed the admission card up over the
+          doorway.</li>
+        <li><b>Size.</b> The Japanese font adds about 4.5 MB to the build.</li>
+      </ul>
+    </div>
   </section>
 </div>
 </body>
