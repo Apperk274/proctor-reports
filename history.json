@@ -3,6 +3,12 @@
     "date": "2026-11-14",
     "author": "Apperk274",
     "slug": "localization",
+    "change": "Replaced the French exam HUD capture, where \"Avertir quand même\" now fits on two lines inside its button, and added Turkish Settings and the English language picker."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
+    "slug": "localization",
     "change": "Updated to the current state: all player text translated in seven languages, per-language layout checks, compact exam action rows and matched Japanese line heights, with new Russian, French and Japanese screenshots."
   },
   {

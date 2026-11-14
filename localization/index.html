@@ -171,9 +171,10 @@ td .alt { color: var(--muted); }
 
   <section id="screens">
     <div class="section-head">
-      <h2>Screens in Russian, French and Japanese</h2>
-      <p class="muted">The three languages that push the layout hardest: long Russian words, long French phrases and
-        Japanese script. Every word on these screens comes from the string tables.</p>
+      <h2>Screens in Russian, French, Japanese and Turkish</h2>
+      <p class="muted">Russian, French and Japanese push the layout hardest: long Russian words, long French phrases and
+        Japanese script. Turkish Settings shows its dotted and dotless i. Every word on these screens comes from the
+        string tables.</p>
     </div>
     <div class="group">
       <h3>Settings</h3>
@@ -186,6 +187,9 @@ td .alt { color: var(--muted); }
         <figure><img src="img/ja-settings.png" width="540" height="960" alt="Settings screen in Japanese: サウンド, 全体の音量, 効果音, 表示とヘルプ, テーマ, ダーク, ライト, 自動, 言語 日本語, 文字サイズ 標準, ヒント オン, 動きを減らす オフ">
           <figcaption><b>日本語.</b> 「自動」 in Japanese corner brackets. Kana and kanji come from the Noto Sans JP
             fallback.</figcaption></figure>
+        <figure><img src="img/tr-settings.png" width="540" height="960" alt="Settings screen in Turkish: Ayarlar, Ses, Genel ses düzeyi, Efektler, Görünüm ve yardım, Tema, Koyu, Açık, Otomatik, Dil Türkçe, Yazı boyutu Normal, İpuçları Açık, Hareketi azalt Kapalı">
+          <figcaption><b>Türkçe.</b> Dotted and dotless i side by side in İpuçları, Kapalı and Açık, all drawn from the
+            dynamic Liberation Sans fallback font.</figcaption></figure>
       </div>
     </div>
     <div class="group">
@@ -221,15 +225,17 @@ td .alt { color: var(--muted); }
     <div class="section-head">
       <h2>Exam action rows</h2>
       <p class="muted">The six actions under a selected student. A row goes compact, dropping its icons and letting
-        labels wrap, only when one of its labels cannot fit at the minimum text size. Rows that fit are unchanged.</p>
+        labels wrap, only when one of its labels cannot fit at the minimum text size. Rows that fit are unchanged. A
+        compact label always takes at most two lines inside the button's padding; the fit test checks that in all seven
+        languages.</p>
     </div>
     <div class="figs">
       <figure><img src="img/ru-hud.png" width="540" height="960" alt="Exam HUD in Russian with the student panel for Ada Yilmaz: Присмотреться, Осмотреть, Поговорить, Всё равно предупредить on two lines, Изъять, Удалить">
         <figcaption><b>Русский.</b> The compact rows, with "Всё равно предупредить" (Warn anyway) on two lines. The
           Russian Warn label never fits on one line at the minimum size.</figcaption></figure>
-      <figure><img src="img/fr-hud.png" width="540" height="960" alt="Exam HUD in French: Observer de près on two lines, Inspecter, Parler, Avertir quand même on three lines, Confisquer, Exclure">
-        <figcaption><b>Français.</b> "Observer de près" wraps to two lines. "Avertir quand même" takes three lines and
-          fills its button from top to bottom, the tightest label in the set.</figcaption></figure>
+      <figure><img src="img/fr-hud.png" width="540" height="960" alt="Exam HUD in French: Observer de près on two lines, Inspecter, Parler, Avertir quand même on two lines, Confisquer, Exclure">
+        <figcaption><b>Français.</b> "Observer de près" and "Avertir quand même" (Warn anyway) each wrap to two lines,
+          inside the button's padding.</figcaption></figure>
       <figure><img src="img/ja-hud.png" width="540" height="960" alt="Exam HUD in Japanese: よく観察する, 調べる, 話しかける, それでも注意する on two lines, 没収する, 退室させる">
         <figcaption><b>日本語.</b> それでも注意する wraps to a second line. The other five labels fit on one.</figcaption></figure>
     </div>
@@ -260,15 +266,22 @@ td .alt { color: var(--muted); }
     <div class="section-head">
       <h2>The language picker</h2>
     </div>
-    <ul class="notes">
-      <li><b>One row, opened in place.</b> The current language shows on the Language row in Settings, as in the
-        screenshots above. Tapping it opens the list under it.</li>
-      <li><b>Each language under its own name.</b> English, Türkçe, Français, Español, Português (Brasil), Русский, 日本語.
-        A player who cannot read the current language can still find their own.</li>
-      <li><b>Live switch.</b> Picking a language rebuilds the UI at once, with no restart.</li>
-      <li><b>First launch</b> follows the device language when it is one of the seven, and English otherwise. Automated
-        tests always start in English.</li>
-    </ul>
+    <div class="lead-row">
+      <figure>
+        <img src="img/en-picker.png" width="540" height="960" alt="Settings in English with the Language row open: English (checked), Türkçe, Français, Español, Português (Brasil), Русский, 日本語">
+        <figcaption><b>The picker, opened from English.</b> Every language name renders in its own script: Türkçe,
+          Русский, 日本語.</figcaption>
+      </figure>
+      <ul class="notes">
+        <li><b>One row, opened in place.</b> The current language shows on the Language row in Settings, as in the
+          screenshots above. Tapping it opens the list under it.</li>
+        <li><b>Each language under its own name.</b> English, Türkçe, Français, Español, Português (Brasil), Русский, 日本語.
+          A player who cannot read the current language can still find their own.</li>
+        <li><b>Live switch.</b> Picking a language rebuilds the UI at once, with no restart.</li>
+        <li><b>First launch</b> follows the device language when it is one of the seven, and English otherwise. Automated
+          tests always start in English.</li>
+      </ul>
+    </div>
   </section>
 
   <section id="career-language">
