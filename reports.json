@@ -23,8 +23,7 @@
     {
       "id": "performance",
       "title": "Performance"
-    }
-,
+    },
     {
       "id": "development",
       "title": "Development"
@@ -168,6 +167,12 @@
       "title": "Phone Check",
       "category": "device-testing",
       "summary": "The game on a real Galaxy A15: the new app icon, shop tiles and Wardrobe on the latest build, plus every school room, offers and event art."
+    },
+    {
+      "slug": "proctor-character",
+      "title": "Proctor Character",
+      "category": "look-and-feel",
+      "summary": "The proctor on the Quaternius modular base: man and woman, face, brow, hair and facial-hair presets, palette colours, the three clips, and three refitted wardrobe items."
     }
   ],
   "redirects": [

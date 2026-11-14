@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proctor Character</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num, code { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.88em; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.figs.room { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); align-items: start; }
+.figs.close { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.figs.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul, .card ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.pick { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 0.92rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tbody th { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+td .num { white-space: nowrap; }
+.tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; border: 1px solid currentColor; }
+.tag.good { color: var(--good); } .tag.warn { color: var(--warn); } .tag.bad { color: var(--bad); }
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: var(--mono); font-size: 0.8rem; }
+nav.toc a { text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sw { width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--line); display: inline-block; }
+@media (max-width: 640px) { .figs.room { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · proctor only · stage 1 of the art pipeline</span>
+    <h1>Proctor Character</h1>
+    <p class="lede">The player's proctor on its new base, Quaternius Ultimate Modular Men and Women (CC0), chosen in the
+      <a href="../proctor-base-comparison/">Proctor Base Comparison</a> (candidate B). A man and a woman on the kit's
+      rig, with preset faces, brows, hairstyles and facial hair, skin, hair and eye colours from the classroom's own
+      palette, the three clips the game plays, and a first refit of three wardrobe items. Students keep today's body.
+      Everything here is a render of the exported files in Blender 5.2 (EEVEE, flat colours); nothing is in the game yet.</p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#bases">Bases</a><a href="#room">In the room</a><a href="#preview">Wardrobe preview</a>
+      <a href="#faces">Faces</a><a href="#hair">Hair and colours</a><a href="#parts">Parts</a>
+      <a href="#clips">Clips</a><a href="#tint">Tinting</a><a href="#wardrobe">Wardrobe refit</a>
+      <a href="#effort">Remaining items</a><a href="#tris">Triangles</a><a href="#problems">Open problems</a>
+      <a href="#method">Method and licence</a>
+    </nav>
+    <div class="stats">
+      <div class="stat"><span class="big">4 + 4</span><span>face presets, man and woman</span></div>
+      <div class="stat"><span class="big">6 + 6</span><span>hairstyles, man (and bald) and woman</span></div>
+      <div class="stat"><span class="big">3</span><span>facial-hair options, plus clean-shaven</span></div>
+      <div class="stat"><span class="big">6.7k–7.6k</span><span>triangles per dressed proctor in the renders</span></div>
+    </div>
+  </header>
+
+  <section id="bases">
+    <div class="section-head">
+      <h2>The two bases</h2>
+      <p class="muted">The man is the kit's Casual 2 body with the Suit head's face; the woman is the Casual body with the
+        Suit head's face. Each wears the issued tee (here in the issued teal), the kit's trousers and shoes, and the
+        default face, brows and hair. Both play the Standing clip.</p>
+    </div>
+    <div class="figs two">
+      <figure><img src="img/base-front.jpg" alt="The new proctor man and woman, front three-quarter view" loading="lazy"><figcaption>Front three-quarter. Man: medium skin, brown side-parted hair. Woman: light skin, auburn bob, green eyes.</figcaption></figure>
+      <figure><img src="img/base-back.jpg" alt="The new proctor man and woman from behind" loading="lazy"><figcaption>From behind.</figcaption></figure>
+    </div>
+    <figure><img src="img/lineup.jpg" alt="Today's student man and woman beside the new proctor man and woman, same scale" loading="lazy">
+      <figcaption>Same scale, left to right: today's student man and woman (the body every student keeps), then the new
+        proctor man and woman. The proctor is an adult on a different kit: taller, with hands, a nose and brows.</figcaption></figure>
+  </section>
+
+  <section id="room">
+    <div class="section-head">
+      <h2>In the room</h2>
+      <p class="muted">The game's fixed camera: 58° pitch, 45° field of view. The students are today's body playing the
+        Writing clip; one stands in the aisle. From above, the proctor reads by its hair, shoulders and colours.</p>
+    </div>
+    <div class="figs room">
+      <figure><img src="img/room.jpg" alt="Classroom from the game camera with the new proctor in the aisle" loading="lazy"><figcaption>Game camera.</figcaption></figure>
+      <div class="figs">
+        <figure><img src="img/room-zoom.jpg" alt="Closer crop of the new proctor man beside a standing student" loading="lazy"><figcaption>Same camera, 3× narrower: the man beside a standing student.</figcaption></figure>
+        <figure><img src="img/room-zoom-f.jpg" alt="Closer crop of the new proctor woman beside a standing student" loading="lazy"><figcaption>The woman in the same spot.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="preview">
+    <div class="section-head">
+      <h2>Wardrobe preview framing</h2>
+      <p class="muted">512 × 640, the Wardrobe preview's size: full figure and a head-and-shoulders crop, front and three-quarter.
+        The man wears stubble here.</p>
+    </div>
+    <div class="figs close">
+      <figure><img src="img/close-m-front.jpg" alt="Man, full figure, front" loading="lazy"><figcaption>man, front</figcaption></figure>
+      <figure><img src="img/close-m-front-head.jpg" alt="Man, head and shoulders, front" loading="lazy"><figcaption>head, front</figcaption></figure>
+      <figure><img src="img/close-m-34.jpg" alt="Man, full figure, three-quarter" loading="lazy"><figcaption>three-quarter</figcaption></figure>
+      <figure><img src="img/close-m-34-head.jpg" alt="Man, head and shoulders, three-quarter" loading="lazy"><figcaption>head, three-quarter</figcaption></figure>
+      <figure><img src="img/close-f-front.jpg" alt="Woman, full figure, front" loading="lazy"><figcaption>woman, front</figcaption></figure>
+      <figure><img src="img/close-f-front-head.jpg" alt="Woman, head and shoulders, front" loading="lazy"><figcaption>head, front</figcaption></figure>
+      <figure><img src="img/close-f-34.jpg" alt="Woman, full figure, three-quarter" loading="lazy"><figcaption>three-quarter</figcaption></figure>
+      <figure><img src="img/close-f-34-head.jpg" alt="Woman, head and shoulders, three-quarter" loading="lazy"><figcaption>head, three-quarter</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="faces">
+    <div class="section-head">
+      <h2>Faces, brows and facial hair</h2>
+      <p class="muted">The kit's heads share a single face per body, so the four presets are baked shapes of it: jaw width,
+        chin length, cheeks and nose. Everything from the brows up is left alone, so the eyes, every brow and every
+        hairstyle fit all four. Each preset names a default brow, but brows are a choice of their own.</p>
+    </div>
+    <figure><img src="img/faces-m.jpg" alt="The four man face presets, each from the front, three-quarter and side" loading="lazy">
+      <figcaption>Man, rows of two: Classic and Broad (top), Long and Round (bottom); each front, 40° and side, bald.</figcaption></figure>
+    <figure><img src="img/faces-f.jpg" alt="The four woman face presets, each from the front, three-quarter and side" loading="lazy">
+      <figcaption>Woman: Classic and Heart (top), Square and Round (bottom), with the tight bun so the face shape shows.</figcaption></figure>
+    <div class="figs two">
+      <figure><img src="img/brows.jpg" alt="Three brow styles on the man and three on the woman" loading="lazy">
+        <figcaption>Brows. Man: straight, thick, heavy. Woman: arched, soft, straight. Drawn in a darker shade of the hair colour.</figcaption></figure>
+      <figure><img src="img/facial-hair-m.jpg" alt="Grid of the man's four faces with no facial hair, stubble, moustache and beard" loading="lazy">
+        <figcaption>Facial hair on each face (rows) and colour: none, stubble, moustache, beard. Each option has a variant per face, so it follows the jaw.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="hair">
+    <div class="section-head">
+      <h2>Hair and colours</h2>
+      <p class="muted">Every face with every hairstyle. Each cell takes the next skin, hair and eye colour, so the grid also
+        shows the swatches together. The skin, hair and eye colours are the classroom's student palette; grey hair is added
+        for the proctor.</p>
+      <div class="swatches" aria-label="Palette">
+        <span class="eyebrow">skin</span>
+        <span class="sw" style="background:#F0C8A8" title="light"></span><span class="sw" style="background:#D9A57B" title="medium"></span><span class="sw" style="background:#A87450" title="tan"></span><span class="sw" style="background:#6E4A33" title="dark"></span>
+        <span class="eyebrow">hair</span>
+        <span class="sw" style="background:#141316" title="black"></span><span class="sw" style="background:#6B4328" title="brown"></span><span class="sw" style="background:#C4A062" title="fair"></span><span class="sw" style="background:#8E3B22" title="auburn"></span><span class="sw" style="background:#9A9894" title="grey"></span>
+        <span class="eyebrow">eyes</span>
+        <span class="sw" style="background:#4A2E1A" title="brown"></span><span class="sw" style="background:#7A5C2E" title="hazel"></span><span class="sw" style="background:#3E6B3A" title="green"></span><span class="sw" style="background:#3B6EA8" title="blue"></span>
+      </div>
+    </div>
+    <figure><img src="img/grid-m.jpg" alt="Man: four faces by seven hair options, varied colours" loading="lazy">
+      <figcaption>Man. Columns: bald, side part, ponytail, spiky, swept, buzz, mohawk. Rows: faces 1–4.</figcaption></figure>
+    <figure><img src="img/grid-f.jpg" alt="Woman: four faces by six hairstyles, varied colours" loading="lazy">
+      <figcaption>Woman. Columns: bob, layered, bun, mohawk, pixie, ponytail. Rows: faces 1–4. Pixie and ponytail are the man's
+        styles fitted to her skull.</figcaption></figure>
+    <figure><img src="img/colours.jpg" alt="Eight heads showing each skin tone with different hair and eye colours" loading="lazy">
+      <figcaption>Each skin tone with a hair and eye colour: man (top), woman (bottom).</figcaption></figure>
+  </section>
+
+  <section id="parts">
+    <div class="section-head">
+      <h2>What is in <code>proctor.glb</code></h2>
+      <p class="muted">One file, two rigs (<code>ProctorRig_M</code>, <code>ProctorRig_F</code>, the kit's skeleton). Every part
+        is a separate skinned mesh with a stable id. A manifest next to the file lists every id, its triangles, the clips, the
+        role materials and the bones that hair, hats and glasses attach to (<code>Head</code>), so the Unity stage can code
+        against it.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Category</th><th scope="col">Man</th><th scope="col">Woman</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Body</th><td><code>body_m</code> (arms, hands) <span class="num">2,064</span> · <code>top_m_issued</code> <span class="num">742</span> · <code>legs_m_default</code> <span class="num">734</span> · <code>feet_m_default</code> <span class="num">552</span></td>
+            <td><code>body_f</code> <span class="num">2,166</span> · <code>top_f_issued</code> <span class="num">488</span> · <code>legs_f_default</code> <span class="num">706</span> · <code>feet_f_default</code> <span class="num">538</span></td></tr>
+          <tr><th scope="row">Faces</th><td><code>face_m_01</code>–<code>04</code>: Classic, Broad, Long, Round · <span class="num">448</span> each</td>
+            <td><code>face_f_01</code>–<code>04</code>: Classic, Heart, Square, Round · <span class="num">714</span> each</td></tr>
+          <tr><th scope="row">Eyes</th><td><code>eyes_m</code> (iris + pupil)</td><td><code>eyes_f</code></td></tr>
+          <tr><th scope="row">Brows</th><td><code>brows_m_straight</code>, <code>_thick</code>, <code>_heavy</code> · <span class="num">24–40</span></td>
+            <td><code>brows_f_arched</code>, <code>_soft</code>, <code>_straight</code> · <span class="num">40–44</span></td></tr>
+          <tr><th scope="row">Hair</th><td>none, <code>hair_m_side</code> <span class="num">1,952</span>, <code>_ponytail</code> <span class="num">1,180</span>, <code>_spiky</code> <span class="num">1,632</span>, <code>_swept</code> <span class="num">1,400</span>, <code>_buzz</code> <span class="num">140</span>, <code>_mohawk</code> <span class="num">644</span></td>
+            <td><code>hair_f_bob</code> <span class="num">2,078</span>, <code>_layered</code> <span class="num">2,044</span>, <code>_bun</code> <span class="num">246</span>, <code>_mohawk</code> <span class="num">760</span>, <code>_pixie</code> <span class="num">1,906</span>, <code>_ponytail</code> <span class="num">1,146</span></td></tr>
+          <tr><th scope="row">Facial hair</th><td>none, <code>fh_m_stubble</code> <span class="num">44</span>, <code>fh_m_moustache</code> <span class="num">120</span>, <code>fh_m_beard</code> <span class="num">480</span>; one mesh per face (<code>fh_m_beard__face_m_02</code>)</td><td>none</td></tr>
+          <tr><th scope="row">Clips</th><td colspan="2"><code>Standing</code> (41 frames), <code>Walking</code> (33), <code>PresentDocument</code> (73), at 24 fps; one animation drives both rigs</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="limits">
+      <li><b>The women's skull.</b> The kit's women are a face mask with the hair as the back of the head. The build grafts
+        the man's skull behind the mask, scaled to her forehead, and tucks the kit's large pointed ears, so short and borrowed
+        hairstyles work on her.</li>
+      <li><b>Hair</b> comes out of the kit's combined head meshes by material and by island: brows and piercings are their
+        own islands, so the buzz cut and the bun lose their brows and the mohawk loses its lip ring. Every hair is pushed
+        2 mm clear of all four face shapes.</li>
+      <li><b>Builds</b> (body shapes) are not included: the kit has none, and any build would have to be applied to every
+        refitted garment too. A bone-scale build in Unity is possible later.</li>
+    </ul>
+  </section>
+
+  <section id="clips">
+    <div class="section-head">
+      <h2>The three clips</h2>
+      <p class="muted">The names are the ones <code>SupervisorFigure</code> looks up today. Six frames of each, man then woman.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Standing</h3><p>The kit's <code>Idle_Neutral</code>: relaxed, feet together, slow breathing. The kit's
+        other idle stands in a fighting stance.</p></div>
+      <div class="card"><h3>Walking</h3><p>The kit's <code>Walk</code>, in place. The women's kit clips run 25 % longer than the
+        men's, so hers are retimed to the man's 41 and 33 frames: one clip, one length for both rigs.</p></div>
+      <div class="card"><h3>PresentDocument</h3><p>Retargeted from <code>candidate.glb</code> by bone direction (spine, neck, head,
+        arms); hips, legs and fingers come from the kit idle so the feet stay planted. Like the original it is a held pose:
+        right hand out at the waist, the game blends into it.</p></div>
+    </div>
+    <figure><img src="img/clip-m-Standing.jpg" alt="Six frames of the man's Standing clip" loading="lazy"><figcaption>Man, Standing.</figcaption></figure>
+    <figure><img src="img/clip-m-Walking.jpg" alt="Six frames of the man's Walking clip" loading="lazy"><figcaption>Man, Walking.</figcaption></figure>
+    <figure><img src="img/clip-m-PresentDocument.jpg" alt="Six frames of the man's PresentDocument clip" loading="lazy"><figcaption>Man, PresentDocument.</figcaption></figure>
+    <figure><img src="img/clip-f-Standing.jpg" alt="Six frames of the woman's Standing clip" loading="lazy"><figcaption>Woman, Standing.</figcaption></figure>
+    <figure><img src="img/clip-f-Walking.jpg" alt="Six frames of the woman's Walking clip" loading="lazy"><figcaption>Woman, Walking.</figcaption></figure>
+    <figure><img src="img/clip-f-PresentDocument.jpg" alt="Six frames of the woman's PresentDocument clip" loading="lazy"><figcaption>Woman, PresentDocument.</figcaption></figure>
+  </section>
+
+  <section id="tint">
+    <div class="section-head">
+      <h2>Tinting: a material per role</h2>
+      <p class="muted">Every surface is a material named for its role (<code>Proctor_Skin</code>, <code>Proctor_Hair</code>,
+        <code>Proctor_Hair_Brows</code>, <code>Proctor_Eyes</code>, <code>Proctor_Top</code>, <code>Proctor_Legwear</code>,
+        <code>Proctor_Shoes</code> …). The game already colours the proctor this way: one white URP Lit material, a
+        <code>MaterialPropertyBlock</code> per submesh, the role read from the source material's name. Vertex colours would need a
+        new shader, since URP Lit ignores them. Two roles need a small rule the game does not have yet: stubble (a blend of skin
+        and hair) and the pupil (a fixed near-black). The manifest lists each role with its colour factor.</p>
+    </div>
+  </section>
+
+  <section id="wardrobe">
+    <div class="section-head">
+      <h2>Wardrobe refit: three items</h2>
+      <p class="muted">A checkpoint before the rest of the 52 wardrobe meshes. Shirt &amp; Tie, Formal Trousers and the Cap are
+        fitted to both bodies in <code>proctor_wardrobe.glb</code>, worn here in their shop colours.</p>
+    </div>
+    <div class="figs two">
+      <figure><img src="img/ward-front.jpg" alt="Four proctors wearing the refitted shirt and tie and formal trousers, two with the cap" loading="lazy">
+        <figcaption>Shirt &amp; Tie, Formal Trousers and Cap on the default man and woman; the shirt and trousers with other faces, hair and skin on the right.</figcaption></figure>
+      <figure><img src="img/ward-back.jpg" alt="The same four proctors from behind" loading="lazy"><figcaption>From behind.</figcaption></figure>
+    </div>
+    <div class="figs close">
+      <figure><img src="img/ward-m-front.jpg" alt="Man in the refitted items, front" loading="lazy"><figcaption>man, front</figcaption></figure>
+      <figure><img src="img/ward-m-34.jpg" alt="Man in the refitted items, three-quarter" loading="lazy"><figcaption>three-quarter</figcaption></figure>
+      <figure><img src="img/ward-m-side.jpg" alt="Man in the refitted items, side" loading="lazy"><figcaption>side</figcaption></figure>
+      <figure><img src="img/ward-m-34-head.jpg" alt="Man's head and collar with the cap, three-quarter" loading="lazy"><figcaption>collar and cap</figcaption></figure>
+      <figure><img src="img/ward-f-front.jpg" alt="Woman in the refitted items, front" loading="lazy"><figcaption>woman, front</figcaption></figure>
+      <figure><img src="img/ward-f-34.jpg" alt="Woman in the refitted items, three-quarter" loading="lazy"><figcaption>three-quarter</figcaption></figure>
+      <figure><img src="img/ward-f-side.jpg" alt="Woman in the refitted items, side" loading="lazy"><figcaption>side</figcaption></figure>
+      <figure><img src="img/ward-f-34-head.jpg" alt="Woman's head and collar with the cap, three-quarter" loading="lazy"><figcaption>collar and cap</figcaption></figure>
+    </div>
+    <figure><img src="img/ward-m-motion.jpg" alt="Man walking and presenting a document in the refitted items" loading="lazy"><figcaption>Man: four walking frames and PresentDocument. The shirt follows the arms.</figcaption></figure>
+    <figure><img src="img/ward-f-motion.jpg" alt="Woman walking and presenting a document in the refitted items" loading="lazy"><figcaption>Woman, the same frames.</figcaption></figure>
+    <figure><img src="img/ward-caps.jpg" alt="The cap over every hairstyle of the man and the woman" loading="lazy">
+      <figcaption>The cap over every hairstyle. Where a style came out through the cap it has a <code>__cap</code> variant pulled
+        inside it (side part, spiky, swept, mohawk; layered, mohawk, pixie). Ponytails, buzz, bob and bun fit as they are.</figcaption></figure>
+    <div class="traits">
+      <div class="card pick"><h3>Top: skinned refit</h3>
+        <ol>
+          <li>Pose the kit rig into the old body's A-pose (arms and legs aimed along the old bones).</li>
+          <li>Warp the garment bone by bone from the old skeleton to the posed kit skeleton: head to head, direction aligned,
+            limb and spine segments stretched to the kit's length.</li>
+          <li>Re-project every vertex onto a smoothed copy of the posed kit body, at its original distance from the old body,
+            blended over its torso and arm weights so the armpits do not tear.</li>
+          <li>Smooth the displacement and push clear of the body (6 mm, 10 mm on the arms).</li>
+          <li>Copy skin weights from the nearest kit triangle in the vertex's own region.</li>
+          <li>Un-pose back to the kit's T-pose rest with each vertex's own inverse skinning matrix.</li>
+        </ol>
+        <p>A refitted top replaces the issued tee, which the manifest marks with <code>hides</code>.</p></div>
+      <div class="card"><h3>Trousers: the kit's own cut</h3>
+        <p>Trousers are only a colour on the body today. The kit has real cuts on the same rig: Formal Trousers is the suit
+          leg, tinted by the same Legwear role, with no refit at all. Jeans already exist as the man's default legs, and the kit
+          also has work trousers and shorts.</p></div>
+      <div class="card"><h3>Cap: rigid refit</h3>
+        <p>The old skull (eye level, centre, half-widths, crown) is mapped onto the new one, raised 12 mm for the kit's higher
+          brows, and weighted 100 % to <code>Head</code>. Each hairstyle is then tested against the cap; where it pokes through,
+          a variant is pulled 4 mm inside the cap.</p></div>
+    </div>
+  </section>
+
+  <section id="effort">
+    <div class="section-head">
+      <h2>The remaining items</h2>
+      <p class="muted">Estimate for refitting everything else with the same scripts. About one long agent run, 4–6 hours, before
+        the Unity stage wires it up.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Group</th><th scope="col">Items</th><th scope="col">Method</th><th scope="col">Estimate</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Tops</th><td>Polo, Sweater, Cardigan, Blazer, Hoodie, the three tees, the issued long sleeve</td><td>skinned refit, both bodies</td><td><span class="num">≈2 h</span> + <span class="num">≈1 h</span> polish (blazer lapels, short sleeves)</td></tr>
+          <tr><th scope="row">Lanyard</th><td>one per top per body</td><td>rigid on <code>Chest</code>, laid on each refitted top</td><td><span class="num">≈1 h</span></td></tr>
+          <tr><th scope="row">Hats</th><td>Beanie, Flat cap, Bucket, Graduation</td><td>rigid refit + hair under each hat</td><td><span class="num">≈1 h</span></td></tr>
+          <tr><th scope="row">Glasses, watch</th><td>Round, Square, Watch</td><td>rigid refit on <code>Head</code> / <code>Wrist.L</code></td><td><span class="num">≈0.5 h</span></td></tr>
+          <tr><th scope="row">Shoes</th><td>Sneakers, Runners, Loafers, Boots</td><td>the kit's own feet, or skinned refit</td><td><span class="num">≈0.5 h</span></td></tr>
+          <tr><th scope="row">Trousers</th><td>Jeans, Chinos</td><td>the kit's legs</td><td><span class="num">≈0.25 h</span></td></tr>
+          <tr><th scope="row">Badges</th><td>pin and eight crests</td><td>unchanged; re-measure the chest pose per top</td><td>Unity stage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tris">
+    <div class="section-head">
+      <h2>Triangles</h2>
+      <p class="muted">Target: at most 8k per dressed proctor on mobile.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Figure</th><th scope="col">Parts</th><th scope="col">Triangles</th><th scope="col">vs 8k</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Man, undressed, heaviest</th><td>body, tee, legs, feet, face, eyes, brows, side-part hair, beard</td><td class="num">7,060</td><td><span class="tag good">under</span></td></tr>
+          <tr><th scope="row">Woman, undressed, heaviest</th><td>the same with the bob</td><td class="num">6,782</td><td><span class="tag good">under</span></td></tr>
+          <tr><th scope="row">Man in the three items</th><td>shirt &amp; tie, formal trousers, cap, side part under the cap (tee hidden)</td><td class="num">7,008</td><td><span class="tag good">under</span></td></tr>
+          <tr><th scope="row">Woman in the three items</th><td>the same with the bob</td><td class="num">7,550</td><td><span class="tag good">under</span></td></tr>
+          <tr><th scope="row">Man, every slot (estimate)</th><td>side part, beard, blazer, cap, glasses, watch, lanyard</td><td class="num">≈8,100</td><td><span class="tag warn">just over</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="problems">
+    <div class="section-head"><h2>Open problems</h2></div>
+    <ul class="limits">
+      <li><b>The shirt collar is broad</b> on the man's wide shoulders, and the hem is a little ragged. A per-item polish pass
+        (collar band pulled in, hem straightened) belongs with the other tops.</li>
+      <li><b>Skin can show through a sleeve</b> at the elbow in some walking frames. More clearance, or hiding forearm skin under
+        long sleeves, fixes it.</li>
+      <li><b>The woman's tie comes out wide</b>: it follows the bust when it is re-projected. Rigid details such as ties and
+        buttons should be carried over rigidly instead of projected; part of the tops' polish pass.</li>
+      <li><b>Face variety is shape only.</b> The kit has one face per body, so the four presets differ by jaw, chin, cheeks and
+        nose, plus brows and facial hair. Noses and eyes as separate parts would add more.</li>
+      <li><b>The mohawks</b> are kept as presets; they may read too loud for a proctor.</li>
+      <li><b>Every slot filled</b> on the man comes to about 8.1k triangles. Dropping the side-part hair under a hat to a lighter
+        variant would bring it under.</li>
+    </ul>
+  </section>
+
+  <section id="method">
+    <div class="section-head"><h2>Method and licence</h2></div>
+    <ul class="limits">
+      <li>All parts, clips and refits are built by scripts in the game repo (<code>ArtSource/Characters/Proctor/</code>), run
+        headless in Blender 5.2, and exported as glTF for glTFast. The renders read the exported files back, so they show what
+        Unity will import.</li>
+      <li>Lighting and cameras follow the <a href="../proctor-base-comparison/">base comparison</a>: one sun, a soft fill, a dark
+        blue backdrop like the Wardrobe preview, and the game's room camera.</li>
+      <li><b>Ultimate Modular Men and Ultimate Modular Women</b> by Quaternius: CC0 1.0 Universal. Credit is not required but is
+        given here. <a href="https://quaternius.com/packs/ultimatemodularcharacters.html">Modular Men</a> ·
+        <a href="https://quaternius.com/packs/ultimatemodularwomen.html">Modular Women</a></li>
+      <li>The wardrobe items, today's student body and the classroom are this project's own. No paid or generative tool was used.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

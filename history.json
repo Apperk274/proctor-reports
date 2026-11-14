@@ -2,6 +2,12 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "proctor-character",
+    "change": "Added the Proctor Character report: the Quaternius-based man and woman with their presets, colours, clips and a three-item wardrobe refit."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "proctor-base-comparison",
     "change": "Added the Proctor Base Comparison: MPFB2, Quaternius modular, and an upgraded head on today's body, rendered next to the students, recommending the upgrade."
   },
