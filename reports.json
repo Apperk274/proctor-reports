@@ -24,8 +24,19 @@
       "id": "performance",
       "title": "Performance"
     }
+,
+    {
+      "id": "development",
+      "title": "Development"
+    }
   ],
   "reports": [
+    {
+      "slug": "test-speed",
+      "title": "Faster, Reliable Tests",
+      "category": "development",
+      "summary": "How the Unity test suite went from about 11 to about 5 minutes with no flaky failures: retried saves on Windows file locks, 10x PlayMode, one UI clock."
+    },
     {
       "slug": "localization",
       "title": "Localization",

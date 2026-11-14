@@ -2,6 +2,12 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "test-speed",
+    "change": "Added the Faster, Reliable Tests report: the Windows save-lock fix, PlayMode at 10x game time, UiClock, the captureDeltaTime probe and what stays at real time."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "localization",
     "change": "Replaced the French exam HUD capture, where \"Avertir quand même\" now fits on two lines inside its button, and added Turkish Settings and the English language picker."
   },

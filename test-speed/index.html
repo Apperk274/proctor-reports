@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Faster, Reliable Tests</title>
+<meta name="description" content="How the Unity test suite went from about 11 to about 5 minutes with no flaky failures: a retried save on Windows file locks, PlayMode at 10x game time, and one clock for UI timing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec; --bad: #b42318; --bad-soft: #fde4e1; --warn: #9a5b00; --warn-soft: #fbefd9;
+  --bar-before: #9aabb0;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14;
+    --bar-before: #56686e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --bad: #ff8a7a; --bad-soft: #3b1a17; --warn: #f2b45a; --warn-soft: #3a2c14;
+  --bar-before: #56686e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+pre { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; overflow-x: auto; }
+pre code { background: none; padding: 0; color: var(--ink); font-size: 0.85rem; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pill { display: inline-block; font-family: var(--mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pass { background: var(--accent-soft); color: var(--accent); }
+.na { background: var(--line); color: var(--muted); }
+.fail { background: var(--bad-soft); color: var(--bad); }
+.minor { background: var(--warn-soft); color: var(--warn); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+.card .big { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.card .from { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+ul.list li { color: var(--muted); }
+ul.list b { color: var(--ink); font-weight: 600; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; align-items: start; }
+.two > div { display: grid; gap: 12px; align-content: start; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; }
+.chart-title { font-family: var(--display); font-weight: 700; font-size: 1rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+.row { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: 4px 14px; align-items: center; padding-block: 3px; }
+.row:hover { background: var(--bg); }
+.row .lbl { font-size: 0.88rem; overflow-wrap: anywhere; line-height: 1.25; }
+.row .lbl small { display: block; color: var(--muted); font-size: 0.78rem; }
+.bars { display: grid; gap: 2px; }
+.bar { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.bar b { display: block; height: 10px; border-radius: 0 4px 4px 0; flex: none; min-width: 2px; }
+.bar.single b { height: 16px; }
+.bar span { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bar.after span { color: var(--ink); }
+.b-before { background: var(--bar-before); }
+.b-after { background: var(--accent); }
+.tag1x { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--warn); border: 1px solid var(--warn); border-radius: 4px; padding: 0 4px; margin-left: 6px; white-space: nowrap; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; padding-block: 6px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · tests · PR #9, merged in main 59728db</span>
+    <h1>Faster, Reliable Tests</h1>
+    <p class="lede">The Unity test suite took about 11 minutes and failed a different handful of tests on every run. Now it
+      takes about 5 minutes and passes cleanly. Two changes did it: saves retry when Windows briefly locks a file,
+      and PlayMode tests run the game at 10x speed. UI timing now uses one clock, so the UI speeds up with the game.</p>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Before and after</h2>
+      <p class="muted">The duration that NUnit reports for each suite in batchmode. "Before" is main before the PR. It
+        ran twice and failed different tests each time. "After" is the final review run of the PR branch.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="from">~11 min → ~5 min</span><span class="big">Both suites</span><p>EditMode plus PlayMode: 611–665 s before, 279 s now.</p></div>
+      <div class="card"><span class="from">491–545 s → 191 s</span><span class="big">PlayMode</span><p>139 tests: 91 passed, 48 skipped (Explicit captures and probes), 0 failed.</p></div>
+      <div class="card"><span class="from">120 s → 88 s</span><span class="big">EditMode</span><p>2,589 tests: 2,379 passed, 210 skipped (opt-in probes), 0 failed.</p></div>
+      <div class="card"><span class="from">17–20 + 3 → 0</span><span class="big">Failures</span><p>Before, most PlayMode failures and all 3 EditMode failures came from the Windows save failure.</p></div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Suite</th><th class="num">Before: time</th><th>Before: result</th><th class="num">After: time</th><th>After: result</th></tr></thead>
+      <tbody>
+        <tr><td>EditMode</td><td class="num">120 s</td><td><span class="pill fail">3 failed</span> <span class="muted">of 2,571</span></td><td class="num">88 s</td><td><span class="pill pass">0 failed</span> <span class="muted">2,589 tests, 210 skipped</span></td></tr>
+        <tr><td>PlayMode, main run 1</td><td class="num">545 s</td><td><span class="pill fail">20 failed</span> <span class="muted">of 136</span></td><td class="num" rowspan="2">191 s</td><td rowspan="2"><span class="pill pass">0 failed</span> <span class="muted">139 tests, 48 skipped</span></td></tr>
+        <tr><td>PlayMode, main run 2</td><td class="num">491 s</td><td><span class="pill fail">17 failed</span> <span class="muted">of 136</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="chart" role="img" aria-label="PlayMode suite duration per run: main run 1 545 s with 20 failed, main run 2 491 s with 17 failed, save fix at 1x 707 s, 10x game time 219 s, 10x with UiClock 191 s; the last three with 0 failed.">
+      <div class="chart-title">PlayMode suite time, run by run</div>
+      <div class="row" title="main, run 1: 545 s, 20 failed"><div class="lbl">main, run 1<small>20 failed</small></div><div class="bars"><div class="bar single"><b class="b-before" style="width:calc(545 / 707 * (100% - 70px))"></b><span>545 s</span></div></div></div>
+      <div class="row" title="main, run 2: 491 s, 17 failed"><div class="lbl">main, run 2<small>17 failed</small></div><div class="bars"><div class="bar single"><b class="b-before" style="width:calc(491 / 707 * (100% - 70px))"></b><span>491 s</span></div></div></div>
+      <div class="row" title="Save fix, game at 1x: 707 s, 0 failed"><div class="lbl">Save fix, game at 1x<small>0 failed</small></div><div class="bars"><div class="bar single"><b class="b-before" style="width:calc(707 / 707 * (100% - 70px))"></b><span>707 s</span></div></div></div>
+      <div class="row" title="Save fix and 10x game time: 219 s, 0 failed"><div class="lbl">+ 10x game time<small>0 failed</small></div><div class="bars"><div class="bar single after"><b class="b-after" style="width:calc(219 / 707 * (100% - 70px))"></b><span>219 s</span></div></div></div>
+      <div class="row" title="Save fix, 10x and UiClock (final): 191 s, 0 failed"><div class="lbl">+ UiClock (final)<small>0 failed</small></div><div class="bars"><div class="bar single after"><b class="b-after" style="width:calc(191 / 707 * (100% - 70px))"></b><span>191 s</span></div></div></div>
+    </div>
+    <p class="muted">The 1x run after the save fix took longer than main, 707 s against 491–545 s. On main, the failing
+      tests had stopped early. With the fix, every test ran to the end in real time, so 707 s was the real cost of the
+      suite at 1x.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Where the time went</h2>
+      <p class="muted">PlayMode fixtures that took 5 s or more at 1x, comparing the 1x run after the save fix with the
+        final run. <span class="tag1x">1x</span> marks fixtures that still run in real time, fully or in part (see
+        <a href="#real-time">What stays at real time</a>).</p>
+    </div>
+    <div class="chart" role="img" aria-label="Per-fixture PlayMode duration in seconds at 1x and at 10x. Largest drops: M130RoomSceneTests 96 to 10.9, M131WardrobeSceneTests 93.1 to 13.8, BathroomNeedSceneTests 68.3 to 8.5. Real-time fixtures CardAnswerTapTests, RequestCardTapTests, WalkPathSceneTests, Phase6PerfSceneTests and SupervisorSceneTests are unchanged.">
+      <div class="chart-title">Seconds per fixture</div>
+      <div class="legend"><span><i class="b-before"></i>1x, after the save fix (707 s run)</span><span><i class="b-after"></i>Final, 10x with UiClock (191 s run)</span></div>
+      <div id="fixtures"></div>
+    </div>
+    <p class="muted">Five fixtures run entirely at 1x: CardAnswerTap, RequestCardTap, WalkPath, Phase6Perf and Supervisor.
+      Together they take 89 s, nearly half of the final 191 s run.</p>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>The two problems</h2></div>
+    <div class="two">
+      <div>
+        <h3>Slow: PlayMode ran in real time</h3>
+        <p class="muted">The <code>RoomHarness</code> waits add up <code>Time.deltaTime</code>, and nothing set
+          <code>Time.timeScale</code>. A test that waited for a bathroom trip or a walk to the door waited as long as a
+          player would. At 1x, the scene tests for bathroom trips, departures and room layout took 33–96 s
+          each.</p>
+      </div>
+      <div>
+        <h3>Unreliable: "Unable to remove the file to be replaced"</h3>
+        <p class="muted">Saves on Windows sometimes failed. Another process briefly opened a freshly written save without
+          delete sharing, so <code>File.Replace</code> failed. That process was most likely Windows Defender's real-time
+          scan. Nothing in the game overlaps its own file access.</p>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="big">21 / 1000</span><p>Write-and-replace cycles that failed in the project's <code>Temp</code> folder, run outside Unity.</p></div>
+      <div class="card"><span class="big">0 / 1000</span><p>The same cycles under the system temp folder.</p></div>
+      <div class="card"><span class="big">15–35 ms</span><p>How long each lock lasted before it cleared.</p></div>
+      <div class="card"><span class="big">6 of 31</span><p>Failing tests shared by the two main runs. 31 different tests failed between the two runs, and only 6 failed in both.</p></div>
+    </div>
+    <ul class="list">
+      <li><b>A red run proved nothing.</b> 19 of the 20 failures in run 1 and 16 of the 17 in run 2 were this save error,
+        and each run hit different tests. Every check needed a baseline run and then reruns.</li>
+      <li><b>The EditMode failures were the same problem.</b> All 3 were in the save stress test.</li>
+      <li><b>Players could hit it too.</b> The same save code runs in the game on Windows.</li>
+      <li><b>One other failure,</b> in <code>PauseAndResumeAreTaps</code>, had a different error and failed in both main
+        runs. It has passed in every run since the save fix.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>The save fix</h2>
+      <p class="muted">Product code, so players on Windows get it too. A shared <code>FileRetry</code> helper retries only
+        genuine lock errors.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>HRESULT</th><th>Meaning</th><th>Retried</th></tr></thead>
+      <tbody>
+        <tr><td><code>0x80070020</code></td><td>Sharing violation</td><td><span class="pill pass">yes</span></td></tr>
+        <tr><td><code>0x80070021</code></td><td>Lock violation</td><td><span class="pill pass">yes</span></td></tr>
+        <tr><td><code>0x80070497</code></td><td>ERROR_UNABLE_TO_REMOVE_REPLACED</td><td><span class="pill pass">yes</span></td></tr>
+        <tr><td><code>0x80070498</code> · <code>0x80070499</code></td><td>ERROR_UNABLE_TO_MOVE_REPLACEMENT</td><td><span class="pill pass">yes</span></td></tr>
+        <tr><td>—</td><td>Read-only folder, disk full, file not found</td><td><span class="pill na">fails at once</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">Up to 10 attempts, sleeping 10, 20, … 90 ms between them: about 450 ms at most, well over the
+      15–35 ms locks that were measured.</p>
+    <div class="two">
+      <div>
+        <h3>Game saves</h3>
+        <ul class="list">
+          <li><b>The backup is never skipped.</b> The primary is read through the retry before it becomes the backup, so
+            a brief lock no longer drops the backup.</li>
+          <li><b>A primary that stays locked aborts the save.</b> If the primary is still locked after every retry, the
+            save stops and both files stay as they were.</li>
+          <li><b>A half-done replace is finished.</b> If a replace fails with 0x498, the primary is already gone, and
+            the next attempt moves the new file into place.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Settings saves</h3>
+        <ul class="list">
+          <li><b>One retried atomic swap.</b> Replace if the file exists, otherwise move, from a temp file with a unique
+            name.</li>
+          <li><b>Load retries too.</b> If the file stays locked, the game uses defaults for that session and holds back
+            saves, so the player's real settings are never overwritten with defaults.</li>
+          <li><b>Leftovers are swept.</b> Temp files older than 10 minutes are deleted on load.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">Tests never write the developer's real settings or saves. Both are redirected to a test folder for
+      every test.</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>10x game time in PlayMode</h2>
+      <p class="muted">A test-only harness, <code>GameTimeScale</code>, started and finished by the
+        <code>PlayModeWatchdog</code> hooks around every test. The game itself is unchanged.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Setting</th><th>While a test runs</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>Time.timeScale</code></td><td>10</td><td>Game time runs ten times faster than the wall clock.</td></tr>
+        <tr><td>Frame-rate cap</td><td>Lifted</td><td><code>FramePacer</code> caps the game at about 60 fps (18 ms frames). At 10x that would be 0.18 s of game time per frame. Uncapped, a scaled frame is about 5 ms of game time, finer than a 1x frame.</td></tr>
+        <tr><td><code>Time.maximumDeltaTime</code></td><td>catch-up budget ÷ scale</td><td>The budget is (MaxCatchupSteps 5 − 1) × 0.1 s fixed step = 0.4 s, so the simulation never quietly drops time. In the final run, 101 of 60,249 scaled frames were clamped, all during scene loads.</td></tr>
+        <tr><td>After each test</td><td>Everything restored</td><td>Including the frame rate the game itself chose.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="two">
+      <div>
+        <h3>Opting out</h3>
+        <p class="muted">A fixture or a single test that must see real time says so with an attribute:</p>
+        <pre><code>[GameTimeScale(GameTimeScaleAttribute.RealTime)]
+public class CardAnswerTapTests</code></pre>
+        <p class="muted">Pass and fail are the same at 1x and 10x. That was checked on full runs.</p>
+      </div>
+      <div>
+        <h3>Why 10x and not 20x</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Scale</th><th class="num">PlayMode</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>10x</td><td class="num">~190 s</td><td><span class="pill pass">0 failed</span></td></tr>
+            <tr><td>20x (trial)</td><td class="num">194 s</td><td><span class="pill pass">0 failed</span></td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted">20x passed too, but it was no faster. It also carries a real risk. At 20x, an ordinary 30–90 ms
+          frame hitch becomes 0.6–1.8 s of game time, which is past the simulation's catch-up cap. Walkers would jump
+          more than half a metre in one frame.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>UiClock: one clock for UI timing</h2>
+      <p class="muted">UI animations use real (unscaled) time on purpose, so they don't follow game speed. At 10x, that
+        left the UI waits in tests at real speed: the payday count-up, the hub crossfade and the admission stamp.</p>
+    </div>
+    <ul class="list">
+      <li><b>One clock.</b> All UI timing goes through <code>UiClock</code>: 26 reads in 18 files.</li>
+      <li><b>No change in the game.</b> In the game, <code>UiClock</code> is exactly Unity's unscaled clock, so players
+        see no difference.</li>
+      <li><b>Tests set its speed.</b> Tests set <code>UiClock.Speed</code> to the game scale. Each frame, it advances by
+        exactly the same clamped step as game time.</li>
+      <li><b>A guard test keeps it that way.</b> It fails if UI code reads Unity's real-time clocks directly:
+        <code>unscaledDeltaTime</code>, <code>unscaledTime</code>, <code>realtimeSinceStartup</code>,
+        <code>WaitForSecondsRealtime</code> and the others. The exemptions are the frame pacer, the frame probe, audio
+        and two single lines.</li>
+      <li><b>Gain:</b> about 30 s per PlayMode run, from 219 s to about 190 s. The admission stamp fixture dropped from
+        6.6 s to 0.7 s, payday from 17.3 s to 8.5 s and hub navigation from 17.7 s to 7.6 s.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Tried: Time.captureDeltaTime</h2>
+      <p class="muted">Unity can step every frame by a fixed amount of game time. A probe test checked whether that could
+        replace <code>UiClock</code>. It can't.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th class="num">captureDeltaTime</th><th class="num">timeScale</th><th class="num">deltaTime per frame</th><th class="num">unscaledDeltaTime per frame</th></tr></thead>
+      <tbody>
+        <tr><td class="num">0.05</td><td class="num">1</td><td class="num">0.05</td><td class="num">0.00011–0.00048</td></tr>
+        <tr><td class="num">0.05</td><td class="num">3</td><td class="num">0.15</td><td class="num">0.00011–0.00036</td></tr>
+        <tr><td class="num">0.5</td><td class="num">1</td><td class="num">0.5</td><td class="num">0.00017–0.00054</td></tr>
+        <tr><td class="num">0.02</td><td class="num">10</td><td class="num">0.2</td><td class="num">0.00012–0.00049</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="list">
+      <li><b>Scaled time is exact.</b> It advances by capture × timeScale every frame.</li>
+      <li><b>Unscaled time ignores the setting.</b> <code>unscaledDeltaTime</code> and <code>unscaledTime</code> keep
+        tracking the wall clock: 0.1–0.5 ms per frame in the probe. A fixed step can't speed up UI time, so
+        <code>UiClock</code> stays.</li>
+      <li><b>Side finding:</b> a fixed step ignores <code>Time.maximumDeltaTime</code>.</li>
+    </ul>
+  </section>
+
+  <section id="real-time">
+    <div class="section-head">
+      <h2>What stays at real time</h2>
+      <p class="muted">These tests opt out with the attribute, because what they check depends on real frame timing.</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tests</th><th>Why they need 1x</th><th class="num">Final run</th></tr></thead>
+      <tbody>
+        <tr><td><code>CardAnswerTapTests</code>, <code>RequestCardTapTests</code></td><td>Model a device's frame rate. They set <code>captureDeltaTime</code> themselves.</td><td class="num">32 s · 22.5 s</td></tr>
+        <tr><td><code>WalkPathSceneTests</code></td><td>Check collisions on every frame and compare with an unscaled stamp.</td><td class="num">14.3 s</td></tr>
+        <tr><td><code>Phase6PerfSceneTests</code></td><td>Measure performance.</td><td class="num">13.4 s</td></tr>
+        <tr><td><code>SupervisorSceneTests</code>; <code>M131WardrobeSceneTests.TheFirstStepFromRestTurnsBeforeItWalks</code></td><td>Assert facing and animation rate on every frame.</td><td class="num">6.7 s · one test</td></tr>
+        <tr><td><code>HubNavigationSceneTests.EveryTileOpensItsScreenAndTheCrossReturnsToTheHub</code></td><td>Checks a crossfade halfway through, two frames after a tap.</td><td class="num">one test</td></tr>
+        <tr><td><code>PaydayPlayTests.ATapLandsTheWholePaydayAtOnce</code></td><td>At 10x there is no deterministic way to tap before the payday ends.</td><td class="num">one test</td></tr>
+        <tr><td>The Explicit <code>*Captures</code> fixtures, <code>M131WardrobeTapCostProbe</code>, <code>ThemeSwitchCostProbe</code></td><td>Record footage or measure cost. They run only when asked for.</td><td class="num">skipped</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>How tests are run now</h2></div>
+    <ul class="list">
+      <li><b>Every Unity batchmode run has a hard timeout</b> that kills it: 15 min for PlayMode, 6 min for EditMode.
+        This rule was added after one run hung for 4 hours on an experimental watchdog change.</li>
+      <li><b>Routine work runs</b> EditMode once, PlayMode on the affected fixtures, then the full suite once.</li>
+      <li><b>No blind experiments on test infrastructure.</b></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Open</h2></div>
+    <ul class="list">
+      <li><b>The 1x opt-outs are now most of the PlayMode time.</b> CardAnswerTap (~32 s), RequestCardTap (~23 s),
+        WalkPath (~14 s) and Phase6Perf (~13.5 s) lead the run. A faster clock won't help them. Further gains would need
+        these tests to model frame time differently.</li>
+    </ul>
+    <p class="muted">Times are NUnit durations from batchmode runs on the development PC. The final PlayMode run has 139
+      tests against 136 on main because the PR added tests.</p>
+  </section>
+</div>
+<script>
+(() => {
+  const data = [
+    ["M130RoomSceneTests", 95.99, 10.94, ""],
+    ["M131WardrobeSceneTests", 93.07, 13.80, "part"],
+    ["BathroomNeedSceneTests", 68.31, 8.46, ""],
+    ["BathroomTimingSceneTests", 60.18, 7.58, ""],
+    ["DeparturePrecursorSceneTests", 54.03, 6.53, ""],
+    ["BathroomWalkSceneTests", 52.10, 5.45, ""],
+    ["ApproachReachabilitySceneTests", 41.27, 5.54, ""],
+    ["AwayPresenceSceneTests", 32.98, 5.03, ""],
+    ["CardAnswerTapTests", 31.96, 31.91, "all"],
+    ["ApproachLifecycleTests", 24.11, 3.10, ""],
+    ["RequestCardTapTests", 22.58, 22.50, "all"],
+    ["HubNavigationSceneTests", 17.65, 7.64, "part"],
+    ["PaydayPlayTests", 17.25, 8.55, "part"],
+    ["WalkPathSceneTests", 14.38, 14.27, "all"],
+    ["Phase6PerfSceneTests", 13.51, 13.45, "all"],
+    ["ReduceMotionWalkTests", 12.57, 7.35, ""],
+    ["RemovalSceneTests", 10.44, 1.66, ""],
+    ["SeatMoveSceneTests", 7.18, 1.16, ""],
+    ["SupervisorSceneTests", 6.71, 6.67, "all"],
+    ["AdmissionStampTests", 6.60, 0.72, ""]
+  ];
+  const max = 96, host = document.getElementById("fixtures");
+  const fmt = (v) => (v >= 20 ? v.toFixed(0) : v.toFixed(1)) + " s";
+  const mk = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+  for (const [name, before, after, rt] of data) {
+    const row = mk("div", "row");
+    row.title = `${name}: ${fmt(before)} at 1x, ${fmt(after)} final` + (rt === "all" ? " (runs at 1x)" : rt === "part" ? " (one test runs at 1x)" : "");
+    const lbl = mk("div", "lbl", name);
+    if (rt) lbl.appendChild(mk("span", "tag1x", rt === "all" ? "1x" : "1x, one test"));
+    const bars = mk("div", "bars");
+    for (const [v, cls] of [[before, "before"], [after, "after"]]) {
+      const bar = mk("div", "bar " + cls);
+      const b = mk("b", "b-" + cls);
+      b.style.width = `calc(${v / max} * (100% - 60px))`;
+      bar.append(b, mk("span", "", fmt(v)));
+      bars.appendChild(bar);
+    }
+    row.append(lbl, bars);
+    host.appendChild(row);
+  }
+})();
+</script>
+</body>
+</html>
