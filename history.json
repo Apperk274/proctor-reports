@@ -2,6 +2,18 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "proctor-base-comparison",
+    "change": "Added the decision at the top: the spike recommended C, the owner chose B, the Quaternius kit, now in Proctor Character."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
+    "slug": "proctor-character",
+    "change": "Fixed the woman's joined feet in the renders (the review scripts played the man's animation slot on her) and added a foot and shoe check."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "proctor-creator",
     "change": "Re-captured on the final art: beards with lips and a mouth line, a lanyard-and-watch outfit, the woman's new boots."
   },

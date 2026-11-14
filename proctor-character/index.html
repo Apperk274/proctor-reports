@@ -98,6 +98,9 @@ td code { white-space: nowrap; }
 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .ba { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
 td code { white-space: nowrap; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ba { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+td code { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -467,7 +470,9 @@ td code { white-space: nowrap; }
         many of them lose it. For short sleeves that is mostly the arm showing under the sleeve opening as it swings, not skin
         through cloth. The lanyard column counts vertices that sink more than 4 mm into the top's torso (sleeves are left out:
         the arm swinging past the card is not the card sinking; cord lying on the neck is measured against the neck). Each
-        lanyard is settled against these same 30 poses when it is built. The watch never sinks into the wrist (man 0, woman 0 vertices).</p>
+        lanyard is settled against these same 30 poses when it is built. Feet and shoes on both bodies: no vertex is
+        weighted to both legs, no edge joins the two feet, and no foot edge stretches past 1.31×
+        its length in any of the 30 poses. The watch never sinks into the wrist (man 0, woman 0 vertices).</p>
     </div>
     <div class="tablewrap">
       <table>
@@ -477,18 +482,18 @@ td code { white-space: nowrap; }
 <tr><th scope="row">cardigan (man)</th><td class="num">727</td><td class="num">11 (1.5 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
 <tr><th scope="row">hoodie (man)</th><td class="num">726</td><td class="num">8 (1.1 %)</td><td>average Walking 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
 <tr><th scope="row">long sleeve (man)</th><td class="num">728</td><td class="num">11 (1.5 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">polo (man)</th><td class="num">68</td><td class="num">64 (94.1 %)</td><td>average Walking 16</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">shirt &amp; tie (man)</th><td class="num">725</td><td class="num">12 (1.7 %)</td><td>build_slim Walking 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">polo (man)</th><td class="num">66</td><td class="num">62 (93.9 %)</td><td>average Walking 16</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">shirt &amp; tie (man)</th><td class="num">725</td><td class="num">11 (1.5 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
 <tr><th scope="row">sweater (man)</th><td class="num">727</td><td class="num">11 (1.5 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
 <tr><th scope="row">tee (man)</th><td class="num">65</td><td class="num">61 (93.8 %)</td><td>average Walking 16</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">blazer (woman)</th><td class="num">793</td><td class="num">10 (1.3 %)</td><td>average Walking 8</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">cardigan (woman)</th><td class="num">785</td><td class="num">4 (0.5 %)</td><td>average Walking 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">hoodie (woman)</th><td class="num">816</td><td class="num">7 (0.9 %)</td><td>average Walking 8</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">long sleeve (woman)</th><td class="num">767</td><td class="num">3 (0.4 %)</td><td>build_heavy PresentDocument 72</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">polo (woman)</th><td class="num">134</td><td class="num">20 (14.9 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">shirt &amp; tie (woman)</th><td class="num">821</td><td class="num">11 (1.3 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">sweater (woman)</th><td class="num">796</td><td class="num">6 (0.8 %)</td><td>average Walking 8</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">tee (woman)</th><td class="num">81</td><td class="num">18 (22.2 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">blazer (woman)</th><td class="num">791</td><td class="num">9 (1.1 %)</td><td>average Walking 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">cardigan (woman)</th><td class="num">785</td><td class="num">5 (0.6 %)</td><td>build_heavy PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">hoodie (woman)</th><td class="num">816</td><td class="num">9 (1.1 %)</td><td>build_heavy Walking 8</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">long sleeve (woman)</th><td class="num">767</td><td class="num">8 (1.0 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">polo (woman)</th><td class="num">134</td><td class="num">18 (13.4 %)</td><td>build_heavy PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">shirt &amp; tie (woman)</th><td class="num">822</td><td class="num">15 (1.8 %)</td><td>build_slim PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">sweater (woman)</th><td class="num">796</td><td class="num">9 (1.1 %)</td><td>average PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">tee (woman)</th><td class="num">80</td><td class="num">19 (23.8 %)</td><td>build_heavy PresentDocument 0</td><td class="num">0 / 648</td><td><span class="tag good">sleeve opening</span></td></tr>
         </tbody>
       </table>
     </div>
