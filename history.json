@@ -2,6 +2,12 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "proctor-base-comparison",
+    "change": "Added the Proctor Base Comparison: MPFB2, Quaternius modular, and an upgraded head on today's body, rendered next to the students, recommending the upgrade."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "test-speed",
     "change": "Added the Faster, Reliable Tests report: the Windows save-lock fix, PlayMode at 10x game time, UiClock, the captureDeltaTime probe and what stays at real time."
   },
