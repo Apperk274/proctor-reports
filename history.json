@@ -2,6 +2,12 @@
   {
     "date": "2026-11-14",
     "author": "Apperk274",
+    "slug": "proctor-creator",
+    "change": "Added the woman walking in the room, four frames, with her knees and feet measured apart on her own walk channels."
+  },
+  {
+    "date": "2026-11-14",
+    "author": "Apperk274",
     "slug": "proctor-base-comparison",
     "change": "Added the decision at the top: the spike recommended C, the owner chose B, the Quaternius kit, now in Proctor Character."
   },
