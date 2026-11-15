@@ -154,7 +154,12 @@ const isDate = (v) => {
   return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
 };
 const now = new Date();
-const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+// Writers stamp entries with either their local date or the UTC date, and the two differ for part
+// of every day (an evening in the US is already tomorrow in UTC). "Today" is the later of the two,
+// so an entry written a moment ago never reads as being in the future.
+const utcToday = now.toISOString().slice(0, 10);
+const today = utcToday > localToday ? utcToday : localToday;
 const historySlugs = new Set([...reports, ...redirects].map((r) => r?.slug).filter(isText));
 const HISTORY_KEYS = ["date", "author", "slug", "change"];
 const entryKey = (e) => JSON.stringify(HISTORY_KEYS.map((k) => e?.[k]));
