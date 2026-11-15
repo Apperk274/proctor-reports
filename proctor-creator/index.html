@@ -99,7 +99,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <a href="../proctor-character/">Proctor Character</a> report, in the game: chosen at the start of every new
       career and changed any time in the Wardrobe's new <b>You</b> segment, for free. Body, face, brows, hair, facial
       hair, build, skin, hair and eye colours. Every Wardrobe item is worn on it, refitted by the art pipeline. All
-      images are captures of the game (Unity, editor, a 1080 × 2340 phone screen). Students are unchanged.</p>
+      images are captures of the game on the final art (Unity, editor, a 1080 × 2340 phone screen). Students are
+      unchanged. The work is merged into main.</p>
     <nav class="toc" aria-label="Sections">
       <a href="#creator">Create your proctor</a><a href="#you">The You segment</a><a href="#looks">Looks and builds</a>
       <a href="#outfits">Outfits</a><a href="#room">In the room</a><a href="#japanese">Japanese</a>
@@ -182,12 +183,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <h2>Outfits</h2>
       <p class="muted">Wardrobe items worn on the proctor, in seven slots: hat, top, trousers, shoes, badge, glasses and
         wrist. Tops, trousers and shoes are the art's refits, each top closed with skin at its neckline, sleeves and hem, so
-        no opening shows the inside of the top; the shirt &amp; tie in the room views has the new folded collar; hats bring their own hair-under-hat variant; the badge clips on the upper chest at a spot set per
+        no opening shows the inside of the top; hats bring their own hair-under-hat variant; the badge clips on the upper chest at a spot set per
         body, with its own spot on the tops whose front opens (the cardigan, blazer, hoodie and shirt and tie) so it stays
         on plain cloth.</p>
     </div>
     <div class="figs close">
       <figure><img src="img/outfit-casual.jpg" alt="Cap, mustard tee, jeans, sneakers, watch" loading="lazy"><figcaption>Cap, mustard tee, jeans, sneakers, watch.</figcaption></figure>
+      <figure><img src="img/outfit-formal.jpg" alt="Shirt and tie, formal trousers, loafers, square glasses, silver pin" loading="lazy"><figcaption>Shirt &amp; tie with its folded collar, formal trousers, loafers, square glasses, silver pin.</figcaption></figure>
       <figure><img src="img/outfit-headteacher.jpg" alt="Blazer, round glasses, watch, boots" loading="lazy"><figcaption>Blazer, round glasses, watch, boots.</figcaption></figure>
       <figure><img src="img/outfit-weekend.jpg" alt="Beanie, hoodie, chinos, running shoes" loading="lazy"><figcaption>Beanie, hoodie, chinos, runners.</figcaption></figure>
     </div>
@@ -211,10 +213,10 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       set of channels for each rig, and the game plays her own set on her rig: her knees stay at least 0.18 m apart
       and her feet at least 0.16 m apart through a whole stride, and they never cross (a test holds this).</p>
     <div class="figs close">
-      <figure><img src="img/walk-f-1.jpg" alt="The woman in a long stride, seen from the side" loading="lazy"><figcaption>A long stride, feet 0.81 m apart.</figcaption></figure>
-      <figure><img src="img/walk-f-2.jpg" alt="The woman's rear foot lifting behind a desk" loading="lazy"><figcaption>The rear foot lifting, 0.87 m.</figcaption></figure>
-      <figure><img src="img/walk-f-3.jpg" alt="The woman in a passing step, arm swinging forward" loading="lazy"><figcaption>Passing step, 0.47 m.</figcaption></figure>
-      <figure><img src="img/walk-f-4.jpg" alt="The woman from the front three-quarter, both loafers visible" loading="lazy"><figcaption>Front three-quarter, legs 0.30 m apart; the tie knot and collar in view.</figcaption></figure>
+      <figure><img src="img/walk-f-1.jpg" alt="The woman mid-stride past a seated candidate" loading="lazy"><figcaption>Mid-stride past a seated candidate, feet 0.43 m apart.</figcaption></figure>
+      <figure><img src="img/walk-f-2.jpg" alt="The woman in a long stride, rear foot lifting behind a desk" loading="lazy"><figcaption>A long stride, the rear foot lifting, 0.83 m.</figcaption></figure>
+      <figure><img src="img/walk-f-3.jpg" alt="The woman in the next frame of the stride, arm swinging forward" loading="lazy"><figcaption>The next frame, arm swinging forward, 0.86 m.</figcaption></figure>
+      <figure><img src="img/walk-f-4.jpg" alt="The woman from the front three-quarter, both loafers visible" loading="lazy"><figcaption>Front three-quarter, legs 0.37 m apart; the tie knot and collar in view.</figcaption></figure>
     </div>
   </section>
 
@@ -295,20 +297,17 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   <section id="tests">
     <div class="section-head">
       <h2>Tests</h2>
-      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1. The full suites below ran before the art fixes.
-        With the current art the proctor tests were run on their own: EditMode <span class="num">154 / 154</span> passed
-        (including ProctorBuildShapeTests) and PlayMode ProctorCreatorSceneTests <span class="num">4 / 4</span> passed.
-        They cover the per-top badge rule, the dense build shapes on every body, top and legwear part, a beard with no
-        mouth of its own, and the skin closures taking the skin colour. A pixel scan of the sleeves and cuffs in the game
-        finds no see-through pixels. An editor review scene lays out every combination these two reports show:
+      <p class="muted">Both full suites, run headless with Unity 6000.3.22f1 on the merged result in main, on the final art.
+        Skipped tests are explicit probes and captures. A pixel scan of the sleeves and cuffs in the game finds no
+        see-through pixels. An editor review scene lays out every combination these two reports show:
         <span class="num">462</span> figures in <span class="num">32</span> sections.</p>
     </div>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Suite</th><th>Result</th><th>Covers</th></tr></thead>
         <tbody>
-          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,660</span> passed, <span class="num">0</span> failed, <span class="num">210</span> skipped, <span class="num">155 s</span>, on the final art.</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the badge spot per body and top; hair under every hat; words in every language, and every choice fitting its cell in all seven at both text sizes; the creator and the You segment; the preview bound back to a reopened page; which career a new one takes its look from; the beard's colour.</td></tr>
-          <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">96</span> passed, <span class="num">0</span> failed, <span class="num">50</span> skipped (captures), <span class="num">196 s</span>.</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub); a creator left open reopening on Continue; an abandoned career's look used once; the You segment redressing the preview and the room; plus every existing scene test.</td></tr>
+          <tr><th>EditMode, all</th><td><span class="tag good">pass</span> <span class="num">2,916</span> passed, <span class="num">0</span> failed, <span class="num">210</span> skipped, <span class="num">330 s</span> of tests (<span class="num">349 s</span> from Unity launch to exit).</td><td>Core: defaults, save round trip, old saves, the hair mapping, a new career carries the look, the look is free and clothes are not. Game: parts per face, brows, hair and facial hair; tint by role; build shapes; every item on both bodies; an item without art; the badge spot per body and top; hair under every hat; words in every language, and every choice fitting its cell in all seven at both text sizes; the creator and the You segment; the preview bound back to a reopened page; which career a new one takes its look from; the beard's colour.</td></tr>
+          <tr><th>PlayMode, all</th><td><span class="tag good">pass</span> <span class="num">97</span> passed, <span class="num">0</span> failed, <span class="num">114</span> skipped, <span class="num">214 s</span> of tests (<span class="num">237 s</span> from Unity launch to exit).</td><td>The creator at the start of a new career (prefilled, no clothes carried, Start to the hub); a creator left open reopening on Continue; an abandoned career's look used once; the You segment redressing the preview and the room; plus every existing scene test.</td></tr>
         </tbody>
       </table>
     </div>
@@ -322,11 +321,15 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <li><b>Five brows for the man.</b> The decision was three per body; the art adds two softer ones as the faces'
         defaults. The game offers what the art lists.</li>
       <li><b>Mohawks.</b> Offered because the art lists them; they read loud for a proctor and can be dropped there.</li>
-      <li><b>Art polish</b> still open in the art pipeline: a ragged rib band and a skin ring at the sweater's neck; the
-        polo's collar points one-sided underneath; a thin dark ambient-occlusion line under the woman's short-sleeve hems
-        (not a hole); slim reads only a little slimmer than average; the woman's sneakers show a sock-like ankle; the glasses'
-        arms vanish into a bald scalp; the heaviest dressed figure is about 9.7k triangles, over the 8k target. See
+      <li><b>Art polish</b> still open in the art pipeline: a thin dark line along the sweater's rib band at the back;
+        a few see-through pixels at the polo collar's edge from below; from directly above, the glasses' arms show along
+        the sides of the hair; a thin dark ambient-occlusion line under the woman's short-sleeve hems (not a hole); slim
+        reads only a little slimmer than average; the woman's sneakers show a sock-like ankle. See
         <a href="../proctor-character/#problems">Proctor Character</a>.</li>
+      <li><b>About 10.1k triangles</b> for the heaviest dressed figure, over the 8k target; not yet measured on the
+        Galaxy A15.</li>
+      <li><b>The Tweed Jacket</b> (<code>top_tweed</code>, the Supporter Pack look) still needs proctor art for both
+        bodies and a shop tile before its catalogue entry lands.</li>
       <li><b>Not yet on a phone.</b> These are editor captures; the Galaxy A15 check (frame cost of a look tap, the
         preview's portrait framing) is still to do.</li>
     </ul>
