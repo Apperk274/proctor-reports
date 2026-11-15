@@ -154,7 +154,7 @@ ol.next { padding-left: 22px; }
       supervisor walks with a real walk cycle, holds a hand out when acting on a student, wears the bought shirt
       colour, and wears the badge on the front of the chest. Phase 2 gives the wardrobe its eight slots and puts a
       Wardrobe in the store: a live 3D figure of your own supervisor, a Man / Woman toggle, category tabs, try-on
-      before buying, and Buy → Wear → Take off on every item. Phase 3 puts <a href="#phase3">36 items</a> in the game: hats, tops, trousers, shoes, pins and school crests, glasses, a lanyard and a watch, each with a price, an unlock and a shop tile, plus a hair choice for both bodies. Phase 4 measured the prices and unlocks against real careers: see <a href="#balance">Prices &amp; balance</a>. The <a href="#supporter">Supporter Pack item</a> has three candidates waiting for a pick. A <a href="#polish">polish pass</a> adds a "keep some coins" hint to the store and fixes hair under hats, the lanyard, the shirt collar and the blazer on the woman.</p>
+      before buying, and Buy → Wear → Take off on every item. Phase 3 puts <a href="#phase3">36 items</a> in the game: hats, tops, trousers, shoes, pins and school crests, glasses, a lanyard and a watch, each with a price, an unlock and a shop tile, plus a hair choice for both bodies. Phase 4 measured the prices and unlocks against real careers: see <a href="#balance">Prices &amp; balance</a>. The <a href="#supporter">Supporter Pack item</a> is the Tweed Jacket, built for the new proctor and waiting to be added to the game. A <a href="#polish">polish pass</a> adds a "keep some coins" hint to the store and fixes hair under hats, the lanyard, the shirt collar and the blazer on the woman.</p>
   </header>
 
   <section id="room">
@@ -590,58 +590,58 @@ ol.next { padding-left: 22px; }
   </section>
 
   <section id="supporter">
-    <div class="section-head"><span class="eyebrow">Supporter Pack · design preview · not in the game</span><h2>Supporter Pack item: candidates — pick one</h2></div>
-    <p>The Supporter Pack ($4.99) will give the Supporter Badge and one new item, as a thank-you. The item only changes how the supervisor looks. It is sold for real money only (CashOnly, PackExclusive) and has no coin price. Three candidates are shown below. Each is built with the wardrobe's own Blender helpers, on the shipped bodies in the Standing pose, and shown on both supervisors in front and three-quarter view, close up, and as a store tile. None of them is the Slate Shirt, part of the Style Pack (Slate Shirt, Enamel Badge), or an existing item.</p>
-    <div class="swatches"><span>Supporter colours:</span><span><i style="background:#4E2A5E"></i>aubergine #4E2A5E</span><span><i style="background:#E2B13C"></i>gold #E2B13C</span><span><i style="background:#F2E8CF"></i>cream #F2E8CF</span><span>— gold belongs with GameTheme's Accent; no current item uses aubergine.</span></div>
+    <div class="section-head"><span class="eyebrow">Supporter Pack · art done on the new proctor rig · not in the game yet</span><h2>Supporter Pack item: the Tweed Jacket</h2></div>
+    <p>The Supporter Pack ($4.99) gives the Supporter Badge and one new item as a thank-you: the <b>Tweed Jacket</b> (<code>top_tweed</code>). It only changes how the supervisor looks. It is sold for real money only (CashOnly, PackExclusive) and has no coin price. It is built on the new proctor art pipeline (the customizable proctor, PR #11) for both bodies and all three builds. It is not in the game yet: the catalogue and store entries come after that PR is merged.</p>
+    <div class="swatches"><span>Tweed colours (main · trim · detail):</span><span><i style="background:#8B6A4C"></i>heather brown #8B6A4C</span><span><i style="background:#C9D5E2"></i>pale blue shirt #C9D5E2</span><span><i style="background:#3F2A1E"></i>chocolate suede #3F2A1E</span></div>
     <div class="cands">
-      <figure class="cand pick" id="supporter-scarf">
-        <span class="badge-pick">Recommended</span><h3>Patron Scarf</h3>
-        <div class="meta"><span>Neck</span><span><code>neck_scarf_patron</code></span></div>
-        <p>A knitted aubergine scarf, once round the neck, with both tails down the chest, gold-banded ends and a short gold fringe.</p>
-        <p class="why">No other item has this shape. It is the biggest block of colour on the figure at preview and room distance, and it clears the Supporter Badge, which sits further to the side.</p>
-        <img src="img/supporter-scarf-figure-dark.jpg" alt="Patron Scarf on the man and the woman, front and three-quarter, on the Dark preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-scarf-figure-light.jpg" alt="Patron Scarf on both supervisors on the Light preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-scarf-close-dark.jpg" alt="Patron Scarf close up on the man and the woman" loading="lazy" width="960" height="480">
+      <figure class="cand pick" id="supporter-tweed">
+        <span class="badge-pick">Chosen</span><h3>Tweed Jacket</h3>
+        <div class="meta"><span>Top</span><span><code>top_tweed</code></span><span><code>ward_top_tweed_m</code> / <code>_f</code></span></div>
+        <p>A warm heather-brown jacket cut like the blazer, with notch lapels, an open-necked pale blue shirt and no tie, three leather buttons, patch pockets and dark suede elbow patches. Low-poly and flat-shaded, like the rest of the wardrobe.</p>
+        <p class="why">Next to the navy blazer it reads as a different jacket, not a new colour: brown instead of navy, no tie, and elbow patches you can see from behind and at room distance.</p>
         <div class="tiles">
-          <div class="tile dark"><img src="img/supporter-scarf-tile.jpg" alt="Patron Scarf store tile art, Dark" loading="lazy" width="960" height="460"><b>Patron Scarf</b><span>Supporter Pack</span></div>
-          <div class="tile light"><img src="img/supporter-scarf-tile.jpg" alt="Patron Scarf store tile art, Light" loading="lazy" width="960" height="460"><b>Patron Scarf</b><span>Supporter Pack</span></div>
-        </div>
-      </figure>
-      <figure class="cand" id="supporter-lanyard">
-        <h3>Patron Lanyard</h3>
-        <div class="meta"><span>Neck</span><span><code>neck_lanyard_patron</code></span></div>
-        <p>A flat aubergine ribbon woven with gold edge threads, a brass ring and clip, and a cream card with a gold border, a gold star seal and an aubergine header.</p>
-        <p class="why">The most "supervisor" thank-you: a VIP pass. It does share its idea with the 50-coin ID Lanyard (a blue cord and a plain card); only the ribbon, colours and card are new.</p>
-        <img src="img/supporter-lanyard-figure-dark.jpg" alt="Patron Lanyard on the man and the woman, front and three-quarter, on the Dark preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-lanyard-figure-light.jpg" alt="Patron Lanyard on both supervisors on the Light preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-lanyard-close-dark.jpg" alt="Patron Lanyard close up on the man and the woman" loading="lazy" width="960" height="480">
-        <div class="tiles">
-          <div class="tile dark"><img src="img/supporter-lanyard-tile.jpg" alt="Patron Lanyard store tile art, Dark" loading="lazy" width="960" height="460"><b>Patron Lanyard</b><span>Supporter Pack</span></div>
-          <div class="tile light"><img src="img/supporter-lanyard-tile.jpg" alt="Patron Lanyard store tile art, Light" loading="lazy" width="960" height="460"><b>Patron Lanyard</b><span>Supporter Pack</span></div>
-        </div>
-      </figure>
-      <figure class="cand" id="supporter-pencil">
-        <h3>Golden Pencil</h3>
-        <div class="meta"><span>Hat</span><span><code>hat_pencil_gold</code></span></div>
-        <p>A gold-lacquered pencil with a black ferrule and eraser, tucked behind the ear on the badge side.</p>
-        <p class="why">The most on-theme (Pencils Down) and a lovely tile, but small on the figure. Because it uses the hat slot, it cannot be worn with a hat.</p>
-        <img src="img/supporter-pencil-figure-dark.jpg" alt="Golden Pencil on the man and the woman, front and three-quarter, on the Dark preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-pencil-figure-light.jpg" alt="Golden Pencil on both supervisors on the Light preview ground" loading="lazy" width="1028" height="600">
-        <img src="img/supporter-pencil-close-dark.jpg" alt="Golden Pencil close up on the man and the woman" loading="lazy" width="960" height="480">
-        <div class="tiles">
-          <div class="tile dark"><img src="img/supporter-pencil-tile.jpg" alt="Golden Pencil store tile art, Dark" loading="lazy" width="960" height="460"><b>Golden Pencil</b><span>Supporter Pack</span></div>
-          <div class="tile light"><img src="img/supporter-pencil-tile.jpg" alt="Golden Pencil store tile art, Light" loading="lazy" width="960" height="460"><b>Golden Pencil</b><span>Supporter Pack</span></div>
+          <div class="tile dark"><img src="img/supporter-tweed-tile.jpg" alt="Tweed Jacket store tile art, Dark" loading="lazy" width="480" height="230"><b>Tweed Jacket</b><span>Supporter Pack</span></div>
+          <div class="tile light"><img src="img/supporter-tweed-tile.jpg" alt="Tweed Jacket store tile art, Light" loading="lazy" width="480" height="230"><b>Tweed Jacket</b><span>Supporter Pack</span></div>
         </div>
       </figure>
     </div>
+
+    <h3 id="supporter-vs-blazer">Beside the blazer</h3>
+    <figure class="cand">
+      <img src="img/supporter-tweed-vs-blazer-front.jpg" alt="Front: the man in the blazer, the man in the tweed jacket, the woman in the blazer, the woman in the tweed jacket" loading="lazy" width="1400" height="640">
+      <img src="img/supporter-tweed-vs-blazer-back.jpg" alt="Three-quarter back of the same four figures: the tweed jackets show their elbow patches" loading="lazy" width="1400" height="640">
+      <p class="why">Front, left to right: man in the blazer, man in the tweed, woman in the blazer, woman in the tweed. The back view is the same line from behind, so the order is reversed. Both wear the Supporter Badge.</p>
+    </figure>
+
+    <h3 id="supporter-builds">Every build, both bodies</h3>
+    <p class="small muted">Slim, average and heavy from left to right, with formal trousers, loafers and the Supporter Badge. The three-quarter back views show the elbow patches.</p>
+    <div class="cands">
+      <figure class="cand"><h3>Man · Standing</h3>
+        <img src="img/supporter-tweed-m-standing-front.jpg" alt="The man in the tweed jacket, slim, average and heavy, Standing, front" loading="lazy" width="1200" height="640">
+        <img src="img/supporter-tweed-m-standing-back.jpg" alt="The man in the tweed jacket, three builds, Standing, three-quarter back" loading="lazy" width="1200" height="640"></figure>
+      <figure class="cand"><h3>Woman · Standing</h3>
+        <img src="img/supporter-tweed-f-standing-front.jpg" alt="The woman in the tweed jacket, slim, average and heavy, Standing, front" loading="lazy" width="1200" height="640">
+        <img src="img/supporter-tweed-f-standing-back.jpg" alt="The woman in the tweed jacket, three builds, Standing, three-quarter back" loading="lazy" width="1200" height="640"></figure>
+      <figure class="cand"><h3>Man · PresentDocument</h3>
+        <img src="img/supporter-tweed-m-presentdocument-front.jpg" alt="The man in the tweed jacket, three builds, PresentDocument, front" loading="lazy" width="1200" height="640">
+        <img src="img/supporter-tweed-m-presentdocument-back.jpg" alt="The man in the tweed jacket, three builds, PresentDocument, three-quarter back" loading="lazy" width="1200" height="640"></figure>
+      <figure class="cand"><h3>Woman · PresentDocument</h3>
+        <img src="img/supporter-tweed-f-presentdocument-front.jpg" alt="The woman in the tweed jacket, three builds, PresentDocument, front" loading="lazy" width="1200" height="640">
+        <img src="img/supporter-tweed-f-presentdocument-back.jpg" alt="The woman in the tweed jacket, three builds, PresentDocument, three-quarter back" loading="lazy" width="1200" height="640"></figure>
+    </div>
+    <figure class="cand">
+      <img src="img/supporter-tweed-close.jpg" alt="Close-ups: the man's chest with the Supporter Badge, his left elbow patch, the woman's chest with the badge, her elbow patch" loading="lazy" width="2080" height="520">
+      <p class="why">Close up: the Supporter Badge on each body's chest beside the lapel, and the suede patch on the back of the left elbow.</p>
+    </figure>
+
     <div class="note">
-      <b>Recommendation: Patron Scarf (<code>neck_scarf_patron</code>).</b>
-      <p>It is the only one with a new silhouette, and it reads at every size: the tile, the Wardrobe preview and the room. It goes over every top and, unlike the pencil, takes no slot a player already fills often (it shares Neck only with the ID Lanyard). The lanyard is the safe second choice. The pencil is the most charming but the hardest to see and the most work. On the store tile the art panel is the same dark scene in both themes, as on today's tiles; only the card around it changes.</p>
+      <b>Checks: all pass.</b>
+      <p>Skin poke-through in Standing, Walking and PresentDocument across slim, average and heavy: at worst 12 of 726 skin vertices on the man and 16 of 852 on the woman, the same as the blazer. Seams: no cracks and no gaps. The hem stays within 7.7 mm of the trousers' waistband in every build (the limit is 10 mm), and the build shapes are present on every primitive. The jacket is 1,379 triangles on the man and 1,468 on the woman, fewer than the blazer (1,403 and 1,508), so the heaviest dressed figure does not get heavier. With the jacket, the heaviest figures are 8,663 (man) and 8,538 (woman) triangles.</p>
     </div>
     <ul class="next small">
-      <li><b>Integration (later, not done):</b> a <code>CosmeticCatalog</code> entry (Neck or Hat, <code>PackExclusive</code>, <code>CashOnly</code>, no price), the id added to <code>ProductCatalog.CosmeticsFor(ent.supporter_pack)</code>, its colours in <code>CosmeticAppearance.ColoursOf</code>, a part in <code>WardrobeArt.RigidPart</code>, and the mesh in <code>build_wardrobe.py</code>.</li>
-      <li><b>Scarf and lanyard</b> are laid on the top they are worn over, like today's lanyard: one mesh per top and body (8 × 2), named <code>Scarf_&lt;Top&gt;[_F]</code> or <code>LanyardPatron_&lt;Top&gt;[_F]</code>. The preview shows the issued shirt only. About 870 and 790 triangles each; rigid on Spine.</li>
-      <li><b>Pencil</b> rests on the hair, so it needs one mesh per hairstyle, and <code>WardrobeArt.HairPart</code> must not swap the hair for its under-a-hat variant when it is worn. About 84 triangles; rigid on Head.</li>
+      <li><b>Roles:</b> <code>Ward_Main</code> is the tweed, <code>Ward_Trim</code> the shirt, and <code>Ward_Detail</code> the suede elbow patches and the buttons. Each top also has the <code>Proctor_Skin</code> neck lining. There is no woven check pattern: the shell's faces are too large for a check to read as cloth, and the three roles are all used.</li>
+      <li><b>Badge:</b> on the man the badge moves out to <code>side 0.085</code> (<code>wardrobe.badge_rule.m.tops.ward_top_tweed_m</code>) to stay off the lapel. The woman uses her body's own rule. <code>wardrobe.badge_poses</code> has both.</li>
+      <li><b>Integration (later, after PR #11):</b> a <code>CosmeticCatalog</code> entry (Top, <code>PackExclusive</code>, <code>CashOnly</code>, no price), the id in the Supporter Pack's product, its three colours in <code>CosmeticAppearance.ColoursOf</code> (and <code>HasThreeColours</code>), and the store tile <code>Resources/Art/Props/tile_top_tweed.png</code>, which is already in the branch.</li>
     </ul>
   </section>
 
