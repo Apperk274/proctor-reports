@@ -181,14 +181,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
     <div class="section-head">
       <h2>Outfits</h2>
       <p class="muted">Wardrobe items worn on the proctor, in seven slots: hat, top, trousers, shoes, badge, glasses and
-        wrist. Tops, trousers and shoes are the art's refits, each top with a skin lining at the neck so the head never
-        floats above it; hats bring their own hair-under-hat variant; the badge clips on the upper chest at a spot set per
+        wrist. Tops, trousers and shoes are the art's refits, each top closed with skin at its neckline, sleeves and hem, so
+        no opening shows the inside of the top; the shirt &amp; tie in the room views has the new folded collar; hats bring their own hair-under-hat variant; the badge clips on the upper chest at a spot set per
         body, with its own spot on the tops whose front opens (the cardigan, blazer, hoodie and shirt and tie) so it stays
         on plain cloth.</p>
     </div>
     <div class="figs close">
       <figure><img src="img/outfit-casual.jpg" alt="Cap, mustard tee, jeans, sneakers, watch" loading="lazy"><figcaption>Cap, mustard tee, jeans, sneakers, watch.</figcaption></figure>
-      <figure><img src="img/outfit-formal.jpg" alt="Shirt and tie, formal trousers, loafers, square glasses, silver pin" loading="lazy"><figcaption>Shirt &amp; tie, formal trousers, loafers, square glasses, silver pin.</figcaption></figure>
       <figure><img src="img/outfit-headteacher.jpg" alt="Blazer, round glasses, watch, boots" loading="lazy"><figcaption>Blazer, round glasses, watch, boots.</figcaption></figure>
       <figure><img src="img/outfit-weekend.jpg" alt="Beanie, hoodie, chinos, running shoes" loading="lazy"><figcaption>Beanie, hoodie, chinos, runners.</figcaption></figure>
     </div>
@@ -198,19 +197,24 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
     <div class="section-head">
       <h2>In the room</h2>
       <p class="muted">The proctor in a running exam at Maple, among the students (who keep their own body). The figure
-        stands about 1.8 m with its hair, over the agent, and walks with the kit's own clips. Stills of the room with the
-        fixed art are still to be taken; until then the art side's renders from the game camera are in
-        <a href="../proctor-character/#room">Proctor Character</a>.</p>
+        stands about 1.8 m with its hair, over the agent, and walks with the kit's own clips. Four looks across two exams,
+        seen from above the game camera and closer in.</p>
     </div>
-    <p class="muted">The woman walking across the room (average build, shirt and tie, formal trousers, loafers), four frames
-      about a tenth of a second apart. Each clip carries a
+    <div class="figs two">
+      <figure><img src="img/room-wide-man.jpg" alt="The classroom with seated students and a slim proctor in a polo and jeans" loading="lazy"><figcaption>The room: a slim man with stubble in polo, jeans, runners and watch.</figcaption></figure>
+      <figure><img src="img/room-wide-woman.jpg" alt="The classroom with a slim woman proctor in a cardigan and chinos" loading="lazy"><figcaption>A slim woman with a bob in cardigan, chinos, sneakers and the Maple crest.</figcaption></figure>
+      <figure><img src="img/room-close-man.jpg" alt="Close view of a heavy bearded proctor in shirt and tie by a student's desk" loading="lazy"><figcaption>Closer: a heavy man with a beard in shirt &amp; tie, formal trousers, loafers and a gold pin.</figcaption></figure>
+      <figure><img src="img/room-close-woman.jpg" alt="Close view of a woman proctor in a blazer and round glasses" loading="lazy"><figcaption>An average woman with a bun in blazer, formal trousers, loafers and round glasses.</figcaption></figure>
+    </div>
+    <p class="muted">The woman walking across the room (average build, bob, shirt and tie, formal trousers, loafers), four
+      frames of a stride. Each clip carries a
       set of channels for each rig, and the game plays her own set on her rig: her knees stay at least 0.18 m apart
       and her feet at least 0.16 m apart through a whole stride, and they never cross (a test holds this).</p>
     <div class="figs close">
-      <figure><img src="img/walk-f-3.jpg" alt="The woman mid-stride, left foot forward" loading="lazy"><figcaption>Walking, frame 1.</figcaption></figure>
-      <figure><img src="img/walk-f-4.jpg" alt="The woman mid-stride, feet passing" loading="lazy"><figcaption>Frame 2.</figcaption></figure>
-      <figure><img src="img/walk-f-5.jpg" alt="The woman mid-stride" loading="lazy"><figcaption>Frame 3.</figcaption></figure>
-      <figure><img src="img/walk-f-6.jpg" alt="The woman mid-stride, right foot forward" loading="lazy"><figcaption>Frame 4.</figcaption></figure>
+      <figure><img src="img/walk-f-1.jpg" alt="The woman in a long stride, seen from the side" loading="lazy"><figcaption>A long stride, feet 0.81 m apart.</figcaption></figure>
+      <figure><img src="img/walk-f-2.jpg" alt="The woman's rear foot lifting behind a desk" loading="lazy"><figcaption>The rear foot lifting, 0.87 m.</figcaption></figure>
+      <figure><img src="img/walk-f-3.jpg" alt="The woman in a passing step, arm swinging forward" loading="lazy"><figcaption>Passing step, 0.47 m.</figcaption></figure>
+      <figure><img src="img/walk-f-4.jpg" alt="The woman from the front three-quarter, both loafers visible" loading="lazy"><figcaption>Front three-quarter, legs 0.30 m apart; the tie knot and collar in view.</figcaption></figure>
     </div>
   </section>
 
@@ -243,8 +247,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <div class="card"><h3>Colour by role</h3><p>One white material, tinted per surface by its role: skin, hair, eyes,
         top, legwear and shoes times their factor; stubble <code>lerp(skin, hair, 0.6)</code>, the art's factor; a beard
         or moustache's hair the hair colour with a fifth of the skin mixed in, because a beard is thinner than scalp hair
-        and a pure black one read as a flat mask; facial hair carries no mouth of its own, the face's shows through it; the
-        pupil a fixed near-black; each top's neck lining the skin colour; Wardrobe surfaces the item's own three
+        and a pure black one read as a flat mask; facial hair carries no mouth of its own, the face's shows through an
+        opening at the moustache line; the
+        pupil a fixed near-black; each top's skin closures the skin colour; Wardrobe surfaces the item's own three
         colours.</p></div>
       <div class="card"><h3>The preview</h3><p>One preview stage serves the creator and the Wardrobe. Whichever page is
         shown binds it to its own picture and framing (head and shoulders for the look, the whole figure for clothes),
@@ -290,11 +295,12 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   <section id="tests">
     <div class="section-head">
       <h2>Tests</h2>
-      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1. The full suites below ran before the art fixes;
-        after the fixed art came in, the proctor tests were run on their own (EditMode <span class="num">154</span> passed,
-        PlayMode <span class="num">5</span> passed, none failed), including new ones for the per-top badge rule, the
-        dense build shapes on every body, top and legwear part, a beard with no mouth, and the neck lining taking the skin
-        colour. An editor review scene lays out every combination these two reports show:
+      <p class="muted">Run headless on the worktree with Unity 6000.3.22f1. The full suites below ran before the art fixes.
+        With the current art the proctor tests were run on their own: EditMode <span class="num">154 / 154</span> passed
+        (including ProctorBuildShapeTests) and PlayMode ProctorCreatorSceneTests <span class="num">4 / 4</span> passed.
+        They cover the per-top badge rule, the dense build shapes on every body, top and legwear part, a beard with no
+        mouth of its own, and the skin closures taking the skin colour. A pixel scan of the sleeves and cuffs in the game
+        finds no see-through pixels. An editor review scene lays out every combination these two reports show:
         <span class="num">462</span> figures in <span class="num">32</span> sections.</p>
     </div>
     <div class="tablewrap">
@@ -316,12 +322,11 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
       <li><b>Five brows for the man.</b> The decision was three per body; the art adds two softer ones as the faces'
         defaults. The game offers what the art lists.</li>
       <li><b>Mohawks.</b> Offered because the art lists them; they read loud for a proctor and can be dropped there.</li>
-      <li><b>Art polish</b> still open in the art pipeline: thin slivers at the woman's cardigan neckline and round the
-        man's sweater collar; slim reads only a little slimmer than average; the woman's sneakers show a sock-like ankle
-        between the shoe and the hem; the heaviest dressed figure is about 8.7k triangles, over the 8k target. See
+      <li><b>Art polish</b> still open in the art pipeline: a ragged rib band and a skin ring at the sweater's neck; the
+        polo's collar points one-sided underneath; a thin dark ambient-occlusion line under the woman's short-sleeve hems
+        (not a hole); slim reads only a little slimmer than average; the woman's sneakers show a sock-like ankle; the glasses'
+        arms vanish into a bald scalp; the heaviest dressed figure is about 9.7k triangles, over the 8k target. See
         <a href="../proctor-character/#problems">Proctor Character</a>.</li>
-      <li><b>Room stills to retake.</b> The in-exam captures were taken before the art fixes and are left out until they
-        are taken again with the fixed art.</li>
       <li><b>Not yet on a phone.</b> These are editor captures; the Galaxy A15 check (frame cost of a look tap, the
         preview's portrait framing) is still to do.</li>
     </ul>

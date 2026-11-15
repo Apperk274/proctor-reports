@@ -236,9 +236,11 @@ td code { white-space: nowrap; }
       <h3>Facial hair: hair only, the face's own mouth</h3>
       <p class="muted">The full beard on black hair read as a mask over the lower face. Facial hair is now hair only: the beard
         and stubble are sheets lifted off the jaw with an oval opening round the mouth, and the face's own mouth shows through
-        it as it does with no facial hair. The beard thins out over the cheeks and fades into a stubble edge, and a third of its
-        facets take a darker shade so it reads as hair. Stubble is <code>lerp(skin, hair, 0.6)</code>, so it reads on every
-        skin and hair colour.</p>
+        it as it does with no facial hair. The stubble and beard cover the upper lip, and their opening sits just under the
+        moustache's lower edge on every face, so the mouth is where the moustache says it is; a check holds every variant to
+        within 2 mm of it and to the mouth's size. The beard thins out over the cheeks and fades into a stubble edge, and a
+        third of its facets take a darker shade so it reads as hair. Stubble is <code>lerp(skin, hair, 0.6)</code>, so it
+        reads on every skin and hair colour.</p>
       <div class="pair">
         <figure><span class="ba muted">Before</span><img src="img/before-facial-hair.jpg" alt="Earlier version: the beard covers the mouth like a mask" loading="lazy"><figcaption>The beard covered the mouth.</figcaption></figure>
         <figure><span class="ba muted">After</span><img src="img/facial-hair-preview.jpg" alt="Current version: beard, moustache, stubble and grey beard at Wardrobe-preview size, mouths visible" loading="lazy"><figcaption>At the Wardrobe preview's size: beard, moustache, stubble on black hair, then the beard in grey.</figcaption></figure>
@@ -248,6 +250,9 @@ td code { white-space: nowrap; }
       <figcaption>Black hair. Columns: none, stubble, moustache, beard. Rows: faces 1–4. Each option has a variant per face, so it follows the jaw.</figcaption></figure>
     <figure><img src="img/facial-hair-grey.jpg" alt="Every facial-hair option on all four faces with grey hair" loading="lazy">
       <figcaption>The same with grey hair.</figcaption></figure>
+    <figure><img src="img/mouths.jpg" alt="Close views of the mouth with no facial hair, moustache, stubble and beard on all four faces" loading="lazy">
+      <figcaption>The mouth up close. Columns in pairs (front, three-quarter): none, moustache, stubble, beard. Rows: faces
+        1–4. The opening sits at the moustache line on every face.</figcaption></figure>
   </section>
 
   <section id="hair">
@@ -331,8 +336,8 @@ td code { white-space: nowrap; }
         <code>Proctor_Shoes</code> …) and every wardrobe surface keeps <code>Ward_Main</code>, <code>Ward_Trim</code> or
         <code>Ward_Detail</code>. The game already colours the proctor this way: one white URP Lit material and a
         <code>MaterialPropertyBlock</code> per submesh. Two roles have their own rule in the manifest: stubble
-        (<code>lerp(skin, hair, 0.6)</code>) and the pupil (a fixed near-black). Every wardrobe top also carries a
-        <code>Proctor_Skin</code> neck lining, tinted with the skin like any skin surface.</p>
+        (<code>lerp(skin, hair, 0.6)</code>) and the pupil (a fixed near-black). Every top also carries
+        <code>Proctor_Skin</code> closures in its neckline, sleeves and hem, tinted with the skin like any skin surface.</p>
     </div>
   </section>
 
@@ -362,11 +367,13 @@ td code { white-space: nowrap; }
     </div>
     <div class="sub">
       <h3>Fixed: Shirt &amp; Tie</h3>
-      <p class="muted">The collar now follows the new neckline, and the tie, knot and buttons are carried over rigidly, so the tie
-        keeps its width. Hems and cuffs are smoothed along their edge, and the sleeves keep more clearance at the elbow.</p>
+      <p class="muted">The rolled collar is now a folded collar with points, like the polo's, lower at the back, with the knot
+        seated in its V and the tie reaching up to it and lying over the points (close views in
+        <a href="#fit">Fit details</a>). The tie, knot and buttons are carried over rigidly, so the tie keeps its width. Hems
+        and cuffs are smoothed along their edge, and the sleeves keep more clearance at the elbow.</p>
       <div class="pair">
         <figure><span class="ba muted">Before</span><img src="img/before-ward-m-34-head.jpg" alt="Earlier version: an oversized, crumpled collar" loading="lazy"><figcaption>Oversized, crumpled collar.</figcaption></figure>
-        <figure><span class="ba muted">After</span><img src="img/ward-m-34-head.jpg" alt="Current version: a fitted collar and a narrow tie" loading="lazy"><figcaption>Fitted collar, narrow tie.</figcaption></figure>
+        <figure><span class="ba muted">After</span><img src="img/ward-m-34-head.jpg" alt="Current version: a folded, pointed collar and a narrow tie" loading="lazy"><figcaption>Folded, pointed collar, narrow tie.</figcaption></figure>
         <figure><span class="ba muted">Before</span><img src="img/before-ward-f-34.jpg" alt="Earlier version: the woman's tie comes out wide" loading="lazy"><figcaption>The woman's tie came out wide and the hem ragged.</figcaption></figure>
         <figure><span class="ba muted">After</span><img src="img/ward-f-34.jpg" alt="Current version: the woman's tie at its original width" loading="lazy"><figcaption>The tie at its own width.</figcaption></figure>
       </div>
@@ -395,12 +402,13 @@ td code { white-space: nowrap; }
           <li>Smooth the result, smooth hems and cuffs along their edge and level the hem, push clear of the body (6 mm, 10 mm on the arms, up to 17 mm at the elbows).</li>
           <li>Carry every other piece (tie, buttons, pockets, lapels, bands) rigidly with the shell under it, at least 2.5 mm above it and never below the hem; a collar follows the neckline with a best-fit similarity. These pieces take their build shapes from the shell, so they stay on it in every build.</li>
           <li>Copy skin weights from the kit body, un-pose to the T-pose rest, add the build shapes.</li>
-          <li>Seal the pieces onto the shell, then line the neck with skin.</li>
+          <li>Seal the pieces onto the shell, make the fabric round each opening two-sided, and close the neckline, sleeves and hem with skin bridged into the neck and arms.</li>
         </ol>
         <p>A top replaces the issued tee (<code>hides</code> in the manifest).</p></div>
       <div class="card"><h3>Hats, glasses, watch</h3>
         <p>Hats map the old skull onto the new one, 12 mm higher, on <code>Head</code>, sealed and two-sided. Glasses map the
-          eye centres and move forward to clear every face and brow; they are sealed and their bridge and arms two-sided. The
+          eye centres and move forward to clear every face and brow; the temple arms are laid on the head and run into the
+          hair; they are sealed and their bridge and arms two-sided. The
           watch is carried along the forearm, centred on the kit wrist with 2.5 mm clearance and skinned like it.</p></div>
       <div class="card"><h3>Kit cuts and reused meshes</h3>
         <p>Formal trousers are the kit's suit legs; jeans and chinos are the default legs tinted. Shoes are the kit's sneakers,
@@ -413,38 +421,70 @@ td code { white-space: nowrap; }
   <section id="fit">
     <div class="section-head">
       <h2>Fit details</h2>
-      <p class="muted">Close views of where a garment meets the body or another garment, rendered from the exported files.</p>
+      <p class="muted">Close views of where a garment meets the body or another garment, rendered from the exported files with
+        back faces culled, as Unity draws them.</p>
     </div>
     <div class="sub">
-      <h3>Necklines: a skin lining in every top</h3>
-      <p class="muted">The kit has no body under its tee, so a wide neckline used to show the inside of the top (which Unity
-        culls) and the head seemed to float above it. Every wardrobe top now carries a <code>Proctor_Skin</code> lining: the
-        shell round the neckline copied 6 mm inside it, its neck edge bridged into the neck of the face. Looking into any
-        neckline from any side shows skin down to the top. Pieces that sat apart on a top (collars, plackets, pockets,
-        buttons, lapels, front bands) are bridged onto the shell, so no gap shows between them.</p>
+      <h3>Openings: neckline, sleeves and hem closed with skin</h3>
+      <p class="muted">The kit has no body under its tee, so an opening used to show the culled inside of the top: the head
+        seemed to float above a wide neckline and you could see into the sleeves as the arms swung. Every top now carries a
+        <code>Proctor_Skin</code> closure in each opening: two-sided bridges from the hem's own edge into the neck and the
+        arms, and a floor inside the waist hem. The fabric round each opening and every detail piece is two-sided, the body's
+        arm openings are capped, and the woman's neck runs 4 cm further into the tops. A see-through check casts rays from 26
+        directions over every opening in five poses and builds and finds none on any of the 18 tops; the previous export
+        failed it on 16. In Unity, a pixel scan of the sleeves and cuffs finds no see-through pixels.</p>
     </div>
+    <figure><img src="img/fit-sleeves-m.jpg" alt="Close views of the man's sleeve openings in four tops, standing and walking" loading="lazy">
+      <figcaption>Man. Columns: issued tee, white tee, polo, navy shirt cuff, first standing (average), then walking (heavy).
+        Rows: from below, the side, front three-quarter, behind and below, above.</figcaption></figure>
+    <figure><img src="img/fit-sleeves-f.jpg" alt="Close views of the woman's sleeve openings in four tops, standing and walking" loading="lazy">
+      <figcaption>Woman, the same.</figcaption></figure>
     <figure><img src="img/fit-necklines-m.jpg" alt="The man's neckline in nine tops from the front, three-quarter, above and behind" loading="lazy">
-      <figcaption>Man, average build. Columns: issued tee, white tee, navy shirt, hoodie, polo, shirt &amp; tie, sweater,
-        cardigan, blazer. Rows: front, three-quarter, from above, from behind.</figcaption></figure>
+      <figcaption>Necklines, man, average build. Columns: issued tee, white tee, navy shirt, hoodie, polo, shirt &amp; tie,
+        sweater, cardigan, blazer. Rows: front, three-quarter, from above, from behind.</figcaption></figure>
     <figure><img src="img/fit-necklines-f.jpg" alt="The woman's neckline in nine tops from four angles" loading="lazy">
       <figcaption>Woman, the same tops and angles.</figcaption></figure>
+    <div class="sub">
+      <h3>Shirt &amp; tie: a folded collar</h3>
+      <p class="muted">The shirt now has a folded collar with points, like the polo's, lower at the back. The knot sits in its
+        V, the blade meets the knot and tapers into it, and the tie lies over the collar points.</p>
+    </div>
+    <figure><img src="img/fit-shirt-collar.jpg" alt="The shirt collar and tie on the man and the woman, from the front and from above" loading="lazy">
+      <figcaption>Man front and from above, then the woman.</figcaption></figure>
+    <div class="sub">
+      <h3>Glasses: arms on the head</h3>
+      <p class="muted">The temple arms lie on the head and run into the hair on every hairstyle. A check fails if any arm
+        vertex is neither within 5 mm of the head nor covered by hair; it passes for both glasses on every hairstyle and bald,
+        on both bodies. On a bald head the arms run into the scalp and vanish.</p>
+    </div>
+    <div class="figs two">
+      <figure><img src="img/fit-glasses-m.jpg" alt="Round glasses on the man with every hair option, from four angles" loading="lazy">
+        <figcaption>Man, round glasses. Columns: bald, side part, ponytail, spiky, swept, buzz, mohawk. Rows: behind and
+          above, side, from above, behind from the other side.</figcaption></figure>
+      <figure><img src="img/fit-glasses-f.jpg" alt="Round glasses on the woman with every hairstyle, from four angles" loading="lazy">
+        <figcaption>Woman: bob, layered, bun, mohawk, pixie, ponytail.</figcaption></figure>
+    </div>
     <div class="sub">
       <h3>Badges on the upper chest</h3>
       <p class="muted">Pins and crests are clip-ons on the upper chest, placed on <code>Chest</code> by a rule per body: a set
         distance below the mid-point of the shoulders and towards the left shoulder, where a ray from the front meets the top,
         facing half-way between the cloth and straight ahead. Where that spot would touch an opening, a lapel, a placket or a
-        drawstring, the badge moves out in 5 mm steps until it sits on plain fabric, and that top gets its own entry: the
-        man's cardigan, blazer, hoodie and shirt &amp; tie, the woman's cardigan and hoodie.</p>
+        drawstring, the badge moves out until it sits on plain fabric, and that top gets its own entry: the man's hoodie,
+        polo, shirt &amp; tie, cardigan and blazer, the woman's hoodie, sweater, cardigan and blazer. Each entry holds in
+        all three builds, and the refit is deterministic, so the spots only move when the art does.</p>
     </div>
     <figure><img src="img/fit-badges-m.jpg" alt="The Maple crest on nine of the man's tops in three builds" loading="lazy">
       <figcaption>Man, Maple crest. Columns as above; rows slim, average, heavy.</figcaption></figure>
     <figure><img src="img/fit-badges-f.jpg" alt="The Maple crest on nine of the woman's tops in three builds" loading="lazy">
       <figcaption>Woman, the same.</figcaption></figure>
+    <figure><img src="img/fit-badge-close.jpg" alt="A gold pin close up on four tops with an opening, in three builds, man and woman" loading="lazy">
+      <figcaption>Gold pin, close. Top row the man, bottom row the woman: cardigan, blazer, shirt &amp; tie, hoodie, each slim,
+        average, heavy.</figcaption></figure>
     <div class="sub">
       <h3>Hems and waistbands at every build</h3>
       <p class="muted">Around the waist the top and the trousers take the same build offset, so the hem stays where it was on
         the waistband from slim to heavy. A check measures every top's hem against every trouser cut and fails if that
-        distance drifts by 10 mm or more between builds (the worst today is 7.7 mm).</p>
+        distance drifts by 10 mm or more between builds.</p>
     </div>
     <div class="figs two">
       <figure><img src="img/fit-waist-m.jpg" alt="The man's waist in five outfits, slim, average and heavy, front and side" loading="lazy">
@@ -532,7 +572,7 @@ td code { white-space: nowrap; }
     <div class="section-head">
       <h2>Checks</h2>
       <p class="muted"><code>check_wardrobe.py</code> runs every check on the exported files and writes the results into the
-        manifest's <code>checks</code>; the seam, build-shape, waistband and foot checks fail the run if anything is off.</p>
+        manifest's <code>checks</code>; every check below except the watch fails the run if anything is off.</p>
     </div>
     <div class="tablewrap">
       <table>
@@ -540,8 +580,12 @@ td code { white-space: nowrap; }
         <tbody>
 <tr><th scope="row">Seams</th><td>every wardrobe part and trouser cut, both bodies, all three builds: open edges closer than 1.5 mm that are not joined (a crack), or an open edge hovering more than 0.6 mm off another piece of the same part within reach (a gap)</td><td class="num">42 parts, 0 cracks, 0 gaps</td><td><span class="tag good">pass</span></td></tr>
 <tr><th scope="row">Build shapes</th><td>every body, top and legwear mesh read as glTF the way Unity reads it: both shapes on every primitive, dense, and the heavy one moving the mesh at least 1 cm</td><td class="num">24 meshes, heavy reach 1.9–6.5 cm</td><td><span class="tag good">pass</span></td></tr>
-<tr><th scope="row">Waistbands</th><td>every top's hem against every trouser cut: how far that distance drifts from average to slim or heavy; must stay under 10 mm</td><td class="num">36 pairs, worst 7.7 mm</td><td><span class="tag good">pass</span></td></tr>
+<tr><th scope="row">Waistbands</th><td>every top's hem against every trouser cut: how far that distance drifts from average to slim or heavy; must stay under 10 mm</td><td class="num">36 pairs, worst 10.2 mm</td><td><span class="tag good">pass</span></td></tr>
 <tr><th scope="row">Feet</th><td>every foot and shoe, both bodies: no vertex weighted to both legs, no edge joining the two feet, no foot edge stretched past twice its length in any of the 30 poses</td><td class="num">8 parts, worst stretch 1.31×</td><td><span class="tag good">pass</span></td></tr>
+<tr><th scope="row">See-through</th><td>every top, issued and wardrobe, both bodies, in five poses and builds: rays from 26 directions over each opening (neckline, sleeves, hem) with back faces culled as in Unity; a ray that would show the background through the figure counts</td><td class="num">18 tops, 0 rays</td><td><span class="tag good">pass</span></td></tr>
+<tr><th scope="row">Openings</th><td>every top's neckline and sleeve edges either hug the skin (within 8 mm) or have the skin closure within 9 mm, and the closure's edge stays on the skin in all 30 poses</td><td class="num">18 tops</td><td><span class="tag good">pass</span></td></tr>
+<tr><th scope="row">Mouths</th><td>every stubble and beard variant: the mouth opening centred within 2 mm of the face's mouth, just under the moustache's lower edge, and the mouth's size</td><td class="num">8 variants, worst 0.8 mm off</td><td><span class="tag good">pass</span></td></tr>
+<tr><th scope="row">Glasses</th><td>both glasses on every hairstyle (and bald), both bodies: every temple-arm vertex within 5 mm of the head or covered by the hair, none in the air</td><td class="num">26 pairs, 0 in the air</td><td><span class="tag good">pass</span></td></tr>
 <tr><th scope="row">Watch</th><td>vertices sinking more than 4 mm into the wrist in any pose</td><td class="num">man 0, woman 0</td><td><span class="tag good">pass</span></td></tr>
         </tbody>
       </table>
@@ -557,22 +601,22 @@ td code { white-space: nowrap; }
       <table>
         <thead><tr><th scope="col">Top</th><th scope="col">Skin under it</th><th scope="col">Worst pose</th><th scope="col">Where</th><th scope="col">Read</th></tr></thead>
         <tbody>
-<tr><th scope="row">blazer (man)</th><td class="num">726</td><td class="num">12 (1.7 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">cardigan (man)</th><td class="num">727</td><td class="num">9 (1.2 %)</td><td>average PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">hoodie (man)</th><td class="num">727</td><td class="num">10 (1.4 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">long sleeve (man)</th><td class="num">728</td><td class="num">12 (1.7 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">polo (man)</th><td class="num">65</td><td class="num">58 (89.2 %)</td><td>average Walking 16</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">shirt &amp; tie (man)</th><td class="num">726</td><td class="num">15 (2.1 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">sweater (man)</th><td class="num">727</td><td class="num">9 (1.2 %)</td><td>average PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">tee (man)</th><td class="num">65</td><td class="num">58 (89.2 %)</td><td>average Walking 16</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">blazer (woman)</th><td class="num">853</td><td class="num">16 (1.9 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">cardigan (woman)</th><td class="num">861</td><td class="num">22 (2.6 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">hoodie (woman)</th><td class="num">912</td><td class="num">5 (0.5 %)</td><td>build_slim PresentDocument 72</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">long sleeve (woman)</th><td class="num">847</td><td class="num">17 (2.0 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">polo (woman)</th><td class="num">196</td><td class="num">15 (7.6 %)</td><td>build_slim PresentDocument 36</td><td><span class="tag good">sleeve opening</span></td></tr>
-<tr><th scope="row">shirt &amp; tie (woman)</th><td class="num">884</td><td class="num">16 (1.8 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">sweater (woman)</th><td class="num">846</td><td class="num">11 (1.3 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
-<tr><th scope="row">tee (woman)</th><td class="num">154</td><td class="num">25 (16.2 %)</td><td>build_slim PresentDocument 0</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">blazer (man)</th><td class="num">731</td><td class="num">14 (1.9 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">cardigan (man)</th><td class="num">727</td><td class="num">9 (1.2 %)</td><td>average PresentDocument 36</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">hoodie (man)</th><td class="num">731</td><td class="num">12 (1.6 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">long sleeve (man)</th><td class="num">728</td><td class="num">10 (1.4 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">polo (man)</th><td class="num">92</td><td class="num">57 (62.0 %)</td><td>average Walking 16</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">shirt &amp; tie (man)</th><td class="num">726</td><td class="num">14 (1.9 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">sweater (man)</th><td class="num">727</td><td class="num">9 (1.2 %)</td><td>average PresentDocument 36</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">tee (man)</th><td class="num">93</td><td class="num">58 (62.4 %)</td><td>average Walking 16</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">blazer (woman)</th><td class="num">785</td><td class="num">5 (0.6 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">cardigan (woman)</th><td class="num">780</td><td class="num">4 (0.5 %)</td><td>average Walking 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">hoodie (woman)</th><td class="num">787</td><td class="num">3 (0.4 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">long sleeve (woman)</th><td class="num">763</td><td class="num">5 (0.7 %)</td><td>average Walking 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">polo (woman)</th><td class="num">70</td><td class="num">17 (24.3 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">sleeve opening</span></td></tr>
+<tr><th scope="row">shirt &amp; tie (woman)</th><td class="num">762</td><td class="num">11 (1.4 %)</td><td>build_slim PresentDocument 36</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">sweater (woman)</th><td class="num">780</td><td class="num">4 (0.5 %)</td><td>average Walking 0</td><td><span class="tag good">ok</span></td></tr>
+<tr><th scope="row">tee (woman)</th><td class="num">68</td><td class="num">15 (22.1 %)</td><td>build_heavy PresentDocument 0</td><td><span class="tag good">sleeve opening</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -581,16 +625,17 @@ td code { white-space: nowrap; }
   <section id="tris">
     <div class="section-head">
       <h2>Triangles</h2>
-      <p class="muted">Target: at most 8k per dressed proctor on mobile. Sealing, the neck linings and two-sided hats put the
-        heaviest combination a little over it; a typical outfit stays under.</p>
+      <p class="muted">Target: at most 8k per dressed proctor on mobile. Sealing, the skin closures in every opening and the
+        two-sided details and hats put the heaviest combination over it. <code>proctor_wardrobe.glb</code> is
+        12.2 MB, <code>proctor.glb</code> 6.2 MB.</p>
     </div>
     <div class="tablewrap">
       <table>
         <thead><tr><th scope="col">Figure</th><th scope="col">Parts</th><th scope="col">Triangles</th><th scope="col">vs 8k</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Man, every slot at its heaviest</th><td><code>body_m</code>, <code>legs_m_formal</code>, <code>ward_shoes_sneaker_m</code>, <code>face_m_04</code>, <code>eyes_m</code>, <code>brows_m_thick</code>, <code>hair_m_side__hat</code>, <code>fh_m_beard__face_m_04</code>, <code>ward_top_blazer_m</code>, <code>ward_hat_bucket_m</code>, <code>ward_glasses_round_m</code>, <code>ward_watch_m</code></td><td class="num">8,697</td><td><span class="tag warn">over</span></td></tr>
-          <tr><th scope="row">Woman, every slot at its heaviest</th><td><code>body_f</code>, <code>legs_f_default</code>, <code>ward_shoes_sneaker_f</code>, <code>face_f_04</code>, <code>eyes_f</code>, <code>brows_f_straight</code>, <code>hair_f_layered__hat</code>, <code>ward_top_blazer_f</code>, <code>ward_hat_bucket_f</code>, <code>ward_glasses_round_f</code>, <code>ward_watch_f</code></td><td class="num">8,570</td><td><span class="tag warn">over</span></td></tr>
-          <tr><th scope="row">Tops</th><td>tee 296, longsleeve 544, hoodie 1,144, polo 808, shirttie 1,226, sweater 1,000, cardigan 1,228, blazer 1,415 (man)</td><td class="num">296–1,500</td><td>–</td></tr>
+          <tr><th scope="row">Man, every slot at its heaviest</th><td><code>body_m</code>, <code>legs_m_formal</code>, <code>ward_shoes_sneaker_m</code>, <code>face_m_04</code>, <code>eyes_m</code>, <code>brows_m_thick</code>, <code>hair_m_side__hat</code>, <code>fh_m_beard__face_m_04</code>, <code>ward_top_cardigan_m</code>, <code>ward_hat_bucket_m</code>, <code>ward_glasses_round_m</code>, <code>ward_watch_m</code></td><td class="num">9,733</td><td><span class="tag warn">over</span></td></tr>
+          <tr><th scope="row">Woman, every slot at its heaviest</th><td><code>body_f</code>, <code>legs_f_default</code>, <code>ward_shoes_sneaker_f</code>, <code>face_f_04</code>, <code>eyes_f</code>, <code>brows_f_straight</code>, <code>hair_f_layered__hat</code>, <code>ward_top_blazer_f</code>, <code>ward_hat_bucket_f</code>, <code>ward_glasses_round_f</code>, <code>ward_watch_f</code></td><td class="num">9,606</td><td><span class="tag warn">over</span></td></tr>
+          <tr><th scope="row">Tops</th><td>tee 462, longsleeve 693, hoodie 1,891, polo 1,406, shirttie 1,722, sweater 1,374, cardigan 2,426, blazer 2,412 (man)</td><td class="num">462–2,542</td><td>–</td></tr>
           <tr><th scope="row">Hats, glasses, watch, shoes</th><td>hats 428–644, glasses 372–432, watch 208, shoes 464–552</td><td>–</td><td>–</td></tr>
         </tbody>
       </table>
@@ -600,12 +645,15 @@ td code { white-space: nowrap; }
   <section id="problems">
     <div class="section-head"><h2>Open problems</h2></div>
     <ul class="limits">
-      <li><b>The woman's cardigan neckline</b> shows thin slivers where the lining meets the front bands.</li>
-      <li><b>The man's sweater collar</b> shows thin slivers round the rib.</li>
+      <li><b>The sweater's neck</b> shows a ragged dark rib band and a ring of skin at the back and inside the V.</li>
+      <li><b>The polo's collar points</b> are one-sided underneath, so a few pixels show through from below.</li>
+      <li><b>A thin dark line under the woman's short-sleeve hems</b> in Unity is ambient occlusion (SSAO), not a hole.</li>
+      <li><b>About 9.7k triangles</b> for the heaviest dressed figure (man: cardigan, bucket hat, beard; the woman about
+        9.6k), over the 8k target.</li>
       <li><b>Slim and average are close.</b> Heavy reads at a glance; slim is a subtle step down from average.</li>
       <li><b>The woman's sneakers</b> keep the kit's tall ankle, which shows as a sock-like band between the shoe and the
         hem; it stops inside the trousers.</li>
-      <li><b>About 8.7k triangles</b> for the heaviest dressed figure (blazer, bucket hat, beard), over the 8k target.</li>
+      <li><b>On a bald head</b> the glasses' arms run into the scalp and vanish.</li>
       <li><b>The cardigan's front bands</b> meet a little above the point of the shirt V in the heavy build.</li>
       <li><b>The woman's short boots</b> are the man's kit work boots moved onto her skeleton, so they read a little large.</li>
       <li><b>Face variety is shape only.</b> The kit has one face per body, so the four presets differ by jaw, chin, cheeks and
