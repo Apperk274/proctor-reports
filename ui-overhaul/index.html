@@ -454,7 +454,7 @@ details.before[open] > summary { margin-bottom: 12px; }
       </div>
     </div>
     <nav class="toc" aria-label="Sections">
-      <a href="#summary">What changed</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#room">Phase 5: Room</a><a href="#finish">Phase 6: Finish</a><a href="#gallery">Screens</a>
+      <a href="#summary">What changed</a><a href="#payday">Phase 1: Payday</a><a href="#home">Phase 2: Home</a><a href="#shop">Phase 3: Shop</a><a href="#words">Phase 4: Words</a><a href="#room">Phase 5: Room</a><a href="#finish">Phase 6: Finish</a><a href="#store-privacy">Store &amp; privacy</a><a href="#gallery">Screens</a>
       <a href="#nav">Navigation</a><a href="#motion">Animation check</a><a href="#audit">Text audit</a><a href="#refs">References</a>
       <a href="#proposal">Proposal</a><a href="#plan">Phased plan</a>
     </nav>
@@ -1546,6 +1546,208 @@ details.before[open] > summary { margin-bottom: 12px; }
         test ran once and passed (30). The three M131 store captures that drove the old store layout now open the
         Wardrobe; the old store-tile capture, superseded by the Shop captures, is gone. <b>Phone.</b> First opens, a
         purchase, the door, the bell and payday, the theme switch, Light, the largest text and Reduce motion, on the A15.</p>
+    </div>
+  </section>
+
+  <!-- ================================================================ STORE & PRIVACY (M135) -->
+  <section id="store-privacy">
+    <div class="section-head">
+      <span class="eyebrow">M135 · Store &amp; privacy · shipped</span>
+      <h2>Real money works like coins: pick, then Buy, and every answer is said</h2>
+      <p class="muted">The Shop's <b>Support</b> segment is built like the coin shop: tiles, one chip each, and the item
+        sheet. Coin packs (300 / 1,050 / 2,000 coins) and the three unlocks carry <b>the store's own price, exactly as the
+        store gives it</b>, beside a bag icon. It is never a coin price, and there are no "+X%" badges. Before the store has
+        answered, or where it sells nothing, the chip says "Not available" and Buy is dimmed.</p>
+      <p class="muted">Buying is three steps: pick the tile, press Buy, then confirm on the platform's own sheet. While
+        that sheet is up, every other Buy is refused, so a double tap buys once. The sheet says what the store answered:
+        thanks, pending, cancelled, failed, already owned or unavailable. Bought coins fly from the tile into the balance.
+        <b>Restore</b> is always reachable: on the segment, and in Settings, which the introduction never hides.</p>
+      <p class="muted">In the Wardrobe, the four cash-only looks show their pack's price, and Buy buys the pack. On a
+        refund or blackmail card, bought coins don't count: Pay says how many <b>earned</b> coins are missing, a chip
+        shows how many coins are earned, and one line says why. On first launch in a consent region, the game asks once,
+        with two answers of equal weight; Settings keeps the choice.</p>
+      <p class="muted">These are captures of the real build at 720 × 1560 with Large text. Development builds use a fake
+        store, so prices read "(dev) $0.99".</p>
+    </div>
+    <div class="diag">
+      <div class="grid-3">
+        <figure><img src="img/m135-en-dark-01-support.jpg" alt="Shop, Support: Coin packs Pocket Money 300 coins (dev) $0.99, Bonus Envelope 1,050 coins (dev) $2.99, Savings Jar 2,000 coins (dev) $5.99; the two coin notes; Looks" width="540" height="1170" loading="lazy"><figcaption><b>Support.</b> Each coin pack shows its coins and the store's price. The notes say coins buy anything and are saved on this device.</figcaption></figure>
+        <figure><img src="img/m135-en-dark-16-event-earned-only.jpg" alt="Refund card: 120 demanded, You have 500, Earned coins: 50; Bought coins can't be used for this.; Pay it back 70 short; Refuse" width="540" height="1170" loading="lazy"><figcaption><b>Earned only.</b> The player holds 500, of which 450 were bought. Pay is 70 short of the 120 asked, because only the 50 earned coins count, and the card says why.</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-18-privacy-card.jpg" alt="Turkish privacy card: Oyunu geliştirmemize yardımcı olun; the sentence and the note; İzin ver and Hayır, teşekkürler, the same button" width="540" height="1170" loading="lazy"><figcaption><b>The privacy card</b> (Turkish). Allow and No thanks are the same button. <b>Turkish title for the owner to confirm:</b> "Oyunu geliştirmemize yardımcı olun".</figcaption></figure>
+      </div>
+
+      <ul class="steps">
+        <li><b>Prices come only from the store.</b> The game writes no price of its own. Before the store answers, or
+          where a product is not sold, the tile says "Not available" and Buy is dimmed. There is never a guessed price.</li>
+        <li><b>Hard to buy by accident.</b> Tapping a tile only picks it. Buy is on the sheet, and the platform then asks
+          again. A second tap while the store is answering does nothing; a test checks that a double tap opens one store
+          sheet.</li>
+        <li><b>Every outcome has its own words</b> (<code>StoreText.Purchase</code>):
+          <ul>
+            <li>Purchased, Cancelled, Failed, Already owned and Unavailable each have their own line.</li>
+            <li>Pending: the tile says Pending until the payment clears.</li>
+            <li>Coins bought before a career is under way show "Pending · 300 coins" over every segment until they
+              arrive.</li>
+          </ul></li>
+        <li><b>A purchase that arrives later gets one line.</b> This covers a payment that clears later, or a purchase
+          the store hands back at startup.
+          <ul>
+            <li>It is a single notice at a calm moment, never over the room, the door, a card or a payday.</li>
+            <li>In the room, the toast says "Coins added".</li>
+            <li>The result card ignores bought coins, so coins landing mid-payday never cut the payday short.</li>
+          </ul></li>
+        <li><b>Restore is always there:</b> on the Support segment, and in Settings → Purchases, which the title screen
+          reaches with no career at all.</li>
+        <li><b>Each payment uses the coins it is allowed to.</b>
+          <ul>
+            <li>A repair, medicine and every shop item use the whole balance, with bought coins spent first. So the
+              Shop's "N short" and its "keep some coins" hint read the full balance.</li>
+            <li>Refunds and blackmail count earned coins only.</li>
+          </ul></li>
+        <li><b>Privacy.</b>
+          <ul>
+            <li>The card appears only in a consent region, or when the country is unknown, until the player answers.
+              It is on the title screen, never over an exam.</li>
+            <li>Settings → Privacy turns usage and crash data on or off at once.</li>
+            <li>The privacy policy link appears once a policy URL exists. There is none yet.</li>
+          </ul></li>
+      </ul>
+
+      <h3>On the Galaxy A15</h3>
+      <div class="strip">
+        <figure><img src="img/m135-phone-support.jpg" alt="Phone: Shop, Support, coin packs with (dev) prices" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the development build's fake store</figcaption></figure>
+        <figure><img src="img/m135-phone-sheet.jpg" alt="Phone: Pocket Money picked, Buy (dev) $0.99" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>nothing was bought</figcaption></figure>
+        <figure><img src="img/m135-phone-settings-restore.jpg" alt="Phone: Settings, Privacy On, Purchases, Restore purchases, Nothing to restore on this account" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>from the title screen's Settings</figcaption></figure>
+        <figure><img src="img/m135-phone-privacy-off.jpg" alt="Phone: Settings, Usage and crash data Off" loading="lazy" width="432" height="936"><figcaption><b>The toggle</b>Off, then back On</figcaption></figure>
+      </div>
+
+      <h3>Every state, in English, Japanese and Turkish, Dark and Light</h3>
+      <h3>English · Dark</h3>
+      <div class="strip">
+        <figure><img src="img/m135-en-dark-01-support.jpg" alt="Support, English, Dark: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-en-dark-02-support-end.jpg" alt="Looks and Restore, English, Dark: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-en-dark-03-sheet-price.jpg" alt="Picked, English, Dark: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-en-dark-04-purchased-flight.jpg" alt="Purchased, English, Dark: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-en-dark-05-purchased.jpg" alt="Purchased, English, Dark: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-dark-06-pending.jpg" alt="Pending, English, Dark: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-en-dark-07-cancelled.jpg" alt="Cancelled, English, Dark: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-dark-08-failed.jpg" alt="Failed, English, Dark: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-en-dark-09-unavailable.jpg" alt="Unavailable, English, Dark: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-dark-10-already-owned.jpg" alt="Already owned, English, Dark: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-dark-11-not-available.jpg" alt="No price, English, Dark: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-en-dark-12-restore.jpg" alt="Restore, English, Dark: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-en-dark-13-late-arrival.jpg" alt="Late arrival, English, Dark: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-en-dark-14-wardrobe-pins.jpg" alt="Wardrobe, English, Dark: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-en-dark-15-wardrobe-cash-only.jpg" alt="Cash-only look, English, Dark: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-en-dark-16-event-earned-only.jpg" alt="Earned-only card, English, Dark: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-en-dark-17-settings-privacy.jpg" alt="Settings, English, Dark: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-en-dark-18-privacy-card.jpg" alt="Privacy card, English, Dark: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
+      <h3>English · Light</h3>
+      <div class="strip">
+        <figure><img src="img/m135-en-light-01-support.jpg" alt="Support, English, Light: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-en-light-02-support-end.jpg" alt="Looks and Restore, English, Light: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-en-light-03-sheet-price.jpg" alt="Picked, English, Light: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-en-light-04-purchased-flight.jpg" alt="Purchased, English, Light: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-en-light-05-purchased.jpg" alt="Purchased, English, Light: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-light-06-pending.jpg" alt="Pending, English, Light: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-en-light-07-cancelled.jpg" alt="Cancelled, English, Light: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-light-08-failed.jpg" alt="Failed, English, Light: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-en-light-09-unavailable.jpg" alt="Unavailable, English, Light: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-light-10-already-owned.jpg" alt="Already owned, English, Light: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-en-light-11-not-available.jpg" alt="No price, English, Light: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-en-light-12-restore.jpg" alt="Restore, English, Light: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-en-light-13-late-arrival.jpg" alt="Late arrival, English, Light: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-en-light-14-wardrobe-pins.jpg" alt="Wardrobe, English, Light: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-en-light-15-wardrobe-cash-only.jpg" alt="Cash-only look, English, Light: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-en-light-16-event-earned-only.jpg" alt="Earned-only card, English, Light: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-en-light-17-settings-privacy.jpg" alt="Settings, English, Light: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-en-light-18-privacy-card.jpg" alt="Privacy card, English, Light: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
+      <h3>Japanese · Dark</h3>
+      <div class="strip">
+        <figure><img src="img/m135-ja-dark-01-support.jpg" alt="Support, Japanese, Dark: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-02-support-end.jpg" alt="Looks and Restore, Japanese, Dark: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-03-sheet-price.jpg" alt="Picked, Japanese, Dark: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-04-purchased-flight.jpg" alt="Purchased, Japanese, Dark: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-05-purchased.jpg" alt="Purchased, Japanese, Dark: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-06-pending.jpg" alt="Pending, Japanese, Dark: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-07-cancelled.jpg" alt="Cancelled, Japanese, Dark: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-08-failed.jpg" alt="Failed, Japanese, Dark: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-09-unavailable.jpg" alt="Unavailable, Japanese, Dark: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-10-already-owned.jpg" alt="Already owned, Japanese, Dark: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-11-not-available.jpg" alt="No price, Japanese, Dark: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-12-restore.jpg" alt="Restore, Japanese, Dark: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-13-late-arrival.jpg" alt="Late arrival, Japanese, Dark: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-14-wardrobe-pins.jpg" alt="Wardrobe, Japanese, Dark: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-15-wardrobe-cash-only.jpg" alt="Cash-only look, Japanese, Dark: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-16-event-earned-only.jpg" alt="Earned-only card, Japanese, Dark: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-17-settings-privacy.jpg" alt="Settings, Japanese, Dark: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-ja-dark-18-privacy-card.jpg" alt="Privacy card, Japanese, Dark: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
+      <h3>Japanese · Light</h3>
+      <div class="strip">
+        <figure><img src="img/m135-ja-light-01-support.jpg" alt="Support, Japanese, Light: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-ja-light-02-support-end.jpg" alt="Looks and Restore, Japanese, Light: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-ja-light-03-sheet-price.jpg" alt="Picked, Japanese, Light: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-ja-light-04-purchased-flight.jpg" alt="Purchased, Japanese, Light: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-ja-light-05-purchased.jpg" alt="Purchased, Japanese, Light: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-light-06-pending.jpg" alt="Pending, Japanese, Light: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-ja-light-07-cancelled.jpg" alt="Cancelled, Japanese, Light: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-light-08-failed.jpg" alt="Failed, Japanese, Light: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-ja-light-09-unavailable.jpg" alt="Unavailable, Japanese, Light: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-light-10-already-owned.jpg" alt="Already owned, Japanese, Light: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-ja-light-11-not-available.jpg" alt="No price, Japanese, Light: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-ja-light-12-restore.jpg" alt="Restore, Japanese, Light: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-ja-light-13-late-arrival.jpg" alt="Late arrival, Japanese, Light: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-ja-light-14-wardrobe-pins.jpg" alt="Wardrobe, Japanese, Light: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-ja-light-15-wardrobe-cash-only.jpg" alt="Cash-only look, Japanese, Light: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-ja-light-16-event-earned-only.jpg" alt="Earned-only card, Japanese, Light: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-ja-light-17-settings-privacy.jpg" alt="Settings, Japanese, Light: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-ja-light-18-privacy-card.jpg" alt="Privacy card, Japanese, Light: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
+      <h3>Turkish · Dark</h3>
+      <div class="strip">
+        <figure><img src="img/m135-tr-dark-01-support.jpg" alt="Support, Turkish, Dark: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-02-support-end.jpg" alt="Looks and Restore, Turkish, Dark: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-03-sheet-price.jpg" alt="Picked, Turkish, Dark: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-04-purchased-flight.jpg" alt="Purchased, Turkish, Dark: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-05-purchased.jpg" alt="Purchased, Turkish, Dark: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-06-pending.jpg" alt="Pending, Turkish, Dark: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-07-cancelled.jpg" alt="Cancelled, Turkish, Dark: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-08-failed.jpg" alt="Failed, Turkish, Dark: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-09-unavailable.jpg" alt="Unavailable, Turkish, Dark: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-10-already-owned.jpg" alt="Already owned, Turkish, Dark: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-11-not-available.jpg" alt="No price, Turkish, Dark: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-12-restore.jpg" alt="Restore, Turkish, Dark: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-13-late-arrival.jpg" alt="Late arrival, Turkish, Dark: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-14-wardrobe-pins.jpg" alt="Wardrobe, Turkish, Dark: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-15-wardrobe-cash-only.jpg" alt="Cash-only look, Turkish, Dark: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-16-event-earned-only.jpg" alt="Earned-only card, Turkish, Dark: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-17-settings-privacy.jpg" alt="Settings, Turkish, Dark: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-tr-dark-18-privacy-card.jpg" alt="Privacy card, Turkish, Dark: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
+      <h3>Turkish · Light</h3>
+      <div class="strip">
+        <figure><img src="img/m135-tr-light-01-support.jpg" alt="Support, Turkish, Light: the store&#x27;s own prices, coins with their notes" loading="lazy" width="432" height="936"><figcaption><b>Support</b>the store&#x27;s own prices, coins with their notes</figcaption></figure>
+        <figure><img src="img/m135-tr-light-02-support-end.jpg" alt="Looks and Restore, Turkish, Light: &quot;Looks only&quot; under the unlocks; Restore" loading="lazy" width="432" height="936"><figcaption><b>Looks and Restore</b>&quot;Looks only&quot; under the unlocks; Restore</figcaption></figure>
+        <figure><img src="img/m135-tr-light-03-sheet-price.jpg" alt="Picked, Turkish, Light: Buy carries the store&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Picked</b>Buy carries the store&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-tr-light-04-purchased-flight.jpg" alt="Purchased, Turkish, Light: the coins fly from the tile to the pill" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>the coins fly from the tile to the pill</figcaption></figure>
+        <figure><img src="img/m135-tr-light-05-purchased.jpg" alt="Purchased, Turkish, Light: &quot;Coins added to your wallet.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Purchased</b>&quot;Coins added to your wallet.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-light-06-pending.jpg" alt="Pending, Turkish, Light: the tile says Pending; Buy waits" loading="lazy" width="432" height="936"><figcaption><b>Pending</b>the tile says Pending; Buy waits</figcaption></figure>
+        <figure><img src="img/m135-tr-light-07-cancelled.jpg" alt="Cancelled, Turkish, Light: &quot;Purchase cancelled.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Cancelled</b>&quot;Purchase cancelled.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-light-08-failed.jpg" alt="Failed, Turkish, Light: refunded by the store if charged" loading="lazy" width="432" height="936"><figcaption><b>Failed</b>refunded by the store if charged</figcaption></figure>
+        <figure><img src="img/m135-tr-light-09-unavailable.jpg" alt="Unavailable, Turkish, Light: &quot;The store is not available right now.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Unavailable</b>&quot;The store is not available right now.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-light-10-already-owned.jpg" alt="Already owned, Turkish, Light: &quot;Use Restore purchases.&quot;" loading="lazy" width="432" height="936"><figcaption><b>Already owned</b>&quot;Use Restore purchases.&quot;</figcaption></figure>
+        <figure><img src="img/m135-tr-light-11-not-available.jpg" alt="No price, Turkish, Light: before Ready: no price, Buy dimmed" loading="lazy" width="432" height="936"><figcaption><b>No price</b>before Ready: no price, Buy dimmed</figcaption></figure>
+        <figure><img src="img/m135-tr-light-12-restore.jpg" alt="Restore, Turkish, Light: what it found, under the button" loading="lazy" width="432" height="936"><figcaption><b>Restore</b>what it found, under the button</figcaption></figure>
+        <figure><img src="img/m135-tr-light-13-late-arrival.jpg" alt="Late arrival, Turkish, Light: a pending payment cleared: one notice" loading="lazy" width="432" height="936"><figcaption><b>Late arrival</b>a pending payment cleared: one notice</figcaption></figure>
+        <figure><img src="img/m135-tr-light-14-wardrobe-pins.jpg" alt="Wardrobe, Turkish, Light: cash-only pins at their pack&#x27;s price" loading="lazy" width="432" height="936"><figcaption><b>Wardrobe</b>cash-only pins at their pack&#x27;s price</figcaption></figure>
+        <figure><img src="img/m135-tr-light-15-wardrobe-cash-only.jpg" alt="Cash-only look, Turkish, Light: &quot;Store item · pack&quot;; Buy buys the pack" loading="lazy" width="432" height="936"><figcaption><b>Cash-only look</b>&quot;Store item · pack&quot;; Buy buys the pack</figcaption></figure>
+        <figure><img src="img/m135-tr-light-16-event-earned-only.jpg" alt="Earned-only card, Turkish, Light: 500 held, 50 earned: Pay 70 short" loading="lazy" width="432" height="936"><figcaption><b>Earned-only card</b>500 held, 50 earned: Pay 70 short</figcaption></figure>
+        <figure><img src="img/m135-tr-light-17-settings-privacy.jpg" alt="Settings, Turkish, Light: Privacy toggle, Purchases → Restore" loading="lazy" width="432" height="936"><figcaption><b>Settings</b>Privacy toggle, Purchases → Restore</figcaption></figure>
+        <figure><img src="img/m135-tr-light-18-privacy-card.jpg" alt="Privacy card, Turkish, Light: Allow and No thanks weigh the same" loading="lazy" width="432" height="936"><figcaption><b>Privacy card</b>Allow and No thanks weigh the same</figcaption></figure>
+      </div>
     </div>
   </section>
 
