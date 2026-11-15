@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Base Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --good: #2f7d4f;
+  --warn: #a8661a;
+  --bad: #b4433a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img, video { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.figs.room { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr); align-items: start; }
+.figs.three { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.sub { display: grid; gap: 12px; margin-top: 8px; }
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.pick { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 0.92rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tbody th { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+td .num { white-space: nowrap; }
+.tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; border: 1px solid currentColor; }
+.tag.good { color: var(--good); } .tag.warn { color: var(--warn); } .tag.bad { color: var(--bad); } .tag.na { color: var(--muted); }
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: var(--mono); font-size: 0.8rem; }
+nav.toc a { text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 640px) { .figs.room, .figs.three { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · look-dev spike · students only</span>
+    <h1>Student Base Comparison</h1>
+    <p class="lede">Which base the exam students should be rebuilt on, so that every school's candidates read as their age (child,
+      young teen, older teen, adult) and sit in the same style as the new proctor. Five candidates are rendered beside the
+      proctor: standing at the same scale, seated at the game's one desk and chair, and in the door's ID-photo framing. All images
+      are renders from this spike in Blender 5.2 (EEVEE), with the proctor renders' sun, fill and backdrop. Nothing here is in the game.</p>
+    <div class="card pick" role="note"><h3>Recommendation (the owner decides)</h3>
+      <p>Build every student on <b>A, the proctor's Ultimate Modular kit</b>, with age shaping. That keeps one rig contract and the
+        proctor's exact look. For the <b>child band</b>, add a dedicated child head set on the kit's head bone, because a shrunken adult
+        face does not read as 7 to 10. <b>C (MPFB)</b> is the reference for that head set, and the fallback for children only.
+        Details are under <a href="#verdict">Recommendation</a>.</p></div>
+    <nav class="toc" aria-label="Sections">
+      <a href="#verdict">Recommendation</a><a href="#table">Numbers</a><a href="#age">Age read</a><a href="#lineup">Lineups</a>
+      <a href="#seated">Seated</a><a href="#door">Door close-ups</a><a href="#room">Game camera</a><a href="#budget">Budget</a>
+      <a href="#retarget">Retarget</a><a href="#licences">Licences</a><a href="#method">Method</a>
+    </nav>
+    <div class="stats">
+      <div class="stat"><span class="big">5</span><span>bases rendered beside today's student and the proctor</span></div>
+      <div class="stat"><span class="big">4 / 4</span><span>bands that A and C both cover with one rig</span></div>
+      <div class="stat"><span class="big">5.9–7.5k</span><span>triangles for a dressed A student as built (target 2.5–3k)</span></div>
+      <div class="stat"><span class="big">0</span><span>paid assets or generator credits used</span></div>
+    </div>
+  </header>
+
+  <section id="verdict">
+    <div class="section-head">
+      <span class="eyebrow">Recommendation, for the owner to decide</span>
+      <h2>A everywhere, plus a child head set</h2>
+      <p class="muted">One skeleton for every student: the proctor's kit rig, with the 30 finger bones dropped for students (32 bones),
+        or kept if the proctor's animation sharing matters more. Bands differ only by baked proportions and part sets.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Band</th><th scope="col">Base</th><th scope="col">What is needed</th><th scope="col">Confidence</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Adult (19–60)</th><td>A, kit as is</td><td>Older looks from grey hair, glasses, facial hair and the heavy build.
+              Scale adult women to about 0.93: the kit's woman is as tall as its man (1.85 m with hair).</td><td><span class="tag good">High</span></td></tr>
+          <tr><th scope="row">Older teen (15–18)</th><td>A, light shaping</td><td>Shorter (1.67 to 1.77 m), slimmer build, slightly shorter lower face and smaller nose.</td>
+            <td><span class="tag good">High</span></td></tr>
+          <tr><th scope="row">Young teen (11–14)</th><td>A, medium shaping</td><td>1.55 to 1.60 m, larger head, shorter neck, rounder face. It reads as
+              about 13 to 16. The child head set's softer brow would bring it down.</td><td><span class="tag warn">Medium</span></td></tr>
+          <tr><th scope="row">Child (7–10)</th><td>A body + a new child head set</td><td>The body proportions work (1.32 m, a big head, short neck, feet
+              off the floor when seated). The face does not: the kit's adult brow ridge and long midface survive any warp. Model 3 or 4 child heads on the
+              kit's head bone, using MPFB children (CC0 output) as the shape reference: round cranium, eyes lower and larger, small nose and jaw.
+              Fallback: MPFB children skinned to the kit skeleton.</td><td><span class="tag warn">Medium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="traits">
+      <div class="card pick"><h3>Why A</h3>
+        <ul>
+          <li>It is the proctor's own kit, so students and proctor are the same style by construction.</li>
+          <li>The proctor's pipeline already handles it: role colours, wardrobe refit, sealing, build shapes and badges.</li>
+          <li>Age shaping is a bake. The rig is posed with scaled bones and the pose becomes the new rest pose, so every band keeps
+            the same bone names and hierarchy, and one retarget map serves all of them.</li>
+          <li>The same student clip retarget works on all four bands with no per-band tuning (see <a href="#retarget">Retarget</a>).</li>
+        </ul></div>
+      <div class="card"><h3>Main risks</h3>
+        <ul>
+          <li><b>Budget.</b> A dressed student is 5.9k–7.5k triangles in 8–10 meshes with 11–14 role materials. Reaching 2.5k–3k in
+            1–2 skinned renderers needs authored low parts: mitten hands, low hair and merged parts. Naive decimation tears the neck
+            and face (<a href="#budget">Budget</a>).</li>
+          <li><b>Child read.</b> This depends on art that does not exist yet: the child head set.</li>
+          <li><b>Desk contact.</b> Shorter arms miss the desk: a child's wrists end 3 cm inside the desk edge. This needs a contact
+            pass per band, baked or runtime IK.</li>
+          <li><b>Material count.</b> The kit has one material per role. Students need one material: a palette atlas, or the
+            proctor's per-submesh MaterialPropertyBlock approach, if the A15's GPU budget allows it.</li>
+        </ul></div>
+      <div class="card"><h3>When to pick something else</h3>
+        <ul>
+          <li><b>C (MPFB) for every band</b> if a convincing age read matters more than matching the proctor. It has the best age read
+            and one rig across all ages, but realistic proportions and textured clothes read as a different game next to the
+            proctor, and all wardrobe would be new work.</li>
+          <li><b>Not B.</b> The free Universal Base Characters are two adult superhero bodies with no clothes and about 16k–18k triangles.
+            The teen bodies are only in the paid Source edition.</li>
+          <li><b>Not D.</b> The free child bases found are either chibi (Gobkit) or crude and uncoloured (OGA Lowpoly Kid).</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="table">
+    <div class="section-head">
+      <h2>Numbers</h2>
+      <p class="muted">Triangles are for the dressed students rendered here, with hair, top, legs and shoes, before any optimisation.
+        Heights include hair. The proctor is 1.85 m.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Candidate</th><th scope="col">Licence</th><th scope="col">Bands</th><th scope="col">Triangles dressed</th>
+          <th scope="col">Rig</th><th scope="col">Meshes · materials</th><th scope="col">To reach 2.5–3k, 1–2 renderers</th>
+          <th scope="col">Style vs proctor</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Today</th><td>Own work</td><td>One adult body for all</td><td><span class="num">2,112 / 2,305</span></td>
+            <td>24 bones, no fingers</td><td>3 · 6</td><td>Already there</td><td><span class="tag bad">Poor</span> egg head, dot eyes</td></tr>
+          <tr><th scope="row">A · Ultimate Modular + age shaping</th><td>CC0 1.0</td><td>All 4 (child face weak)</td>
+            <td><span class="num">5,942–7,477</span></td><td>62 bones, 30 of them fingers; 32 without fingers</td><td>8–10 · 11–14 roles</td>
+            <td>Authored low parts: body/hands 2.2k → 0.5k, hair ≤ 1.5k → 0.4k, tops up to 2.1k → 0.6k, legs 0.7k → 0.35k, shoes 0.55k → 0.17k;
+              merge into 1 renderer with a palette atlas. About 2.5k.</td><td><span class="tag good">Identical</span></td></tr>
+          <tr><th scope="row">B · Universal Base Characters (free)</th><td>CC0 1.0</td><td>Adult only (teen is paid)</td>
+            <td><span class="num">15,619 / 17,966</span> nude</td><td>65 bones, Unreal-style names, fingers</td><td>4 · 4 textured, normal maps</td>
+            <td>Clothes do not exist. The body alone is 12.6k–12.8k, so 80% would have to go.</td><td><span class="tag bad">Poor</span> smooth, muscular, textured</td></tr>
+          <tr><th scope="row">C · MPFB 2 (MakeHuman)</th><td>Output CC0; add-on GPL (tool only)</td><td>All 4, one age slider</td>
+            <td><span class="num">6,029–6,060</span></td><td>53 bones (game-engine rig), fingers</td><td>6 · 9 (clothes quantised to 3 colours)</td>
+            <td>Body proxy 3.1k → about 1.5k (MakeHuman's lighter proxy741), clothes 1.4k → 0.8k, hair 0.9k → 0.4k. Flat colours need new
+              clothes UVs and a palette.</td><td><span class="tag warn">Fair</span> realistic proportions, small heads</td></tr>
+          <tr><th scope="row">D · Gobkit Schoolkid</th><td>CC0 1.0</td><td>Child (chibi)</td><td><span class="num">1,700</span></td>
+            <td>13 bones, scrambled names, no spine chain</td><td>1 · 1 palette atlas</td><td>Already there</td><td><span class="tag bad">Poor</span> chibi toy</td></tr>
+          <tr><th scope="row">D · OGA Lowpoly Kid</th><td>CC-BY 4.0 (credit Nitin Chowdary)</td><td>Child</td><td><span class="num">1,320</span></td>
+            <td>Rigify, 431 bones (77 deform)</td><td>1 · 1, no colours or face</td><td>Already there; needs a face, colours and a rig</td>
+            <td><span class="tag warn">Fair</span> faceted but crude</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">A's triangles by part, for a child in the polo: body (arms and fingered hands) 2,208, face 448, hair 1,500, top 1,461,
+      legs 734, shoes 552, brows 104, eyes 28. The proctor's heaviest dressed look is about 9.7k.</p>
+  </section>
+
+  <section id="age">
+    <div class="section-head">
+      <h2>Age read, band by band</h2>
+      <p class="muted">Judged by eye on the door close-ups and the lineups below. "Reads as" is what a player would guess at a glance.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Band</th><th scope="col">Today</th><th scope="col">A · kit + shaping</th><th scope="col">C · MPFB</th>
+          <th scope="col">B · UBC free</th><th scope="col">D</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Child 7–10</th><td><span class="tag bad">No</span> one adult body</td>
+            <td><span class="tag warn">Borderline</span> body and height read as a child at game distance; up close the face reads as 11–13, or as a
+              small adult in 3/4</td><td><span class="tag good">Yes</span> reads 8–10: round face, small features, slight build</td>
+            <td><span class="tag na">None</span> (paid)</td><td><span class="tag warn">Toy</span> Gobkit reads as a child, but chibi; the OGA kid is a child shape with no face</td></tr>
+          <tr><th scope="row">Young teen 11–14</th><td><span class="tag bad">No</span></td>
+            <td><span class="tag warn">Mostly</span> reads 13–16</td><td><span class="tag good">Yes</span> reads 12–14</td><td><span class="tag na">None</span></td><td><span class="tag na">None</span></td></tr>
+          <tr><th scope="row">Older teen 15–18</th><td><span class="tag bad">No</span></td>
+            <td><span class="tag good">Yes</span> reads 16–19</td><td><span class="tag good">Yes</span> reads 15–18</td><td><span class="tag na">None</span></td><td><span class="tag na">None</span></td></tr>
+          <tr><th scope="row">Adult 19–60</th><td><span class="tag warn">Adult</span> but ageless</td>
+            <td><span class="tag good">Yes</span> young adults as the proctor; older adults read from grey hair, glasses, moustache and build</td>
+            <td><span class="tag good">Yes</span> the age-55 bodies are slightly heavier; grey hair carries most of it</td>
+            <td><span class="tag good">Adult</span> superhero physique</td><td><span class="tag na">None</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="lineup">
+    <div class="section-head">
+      <h2>Lineups at the same scale</h2>
+      <p class="muted">Orthographic front view, feet on one floor, with the proctor (teal tee) always first. Standing pose: the kit's own idle for A
+        and the proctor; the student <span class="num">Standing</span> clip retargeted for B and C.</p>
+    </div>
+    <figure><img src="img/base-lineup.jpg" alt="The proctor beside today's student man and woman" loading="lazy">
+      <figcaption>Today: proctor, then the current student body as man and woman. Everyone is the same 1.80 m adult.</figcaption></figure>
+    <figure><img src="img/a-lineup.jpg" alt="Proctor and ten kit students from child to older adult" loading="lazy">
+      <figcaption>A · Ultimate Modular + age shaping: proctor; child boy and girl (Maple uniform: navy polo, grey trousers; 1.34 / 1.32 m); young
+        teen boy and girl (1.60 / 1.55 m); older teen boy and girl (1.77 / 1.67 m); adult man and woman (1.85 m both); older man and woman.</figcaption></figure>
+    <figure><img src="img/c-lineup.jpg" alt="Proctor and ten MPFB students from child to older adult" loading="lazy">
+      <figcaption>C · MPFB: the same order. Ages 8.5, 12.5, 16.5, 24 and 55 on MakeHuman's age slider. Children and teens are scaled to A's band heights
+        (MPFB's own are shorter: 1.20 m at 8.5); adults are left as made (1.79 / 1.64 m). Clothes are MakeHuman's CC0 casual suits with their textures
+        quantised to three flat colours.</figcaption></figure>
+    <div class="figs">
+      <figure><img src="img/b-lineup.jpg" alt="Proctor beside the two free Universal Base Characters" loading="lazy">
+        <figcaption>B · Universal Base Characters, free Standard edition: proctor, Superhero man and woman with the pack's hairstyles. Hair renders grey
+          because the pack tints it in its engine shader. There is no clothing in the pack.</figcaption></figure>
+      <figure><img src="img/d-lineup.jpg" alt="Proctor beside the Gobkit Schoolkid and the OGA Lowpoly Kid" loading="lazy">
+        <figcaption>D · other free child bases, both scaled to 1.30 m: Gobkit Schoolkid (with its held props) and OGA Lowpoly Kid in its T-pose,
+          uncoloured as shipped.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="seated">
+    <div class="section-head">
+      <h2>Seated at the shared desk</h2>
+      <p class="muted">Desk top 0.745 m, seat 0.475 m, desk 0.8 m in front of the seat, as in the classroom prefabs. Columns: child boy, young teen girl,
+        older teen boy, adult woman. Rows: <b>1</b> the student <span class="num">Writing</span> clip (frame 95) retargeted as is; <b>2</b> the same
+        with two-bone IK putting each wrist on the desk top; <b>3</b> <span class="num">HandRaised</span> at its peak (frame 71).</p>
+    </div>
+    <figure><img src="img/a-seated.jpg" alt="Grid of kit students seated at the desk in three rows" loading="lazy">
+      <figcaption>A. The child sits on the same seat with feet 14 cm off the floor, and the raw clip leaves its wrists 3 cm under the desk top and
+        6 cm short of the edge. The young teen is 4 cm under. The older teen's hands hover 5 cm above, and the adult's are right (1 cm). The IK pass moved the wrists
+        11, 10, 3 and 2 cm.</figcaption></figure>
+    <figure><img src="img/c-seated.jpg" alt="Grid of MPFB students seated at the desk in three rows" loading="lazy">
+      <figcaption>C. MPFB's longer arms land the hands 5–19 cm onto the desk, at most 6 cm low (the child). The IK pass moved the wrists 8, 5, 3 and 4 cm.
+        The heads sit a little higher than the source's look-down at the paper.</figcaption></figure>
+    <div class="figs room">
+      <figure><img src="img/b-seated.jpg" alt="UBC man and woman seated, raw, fitted and hand raised" loading="lazy">
+        <figcaption>B, adult man and woman, same three rows. The retarget holds; the long-legged bodies push their toes 4 cm into the floor.</figcaption></figure>
+      <figure><img src="img/base-seated.jpg" alt="Today's students writing and raising a hand" loading="lazy">
+        <figcaption>Today, the clips on the rig they were made for, with the game's 2 cm seated lift: wrists 2–6 cm above the desk, 2.6 cm past the edge.</figcaption></figure>
+    </div>
+    <div class="figs">
+      <figure><video controls preload="none" poster="vid/seated-a-poster.jpg" src="vid/seated-a.mp4" aria-label="Kit students writing then raising a hand"></video>
+        <figcaption>A, the four bands retargeted every frame: <span class="num">Writing</span>, then <span class="num">HandRaised</span>. Raw retarget, no contact fix.</figcaption></figure>
+      <figure><video controls preload="none" poster="vid/seated-c-poster.jpg" src="vid/seated-c.mp4" aria-label="MPFB students writing then raising a hand"></video>
+        <figcaption>C, the same clip pass on MPFB.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="door">
+    <div class="section-head">
+      <h2>Door close-ups</h2>
+      <p class="muted">Head and shoulders, front and three-quarter, as the ID-photo check frames a student. Each row shows two students: child boy, child girl;
+        young teen girl, older teen boy; adult man, older adult. Skin and eye colour, hair and glasses must read here.</p>
+    </div>
+    <figure><img src="img/a-door.jpg" alt="Kit students' heads, front and three-quarter" loading="lazy">
+      <figcaption>A. Eye colours (blue, green, brown) and skin tones read clearly. The child faces are rounder with smaller noses, but the brow ridge and
+        long midface still read older, especially the girl in 3/4.</figcaption></figure>
+    <figure><img src="img/c-door.jpg" alt="MPFB students' heads, front and three-quarter" loading="lazy">
+      <figcaption>C. The ages read immediately, but the faces are realistic and finely faceted. They stand out beside the proctor's broad planes.
+        Brown eyes are hard to see on dark skin; the older woman's bob covers one eye.</figcaption></figure>
+    <div class="figs three">
+      <figure><img src="img/base-door.jpg" alt="Today's students' heads" loading="lazy"><figcaption>Today: two dot eyes, no nose, mouth or brows.</figcaption></figure>
+      <figure><img src="img/b-door.jpg" alt="UBC heads" loading="lazy"><figcaption>B: detailed, normal-mapped, heroic faces.</figcaption></figure>
+      <figure><img src="img/d-door.jpg" alt="Gobkit and OGA kid heads" loading="lazy"><figcaption>D: Gobkit's chibi face; the OGA kid has no face.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="room">
+    <div class="section-head">
+      <h2>From the game camera</h2>
+      <p class="muted">Six seated students, mixed bands, at the game's camera: 58° pitch, 45° field of view, 9.5 m away. The second image is the same
+        position at 2.2× zoom. At this distance a player sees hair, shoulders, hands and size, not faces.</p>
+    </div>
+    <div class="figs room"><figure><img src="img/a-room.jpg" alt="Classroom of kit students from the game camera" loading="lazy"><figcaption>A.</figcaption></figure>
+      <figure><img src="img/a-room-zoom.jpg" alt="Closer view of kit students writing" loading="lazy"><figcaption>A, zoomed: the child (front left) is visibly smaller at the same desk.</figcaption></figure></div>
+    <div class="figs room"><figure><img src="img/c-room.jpg" alt="Classroom of MPFB students from the game camera" loading="lazy"><figcaption>C.</figcaption></figure>
+      <figure><img src="img/c-room-zoom.jpg" alt="Closer view of MPFB students writing" loading="lazy"><figcaption>C, zoomed.</figcaption></figure></div>
+    <div class="figs room"><figure><img src="img/base-room.jpg" alt="Classroom of today's students from the game camera" loading="lazy"><figcaption>Today.</figcaption></figure>
+      <figure><img src="img/base-room-zoom.jpg" alt="Closer view of today's students writing" loading="lazy"><figcaption>Today, zoomed.</figcaption></figure></div>
+  </section>
+
+  <section id="budget">
+    <div class="section-head">
+      <h2>What 2.5k triangles costs A</h2>
+      <p class="muted">The same A students with every part collapsed to a per-part budget (body 520, face 360, hair 380, top 640, legs 360, shoes 170,
+        brows 60): 2,342 to 2,558 triangles. This is an automatic decimation, not the proposed art.</p>
+    </div>
+    <figure><img src="img/abud-lineup.jpg" alt="Decimated kit students standing" loading="lazy">
+      <figcaption>Proctor (full detail), then the decimated child, young teen, older teen, adult and older adult.</figcaption></figure>
+    <div class="figs room">
+      <figure><img src="img/abud-room-zoom.jpg" alt="Decimated students from the game camera" loading="lazy">
+        <figcaption>From the game camera the decimated set is hard to tell from the full one.</figcaption></figure>
+      <figure><img src="img/abud-door.jpg" alt="Decimated students' heads, showing tears at the neck and spiky hair" loading="lazy">
+        <figcaption>At the door it fails: necks tear where the face, top and closures part, and hair turns to spikes. The budget has to come from
+          authored low parts, the biggest being fingerless hands (the body mesh is 2.2k, mostly fingers), not from decimating the kit.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="retarget">
+    <div class="section-head">
+      <h2>Retargeting the student clips</h2>
+      <p class="muted">Each figure takes the student clips from <span class="num">candidate.glb</span> (the 24-bone rig). The spike retargets
+        20 bones (hips, three spine bones, neck, head, both arms and both legs) with one script for all three rigs: the kit (62 bones), MPFB (53) and
+        UBC (65). Each bone copies the clip bone's world rotation relative to rest. The rest frames are aligned on the bone's direction and the
+        character's forward axis, so twist is fixed. The hips come from the clip, then the body is dropped until it rests on the 0.475 m seat.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>What works</h3>
+        <ul>
+          <li>Writing, HandRaised and Standing hold on every band and rig with no per-band tuning: spine lean, shoulders, elbows and the
+            raised arm all read.</li>
+          <li>Small bodies sit on the same chair with their feet hanging (child 14 cm off the floor). Bodies fit the desk; the desk stays the same.</li>
+          <li>The proctor's existing bone map (<span class="num">proctor_parts.RETARGET</span>) extends to the legs with four more pairs per side.</li>
+        </ul></div>
+      <div class="card"><h3>What breaks</h3>
+        <ul>
+          <li><b>Contact.</b> Copying rotations keeps the adult's hand placement only for adult-length arms. A child's wrists end 3 cm in the desk and 6 cm
+            short of its edge; an older teen's hover 5 cm above it. The tallest adults put their toes up to 7 cm through the floor.</li>
+          <li><b>The kit's feet</b> hang from <span class="num">Root</span>, not the shins. They must be placed at the shin's end every frame,
+            or the ankle stretches.</li>
+          <li><b>Twist.</b> Aligning on bone direction alone tore the MPFB faces; aligning whole frames fixed it.</li>
+          <li><b>MPFB, headless.</b> Without MakeHuman's joint helper groups, every age gets the adult skeleton. With them, the rig fits each age.</li>
+          <li><b>Fingers</b> are not in the source. The kit takes them from its idle; MPFB and UBC hands stay flat.</li>
+        </ul></div>
+      <div class="card"><h3>Effort for the 18 motions</h3>
+        <ul>
+          <li>Batch retarget of all clips and mirrors onto the chosen rig: about 1 day, from this spike's script.</li>
+          <li>Contact per band for the clips that touch the desk, lap or bag (about 10 of 18): either bake 4 bands × 18 clips (plus mirrors) through an
+            extended <span class="num">correct_clip.py</span>, about 1.5–2 weeks with review, or ship one clip set plus runtime two-bone IK on the hands
+            against a per-band desk plane and foot plant, about 1 week of code and tests.</li>
+          <li>Review renders per band with <span class="num">pose_check.py</span>: 2–3 days.</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="licences">
+    <div class="section-head"><h2>Licences and sources</h2></div>
+    <ul class="limits">
+      <li><b>A · Ultimate Modular Men and Women</b> by Quaternius: CC0 1.0 (License.txt in the packs). The same files the proctor is built from.
+        <a href="https://quaternius.com/packs/ultimatemodularcharacters.html">Modular Men</a> ·
+        <a href="https://quaternius.com/packs/ultimatemodularwomen.html">Modular Women</a></li>
+      <li><b>B · Universal Base Characters, Standard</b> by Quaternius: CC0 1.0 (License_Standard.txt: "the standard FREE version … only contains a portion
+        of the models"). Free download through itch.io. The Source edition, with the teen bodies, costs $19.99 and was not used.
+        <a href="https://quaternius.itch.io/universal-base-characters">itch.io</a></li>
+      <li><b>C · MPFB 2.0.18</b>: add-on code GPL-3.0-or-later, used as a tool and not shipped. The MakeHuman project releases its base assets under CC0 and
+        claims nothing over exported characters. The system assets used here (body proxies, hair, brows, eyes, casual suits, shoes) are CC0.
+        <a href="https://extensions.blender.org/add-ons/mpfb/">MPFB</a> ·
+        <a href="https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html">system assets</a></li>
+      <li><b>D · Gobkit Free Character Pack Vol. 1</b> ("Schoolkid"): CC0 1.0, stated on the page and in LICENSE.txt.
+        <a href="https://gobkit.itch.io/gobkit-free-character-pack-vol-1">itch.io</a></li>
+      <li><b>D · Lowpoly Kid</b> by Nitin Chowdary: CC-BY 4.0 ("Use this asset for any purpose. Just give credit"). Credit is required.
+        <a href="https://opengameart.org/content/lowpolykid">OpenGameArt</a></li>
+      <li><b>Searched and rejected</b>: Kenney Mini and Blocky Characters and KayKit (CC0, but chibi or blocky); Quaternius's other packs (adults or chibi);
+        Sketchfab's "Low Poly Mesh Child Base" (CC-BY 4.0, unrigged, needs a login to download; it has the closest faceted look and is worth a hand
+        download if a child body is needed); Synty POLYGON Kids (paid); several free models with unclear or non-commercial terms.</li>
+      <li><b>Today's student, the desk and the chair</b>: this project's own scripts.</li>
+    </ul>
+  </section>
+
+  <section id="method">
+    <div class="section-head"><h2>How these were made</h2></div>
+    <ul class="limits">
+      <li>Headless Blender 5.2, EEVEE, with the proctor render helpers: one sun, a soft fill, neutral ambient and the dark blue backdrop. Flat shading
+        throughout, except B, which keeps its own textures.</li>
+      <li><b>A's age shaping</b>: the proctor's parts are posed with scaled bones (Root to band height; head grown to 0.95, 0.965 or 0.985 of the adult
+        head's size; neck shortened; legs and hands slightly smaller) and baked into a new rest pose, height-fitted in three passes. The face gets a
+        position warp: shorter lower face, nose pulled back, jaw narrowed, cheeks fuller and eyes enlarged, strongest for the child. Builds use the
+        kit's own slim and heavy shapes.</li>
+      <li><b>C</b>: MPFB's age, gender and weight macros; the 1591- and 1605-vertex body proxies; hair, clothes and shoes decimated to 900, 1,400 and 300
+        triangles; clothes recoloured to three flat colours sampled from their textures.</li>
+      <li>Door close-ups frame on the eyes at three times the eye-to-crown height, 512 × 640, as in the Wardrobe preview. Room views use the game
+        camera.</li>
+      <li>This is a decision spike. Nothing in the game repo was changed.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

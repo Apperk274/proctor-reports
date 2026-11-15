@@ -31,6 +31,12 @@
   ],
   "reports": [
     {
+      "slug": "student-base-comparison",
+      "title": "Student Base Comparison",
+      "category": "look-and-feel",
+      "summary": "Five candidate bases for age-banded students beside the proctor, standing, seated at the shared desk and at the door; recommends the proctor's kit with a child head set."
+    },
+    {
       "slug": "proctor-base-comparison",
       "title": "Proctor Base Comparison",
       "category": "look-and-feel",
