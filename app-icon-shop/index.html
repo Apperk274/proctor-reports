@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>App Icon and Shop Art</title>
-<meta name="description" content="The Exam Supervisor Simulator app icon, a calm exam room, and sixteen simpler alternatives for Pencils Down! at launcher sizes, under adaptive masks and on mock home screens, plus the Blender shop tiles as the game draws them.">
+<meta name="description" content="The Exam Supervisor Simulator app icon, a calm exam room, and twenty-four simpler alternatives, led by the user’s favourite direction, the supervisor watching, at launcher sizes, under adaptive masks and on mock home screens, plus the Blender shop tiles as the game draws them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -57,6 +57,7 @@ section { display: grid; gap: 20px; }
   background: var(--accent-soft); color: var(--accent); }
 .tag.cur { background: var(--line); color: var(--muted); }
 .tag.rec { background: var(--accent); color: var(--surface); }
+.tag.fav { background: var(--warn-soft); color: var(--warn); }
 .item { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
 .item .shot { background: #0b1220; border-radius: 8px; overflow: hidden; }
 .item .shot img { border-radius: 0; width: 100%; }
@@ -82,12 +83,12 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · Art · shop tiles in the game · icon on a branch · icon alternatives for review</span>
     <h1>App Icon and Shop Art</h1>
-    <p class="lede">The game's launcher icon at the sizes a phone shows it, sixteen simpler alternatives that read at
-      a glance, and the Blender shop tiles as the Store draws them.</p>
+    <p class="lede">The game's launcher icon at the sizes a phone shows it, twenty-four simpler alternatives led by
+      the chosen direction, the supervisor watching, and the Blender shop tiles as the Store draws them.</p>
     <p class="muted">Icon: one full-bleed 1024 px render used as the adaptive icon's background layer, with an empty
       foreground. It is shown through the circle, squircle and rounded-square masks at 192, 96 and 48 px on a light and
       a dark wallpaper, and in a home-screen row. It is a whole classroom, too busy to recognise at launcher size, so
-      <a href="#alternatives">Icon alternatives</a> tries fourteen bolder single-idea directions and two colour variants,
+      <a href="#alternatives">Icon alternatives</a> tries twenty-two bolder single-idea concepts and two colour variants, led by the user’s favourites (Head Proctor and Watchful Eye) and eight variations on them,
       each next to the current icon at true size, under four masks and on a mock home screen. Shop: the Store,
       captured from the game at 1080 × 2340 in both themes.</p>
   </header>
@@ -96,9 +97,9 @@ section { display: grid; gap: 20px; }
     <div class="cards">
       <div class="card"><span class="big">Icon → a calm exam room</span><p>Six students at their desks in three-quarter view,
         all in the same blue. Nobody is singled out. It is on the <code>app-icon</code> branch.</p></div>
-      <div class="card"><span class="big">Icon → 16 alternatives</span><p>The room is unreadable at 48 px. Fourteen simpler
-        directions in several styles and two colour variants, for review. <a href="#recommendation">Top picks: Side-Eye,
-        Pencil Buddy, Caught Peeking</a>.</p></div>
+      <div class="card"><span class="big">Icon → the supervisor watching</span><p>The room is unreadable at 48 px. Of 24 alternatives,
+        the user favours Head Proctor and Watchful Eye. Of the eight variations on them, the
+        <a href="#recommendation">top picks are Glint, Moustache Proctor and Magnifier Eye</a>.</p></div>
       <div class="card"><span class="big">Shop → in the game</span><p>Phone Detector, Pills (an amber bottle), the three shirts
         (on hangers) and the five badges (shield pins) are Blender renders. Replay keeps its drawing.</p></div>
       <div class="card"><span class="big">Tests</span><p>EditMode and PlayMode both pass. No Meshy credits were used.</p></div>
@@ -139,14 +140,14 @@ section { display: grid; gap: 20px; }
   <section id="alternatives">
     <div class="section-head">
       <h2>Icon alternatives</h2>
-      <p class="muted">Fourteen simpler directions and two colour variants. Each one has a single focal idea, a few
-        large shapes and strong contrast, and no wordmark. The styles vary: flat vector on colour, a sticker mascot with
-        a thick outline, a letter monogram, a duotone poster, cropped close-ups, a school emblem and one light icon.
-        Most lean on the working title <b>Pencils Down!</b>. They are concepts for review: the game still ships the
-        exam room above. They are ordered by the ranking at the end.</p>
+      <p class="muted"><b>The direction: the supervisor watching.</b> From the earlier exploration, the user picked
+        <b>Head Proctor</b> and <b>Watchful Eye</b> as the best fit for the game. What they share is vigilance and
+        authority, a character or the act of looking, rather than an exam object. This section opens with those two
+        favourites, then eight variations on them in rank order, then the recommendation. The earlier exploration
+        (fourteen more concepts in other directions) follows for reference.</p>
       <p class="muted">Every concept is a real adaptive icon: a background and a foreground layer on a 108 dp canvas, with
         the subject inside the 66 dp safe circle, plus a flat 512 px Play Store version. All of them were drawn by a
-        script. No generator credits were used.</p>
+        script. No generator credits were used. None has a wordmark.</p>
       <p class="muted"><b>Real size.</b> The size strips, the 48 px line-up and the phones are drawn at 2× and shown at
         half size. On a wide enough screen a “48 px” icon really is 48 CSS px, about what a phone shows at arm’s length.
         The home screens are 360 dp wide: a 4 × 5 grid of generic placeholder apps, with the concept in the
@@ -155,8 +156,9 @@ section { display: grid; gap: 20px; }
     </div>
 
     <figure class="item" style="margin:0"><h3>All of them at 48 px</h3>
-      <div class="shot true light" style="max-width:1024px"><img src="img/concepts/lineup-48.png" width="1024" height="400" alt="The current icon and the sixteen concepts at a true 48 px with circle masks, in two rows, each on a light and a dark strip"></div>
-      <p class="muted">The current icon first, then every concept, at true launcher size on light and dark.</p>
+      <div class="shot true light" style="max-width:1116px"><img src="img/concepts/lineup-48.png" width="1116" height="600" alt="The current icon and all twenty-four concepts at a true 48 px with circle masks, on light and dark strips: the first row is the current icon, the two favourites and their eight variations"></div>
+      <p class="muted">The top row is the direction: the current icon, the two favourites, then the eight variations in
+        rank order. The two rows below it are the earlier exploration. All at true launcher size on light and dark.</p>
     </figure>
 
     <figure class="item" style="margin:0"><h3>Baseline: the current icon on the same home screens</h3>
@@ -165,9 +167,127 @@ section { display: grid; gap: 20px; }
         reading the label.</p>
     </figure>
 
+    <div class="section-head" id="family"><h3>The favourites and their variations</h3>
+      <p class="muted">Head Proctor and Watchful Eye first, then the variations: other supervisor characters, a
+        silhouette, a hybrid, and new ways to frame the eye.</p></div>
+
+    <article class="concept" id="alt-head-proctor">
+      <div class="concept-top"><img src="img/concepts/head-proctor-512.png" alt="Concept Head Proctor: a stern grey-haired teacher looking over half-moon glasses, on teal, 512 px Play Store version" width="160" height="160">
+        <div><h3>Head Proctor <span class="tag fav">Your favourite</span></h3><p class="muted">Side-Eye grown into a full character: a stern teacher with a grey bun, peering over half-moon glasses with one brow raised, on teal.</p>
+          <p class="verdict"><b>At launcher size:</b> Clearly the supervisor, and it reads as “stern teacher” at 48 px. It has more detail than Side-Eye, so at 32 px the eyes and glasses merge. A fuller face also looks more like an avatar or a story app than a game.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/head-proctor-sizes.png" width="1116" height="480" alt="Head Proctor and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/head-proctor-masks.png" width="638" height="320" alt="Head Proctor and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/head-proctor-home.jpg" width="832" height="828" alt="Head Proctor on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-watchful-eye">
+      <div class="concept-top"><img src="img/concepts/watchful-eye-512.png" alt="Concept Watchful Eye: an eye above an exam paper, 512 px Play Store version" width="160" height="160">
+        <div><h3>Watchful Eye <span class="tag fav">Your favourite</span></h3><p class="muted">One wide-open eye looking down at an exam paper, on navy.</p>
+          <p class="verdict"><b>At launcher size:</b> Very legible: the white almond and blue iris read at 32 px, and the paper strip says “exam” at 96 px and up. The mood is surveillance rather than comedy. It could pass for a privacy or security app.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/watchful-eye-sizes.png" width="1116" height="480" alt="Watchful Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/watchful-eye-masks.png" width="638" height="320" alt="Watchful Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/watchful-eye-home.jpg" width="832" height="828" alt="Watchful Eye on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-glint">
+      <div class="concept-top"><img src="img/concepts/glint-512.png" alt="Concept Glint: a navy proctor silhouette with a bun and gleaming white glasses, on yellow, 512 px Play Store version" width="160" height="160">
+        <div><h3>Glint <span class="tag rec">Recommended · 1st</span></h3><p class="muted">A proctor silhouette, bun and shoulders in solid navy, with glasses that flash white and a sparkle: the classic “I saw that” gleam. On brass yellow.</p>
+          <p class="verdict"><b>At launcher size:</b> The boldest of the family: one dark shape and two white lenses, so it holds at 32 px on either wallpaper. There is no face, so everything rests on the glasses, and that is exactly the message: someone is watching you.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/glint-sizes.png" width="1116" height="480" alt="Glint and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/glint-masks.png" width="638" height="320" alt="Glint and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/glint-home.jpg" width="832" height="828" alt="Glint on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-moustache-proctor">
+      <div class="concept-top"><img src="img/concepts/moustache-proctor-512.png" alt="Concept Moustache Proctor: a bald headmaster with a moustache and a red bow tie, on purple, 512 px Play Store version" width="160" height="160">
+        <div><h3>Moustache Proctor <span class="tag rec">Recommended · 2nd</span></h3><p class="muted">A second supervisor character: a bald headmaster with a bushy moustache, stern brows and a red bow tie, on purple.</p>
+          <p class="verdict"><b>At launcher size:</b> The moustache is a big dark shape that survives at 32 px, so it reads even better than Head Proctor. It is funny and authoritative at once. At 32 px the side tufts can pass for headphones.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/moustache-proctor-sizes.png" width="1116" height="480" alt="Moustache Proctor and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/moustache-proctor-masks.png" width="638" height="320" alt="Moustache Proctor and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/moustache-proctor-home.jpg" width="832" height="828" alt="Moustache Proctor on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-magnifier-eye">
+      <div class="concept-top"><img src="img/concepts/magnifier-eye-512.png" alt="Concept Magnifier Eye: an eye inside a magnifying glass, on orange, 512 px Play Store version" width="160" height="160">
+        <div><h3>Magnifier Eye <span class="tag rec">Recommended · 3rd</span></h3><p class="muted">Watchful Eye inside a magnifying glass, on orange: inspection, literally.</p>
+          <p class="verdict"><b>At launcher size:</b> Clear at every size. The dark ring and handle give it a strong silhouette, and orange stands out in a grid. The magnifying glass is also the universal search icon, so it can look like a search app.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/magnifier-eye-sizes.png" width="1116" height="480" alt="Magnifier Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/magnifier-eye-masks.png" width="638" height="320" alt="Magnifier Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/magnifier-eye-home.jpg" width="832" height="828" alt="Magnifier Eye on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-pencil-pupil">
+      <div class="concept-top"><img src="img/concepts/pencil-pupil-512.png" alt="Concept Pencil Pupil: an eye whose iris is the end of a yellow pencil, on navy, 512 px Play Store version" width="160" height="160">
+        <div><h3>Pencil Pupil <span class="tag">Best with “Pencils Down!”</span></h3><p class="muted">Watchful Eye with an iris made from a pencil seen end-on: a yellow hexagon, the wood, and the graphite tip as the pupil.</p>
+          <p class="verdict"><b>At launcher size:</b> At 48 px it is Watchful Eye with a golden iris, which is just as legible. The pencil only shows at 96 px and up. It is the one variation that ties the watching eye to “Pencils Down!”.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-pupil-sizes.png" width="1116" height="480" alt="Pencil Pupil and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-pupil-masks.png" width="638" height="320" alt="Pencil Pupil and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-pupil-home.jpg" width="832" height="828" alt="Pencil Pupil on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-monocle">
+      <div class="concept-top"><img src="img/concepts/monocle-512.png" alt="Concept Monocle: an eye behind a gold monocle with a chain, on burgundy, 512 px Play Store version" width="160" height="160">
+        <div><h3>Monocle <span class="tag">Hybrid</span></h3><p class="muted">A hybrid of the two favourites: one eye behind a brass monocle with a chain, under a raised grey brow, on burgundy.</p>
+          <p class="verdict"><b>At launcher size:</b> At 48 px it reads as an eye in a gold ring, and the monocle adds authority and a little comedy. At 32 px the brow and chain blur, leaving the gold ring and the eye, which is still enough.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/monocle-sizes.png" width="1116" height="480" alt="Monocle and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/monocle-masks.png" width="638" height="320" alt="Monocle and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/monocle-home.jpg" width="832" height="828" alt="Monocle on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-over-the-edge">
+      <div class="concept-top"><img src="img/concepts/over-the-edge-512.png" alt="Concept Over the Edge: the proctor's grey hair, eyes and half-moon glasses rising from the bottom edge, on blue, 512 px Play Store version" width="160" height="160">
+        <div><h3>Over the Edge </h3><p class="muted">Head Proctor rising from the bottom of the icon: bun, grey hair, narrowed eyes over half-moon glasses, the rest of her below the edge.</p>
+          <p class="verdict"><b>At launcher size:</b> Charming and clearly the same person as Head Proctor, with more of the icon given to her eyes. At 32 px the eyes and glasses merge into one band. The circle mask trims her cheeks, but the eyes stay whole.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/over-the-edge-sizes.png" width="1116" height="480" alt="Over the Edge and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/over-the-edge-masks.png" width="638" height="320" alt="Over the Edge and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/over-the-edge-home.jpg" width="832" height="828" alt="Over the Edge on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-eyes-in-the-dark">
+      <div class="concept-top"><img src="img/concepts/eyes-in-the-dark-512.png" alt="Concept Eyes in the Dark: two narrowed glowing yellow eyes on black, 512 px Play Store version" width="160" height="160">
+        <div><h3>Eyes in the Dark </h3><p class="muted">Two narrowed, glowing eyes in a dark room, glancing sideways.</p>
+          <p class="verdict"><b>At launcher size:</b> Very legible: two yellow slits on near-black still read at 32 px. The mood tips into a horror or stealth game, and on a dark wallpaper the icon’s edge vanishes and only the eyes float.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/eyes-in-the-dark-sizes.png" width="1116" height="480" alt="Eyes in the Dark and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/eyes-in-the-dark-masks.png" width="638" height="320" alt="Eyes in the Dark and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/eyes-in-the-dark-home.jpg" width="832" height="828" alt="Eyes in the Dark on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+    <article class="concept" id="alt-torn-hole">
+      <div class="concept-top"><img src="img/concepts/torn-hole-512.png" alt="Concept Torn Hole: an eye peering through a hole torn in lined paper, 512 px Play Store version" width="160" height="160">
+        <div><h3>Torn Hole </h3><p class="muted">An eye peering through a hole torn in a lined exam sheet. A light icon.</p>
+          <p class="verdict"><b>At launcher size:</b> Distinctive and readable at 48 px: white page, dark hole, eye. The jagged edge softens at 32 px. Like Pencil Macro, the light page loses its edge on a light wallpaper.</p></div></div>
+      <div class="shot true" style="max-width:1116px"><img src="img/concepts/torn-hole-sizes.png" width="1116" height="480" alt="Torn Hole and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
+      <div class="shot true light" style="max-width:638px"><img src="img/concepts/torn-hole-masks.png" width="638" height="320" alt="Torn Hole and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
+      <div class="shot true light" style="max-width:832px"><img src="img/concepts/torn-hole-home.jpg" width="832" height="828" alt="Torn Hole on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
+    </article>
+
+    <div class="item" id="recommendation">
+      <h3>Recommendation</h3>
+      <ol class="next">
+        <li><b>Glint.</b> The purest form of “the supervisor is watching you”: a dark silhouette whose glasses flash.
+          It has the boldest silhouette of the family, survives at 32 px, keeps its edge on both wallpapers, and the
+          brass yellow is unlike anything else on a home screen.</li>
+        <li><b>Moustache Proctor.</b> The best of the character faces. The moustache and bow tie are big shapes that
+          read at 32 px, better than Head Proctor’s finer glasses, and it carries the game’s humour.</li>
+        <li><b>Magnifier Eye.</b> The strongest take on Watchful Eye: the eye gets a silhouette (ring and handle) and
+          a loud colour, so it reads at every size. Watch the resemblance to search apps.</li>
+      </ol>
+      <p class="verdict"><b>Close behind:</b> Head Proctor itself is still a strong choice and reads well at 48 px.
+        Moustache Proctor only edges it at 32 px. If the game becomes <b>Pencils Down!</b>, Pencil Pupil is the eye that
+        carries the new name. Every concept in this family fits <b>Exam Supervisor Simulator</b>, because each one is
+        the supervisor.</p>
+      <p class="muted">Tried in this family and dropped, two in all. An eye peeking through venetian blinds: at 48 px the
+        slats became barcode stripes that fought the eye. A tight crop on the half-moon glasses and narrowed eyes: it
+        reads, but without the bun and silhouette it is just a face, and it was nearly the same picture as Over the
+        Edge.</p>
+    </div>
+
+    <div class="section-head" id="earlier"><h3>Earlier exploration</h3>
+      <p class="muted">Fourteen more concepts in other directions: pencils, timers, answer sheets, a mascot, a
+        monogram, a poster, an emblem. Before the user chose the supervisor direction, the top picks here were Side-Eye,
+        Pencil Buddy and Caught Peeking. Side-Eye and Caught Peeking sit close to the chosen direction.</p>
+      <p class="muted">Fit with the name: Pencil Buddy, Pencil !, P Monogram, Pencil Down, Pencil Macro, Time’s Up,
+        Whistle, Bubble Sheet and Crest suit <b>Pencils Down!</b>. Side-Eye, Caught Peeking and Shh! suit
+        <b>Exam Supervisor Simulator</b>.</p>
+      <p class="muted">Tried there and dropped, three in all. A raised “stop” hand: it said “stop” or “high five”, not
+        “exam”. A cheat note under a spotlight: the beam turned to a grey smudge at 48 px. Answers scribbled on a palm:
+        the ink became a blue pattern.</p>
+    </div>
+
     <article class="concept" id="alt-side-eye">
       <div class="concept-top"><img src="img/concepts/side-eye-512.png" alt="Concept Side-Eye: round glasses and stern brows on yellow, eyes glancing sideways, 512 px Play Store version" width="160" height="160">
-        <div><h3>Side-Eye <span class="tag rec">Recommended · 1st</span></h3><p class="muted">The supervisor as a face: big round glasses, eyes glancing sideways, one brow down and one raised. A suspicious look, on brass yellow.</p>
+        <div><h3>Side-Eye <span class="tag">Earlier top pick</span></h3><p class="muted">The supervisor as a face: big round glasses, eyes glancing sideways, one brow down and one raised. A suspicious look, on brass yellow.</p>
           <p class="verdict"><b>At launcher size:</b> Nothing else on a home screen looks like it. The two lenses and the brows still hold at 32 px. The ring of dark frames gives a strong edge on both wallpapers. It is a character rather than an object, so it also says “game”.</p></div></div>
       <div class="shot true" style="max-width:1116px"><img src="img/concepts/side-eye-sizes.png" width="1116" height="480" alt="Side-Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/side-eye-masks.png" width="638" height="320" alt="Side-Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
@@ -183,7 +303,7 @@ section { display: grid; gap: 20px; }
     </article>
     <article class="concept" id="alt-pencil-buddy">
       <div class="concept-top"><img src="img/concepts/pencil-buddy-512.png" alt="Concept Pencil Buddy: a shocked cartoon pencil with arms raised, on blue rays, 512 px Play Store version" width="160" height="160">
-        <div><h3>Pencil Buddy <span class="tag rec">Recommended · 2nd</span></h3><p class="muted">A pencil mascot with a shocked face and both arms thrown up: hands up, pencils down. Drawn as a sticker with a thick dark outline, on sky blue with rays.</p>
+        <div><h3>Pencil Buddy <span class="tag">Earlier top pick</span></h3><p class="muted">A pencil mascot with a shocked face and both arms thrown up: hands up, pencils down. Drawn as a sticker with a thick dark outline, on sky blue with rays.</p>
           <p class="verdict"><b>At launcher size:</b> The most game-like icon of the sixteen. The outline keeps the silhouette crisp on both wallpapers and the face survives at 48 px. At 32 px it is still a yellow figure with its arms up. It tells the name’s joke without any text.</p></div></div>
       <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-buddy-sizes.png" width="1116" height="480" alt="Pencil Buddy and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-buddy-masks.png" width="638" height="320" alt="Pencil Buddy and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
@@ -191,7 +311,7 @@ section { display: grid; gap: 20px; }
     </article>
     <article class="concept" id="alt-caught-peeking">
       <div class="concept-top"><img src="img/concepts/caught-peeking-512.png" alt="Concept Caught Peeking: a student's eyes peeking over the top of an exam paper, 512 px Play Store version" width="160" height="160">
-        <div><h3>Caught Peeking <span class="tag rec">Recommended · 3rd</span></h3><p class="muted">An extreme close-up: a student hiding behind an exam paper, eyes darting sideways, fingertips gripping the edge. The crop runs off every side.</p>
+        <div><h3>Caught Peeking <span class="tag">Earlier top pick</span></h3><p class="muted">An extreme close-up: a student hiding behind an exam paper, eyes darting sideways, fingertips gripping the edge. The crop runs off every side.</p>
           <p class="verdict"><b>At launcher size:</b> One of the clearest at 48 px: dark hair, two white eyes and white paper, in bands that still read at 32 px. It tells the game’s story, catching the cheat, and it is funny. It is full-bleed, so every mask keeps it whole.</p></div></div>
       <div class="shot true" style="max-width:1116px"><img src="img/concepts/caught-peeking-sizes.png" width="1116" height="480" alt="Caught Peeking and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/caught-peeking-masks.png" width="638" height="320" alt="Caught Peeking and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
@@ -212,14 +332,6 @@ section { display: grid; gap: 20px; }
       <div class="shot true" style="max-width:1116px"><img src="img/concepts/monogram-p-sizes.png" width="1116" height="480" alt="P Monogram and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/monogram-p-masks.png" width="638" height="320" alt="P Monogram and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
       <div class="shot true light" style="max-width:832px"><img src="img/concepts/monogram-p-home.jpg" width="832" height="828" alt="P Monogram on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
-    </article>
-    <article class="concept" id="alt-head-proctor">
-      <div class="concept-top"><img src="img/concepts/head-proctor-512.png" alt="Concept Head Proctor: a stern grey-haired teacher looking over half-moon glasses, on teal, 512 px Play Store version" width="160" height="160">
-        <div><h3>Head Proctor <span class="tag">Evolution of Side-Eye</span></h3><p class="muted">Side-Eye grown into a full character: a stern teacher with a grey bun, peering over half-moon glasses with one brow raised, on teal.</p>
-          <p class="verdict"><b>At launcher size:</b> Clearly the supervisor, and it reads as “stern teacher” at 48 px. It has more detail than Side-Eye, so at 32 px the eyes and glasses merge. A fuller face also looks more like an avatar or a story app than a game.</p></div></div>
-      <div class="shot true" style="max-width:1116px"><img src="img/concepts/head-proctor-sizes.png" width="1116" height="480" alt="Head Proctor and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
-      <div class="shot true light" style="max-width:638px"><img src="img/concepts/head-proctor-masks.png" width="638" height="320" alt="Head Proctor and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
-      <div class="shot true light" style="max-width:832px"><img src="img/concepts/head-proctor-home.jpg" width="832" height="828" alt="Head Proctor on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
     </article>
     <article class="concept" id="alt-crest">
       <div class="concept-top"><img src="img/concepts/crest-512.png" alt="Concept Crest: two crossed pencils over a navy shield with a star, on crimson, 512 px Play Store version" width="160" height="160">
@@ -244,14 +356,6 @@ section { display: grid; gap: 20px; }
       <div class="shot true" style="max-width:1116px"><img src="img/concepts/pencil-down-navy-sizes.png" width="1116" height="480" alt="Pencil Down, navy and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-down-navy-masks.png" width="638" height="320" alt="Pencil Down, navy and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
       <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-down-navy-home.jpg" width="832" height="828" alt="Pencil Down, navy on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
-    </article>
-    <article class="concept" id="alt-watchful-eye">
-      <div class="concept-top"><img src="img/concepts/watchful-eye-512.png" alt="Concept Watchful Eye: an eye above an exam paper, 512 px Play Store version" width="160" height="160">
-        <div><h3>Watchful Eye </h3><p class="muted">One wide-open eye looking down at an exam paper, on navy.</p>
-          <p class="verdict"><b>At launcher size:</b> Very legible: the white almond and blue iris read at 32 px, and the paper strip says “exam” at 96 px and up. The mood is surveillance rather than comedy. It could pass for a privacy or security app.</p></div></div>
-      <div class="shot true" style="max-width:1116px"><img src="img/concepts/watchful-eye-sizes.png" width="1116" height="480" alt="Watchful Eye and the current icon at 192, 96, 48 and 32 px, circle mask, on a light and a dark wallpaper" loading="lazy"></div>
-      <div class="shot true light" style="max-width:638px"><img src="img/concepts/watchful-eye-masks.png" width="638" height="320" alt="Watchful Eye and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
-      <div class="shot true light" style="max-width:832px"><img src="img/concepts/watchful-eye-home.jpg" width="832" height="828" alt="Watchful Eye on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
     </article>
     <article class="concept" id="alt-shh">
       <div class="concept-top"><img src="img/concepts/shh-512.png" alt="Concept Shh!: a cream face with a finger on its lips, on flat red, 512 px Play Store version" width="160" height="160">
@@ -293,28 +397,6 @@ section { display: grid; gap: 20px; }
       <div class="shot true light" style="max-width:638px"><img src="img/concepts/pencil-macro-masks.png" width="638" height="320" alt="Pencil Macro and the current icon through the circle, squircle, rounded-square and teardrop masks" loading="lazy"></div>
       <div class="shot true light" style="max-width:832px"><img src="img/concepts/pencil-macro-home.jpg" width="832" height="828" alt="Pencil Macro on a 4 by 5 home screen of generic placeholder apps, light wallpaper with circle masks and dark wallpaper with squircle masks" loading="lazy"></div>
     </article>
-
-    <div class="item" id="recommendation">
-      <h3>Recommendation</h3>
-      <ol class="next">
-        <li><b>Side-Eye (yellow).</b> It stands out most in a crowded grid and holds at 32 px. It shows the player’s
-          role, the suspicious supervisor, rather than an exam object, and it works under either name.</li>
-        <li><b>Pencil Buddy.</b> The most game-like and the most fun. The sticker outline keeps it crisp everywhere,
-          and a pencil throwing its hands up is “Pencils Down!” without a word. It also works under the current name
-          as a friendly exam mascot.</li>
-        <li><b>Caught Peeking.</b> The clearest story: you are there to catch this student. It reads at 32 px and is
-          full-bleed, so no mask hurts it.</li>
-      </ol>
-      <p class="verdict"><b>If the game becomes “Pencils Down!” and you want a logo rather than a character,</b> choose
-        Pencil ! (red, the boldest) or P Monogram (the most brand-like). Neither makes sense under the current name.</p>
-      <p class="verdict"><b>Fit with the name.</b> With <b>Pencils Down!</b>: Pencil Buddy, Pencil !, P Monogram,
-        Pencil Down, Pencil Macro, Time’s Up, Whistle, Bubble Sheet and Crest. With <b>Exam Supervisor
-        Simulator</b>: Side-Eye, Head Proctor, Watchful Eye, Caught Peeking and Shh!. Side-Eye, Caught Peeking,
-        Pencil Buddy and Crest fit both.</p>
-      <p class="muted">Tried and dropped, three in all. A raised “stop” hand: clear, but it says “stop” or “high five”,
-        not “exam”. A cheat note under a spotlight: the beam turned to a grey smudge at 48 px and the note read as a
-        notes app. Answers scribbled on a palm: the hand read, but the ink became a blue pattern and the idea was lost.</p>
-    </div>
   </section>
 
   <section id="shop">
