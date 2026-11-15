@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-15", "author": "Apperk274", "slug": "student-characters", "change": "Fixed the new students' tiptoe feet at the rig, the brow-and-glasses unibrow, the child second nose and skull poking through hair; added foot-on-floor and hair-cover checks, all 15 checks pass."},
   {"date": "2026-11-15", "author": "Apperk274", "slug": "student-characters", "change": "Rebuilt the new students' hair from the kit's own locks with kit-beside-student pairs, cleaned up clothes and shoes, softened child faces, added face close-ups; every check now passes."},
   {"date": "2026-11-15", "author": "Apperk274", "slug": "student-characters", "change": "Added the new age-banded students for the student-characters branch: bands beside the proctor, door close-ups, a classroom per school, budgets and checks."},
   {"date": "2026-11-15", "author": "ardakabadayi", "slug": "wardrobe", "change": "Re-rendered the Tweed Jacket views from the wardrobe file with the jacket spliced into the committed tops."},
