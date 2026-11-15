@@ -31,12 +31,6 @@
   ],
   "reports": [
     {
-      "slug": "localization-check",
-      "title": "Localization Check",
-      "category": "look-and-feel",
-      "summary": "Every screen in seven languages at the worst case, with cut labels fixed, text rules per language, and a live language switch checked on the phone."
-    },
-    {
       "slug": "proctor-base-comparison",
       "title": "Proctor Base Comparison",
       "category": "look-and-feel",
@@ -52,7 +46,7 @@
       "slug": "localization",
       "title": "Localization",
       "category": "look-and-feel",
-      "summary": "Seven languages with every player-facing string translated, names drawn in the career's language, layout checked in each language and a Japanese font."
+      "summary": "Seven languages, every string translated, checked at Large text in all of them: dates at the door never break, Japanese breaks between phrases, wording changes await native review."
     },
     {
       "slug": "calm-students",
@@ -192,6 +186,11 @@
       "slug": "whisper-comparison",
       "title": "Whispering Students",
       "to": "student-characters/#whispering"
+    },
+    {
+      "slug": "localization-check",
+      "title": "Localization Check",
+      "to": "localization/#check"
     }
   ]
 }

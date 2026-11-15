@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-11-15",
+    "author": "ardakabadayi",
+    "slug": "localization",
+    "change": "Folded in the Localization Check as a Check section, with the door's dates (L3) and Japanese line breaking fixed and the wording changes listed for native review."
+  },
+  {
+    "date": "2026-11-15",
+    "author": "ardakabadayi",
+    "slug": "localization-check",
+    "change": "Moved into Localization as its Check section; this address now redirects there."
+  },
+  {
     "date": "2026-11-14",
     "author": "ardakabadayi",
     "slug": "wardrobe",

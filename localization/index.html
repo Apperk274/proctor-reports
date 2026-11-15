@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Localization</title>
-<meta name="description" content="Seven languages in Exam Supervisor Simulator: every player-facing string translated, names drawn in the career's language, layout checked per language, compact exam action rows, number and date formats and the Japanese font.">
+<meta name="description" content="Seven languages in Exam Supervisor Simulator: every player-facing string translated, names drawn in the career's language, layout checked per language at Large text, door dates that never break, Japanese line breaking, number and date formats and the Japanese font.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -20,6 +20,8 @@
   --good: #2f7d4f;
   --warn: #a8661a;
   --bad: #b4433a;
+  --high: #b3412f; --high-soft: #f7dfda; --med-soft: #f6e8d3; --med: #a8661a;
+  --low: #3b6fb6; --low-soft: #dde8f6;
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Source Sans 3", "Segoe UI", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -27,13 +29,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
-    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+    --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f; --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16; --low: #7fa9e8; --low-soft: #1b2a40;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
-  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f;
+  --accent: #3fb8ae; --accent-soft: #163b38; --good: #5cbf83; --warn: #e0a24f; --bad: #e3786f; --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16; --low: #7fa9e8; --low-soft: #1b2a40;
   color-scheme: dark;
 }
 
@@ -98,6 +100,46 @@ td .alt { color: var(--muted); }
 .back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
 .back:hover { text-decoration: underline; }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* The check section (folded in from the Localization Check report) */
+.check .summary { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; }
+.check .summary p, .check .summary li { font-size: 0.97rem; }
+.check .summary ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.check code { font-family: var(--mono); font-size: 0.82em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.check .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.check table { font-size: 0.92rem; }
+.check .list { display: grid; gap: 14px; }
+.check .finding { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+.check .finding[data-sev="high"] { border-left: 4px solid var(--high); }
+.check .finding[data-sev="medium"] { border-left: 4px solid var(--med); }
+.check .finding[data-sev="low"] { border-left: 4px solid var(--low); }
+.check .fhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.check .fhead h3, .check .fhead h4 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; margin: 0; }
+.check .num { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.check .sev, .check .status { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+.check .sev-high { background: var(--high-soft); color: var(--high); }
+.check .sev-medium { background: var(--med-soft); color: var(--med); }
+.check .sev-low { background: var(--low-soft); color: var(--low); }
+.check .st-fixed { background: var(--accent-soft); color: var(--accent); }
+.check .fbody { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.check .ftext { display: grid; gap: 8px; }
+.check .ftext p, .check .ftext li { font-size: 0.97rem; }
+.check .ftext ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.check .now { border-top: 1px solid var(--line); padding-top: 10px; }
+.check .files { font-size: 0.8rem; color: var(--muted); }
+.check .pics { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 360px; }
+.check .pics figure { gap: 4px; }
+.check .pics img { width: 110px; border-radius: 8px; border: 1px solid var(--line); }
+.check .pics figcaption { font-size: 0.72rem; font-family: var(--mono); }
+.check .pics a:focus-visible, .check .gallery a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+@media (max-width: 680px) { .check .fbody { grid-template-columns: 1fr; } .check .pics { justify-content: flex-start; max-width: none; } .check .pics img { width: 96px; } }
+.check .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.check .gallery figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+.check .gallery img { width: 100%; border-radius: 6px; border: 1px solid var(--line); }
+.check .gallery figcaption { font-size: 0.75rem; font-family: var(--mono); }
+.check .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.check ol.q { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.check > h3 { font-size: 1.25rem; font-weight: 700; margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -111,7 +153,8 @@ td .alt { color: var(--muted); }
       language's plural rules, number and date formats and quotation marks. People are named in the career's language, and
       Japanese has its own font. Only the game's title wordmark stays in English. The screenshots are captures of the real
       screen code in portrait (1080×1920, the door at 1080×2340), shown at half size, from an in-memory test career with
-      no player save involved.</p>
+      no player save involved. The <a href="#check">Check</a> section is the localization check at the worst case, in every
+      language: what it found, what was fixed and the wording changes waiting for a native speaker.</p>
   </header>
 
   <div class="callout"><b>No native speaker has reviewed the translations yet.</b> All six are complete and fit their
@@ -156,8 +199,10 @@ td .alt { color: var(--muted); }
         <p>Noto Sans JP as a fallback, with line heights matched to the Latin font. See <a href="#font">Fonts</a>.</p></div>
       <div class="card"><span class="tag done">done</span><h3>Tests</h3>
         <ul>
-          <li>EditMode: 2,630 passed, 0 failed, 210 skipped (Explicit or Ignored).</li>
-          <li>PlayMode: 92 passed, 0 failed, 48 skipped.</li>
+          <li>EditMode: 3,054 run, 2,836 passed, 212 skipped (Explicit or Ignored), 6 failed: AdmissionPhotoTests, only
+            under <code>-nographics</code>, as on main.</li>
+          <li>PlayMode: 197 run, 93 passed, 0 failed, 104 skipped.</li>
+          <li>Every language at Large text, door dates and Japanese line breaking: see <a href="#check">Check</a>.</li>
         </ul></div>
       <div class="card"><span class="tag todo">open</span><h3>Native-speaker review</h3>
         <p>None of the six translations has been checked by a native speaker. The questions for that review are listed in
@@ -409,10 +454,10 @@ td .alt { color: var(--muted); }
     </div>
     <div class="lead-row">
       <figure>
-        <img src="img/ja-door.png" width="540" height="1170" alt="The admission door screen in Japanese: chips 身分証：有効, 氏名：完全一致, 要身分証2点, the in-person and ID columns with appearance lines, この試験, and the buttons 入室を断る and 入室させる">
-        <figcaption><b>The admission door in Japanese.</b> The multi-line text in both columns is evenly spaced, and the
-          card stays below the doorway. The very long Turkish fixture surname is longer than the column, so it breaks
-          inside the word.</figcaption>
+        <img src="img/ja-door.png" width="540" height="1170" alt="The admission door screen in Japanese: chips 身分証：有効, 氏名：完全一致, 要身分証2点, the in-person and ID cards, この試験 with room and time beside its label and 本日：2026年2月19日 on its own line, and the buttons 入室を断る and 入室させる">
+        <figcaption><b>The admission door in Japanese</b> (1080 × 2340, Normal text). Lines in both cards are evenly
+          spaced, the sheet stays below the doorway, and This exam's date has a line of its own (see
+          <a href="#check">Check</a>, L3).</figcaption>
       </figure>
       <ul class="notes">
         <li><b>Latin and Cyrillic</b> come from Liberation Sans. It covers Turkish (ğ ş ı İ), French (œ « »), Spanish,
@@ -425,6 +470,172 @@ td .alt { color: var(--muted); }
           doorway.</li>
         <li><b>Size.</b> The Japanese font adds about 4.5 MB to the build.</li>
       </ul>
+    </div>
+  </section>
+  <section id="check" class="check">
+    <div class="section-head">
+      <span class="eyebrow">Localization check</span>
+      <h2>Check</h2>
+      <p class="muted">A check of the localized UI in all seven languages, at the worst case: every key present, every screen
+        at 720 × 1560 with Large text in Dark and Light, the text rules made to work per language, facts and fairness kept in
+        every translation, and a language switch at runtime that leaves nothing stale. It used to be its own report
+        (Localization Check); it is folded in here and describes the game as it is now.</p>
+    </div>
+
+    <div class="summary">
+      <p><b>8 layout and format defects found, all 8 fixed. Japanese line breaking fixed. 7 wording points changed
+        conservatively, each waiting for a native speaker.</b> Coverage was already complete: every key in every language,
+        the same placeholders, the right plural forms and number and date formats, names in the career's language, and no
+        raw key or untranslated string on any screen.</p>
+      <ul>
+        <li><b>What broke was Large text.</b> The earlier fit guard ran each language at Normal size only. At Large, a Shop
+          tile's purpose and some Wardrobe names were cut in every language (English too). French also cut the next school's
+          name on the Career screen at Normal size, and on the phone Russian cut the probation count on the hub. All are
+          fixed through the design system's own rules, and the guard now runs every language at both sizes.</li>
+        <li><b>Dates at the door are never broken (L3).</b> This exam's date has a line of its own, the card's full width, and
+          a date is one token TextMesh Pro never breaks inside, in every language and at both text sizes.</li>
+        <li><b>Japanese breaks between phrases.</b> Through TextMesh Pro's own line-breaking settings: no break inside a kana
+          word (“しまし / た。”) or a kanji compound (“対 / 応”), and none before a closing particle or small kana.</li>
+        <li><b>The text rules work per language.</b> English keeps its word counts, Japanese is counted in characters, and
+          every other language by width, with the usual allowance for a translation running longer.</li>
+        <li><b>Facts and fairness hold in every language.</b> Each cost, shortfall, bill, probation count and crest progress
+          keeps its numbers in the language's own format, and no toast or stamp changes with whether the player was right.</li>
+        <li><b>A live switch leaves nothing stale.</b> Switching on the door, the HUD, the pause, during “Time's up” and on the
+          hub's prebuilt pages left no label in the old language.</li>
+      </ul>
+      <p>Tests on the merged code (PR #12, with M135 and M135b), full suites: EditMode 3054 run, 2836 passed, 212 skipped, 6 failed. The 6 are AdmissionPhotoTests, which fail only under <code>-nographics</code> and pass with graphics, the same as on main. PlayMode 197 run, 93 passed, 104 skipped, 0 failed. No save data and no personal data are in this report.</p>
+    </div>
+
+    <h3>Per language</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Language</th><th>Keys</th><th>Capture audit (720, Large)</th><th>Wording changed</th><th>Phone</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">English</th><td>complete</td><td>clean</td><td>-</td><td>not on the phone (fit and switch covered in the editor)</td></tr>
+        <tr><th scope="row">Türkçe</th><td>complete</td><td>clean</td><td>“clean”, one term</td><td>not on the phone</td></tr>
+        <tr><th scope="row">Français</th><td>complete</td><td>clean</td><td>“clean”, one term; illness card</td><td>not on the phone</td></tr>
+        <tr><th scope="row">Español (es-419)</th><td>complete</td><td>clean</td><td>“clean”, one term; “falta 1”</td><td>not on the phone</td></tr>
+        <tr><th scope="row">Português (Brasil)</th><td>complete</td><td>clean</td><td>“clean”, one term; “falta 1”; “Até”; “Hoje”</td><td>not on the phone</td></tr>
+        <tr><th scope="row">Русский</th><td>complete</td><td>clean</td><td>“clean”, one term; “Сегодня”; two lines reworded</td><td>pause, payday, audit, probation, hub</td></tr>
+        <tr><th scope="row">日本語</th><td>complete</td><td>clean, no line starting where it may not</td><td>break hints only (no words)</td><td>hub, event card, HUD, payday</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">The capture audit reads every label on every screen of the walk: cut or overflowing text, a label in
+      another language, a raw key, a missing glyph and, in Japanese, a line that begins with a character TextMesh Pro's rules
+      forbid there or a line of one character. Russian, Spanish and Portuguese words run longest; Japanese tests the line
+      breaking and the font fallback.</p>
+    <div class="gallery">
+      <figure><a href="img/check-g-ja-12-hub.jpg"><img src="img/check-g-ja-12-hub.jpg" alt="ja hub" loading="lazy"></a><figcaption>ja · hub · dark, Large</figcaption></figure>
+      <figure><a href="img/check-g-ru-30-event-CarTrouble.jpg"><img src="img/check-g-ru-30-event-CarTrouble.jpg" alt="ru event card" loading="lazy"></a><figcaption>ru · event card · light, Large</figcaption></figure>
+      <figure><a href="img/check-g-fr-10-result.jpg"><img src="img/check-g-fr-10-result.jpg" alt="fr result and payday" loading="lazy"></a><figcaption>fr · result / payday · light, Large</figcaption></figure>
+      <figure><a href="img/check-g-pt-BR-34-probation.jpg"><img src="img/check-g-pt-BR-34-probation.jpg" alt="pt-BR probation" loading="lazy"></a><figcaption>pt-BR · probation · light, Large</figcaption></figure>
+      <figure><a href="img/check-g-es-32-crest-award.jpg"><img src="img/check-g-es-32-crest-award.jpg" alt="es crest award" loading="lazy"></a><figcaption>es · crest award · light, Large</figcaption></figure>
+      <figure><a href="img/check-g-tr-04-exam-sound-cue.jpg"><img src="img/check-g-tr-04-exam-sound-cue.jpg" alt="tr HUD, sound cue" loading="lazy"></a><figcaption>tr · HUD, sound cue · dark, Large</figcaption></figure>
+      <figure><a href="img/check-g-ru-16-manual-open.jpg"><img src="img/check-g-ru-16-manual-open.jpg" alt="ru Rules, rows open" loading="lazy"></a><figcaption>ru · Rules, rows open · light, Large</figcaption></figure>
+      <figure><a href="img/check-g-ja-09-times-up.jpg"><img src="img/check-g-ja-09-times-up.jpg" alt="ja Time's up" loading="lazy"></a><figcaption>ja · Time's up · dark, Large</figcaption></figure>
+    </div>
+
+    <h3>Issues</h3>
+    <div class="list"><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L1</span><h4>Shop tile purpose cut at Large text, in every language</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> At Large text the one-line purpose under each Shop tile ended in an ellipsis: “Finds active phones ne…” in English, “Ubica celulares activos …” and “Repasa los últimos mo…” in Spanish, “Acha celulares ativos po…” in Portuguese. What a tool is for is a fact the player buys on.</p><p><b>Cause.</b> The line was set to one line with an ellipsis, without the design system's rule for a fixed box: shrink first, cut last.</p><p class="now"><b>Now.</b> The line goes through <code>Ui.OneLine</code>, so it shrinks by up to a quarter before anything is cut. The widest translation (Portuguese) needs 87%. LanguageFitTests now runs every language at Large text and fails on any cut label.</p><p class="files">StoreScreen.cs (TileLine)</p></div><div class="pics"><figure><a href="img/check-shop-es-before.jpg"><img src="img/check-shop-es-before.jpg" alt="before, es Large" loading="lazy"></a><figcaption>before, es Large</figcaption></figure><figure><a href="img/check-shop-pt-before.jpg"><img src="img/check-shop-pt-before.jpg" alt="before, pt-BR Large" loading="lazy"></a><figcaption>before, pt-BR Large</figcaption></figure><figure><a href="img/check-shop-es-now.jpg"><img src="img/check-shop-es-now.jpg" alt="now, es Large" loading="lazy"></a><figcaption>now, es Large</figcaption></figure><figure><a href="img/check-shop-pt-now.jpg"><img src="img/check-shop-pt-now.jpg" alt="now, pt-BR Large Light" loading="lazy"></a><figcaption>now, pt-BR Large Light</figcaption></figure></div></div></article><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L2</span><h4>Wardrobe names broke mid-word at Large text</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> Spanish “Camisa reglamentaria” showed as “Camisa reglament…”, and Portuguese “Camisa azul-marinho” needed a third line, in a tile that holds two.</p><p><b>Cause.</b> One long word wider than the tile, at Large text, in a box sized for two lines.</p><p class="now"><b>Now.</b> The name shrinks by up to a quarter before a word is broken or cut, in every language.</p><p class="files">StoreScreen.cs (tile name)</p></div><div class="pics"><figure><a href="img/check-wardrobe-es-before.jpg"><img src="img/check-wardrobe-es-before.jpg" alt="before, es Large" loading="lazy"></a><figcaption>before, es Large</figcaption></figure><figure><a href="img/check-wardrobe-es-now.jpg"><img src="img/check-wardrobe-es-now.jpg" alt="now, es Large" loading="lazy"></a><figcaption>now, es Large</figcaption></figure></div></div></article><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L3</span><h4>Dates at the door wrapped inside the date</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> In Japanese, This exam's “本日：2026年12月11日” split inside the date (“…12月11 / 日”) on the phone at Normal text, and at 720 × 1560 with Large text the ID's “2030年3月21日まで” left “で” alone on a line. With “Today” said in Portuguese and Russian too (see the wording changes), “Hoje: 19 de fev. de 2026” and “Сегодня: 19 февр. 2026 г.” would have broken at a space inside the date.</p><p><b>Cause.</b> This exam's date shared a row with the room and the time and had a third of it; the ID's column is narrow at Large text; and a date was ordinary text that may break anywhere Japanese may, or at any space.</p><p class="now"><b>Now.</b> <b>The date has its own line:</b> the room and the time moved up beside This exam's label (they are short), and the date takes the full row under the exam's name, so the card is no taller. <b>A date is one token</b> TextMesh Pro does not break inside. <b>Where the widest date does not fit the ID's column</b> (at Large text in English, Spanish, Japanese and Portuguese), its label is set on the line above (“Até” / “21 de mar. de 2030”; in Japanese the date, then “まで”). That choice is made once per language and text size from the widest date any month gives, never from the card's own date, so a matching card and a mismatching one are laid out exactly alike (RoomPhase5Tests, and DoorDateLineTests: the same line counts for every date). The ID card takes a little more of its row (1.5 to the person's 1, from 1.3), so the widest date fits on one line at Normal text in every language. The door still leaves the room in view in every language (DoorLayoutTests). Shrinking the date was ruled out: a date that disagrees would be drawn at a different size.</p><p class="files">AdmissionView.cs (BuildExam, date layout), GameText.cs (DoorDate), DoorDateLineTests</p></div><div class="pics"><figure><a href="img/check-door-ja.jpg"><img src="img/check-door-ja.jpg" alt="Japanese door, Large, Dark" loading="lazy"></a><figcaption>ja, Large, Dark</figcaption></figure><figure><a href="img/check-door-pt.jpg"><img src="img/check-door-pt.jpg" alt="Portuguese door, Large, Light" loading="lazy"></a><figcaption>pt-BR, Large, Light</figcaption></figure><figure><a href="img/check-door-ru.jpg"><img src="img/check-door-ru.jpg" alt="Russian door, Large, Dark" loading="lazy"></a><figcaption>ru, Large, Dark</figcaption></figure></div></div></article><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L4</span><h4>The next bill&#x27;s amount was not grouped</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> The Career screen's bill line printed its amount raw in every language: “Bills: 1150 after exam 9”, while every other amount reads “1,150”, “1.150” or “1 150”.</p><p><b>Cause.</b> <code>GameText.NextBillLine</code> passed the amount through the invariant <code>Raw()</code> formatter meant for exam numbers. The bonus-coins line on a purchase did the same.</p><p class="now"><b>Now.</b> Both pass the amount to the language's number format; exam and row numbers stay plain. A new guard builds every fact-bearing line with distinct numbers and fails if any number is missing in the language's own digits and grouping.</p><p class="files">GameText.cs (NextBillLine, bonus coins)</p></div></div></article><article class="finding" data-sev="low" data-st="fixed"><div class="fhead"><span class="sev sev-low">low</span><span class="num">L5</span><h4>Russian rank cut in the top bar at Large text</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> With a four-digit balance at Large text, “Младший наблюдатель”, “Старший наблюдатель” and “Ведущий наблюдатель” were cut with an ellipsis.</p><p><b>Cause.</b> The rank chip may shrink by a quarter; the Russian ranks need about a third.</p><p class="now"><b>Now.</b> The rank is a name and is never cut: its floor is 66% (<code>ChromeView.RankFloor</code>). At Large text it is still about the Normal size. Other languages fit without reaching the floor.</p><p class="files">ChromeView.cs</p></div></div></article><article class="finding" data-sev="low" data-st="fixed"><div class="fhead"><span class="sev sev-low">low</span><span class="num">L6</span><h4>A long French answer squeezed its price tag</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> On the illness card in French at Large text, the answer's “-120” tag was squeezed two pixels short, so its last digit touched the edge.</p><p><b>Cause.</b> The price value had no minimum width, so the answer's long label could take its room.</p><p class="now"><b>Now.</b> The price keeps its full width; the answer's words wrap instead.</p><p class="files">Ui.cs (ButtonCoins)</p></div></div></article><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L7</span><h4>French cut the next school&#x27;s name on the Career screen</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> At Normal text on the 1080 phone, the Career screen's way-up line read “Suivant : Collège des Ri…” beside “Encore 5 examens ici”: the next school, the fact the line is for, was cut.</p><p><b>Cause.</b> Every stat bar label was a one-line ellipsis (<code>Ui.StatBar</code>), against the design system's rule that a row's text wraps and is never cut.</p><p class="now"><b>Now.</b> The label wraps, and the bar grows by a line when it must. The fit guard now fills the Career screen for every school, which is how the case was missed before: its one test career had a shorter next school.</p><p class="files">Ui.cs (StatBar), LanguageFitTests</p></div><div class="pics"><figure><a href="img/check-career-fr-before.jpg"><img src="img/check-career-fr-before.jpg" alt="before, fr 1080" loading="lazy"></a><figcaption>before, fr 1080</figcaption></figure><figure><a href="img/check-career-fr-now.jpg"><img src="img/check-career-fr-now.jpg" alt="now, fr Large" loading="lazy"></a><figcaption>now, fr Large</figcaption></figure></div></div></article><article class="finding" data-sev="medium" data-st="fixed"><div class="fhead"><span class="sev sev-medium">medium</span><span class="num">L8</span><h4>Russian hub cut the probation count (found on the phone)</h4><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext"><p><b>What was seen.</b> On the Galaxy A15, at Normal text, the hub's Career tile read “Испытательный срок: 3 экз…”: the number of clean exams still owed was the part that was cut. Russian probation on the Career screen at Large text was also wider than its whole row.</p><p><b>Cause.</b> A tile's fact was one line that shrinks by a quarter, then cuts. A stat bar's reading never wrapped. The fit guard's hub states had no career on probation.</p><p class="now"><b>Now.</b> A tile's fact may take a second line before it shrinks, and a stat bar's label and reading share the row and both wrap when it is too narrow. The hub states in LanguageFitTests now include probation, in every language at both sizes.</p><p class="files">Ui.cs (Tile, StatBar), LanguageFitTests</p></div><div class="pics"><figure><a href="img/check-hub-ru-phone-before.jpg"><img src="img/check-hub-ru-phone-before.jpg" alt="before, ru phone" loading="lazy"></a><figcaption>before, ru phone</figcaption></figure><figure><a href="img/check-hub-ja-phone-probation.jpg"><img src="img/check-hub-ja-phone-probation.jpg" alt="ja phone, probation" loading="lazy"></a><figcaption>ja phone, probation</figcaption></figure></div></div></article></div>
+
+    <h3 id="ja-breaks">Japanese line breaking</h3>
+    <div class="finding" data-sev="medium"><div class="fhead"><span class="sev sev-medium">medium</span><h3>Japanese broke inside words</h3><span class="status st-fixed">Fixed</span></div><div class="fbody"><div class="ftext">
+      <p><b>What was seen.</b> TextMesh Pro may break Japanese between any two characters. Its kinsoku lists covered only
+        punctuation and small kana, so a reason on the result card wrapped as “…しまし / た。”.</p>
+      <p><b>Fix, in TextMesh Pro's own settings</b> (TMP Settings' line-breaking files, no code):</p>
+      <ul>
+        <li><b>Following characters</b> (may not begin a line) now also hold every hiragana and katakana, so a kana word, an
+          okurigana, a particle or a small kana never starts a line.</li>
+        <li><b>Leading characters</b> (may not end a line) now also hold every kanji, so a kanji compound stays whole
+          (“対応”, not “対 / 応”).</li>
+        <li>A line therefore breaks after kana or punctuation and before a kanji, which is where a Japanese phrase begins.
+          The Japanese tables also carry a zero-width space after 、 。 and ：, a break hint TextMesh Pro honours, so a clause or
+          a value after a label may start a line. No words changed.</li>
+      </ul>
+      <p><b>Other languages are unaffected.</b> TextMesh Pro reads these lists only beside a CJK character, no other
+        language's text has one, and a test holds that English, French and Russian still break only at spaces and hyphens.</p>
+      <p class="now"><b>Now.</b> “記録に何もないまま人に / 対応しました。”; the illness card “…120コイン、 / 飲まなければ…”. The capture
+        audit flags a Japanese line that begins with a character the rules forbid there, or a line of one character; every
+        Japanese screen at 720 × 1560 Large (Dark and Light) and 1080 Normal is clean.
+        <b>The one limit:</b> where a single phrase is wider than its whole line, TextMesh Pro still cuts it where it fills
+        (its last resort). The tests check every Japanese string at the narrowest width that holds a sentence (a hub tile at
+        Large text); none does it there or on any captured screen.</p>
+      <p class="files">TMP Settings: LineBreaking Following Characters.txt, LineBreaking Leading Characters.txt; ja tables
+        (break hints); JapaneseLineBreakTests; UiOverhaulCaptures (audit)</p>
+    </div><div class="pics">
+      <figure><a href="img/check-ja-result.jpg"><img src="img/check-ja-result.jpg" alt="ja result card, reason on two lines" loading="lazy"></a><figcaption>result, ja Large</figcaption></figure>
+      <figure><a href="img/check-ja-illness.jpg"><img src="img/check-ja-illness.jpg" alt="ja illness card" loading="lazy"></a><figcaption>illness card, ja Large</figcaption></figure>
+    </div></div></div>
+
+    <h3 id="wording">Wording changes</h3>
+    <div class="callout"><b>Machine-edited, please have a native speaker confirm.</b> Each change below was made
+      conservatively from a non-native read, keeping the meaning and tone; the English source is beside it.</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Lang</th><th>Key</th><th>English</th><th>Old → new</th><th>Why</th></tr></thead>
+      <tbody><tr><td>es</td><td><code>gametext.balance.short</code></td><td>{missing} short</td><td>faltan {missing} → falta {missing} (1) / faltan {missing}</td><td>The verb agrees with a shortfall of one; uses the plural forms the tables already support.</td></tr><tr><td>es</td><td><code>gametext.balance.shortReaction</code></td><td>You have {coins}, {missing} short.</td><td>Tiene {coins}; faltan {missing}. → Tiene {coins}; falta {missing}. (1) / … faltan …</td><td>As above.</td></tr><tr><td>pt-BR</td><td><code>gametext.balance.short</code></td><td>{missing} short</td><td>faltam {missing} → falta {missing} (1) / faltam {missing}</td><td>As above.</td></tr><tr><td>pt-BR</td><td><code>gametext.balance.shortReaction</code></td><td>You have {coins}, {missing} short.</td><td>Você tem {coins}; faltam {missing}. → Você tem {coins}; falta {missing}. (1) / … faltam …</td><td>As above.</td></tr><tr><td>pt-BR</td><td><code>gametext.date.validUntil</code></td><td>Valid until {date}</td><td>até {date} → Até {date}</td><td>It begins its line.</td></tr><tr><td>pt-BR</td><td><code>gametext.date.today</code></td><td>Today {date}</td><td>{date} → Hoje: {date}</td><td>“Today” is a fact the player compares against.</td></tr><tr><td>ru</td><td><code>gametext.date.today</code></td><td>Today {date}</td><td>{date} → Сегодня: {date}</td><td>As above.</td></tr><tr><td>tr</td><td><code>career.panel.probationLeft</code></td><td>{count} clean exams left</td><td>{count} temiz sınav kaldı → {count} sorunsuz sınav kaldı</td><td>One term for “clean”.</td></tr><tr><td>tr</td><td><code>events.title.cleanRun</code></td><td>A clean run</td><td>Temiz bir seri → Sorunsuz bir seri</td><td>One term for “clean”.</td></tr><tr><td>tr</td><td><code>gametext.money.performanceBonus</code></td><td>Clean-record bonus</td><td>Temiz sicil primi → Sorunsuz sicil primi</td><td>One term for “clean”.</td></tr><tr><td>fr</td><td><code>career.panel.probationLeft</code></td><td>{count} clean exams left</td><td>{count} examens sans incident restants → {count} examens sans faute restants (and the singular)</td><td>One term for “clean”.</td></tr><tr><td>fr</td><td><code>gametext.money.performanceBonus</code></td><td>Clean-record bonus</td><td>Prime de dossier vierge → Prime de dossier sans faute</td><td>One term for “clean”.</td></tr><tr><td>es</td><td><code>career.panel.probationLeft</code></td><td>{count} clean exams left</td><td>Quedan {count} exámenes limpios → Quedan {count} exámenes sin problemas (and the singular)</td><td>One term for “clean”.</td></tr><tr><td>es</td><td><code>events.title.cleanRun</code></td><td>A clean run</td><td>Racha impecable → Racha sin problemas</td><td>One term for “clean”.</td></tr><tr><td>es</td><td><code>gametext.money.performanceBonus</code></td><td>Clean-record bonus</td><td>Bono por expediente limpio → Bono por expediente sin problemas</td><td>One term for “clean”.</td></tr><tr><td>pt-BR</td><td><code>career.panel.probationLeft</code></td><td>{count} clean exams left</td><td>Faltam {count} provas limpas → Faltam {count} provas sem problemas (and the singular)</td><td>One term for “clean”.</td></tr><tr><td>pt-BR</td><td><code>events.title.cleanRun</code></td><td>A clean run</td><td>Sequência limpa → Sequência sem problemas</td><td>One term for “clean”.</td></tr><tr><td>pt-BR</td><td><code>gametext.money.performanceBonus</code></td><td>Clean-record bonus</td><td>Bônus de ficha limpa → Bônus por ficha sem problemas</td><td>One term for “clean”.</td></tr><tr><td>ru</td><td><code>career.panel.probationLeft</code></td><td>{count} clean exams left</td><td>Осталось {count} экзаменов без нарушений → Осталось {count} экзаменов без замечаний (and one, few)</td><td>One term for “clean”.</td></tr><tr><td>ru</td><td><code>hud.result.distinctionWhy</code></td><td>Recognised for steady work at the top posting</td><td>За стабильную работу на высшем месте работы → За стабильную работу на высшем месте</td><td>“месте работы” repeated “работу”; “высшее место” is the Career screen&#x27;s own term for the top posting.</td></tr><tr><td>ru</td><td><code>gametext.event.witness</code></td><td>On {subject}: “{quote}”</td><td>Тема: {subject}. «{quote}» → Тема: {subject} — «{quote}»</td><td>One sentence, as in English, with the subject still a nominative label; no exception left in the guard.</td></tr><tr><td>fr</td><td><code>gametext.event.illness.v1</code></td><td>You wake up feverish; medicine costs {coins}, or you&#x27;ll see and hear less.</td><td>Vous vous réveillez avec de la fièvre ; le médicament coûte {coins}, sinon vous verrez et entendrez moins bien. → Réveil fiévreux ; le médicament coûte {coins}, sinon vous verrez et entendrez moins bien.</td><td>36% over its English, now within the French budget; the fever, the cost and the consequence are all kept.</td></tr><tr><td>fr</td><td><code>gametext.event.illnessWithPill</code></td><td>You wake up feverish; without a pill, you will see and hear less.</td><td>Vous vous réveillez avec de la fièvre ; sans comprimé, … → Réveil fiévreux ; sans comprimé, vous verrez et entendrez moins bien.</td><td>The same opening, so the pill-at-home card reads like the paid one; the pill and the consequence are kept.</td></tr></tbody>
+    </table></div>
+    <p class="muted"><b>“Clean”, one term per language.</b> English says “clean” on the probation card, the Career screen, the
+      clean-run event and the clean-record bonus; five translations used two words for it. Each now uses the term it used
+      most: Türkçe <i>sorunsuz</i> (5 uses against 4), Français <i>sans faute</i> (6 against 3), Español <i>sin problemas</i>
+      (5 against 4), Português <i>sem problemas</i> (5 against 4), Русский <i>без замечаний</i> (9 against 3). The “record is
+      clear” bonus sentence, which English does not call clean, is unchanged.</p>
+    <p class="muted"><b>Left as is:</b> Portuguese “Replay” for the replay tool, a common loanword in Brazil and the same as
+      the tool's icon label.</p>
+
+    <h3>Decided</h3>
+    <div class="cards">
+      <div class="card"><h3>Russian rank floor: 66%</h3><p>The rank chip may shrink its text to 66% (<code>ChromeView.RankFloor</code>)
+        so the Russian ranks are never cut; the ranks keep their full names.</p></div>
+      <div class="card"><h3>The wordmark stays English</h3><p>“EXAM SUPERVISOR” on the title screen is the same in every language,
+        as a brand. Its tagline and buttons are translated.</p></div>
+      <div class="card"><h3>The language switch's frame</h3><p>A language switch costs one frame of 233–466 ms on the Galaxy A15,
+        rebuilding the UI, once, on a deliberate tap. Accepted as it is.</p></div>
+    </div>
+
+    <h3>Still open</h3>
+    <ol class="q">
+      <li><b>Native-speaker review</b> of the six translations, starting with the changes above.</li>
+      <li><b>The allowance for translations.</b> Non-English text may run 60% over its English budget for labels up to five
+        words, 40% up to ten and 30% beyond. One line is over and allowlisted: the Turkish consent card title from M135
+        (“Oyunu geliştirmeye yardım eder misiniz?”, 6% over), which no screen draws yet.</li>
+    </ol>
+
+    <h3>On the phone</h3>
+    <p>A development build of the localization branch on a Galaxy A15 (1080 × 2340), with the player's own pre-localization
+      save, backed up first and restored afterwards with matching sha256 checksums. The language was changed with the game's
+      own setting. The old save opened into its pending result and payday in Japanese and played on through an event card,
+      the door and the room. Switching to Russian while paused updated the pause and, on resume, the result, an audit notice,
+      the probation card and the hub; switching back from the hub was the same. Measured worst frame of a switch: 255 ms on
+      the first switch to Japanese, 466 ms mid-exam, 233 ms on a repeat. The phone pass came before the door's date layout
+      and the Japanese line breaking were changed; both are checked in the captures above, not on the phone.</p>
+    <div class="gallery">
+      <figure><a href="img/check-p-ja-hub.jpg"><img src="img/check-p-ja-hub.jpg" alt="ja hub on the phone" loading="lazy"></a><figcaption>ja · hub</figcaption></figure>
+      <figure><a href="img/check-p-ja-event.jpg"><img src="img/check-p-ja-event.jpg" alt="ja event card on the phone" loading="lazy"></a><figcaption>ja · event card</figcaption></figure>
+      <figure><a href="img/check-p-ja-hud.jpg"><img src="img/check-p-ja-hud.jpg" alt="ja HUD on the phone" loading="lazy"></a><figcaption>ja · HUD</figcaption></figure>
+      <figure><a href="img/check-p-ja-payday.jpg"><img src="img/check-p-ja-payday.jpg" alt="ja payday on the phone" loading="lazy"></a><figcaption>ja · payday</figcaption></figure>
+      <figure><a href="img/check-p-ru-pause.jpg"><img src="img/check-p-ru-pause.jpg" alt="ru, switched in the pause" loading="lazy"></a><figcaption>ru · switched in the pause</figcaption></figure>
+      <figure><a href="img/check-p-ru-payday.jpg"><img src="img/check-p-ru-payday.jpg" alt="ru payday" loading="lazy"></a><figcaption>ru · payday</figcaption></figure>
+      <figure><a href="img/check-p-ru-probation.jpg"><img src="img/check-p-ru-probation.jpg" alt="ru probation" loading="lazy"></a><figcaption>ru · probation</figcaption></figure>
+    </div>
+
+    <h3>The guards</h3>
+    <div class="cards">
+      <div class="card"><h3>TextRules, by language</h3><p><code>TextRules.Measure / Budget</code>: English counts words, Japanese characters (a full-width character 1, a half-width one ½, a break hint 0), every other language its width in ems, with +60% for labels up to five words, +40% up to ten and +30% for sentences. <code>OneSentence</code> does not split on an ordinal (“{index}. sınav”) or an abbreviation (“máx.”).</p></div>
+      <div class="card"><h3>LanguageTextRuleTests</h3><p>Over every translation: every table string within its budget and one sentence where English is one (no exceptions left); every event card's parts, log lines, rule chips, Rules rows, toasts, stamps and the sound cue; each screen's total. M135's strings in all seven languages are included.</p></div>
+      <div class="card"><h3>Facts kept, every language</h3><p><code>EveryFactBearingLineKeepsItsFacts</code>: each fact-bearing line keeps its numbers in the language's own digits and grouping (the cost cards and their answers, “N short”, bills, probation, “clean”, crest progress, the result's reason). LocalizationTests holds the verb to the count: Spanish and Portuguese say “falta 1” and “faltan 2”.</p></div>
+      <div class="card"><h3>Fairness, every language</h3><p><code>NoToastOrStampDependsOnWhetherThePlayerWasRight</code>: a toast is the same text whatever the evidence or whether the person cheated.</p></div>
+      <div class="card"><h3>DoorDateLineTests (new)</h3><p>Every language at Normal and Large, every month with a one- and a two-digit day: no date on the door breaks inside itself, nothing is cut, and the date lines are as tall for every date, so a card never shows a long date differently from a short one.</p></div>
+      <div class="card"><h3>JapaneseLineBreakTests (new)</h3><p>Every kana is on the may-not-begin list and every kanji on the may-not-end list; every Japanese table string, filled, breaks only where the rules allow and has no one-character line, from a hub tile's width to a card's; the two reasons that split stay whole; English, French and Russian still break only at spaces.</p></div>
+      <div class="card"><h3>LanguageFitTests at Large text</h3><p>Every case runs at Normal and Large in all seven languages: the action card and dock, the door and its stamp, Shop and Wardrobe, the rank chip, the hub at every school, Settings, Career, Rules, the brief, the title and every event card. DoorLayoutTests keeps the room in view in every language.</p></div>
+      <div class="card"><h3>LanguageSwitchStaleTests (PlayMode)</h3><p>Switches language on a real career on every screen, then back to English, and fails on any visible label in the old language or a raw key.</p></div>
+      <div class="card"><h3>Captures</h3><p><code>UiOverhaulCaptures.Languages(lang, width, light, large)</code> walks every screen in a language and writes a text audit: overflow, wrong-language label, raw key, missing glyph and, in Japanese, a forbidden line start or a one-character line.</p></div>
+    </div>
+
+    <h3>Checked and found right</h3>
+    <div class="cards">
+      <div class="card"><h3>Coverage</h3><p>Every English key in every language, or its plural or gendered forms (Russian one/few/many, Japanese one form). Placeholders match by name in every string. No English left where it is not a name or a common loanword (Normal, Jeans, Blazer, Bob, Pin, Replay).</p></div>
+      <div class="card"><h3>Numbers and dates</h3><p>Grouping by language (1,150 · 1.150 · 1 150 with a no-break space, so a number never breaks). The door's dates read “Valid until 28 Jun 2027”, “Fin : 28 juin 2027”, “До 28 июн. 2027 г.”, “2027年6月28日まで”; This exam's “Today 3 Mar 2026”, “Hoje: 3 de mar. de 2026”, “Сегодня: 3 мар. 2026 г.”, “本日：2026年3月3日”.</p></div>
+      <div class="card"><h3>Coins</h3><p>The drawn gold coin in every language, no “¢”, and the amount word in the language's plural (120 pièces, 120 монет, 120コイン, 120 altın).</p></div>
+      <div class="card"><h3>Fonts</h3><p>Liberation Sans, its dynamic fallback, then Noto Sans JP. No missing glyph in any capture. The break hint (zero-width space) is in Liberation Sans.</p></div>
     </div>
   </section>
 </div>
