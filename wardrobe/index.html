@@ -597,7 +597,7 @@ ol.next { padding-left: 22px; }
       <figure class="cand pick" id="supporter-tweed">
         <span class="badge-pick">Chosen</span><h3>Tweed Jacket</h3>
         <div class="meta"><span>Top</span><span><code>top_tweed</code></span><span><code>ward_top_tweed_m</code> / <code>_f</code></span></div>
-        <p>A warm heather-brown jacket cut like the blazer, with notch lapels, an open-necked pale blue shirt and no tie, three leather buttons, patch pockets and dark suede elbow patches. Low-poly and flat-shaded, like the rest of the wardrobe.</p>
+        <p>A warm heather-brown jacket cut like the blazer, with notch lapels, an open-necked pale blue shirt and no tie, three leather buttons, patch pockets and dark suede elbow patches, about 10 × 7 cm, on the back of the elbow joint. Low-poly and flat-shaded, like the rest of the wardrobe.</p>
         <p class="why">Next to the navy blazer it reads as a different jacket, not a new colour: brown instead of navy, no tie, and elbow patches you can see from behind and at room distance.</p>
         <div class="tiles">
           <div class="tile dark"><img src="img/supporter-tweed-tile.jpg" alt="Tweed Jacket store tile art, Dark" loading="lazy" width="480" height="230"><b>Tweed Jacket</b><span>Supporter Pack</span></div>
@@ -631,12 +631,12 @@ ol.next { padding-left: 22px; }
     </div>
     <figure class="cand">
       <img src="img/supporter-tweed-close.jpg" alt="Close-ups: the man's chest with the Supporter Badge, his left elbow patch, the woman's chest with the badge, her elbow patch" loading="lazy" width="2080" height="520">
-      <p class="why">Close up: the Supporter Badge on each body's chest beside the lapel, and the suede patch on the back of the left elbow.</p>
+      <p class="why">Close up: the Supporter Badge on each body's chest beside the lapel, and the suede patch on the back of the left elbow. Each patch is centred on the elbow joint (the kit's <code>LowerArm</code> bone), where the sleeve bends in PresentDocument. The kit's upper arm is short, so in Standing the joint, and so the patch, sits at chest height, well above the jacket hem.</p>
     </figure>
 
     <div class="note">
       <b>Checks: all pass.</b>
-      <p>Skin poke-through in Standing, Walking and PresentDocument across slim, average and heavy: at worst 12 of 726 skin vertices on the man and 16 of 852 on the woman, the same as the blazer. Seams: no cracks and no gaps. The hem stays within 7.7 mm of the trousers' waistband in every build (the limit is 10 mm), and the build shapes are present on every primitive. The jacket is 1,379 triangles on the man and 1,468 on the woman, fewer than the blazer (1,403 and 1,508), so the heaviest dressed figure does not get heavier. With the jacket, the heaviest figures are 8,663 (man) and 8,538 (woman) triangles.</p>
+      <p>Skin poke-through in Standing, Walking and PresentDocument across slim, average and heavy: at worst 12 of 726 skin vertices on the man and 16 of 852 on the woman, the same as the blazer. Seams: no cracks and no gaps. The hem stays within 4 mm of the trousers' waistband in every build (the limit is 10 mm), and the build shapes are present on every primitive. The patches take the sleeve's own skin weights and build offsets, and they stay on top of the sleeve in every clip and build. The jacket is 1,365 triangles on the man and 1,468 on the woman, fewer than the blazer (1,403 and 1,508), so the heaviest dressed figure does not get heavier. With the jacket, the heaviest figures are 8,647 (man) and 8,538 (woman) triangles.</p>
     </div>
     <ul class="next small">
       <li><b>Roles:</b> <code>Ward_Main</code> is the tweed, <code>Ward_Trim</code> the shirt, and <code>Ward_Detail</code> the suede elbow patches and the buttons. Each top also has the <code>Proctor_Skin</code> neck lining. There is no woven check pattern: the shell's faces are too large for a check to read as cloth, and the three roles are all used.</li>
