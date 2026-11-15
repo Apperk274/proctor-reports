@@ -13,6 +13,12 @@
   },
   {
     "date": "2026-11-14",
+    "author": "ardakabadayi",
+    "slug": "localization-check",
+    "change": "Added the localization check: per-language status, eight issues with captures, the new language-aware guards, phone results and open questions."
+  },
+  {
+    "date": "2026-11-14",
     "author": "Apperk274",
     "slug": "app-icon-shop",
     "change": "Added eight more icon alternatives in new styles (mascot, monogram, duotone, close-up, emblem, light macro) and re-ranked all sixteen."

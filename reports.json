@@ -31,6 +31,12 @@
   ],
   "reports": [
     {
+      "slug": "localization-check",
+      "title": "Localization Check",
+      "category": "look-and-feel",
+      "summary": "Every screen in seven languages at the worst case, with cut labels fixed, text rules per language, and a live language switch checked on the phone."
+    },
+    {
       "slug": "proctor-base-comparison",
       "title": "Proctor Base Comparison",
       "category": "look-and-feel",
