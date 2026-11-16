@@ -265,6 +265,7 @@ section { display: grid; gap: 20px; }
 
 
 
+
   <section id="animation">
     <div class="section-head">
       <span class="eyebrow">student-characters branch · phase 2 · not in the game yet</span>
@@ -278,7 +279,7 @@ section { display: grid; gap: 20px; }
     </div>
     <div class="stats">
       <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
-      <div class="stat"><span class="big">337/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
+      <div class="stat"><span class="big">329/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
       <div class="stat"><span class="big">0</span><span>runtime IK: the contact is in the clips</span></div>
       <div class="stat"><span class="big">8–11 cm</span><span>closer paper, by band, than the game places it (see below)</span></div>
     </div>
@@ -478,9 +479,9 @@ section { display: grid; gap: 20px; }
       <article class="mclip">
         <video src="vid/anim/Thinking.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Thinking, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
         <div class="meta">
-          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Thinking</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Thinking</span><span class="tag limit">8 fail</span></div>
           <div class="facts2"><span>5.97 s</span><span>not used</span><span>no mirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">No mirror in the source.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">No mirror in the source. Near the end the face sinks into the desk top (fails; not used by the game).</div>
           <a href="img/anim/sheet_Thinking.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -563,20 +564,25 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">dangle_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">face_vs_source_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">foot_slide_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">head_furniture_mm</span><span class="c">8 clips fail</span><span class="d">Thinking</span></div>
+      <div role="row"><span class="p">head_into_desk_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">knee_clearance_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">leg_desk_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">loop_seam_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">loop_seam_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">mirror_mm</span><span class="c">pass</span><span class="d"></span></div>
-      <div role="row"><span class="p">seat_gap_mm</span><span class="c">8 clips fail</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">seat_gap_mm</span><span class="c">6 clips fail</span><span class="d">Fidget</span></div>
       <div role="row"><span class="p">seated_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">seated_sole_mm</span><span class="c">2 clips fail</span><span class="d">Fidget</span></div>
       <div role="row"><span class="p">shoe_below_floor_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">shoe_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">short_arm_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">standing_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">standing_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">thigh_into_seat_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">timing_shift_frames</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">top_furniture_mm</span><span class="c">1 clips fail</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">top_into_back_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">walk_lowest_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_elbow_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_hand_off_paper</span><span class="c">pass</span><span class="d"></span></div>
@@ -588,7 +594,7 @@ section { display: grid; gap: 20px; }
       <li><b>Resting hands often go to the lap.</b> From the upright idle poses most students cannot rest a hand on the desk with a bent elbow, so those hands rest on the thighs, often fingers down with the wrist a little raised.</li>
       <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
       <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
-      <li><b>Fidget fails its checks</b> (it is not used by the game): with the feet planted, its leg swing lifts the hips 2–4 cm off the seat and a forearm crosses into the torso. The adult man's ThinkingHardMirror has a forearm 0.5 mm past the torso limit where the jaw rests on the hand.</li>
+      <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top. The adult man's ThinkingHardMirror has a forearm 0.5 mm past the torso limit where the jaw rests on the hand.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
       <li><b>Not in the game yet.</b> Loading the clips, the missing head-aim transforms, the bone names and the paper offset are the Unity phase.</li>
     </ul></div>
