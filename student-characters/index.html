@@ -144,7 +144,7 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted"><a href="#new-students">New age-banded students on the student-characters branch</a> (phase 1, not in the game yet) are in the first section.</p>
+    <p class="muted"><a href="#new-students">New age-banded students on the student-characters branch</a> (phase 1, not in the game yet) are in the first section, and <a href="#animation">their animation</a> (phase 2) in the second.</p>
   </header>
 
   <section id="new-students">
@@ -154,7 +154,8 @@ section { display: grid; gap: 20px; }
       <p class="muted">The students below this section are what <code>main</code> ships today. This section is the new
         art on the <code>student-characters</code> branch: students built from the proctor's Quaternius kit in four age
         bands (child, young teen, older teen, adult), rebuilt low-poly for the phone. Phase 1 is bodies, heads, hair and
-        clothes; animation and the game side come next, so every pose here is a static frame of the game's own clips.
+        clothes, shown in static frames of the game's own clips posed at render time; the clips baked onto every band
+        (phase 2) are in <a href="#animation">Animation</a> below, and the game side comes next.
         Every render is from the build scripts in <code>ArtSource/Characters/Students/</code>.</p>
     </div>
     <div class="stats">
@@ -230,7 +231,7 @@ section { display: grid; gap: 20px; }
 <figure><img src="img/new/facial-hair.jpg" alt="Facial hair" loading="lazy"><figcaption>Older teen stubble; adult stubble, moustache and beard, black and grey.</figcaption></figure>
 <figure><img src="img/new/older.jpg" alt="Older-looking adults" loading="lazy"><figcaption>Four older-looking adults (heavy build at 0.55, grey or white hair) beside two slim-build adults.</figcaption></figure>
 </div></div>
-    <div class="sub"><h3>Seated at the shared desk</h3><p class="muted">One man and one woman per band. Small bodies sit on the same 0.475 m seat and reach up to the same desk. Young teens and older plant their feet flat on the floor; children’s feet hang just above it, relaxed. Desk contact animation is phase 2.</p>
+    <div class="sub"><h3>Seated at the shared desk</h3><p class="muted">One man and one woman per band. Small bodies sit on the same 0.475 m seat and reach up to the same desk. Young teens and older plant their feet flat on the floor; children’s feet hang just above it, relaxed. The baked desk-contact clips are in <a href="#animation">Animation</a> below.</p>
 <figure><img src="img/new/seated.jpg" alt="Seated students per band" loading="lazy"><figcaption>Top: child, young teen, older teen, adult (men and women alternating).</figcaption></figure>
     </div>
     <div class="sub"><h3>Triangles per student</h3><div class="posetable"><div><span>band</span><span>min–max</span><span>notes</span></div><div><span class="p">Child, 7–10, men</span><span class="c">2,058–2,898</span><span class="d">80 combinations; heaviest: face_m_01, spiky hair, uniform white trousers, glasses</span></div><div><span class="p">Child, 7–10, women</span><span class="c">2,373–2,872</span><span class="d">160 combinations; heaviest: face_f_01, long hair, uniform white trousers, glasses</span></div><div><span class="p">Young teen, 11–14, men</span><span class="c">1,937–2,901</span><span class="d">240 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses</span></div><div><span class="p">Young teen, 11–14, women</span><span class="c">2,228–2,855</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Older teen, 15–18, men</span><span class="c">1,958–2,983</span><span class="d">480 combinations; heaviest: face_m_01, short hair, polo chinos, glasses, stubble</span></div><div><span class="p">Older teen, 15–18, women</span><span class="c">2,233–2,852</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Adult, 19+, men</span><span class="c">1,958–2,990</span><span class="d">960 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses, stubble</span></div><div><span class="p">Adult, 19+, women</span><span class="c">2,209–2,841</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div></div>
@@ -262,6 +263,326 @@ section { display: grid; gap: 20px; }
 
 
 
+
+  <section id="animation">
+    <div class="section-head">
+      <span class="eyebrow">student-characters branch · phase 2 · not in the game yet</span>
+      <h2>Animation: the game's clips on every band</h2>
+      <p class="muted">The game's 44 student clips (23 motions, 21 with a mirror), baked onto the man and woman of every
+        band with the seat, desk, paper, bag and floor contact built in, so there is no runtime IK. Everything the bake
+        uses is data in the repo (the furniture is the game's own prefabs and placements), and a rebuild reproduces the
+        same clips. The rigs differ in bone length, so each band and sex has its own clips: one animation file per rig,
+        with the clip names the game already uses. Videos show every band at the shared desk from the game camera:
+        child, young teen, older teen, adult from left to right, men above, women below.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
+      <div class="stat"><span class="big">337/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
+      <div class="stat"><span class="big">0</span><span>runtime IK: the contact is in the clips</span></div>
+      <div class="stat"><span class="big">13 cm</span><span>closer paper for children; 8 cm for adults (see below)</span></div>
+    </div>
+    <div class="sub"><h3>Four bands, Writing and HandRaised</h3><p class="muted">The same frame of each clip on child, young teen, older teen and adult, from the game camera and from the side. Writing at frame 100; HandRaised at its held peak.</p>
+      <div class="figs">
+        <figure><img src="img/anim/compare_Writing_m_game.jpg" alt="Writing, four bands, men, game camera" loading="lazy"><figcaption><b>Writing, men,</b> game camera.</figcaption></figure>
+        <figure><img src="img/anim/compare_Writing_f_game.jpg" alt="Writing, four bands, women, game camera" loading="lazy"><figcaption><b>Writing, women,</b> game camera.</figcaption></figure>
+        <figure><img src="img/anim/compare_Writing_m_side.jpg" alt="Writing, four bands, men, side view" loading="lazy"><figcaption><b>Writing, men,</b> side.</figcaption></figure>
+        <figure><img src="img/anim/compare_Writing_f_side.jpg" alt="Writing, four bands, women, side view" loading="lazy"><figcaption><b>Writing, women,</b> side.</figcaption></figure>
+        <figure><img src="img/anim/compare_HandRaised_m_game.jpg" alt="HandRaised, four bands, men, game camera" loading="lazy"><figcaption><b>HandRaised, men,</b> game camera.</figcaption></figure>
+        <figure><img src="img/anim/compare_HandRaised_f_game.jpg" alt="HandRaised, four bands, women, game camera" loading="lazy"><figcaption><b>HandRaised, women,</b> game camera.</figcaption></figure>
+        <figure><img src="img/anim/compare_HandRaised_m_side.jpg" alt="HandRaised, four bands, men, side view" loading="lazy"><figcaption><b>HandRaised, men,</b> side.</figcaption></figure>
+        <figure><img src="img/anim/compare_HandRaised_f_side.jpg" alt="HandRaised, four bands, women, side view" loading="lazy"><figcaption><b>HandRaised, women,</b> side.</figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>The paper is out of reach where the game puts it</h3><p class="muted">The exam paper sits in the middle of the desk, its near edge 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 13 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which still leaves it on the desk. The renders show the paper there. The game has to move the paper by the same amount when this ships; left where it is, the writing hand lands on the desk short of the sheet. Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
+    <div class="sub"><h3>Every motion</h3><p class="muted">Each video is the whole clip at 15 fps. The key-frame sheet (link under each video) is three moments rendered with lighting, men left and women right. Mirrors are the plain clip reflected, so they are not shown.</p>
+    <div class="mgrid">
+      <article class="mclip">
+        <video src="vid/anim/Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Writing</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>7.97 s</span><span>loops</span><span>mirror: WritingMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The writing hand on the band's paper spot, the other hand holding the sheet; forearms come down to the desk edge.</div>
+          <a href="img/anim/sheet_Writing.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/WritingLoop.mp4" autoplay muted loop playsinline preload="metadata" aria-label="WritingLoop, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WritingLoop</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>9.97 s</span><span>loops</span><span>mirror: WritingLoopMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults, 44° for children).</div>
+          <a href="img/anim/sheet_WritingLoop.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Erasing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Erasing, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Erasing</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>3.97 s</span><span>not used</span><span>mirror: ErasingMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The scrub is kept at half its source travel so the elbow stays bent.</div>
+          <a href="img/anim/sheet_Erasing.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/IdleCalm.mp4" autoplay muted loop playsinline preload="metadata" aria-label="IdleCalm, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">IdleCalm</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>7.97 s</span><span>loops</span><span>mirror: IdleCalmMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Hands resting on the desk; teens and adults with both feet flat (no lifted heel); children's feet hanging.</div>
+          <a href="img/anim/sheet_IdleCalm.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Reading.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Reading, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Reading</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>7.97 s</span><span>not used</span><span>mirror: ReadingMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Both hands on the desk near its edge.</div>
+          <a href="img/anim/sheet_Reading.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/ReadingElbows.mp4" autoplay muted loop playsinline preload="metadata" aria-label="ReadingElbows, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">ReadingElbows</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>7.97 s</span><span>not used</span><span>mirror: ReadingElbowsMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Elbows towards the desk, hands up; forearms kept out of the desk top.</div>
+          <a href="img/anim/sheet_ReadingElbows.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/HoldItem.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HoldItem, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">HoldItem</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: HoldItemMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">One hand on the desk, the other up holding the item.</div>
+          <a href="img/anim/sheet_HoldItem.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/CheckWatch.mp4" autoplay muted loop playsinline preload="metadata" aria-label="CheckWatch, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">CheckWatch</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>4.50 s</span><span>plays to its end</span><span>mirror: CheckWatchMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The resting hand on the desk; the watch arm comes up from it.</div>
+          <a href="img/anim/sheet_CheckWatch.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/CheckClock.mp4" autoplay muted loop playsinline preload="metadata" aria-label="CheckClock, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">CheckClock</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>3.97 s</span><span>plays to its end</span><span>mirror: CheckClockMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The head keeps the source's look towards the clock (within 15°).</div>
+          <a href="img/anim/sheet_CheckClock.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/ThinkingHard.mp4" autoplay muted loop playsinline preload="metadata" aria-label="ThinkingHard, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">ThinkingHard</span><span class="tag limit">1 fail</span></div>
+          <div class="facts2"><span>6.00 s</span><span>loops</span><span>mirror: ThinkingHardMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Jaw on one hand, the other on the desk.</div>
+          <a href="img/anim/sheet_ThinkingHard.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/HandRaised.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HandRaised, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">HandRaised</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>5.97 s</span><span>held at peak</span><span>mirror: HandRaisedMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The raised arm is the source's; the other hand rests on the desk. Held at its peak in the game.</div>
+          <a href="img/anim/sheet_HandRaised.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/GlanceNeighbour.mp4" autoplay muted loop playsinline preload="metadata" aria-label="GlanceNeighbour, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">GlanceNeighbour</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>3.97 s</span><span>loops</span><span>mirror: GlanceNeighbourMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The head keeps the source's direction; hands stay on the desk.</div>
+          <a href="img/anim/sheet_GlanceNeighbour.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/WhisperLeft.mp4" autoplay muted loop playsinline preload="metadata" aria-label="WhisperLeft, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WhisperLeft</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>3.97 s</span><span>loops</span><span>mirror: WhisperMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The lean and head turn of the source; hands on the desk.</div>
+          <a href="img/anim/sheet_WhisperLeft.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Whisperer.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Whisperer, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Whisperer</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: WhispererMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Hand cupped at the mouth, head turned to the neighbour.</div>
+          <a href="img/anim/sheet_Whisperer.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Listener.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Listener, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Listener</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: ListenerMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Leans in, face turned to the whisperer.</div>
+          <a href="img/anim/sheet_Listener.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/ReachBag.mp4" autoplay muted loop playsinline preload="metadata" aria-label="ReachBag, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">ReachBag</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>6.00 s</span><span>held at peak</span><span>mirror: ReachBagMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Leans sideways down to the bag (x ±0.55); the wrist ends below 0.45 m within 0.15 m of it for every band.</div>
+          <a href="img/anim/sheet_ReachBag.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Stretch.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Stretch, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Stretch</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>5.97 s</span><span>plays to its end</span><span>mirror: StretchMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Arms up and back down to the desk.</div>
+          <a href="img/anim/sheet_Stretch.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Fidget.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Fidget, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Fidget</span><span class="tag limit">14 fail</span></div>
+          <div class="facts2"><span>5.97 s</span><span>not used</span><span>mirror: FidgetMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Fails its checks (see below); not used by the game.</div>
+          <a href="img/anim/sheet_Fidget.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/PhoneLap.mp4" autoplay muted loop playsinline preload="metadata" aria-label="PhoneLap, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">PhoneLap</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>5.97 s</span><span>not used</span><span>no mirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Hands in the lap under the desk edge; no mirror in the source.</div>
+          <a href="img/anim/sheet_PhoneLap.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Thinking.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Thinking, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Thinking</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>5.97 s</span><span>not used</span><span>no mirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">No mirror in the source.</div>
+          <a href="img/anim/sheet_Thinking.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Standing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Standing, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Standing</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: StandingMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Both feet planted flat at one spot for the whole clip.</div>
+          <a href="img/anim/sheet_Standing.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/PresentDocument.mp4" autoplay muted loop playsinline preload="metadata" aria-label="PresentDocument, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">PresentDocument</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>3.00 s</span><span>loops</span><span>mirror: PresentDocumentMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">Feet planted; the document arm is the source's.</div>
+          <a href="img/anim/sheet_PresentDocument.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+      <article class="mclip">
+        <video src="vid/anim/Walking.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Walking, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <div class="meta">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Walking</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
+          <div class="facts2"><span>1.03 s</span><span>loops</span><span>mirror: WalkingMirror</span></div>
+          <div style="font-size:0.9rem;color:var(--muted)">The lowest shoe vertex is put on the floor every frame.</div>
+          <a href="img/anim/sheet_Walking.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+        </div>
+      </article>
+    </div></div>
+    <div class="sub"><h3>Clips</h3>
+    <div class="posetable" role="table" aria-label="Student clips">
+      <div role="row"><span role="columnheader">Clip · mirror</span><span role="columnheader">Plays</span><span role="columnheader">Game pose</span></div>
+      <div role="row"><span class="p">Writing · WritingMirror</span><span class="c">loops · 7.97 s</span><span class="d">Writing</span></div>
+      <div role="row"><span class="p">WritingLoop · WritingLoopMirror</span><span class="c">loops · 9.97 s</span><span class="d">Writing</span></div>
+      <div role="row"><span class="p">Erasing · ErasingMirror</span><span class="c">not used · 3.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">IdleCalm · IdleCalmMirror</span><span class="c">loops · 7.97 s</span><span class="d">Idle, ReactingToApproach</span></div>
+      <div role="row"><span class="p">Reading · ReadingMirror</span><span class="c">not used · 7.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">ReadingElbows · ReadingElbowsMirror</span><span class="c">not used · 7.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">HoldItem · HoldItemMirror</span><span class="c">loops · 4.00 s</span><span class="d">HoldingItem</span></div>
+      <div role="row"><span class="p">CheckWatch · CheckWatchMirror</span><span class="c">plays to its end · 4.50 s</span><span class="d">CheckingClock</span></div>
+      <div role="row"><span class="p">CheckClock · CheckClockMirror</span><span class="c">plays to its end · 3.97 s</span><span class="d">CheckingClock</span></div>
+      <div role="row"><span class="p">ThinkingHard · ThinkingHardMirror</span><span class="c">loops · 6.00 s</span><span class="d">Fidgeting</span></div>
+      <div role="row"><span class="p">HandRaised · HandRaisedMirror</span><span class="c">held at peak · 5.97 s</span><span class="d">HandRaised</span></div>
+      <div role="row"><span class="p">GlanceNeighbour · GlanceNeighbourMirror</span><span class="c">loops · 3.97 s</span><span class="d">Glancing</span></div>
+      <div role="row"><span class="p">WhisperLeft · WhisperMirror</span><span class="c">loops · 3.97 s</span><span class="d">LeaningToNeighbour</span></div>
+      <div role="row"><span class="p">Whisperer · WhispererMirror</span><span class="c">loops · 4.00 s</span><span class="d">Whispering</span></div>
+      <div role="row"><span class="p">Listener · ListenerMirror</span><span class="c">loops · 4.00 s</span><span class="d">Listening</span></div>
+      <div role="row"><span class="p">ReachBag · ReachBagMirror</span><span class="c">held at peak · 6.00 s</span><span class="d">ReachingPocket, ReachingBag, UnderDesk</span></div>
+      <div role="row"><span class="p">Stretch · StretchMirror</span><span class="c">plays to its end · 5.97 s</span><span class="d">Stretching</span></div>
+      <div role="row"><span class="p">Fidget · FidgetMirror</span><span class="c">not used · 5.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">PhoneLap</span><span class="c">not used · 5.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">Thinking</span><span class="c">not used · 5.97 s</span><span class="d">not in the pose table</span></div>
+      <div role="row"><span class="p">Standing · StandingMirror</span><span class="c">loops · 4.00 s</span><span class="d">Standing</span></div>
+      <div role="row"><span class="p">PresentDocument · PresentDocumentMirror</span><span class="c">loops · 3.00 s</span><span class="d">PresentingDocument</span></div>
+      <div role="row"><span class="p">Walking · WalkingMirror</span><span class="c">loops · 1.03 s</span><span class="d">Walking</span></div>
+    </div>
+    <p class="muted">Looping clips start and end on the same frame (checked: every bone within 5 mm and 2°). Held and finishing clips keep the source's length and hand travel, so the game can still measure their hold, release and settle times from them.</p></div>
+    <div class="sub"><h3>What the bake does</h3>
+      <div class="traits">
+        <div class="card"><h3>Rotations, per band</h3><p>Each source frame is retargeted by rotation with whole-frame alignment onto the band's own skeleton, feet relative to the clip's own rest. Only the hips (Body) carry a translation, scaled to the band.</p></div>
+        <div class="card"><h3>Seat</h3><p>Children sit 16.5 cm forward of the seat point, adults 10 cm, so they can reach the desk. The trouser mesh is measured every second frame and the body raised or lowered until it rests on the seat; a thigh may press at most about 2 cm into the seat's front edge.</p></div>
+        <div class="card"><h3>Hands</h3><p>The writing hand and the hand holding the sheet are on the paper; resting hands are put on the desk where the source had them near it, at a distance the band can reach. Each hand's height comes from its own mesh. The elbow swings to the lowest position that keeps the forearm out of the desk.</p></div>
+        <div class="card"><h3>Lean</h3><p>Where a target is beyond about 90 % of the arm, the spine leans forward (sideways to the bag) within a per-band limit. The head turns back what it should not follow, so glances, clock checks and whispers look where the source looks.</p></div>
+        <div class="card"><h3>Feet</h3><p>Young teens, older teens and adults plant both feet flat at one spot per rig, the same in every seated clip, so cross-fades do not slide them; IdleCalm no longer lifts a heel. Children's legs hang relaxed, the foot 14° toe-down, 8–25 cm above the floor.</p></div>
+        <div class="card"><h3>Standing and walking</h3><p>Standing and PresentDocument plant both feet flat for the whole clip. The walk keeps its stride, and the lowest shoe vertex is put on the floor every frame.</p></div>
+      </div>
+    </div>
+    <div class="sub"><h3>Checks</h3><p class="muted">Every clip of every band and sex, re-imported from the exported files and played on the band's arms, trousers and shoes, every second frame. A row lists the motions that fail it.</p>
+    <div class="posetable" role="table" aria-label="Animation checks">
+      <div role="row"><span role="columnheader">Check</span><span role="columnheader">Result</span><span role="columnheader">Failing motions</span></div>
+      <div role="row"><span class="p">arm_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">arm_in_torso_mm</span><span class="c">9 clips fail</span><span class="d">Fidget, ThinkingHard</span></div>
+      <div role="row"><span class="p">bag_wrist_xy</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">bag_wrist_z</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">body_chair_back_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">dangle_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">dangle_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">face_vs_source_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">foot_slide_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">knee_clearance_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">leg_desk_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">loop_seam_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">loop_seam_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">mirror_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">seat_gap_mm</span><span class="c">8 clips fail</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">seated_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">seated_sole_mm</span><span class="c">2 clips fail</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">shoe_below_floor_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">shoe_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">standing_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">standing_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">thigh_into_seat_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">walk_lowest_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">writing_elbow_deg</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">writing_hand_off_paper</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">writing_hand_paper_gap_mm</span><span class="c">pass</span><span class="d"></span></div>
+    </div></div>
+    <div class="sub"><h3>Rough edges</h3><ul class="limits">
+      <li><b>The game's paper is out of reach.</b> The clips write on a paper 8–13 cm closer than where the game puts it; the game must move it per band, or the hand writes on the desk short of the sheet.</li>
+      <li><b>Everyone leans well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. Children's heads come close to the desk.</li>
+      <li><b>Children's resting hands are at the desk edge</b> with nearly straight arms: from the seat they cannot reach further without leaning.</li>
+      <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
+      <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
+      <li><b>Fidget fails its checks</b> (it is not used by the game): with the feet planted, its leg swing lifts the hips 2–4 cm off the seat and a forearm crosses into the torso. The adult man's ThinkingHardMirror has a forearm 0.6 mm past the torso limit where the jaw rests on the hand.</li>
+      <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
+      <li><b>Not in the game yet.</b> Loading the clips, the missing head-aim transforms, the bone names and the paper offset are the Unity phase.</li>
+    </ul></div>
+  </section>
 
   <section id="classroom">
     <div class="section-head">
