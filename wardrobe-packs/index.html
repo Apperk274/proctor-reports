@@ -163,7 +163,7 @@ ol.next { padding-left: 22px; }
   <a class="back" href="../">← All reports</a>
   <span class="eyebrow">M137 · Richer packs · art for review, not in the game yet</span>
   <h1>Wardrobe Packs</h1>
-  <p class="lede">What each pack contains, on the proctor's man and woman: the Supporter Pack's gold set beside the tweed jacket, the Style Pack as one outfit, and for each country a flag badge and a flag outfit.</p>
+  <p class="lede">What each pack contains, on the proctor's man and woman: the Supporter Pack's gold set beside the tweed jacket, the Style Pack as one outfit, and for each country a flag badge, a flag outfit and a classroom wall flag.</p>
   <p class="muted">The finished items are spliced into the committed <code>proctor_wardrobe.glb</code>: all 69 existing meshes are byte-for-byte unchanged, and every check passes on both bodies in all three builds. Wardrobe report: <a href="../wardrobe/">Wardrobe</a>; pipeline: <a href="../proctor-character/">Proctor Character</a>.</p>
 </header>
 
@@ -266,9 +266,9 @@ ol.next { padding-left: 22px; }
   <h3>Spain</h3>
   <figure><a href="img/country_es_front.jpg"><img src="img/country_es_front.jpg" alt="Spain outfit on the man and the woman, front" loading="lazy"></a></figure>
   <div class="shots"><figure><a href="img/country_es_back.jpg"><img src="img/country_es_back.jpg" alt="Spain outfit, three-quarter back" loading="lazy"></a></figure><figure><a href="img/country_es_close.jpg"><img src="img/country_es_close.jpg" alt="Spain flag top close up, man and woman" loading="lazy"></a></figure></div>
-  <p>Red with the yellow band; charcoal trousers, red sneakers with yellow.</p>
+  <p>Red with the red-yellow-red flag inside an off-white border, so its red stripes read against the red shirt; charcoal trousers, red sneakers with yellow.</p>
   <ul>
-    <li><b><code>top_es_flag</code></b> <span class="cols"><span><i class="sw" style="background:#AA151B"></i>#AA151B</span><span><i class="sw" style="background:#F1BF00"></i>#F1BF00</span><span><i class="sw" style="background:#F1BF00"></i>#F1BF00</span></span> <code>ward_top_flag_es_m/_f</code>, 488 / 591 triangles</li>
+    <li><b><code>top_es_flag</code></b> <span class="cols"><span><i class="sw" style="background:#AA151B"></i>#AA151B</span><span><i class="sw" style="background:#F1BF00"></i>#F1BF00</span><span><i class="sw" style="background:#F5F5F2"></i>#F5F5F2</span></span> <code>ward_top_flag_es_m/_f</code>, 562 / 701 triangles</li>
     <li><b><code>trousers_es_flag</code></b> <span class="cols"><span><i class="sw" style="background:#2B2D33"></i>#2B2D33</span></span> the straight cut, tinted</li>
     <li><b><code>shoes_es_flag</code></b> <span class="cols"><span><i class="sw" style="background:#AA151B"></i>#AA151B</span><span><i class="sw" style="background:#F1BF00"></i>#F1BF00</span></span> the sneaker, recoloured</li>
   </ul>
@@ -309,6 +309,15 @@ ol.next { padding-left: 22px; }
 </figure></div>
 </section>
 
+<section id="classroom-flags">
+  <div class="section-head"><span class="eyebrow">Country packs · the room</span><h2>Classroom flags</h2>
+  <p class="muted">The eight flags for the 3D classroom (<code>room_flag_&lt;cc&gt;</code>): one wall-flag mesh, 84 triangles, and a texture per country. It hangs flat from a short wood rod with brass finials, like a classroom banner, in the room's box-built, flat-shaded style; the cloth's X scale gives each flag its own ratio (UK 1:2, US 10:19, Brazil 7:10, the rest 2:3).</p></div>
+  <figure><a href="img/room_flags_lineup.jpg"><img src="img/room_flags_lineup.jpg" alt="The eight classroom flags on a strip of wall" loading="lazy"></a><figcaption>All eight, straight on</figcaption></figure>
+  <div class="pair"><figure><a href="img/room_flags_room.jpg"><img src="img/room_flags_room.jpg" alt="The default classroom from the game camera, the flag on the back wall" loading="lazy"></a><figcaption>In the default classroom, from the game camera (target (-1, 0.35, 6.2), pitch 50, distance 15, fov 42): top left of the back wall</figcaption></figure><figure><a href="img/room_flags_zoom.jpg"><img src="img/room_flags_zoom.jpg" alt="The same camera zoomed on the back wall: flag, door, notice board, clock" loading="lazy"></a><figcaption>Zoomed: clear of the door, the notice board and the clock</figcaption></figure></div>
+  <div class="note"><b>Suggested placement.</b>
+    <p>The back wall: seen from the front camera, everything on it is behind every student, so the flag never hides one. In the default spot it is centred at x = cx &minus; 1.88 between the door frame and the notice board (12 cm and 10 cm clear in the narrowest room), with the rod top at 2.70 m, above the door and level with the board's top. That holds for the high-school, middle-school, evening, office and lecture rooms. Bright Primary: same x, rod top 2.25 m, under the alphabet frieze. Panelled: x = cx + 1.85 at scale 0.9, between the board and the clock, because the crest is on the left. Exam Hall: x = cx &minus; 2.2, rod top 3.40 m, left of the basketball board. It never goes over the clock, the board, a window, the door or the door's swing. Spain is the civil flag (no arms), and Brazil keeps the badges' simplification (no white band or stars).</p></div>
+</section>
+
 <section id="checks">
   <div class="section-head"><h2>Checks and what Unity needs</h2></div>
   <div class="table-wrap"><table><thead><tr><th>Check</th><th>New parts</th><th>Result</th></tr></thead><tbody>
@@ -326,6 +335,7 @@ ol.next { padding-left: 22px; }
     <li><b>Glint.</b> <code>badge_supporter</code> has <code>"glint": "once"</code>: one highlight sweep the first time it is shown.</li>
     <li><b>Badge mesh.</b> <code>badge_supporter</code> now uses <code>Badge_Supporter</code>; flags use <code>Badge_Flag_&lt;cc&gt;</code>. All are in <code>proctor_wardrobe.glb</code>, the badge library the figure uses. <code>Wardrobe3Tests</code> still looks badge meshes up in the old <code>wardrobe.glb</code> and needs pointing at <code>proctor_wardrobe.glb</code>.</li>
     <li><b>Badge offsets.</b> No per-badge offsets: every badge uses the shared badge poses. New per-top overrides in <code>badge_rule</code>, so the shield (and every other badge) clears the fabric in all builds: man's issued tee side 0.100 (was 0.075); man's blazer below 0.070, side 0.095 (was 0.055, 0.085); woman's cardigan and sweater below 0.045, side 0.120 (was 0.040, 0.115). Each moved only outward or down, away from openings and lapels. Rebuild the supervisor prefab so the baked poses pick them up.</li>
+    <li><b>Classroom flags.</b> <code>Assets/Art/Classroom/Flags/</code>: <code>room_flag.glb</code>, <code>room_flag_&lt;cc&gt;.png</code>, <code>room_flags.json</code> (texture and cloth X scale per flag). Placement rules are in <code>ArtSource/Classroom/README.md</code>; nothing is placed in the room yet.</li>
     <li><b>Colours.</b> Add the triples above to <code>CosmeticAppearance.ColoursOf</code>; trousers_slate and each <code>trousers_&lt;cc&gt;_flag</code> are Legwear colours. FR's shell is its Trim (white); every other flag top's shell is Main.</li>
   </ol>
 </section>
