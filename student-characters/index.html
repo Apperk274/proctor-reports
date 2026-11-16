@@ -264,6 +264,7 @@ section { display: grid; gap: 20px; }
 
 
 
+
   <section id="animation">
     <div class="section-head">
       <span class="eyebrow">student-characters branch · phase 2 · not in the game yet</span>
@@ -279,7 +280,7 @@ section { display: grid; gap: 20px; }
       <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
       <div class="stat"><span class="big">337/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
       <div class="stat"><span class="big">0</span><span>runtime IK: the contact is in the clips</span></div>
-      <div class="stat"><span class="big">13 cm</span><span>closer paper for children; 8 cm for adults (see below)</span></div>
+      <div class="stat"><span class="big">8–11 cm</span><span>closer paper, by band, than the game places it (see below)</span></div>
     </div>
     <div class="sub"><h3>Four bands, Writing and HandRaised</h3><p class="muted">The same frame of each clip on child, young teen, older teen and adult, from the game camera and from the side. Writing at frame 100; HandRaised at its held peak.</p>
       <div class="figs">
@@ -293,7 +294,14 @@ section { display: grid; gap: 20px; }
         <figure><img src="img/anim/compare_HandRaised_f_side.jpg" alt="HandRaised, four bands, women, side view" loading="lazy"><figcaption><b>HandRaised, women,</b> side.</figcaption></figure>
       </div>
     </div>
-    <div class="sub"><h3>The paper is out of reach where the game puts it</h3><p class="muted">The exam paper sits in the middle of the desk, its near edge 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 13 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which still leaves it on the desk. The renders show the paper there. The game has to move the paper by the same amount when this ships; left where it is, the writing hand lands on the desk short of the sheet. Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
+    <div class="sub"><h3>From the side</h3><p class="muted">The whole clip from the side, so desk, seat, lap and floor contact can be judged: child, young teen, older teen, adult from left to right, men above, women below.</p>
+      <div class="figs">
+        <figure><video src="vid/anim/side_Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>Writing</b></figcaption></figure>
+        <figure><video src="vid/anim/side_IdleCalm.mp4" autoplay muted loop playsinline preload="metadata" aria-label="IdleCalm from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>IdleCalm</b></figcaption></figure>
+        <figure><video src="vid/anim/side_HandRaised.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HandRaised from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>HandRaised</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>The paper is out of reach where the game puts it</h3><p class="muted">The exam paper sits in the middle of the desk, its near edge 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 8 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which leaves its near edge 1.5–6 cm onto the desk. Children are baked to Maple Elementary's shorter desk (0.85 deep, its edge 4.7 cm further away), the others to the full desk. The renders show the paper and desk that way. The game has to move the paper by the same amount when this ships; left where it is, the writing hand lands on the desk short of the sheet. Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
     <div class="sub"><h3>Every motion</h3><p class="muted">Each video is the whole clip at 15 fps. The key-frame sheet (link under each video) is three moments rendered with lighting, men left and women right. Mirrors are the plain clip reflected, so they are not shown.</p>
     <div class="mgrid">
       <article class="mclip">
@@ -310,7 +318,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WritingLoop</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>9.97 s</span><span>loops</span><span>mirror: WritingLoopMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults, 44° for children).</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults, 54° for children).</div>
           <a href="img/anim/sheet_WritingLoop.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -328,7 +336,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">IdleCalm</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>7.97 s</span><span>loops</span><span>mirror: IdleCalmMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Hands resting on the desk; teens and adults with both feet flat (no lifted heel); children's feet hanging.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Hands rest on the desk where the band reaches it with a bent elbow, otherwise on the thighs; teens and adults with both feet flat (no lifted heel); children's feet hanging.</div>
           <a href="img/anim/sheet_IdleCalm.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -337,7 +345,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Reading</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>7.97 s</span><span>not used</span><span>mirror: ReadingMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Both hands on the desk near its edge.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Both hands on the desk near its edge, or in the lap where it is out of reach.</div>
           <a href="img/anim/sheet_Reading.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -355,7 +363,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">HoldItem</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: HoldItemMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">One hand on the desk, the other up holding the item.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">One hand up holding the item, the other on the desk or the lap.</div>
           <a href="img/anim/sheet_HoldItem.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -391,7 +399,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">HandRaised</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>5.97 s</span><span>held at peak</span><span>mirror: HandRaisedMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The raised arm is the source's; the other hand rests on the desk. Held at its peak in the game.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The raised arm is the source's; the other hand rests on the desk or the lap. Held at its peak in the game.</div>
           <a href="img/anim/sheet_HandRaised.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -400,7 +408,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">GlanceNeighbour</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>3.97 s</span><span>loops</span><span>mirror: GlanceNeighbourMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The head keeps the source's direction; hands stay on the desk.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The head keeps the source's direction; hands stay on the desk or the lap.</div>
           <a href="img/anim/sheet_GlanceNeighbour.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -409,7 +417,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WhisperLeft</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>3.97 s</span><span>loops</span><span>mirror: WhisperMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The lean and head turn of the source; hands on the desk.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The lean and head turn of the source; hands on the desk or the lap.</div>
           <a href="img/anim/sheet_WhisperLeft.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -445,7 +453,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Stretch</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>5.97 s</span><span>plays to its end</span><span>mirror: StretchMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Arms up and back down to the desk.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Arms up and back down.</div>
           <a href="img/anim/sheet_Stretch.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -536,9 +544,9 @@ section { display: grid; gap: 20px; }
       <div class="traits">
         <div class="card"><h3>Rotations, per band</h3><p>Each source frame is retargeted by rotation with whole-frame alignment onto the band's own skeleton, feet relative to the clip's own rest. Only the hips (Body) carry a translation, scaled to the band.</p></div>
         <div class="card"><h3>Seat</h3><p>Children sit 16.5 cm forward of the seat point, adults 10 cm, so they can reach the desk. The trouser mesh is measured every second frame and the body raised or lowered until it rests on the seat; a thigh may press at most about 2 cm into the seat's front edge.</p></div>
-        <div class="card"><h3>Hands</h3><p>The writing hand and the hand holding the sheet are on the paper; resting hands are put on the desk where the source had them near it, at a distance the band can reach. Each hand's height comes from its own mesh. The elbow swings to the lowest position that keeps the forearm out of the desk.</p></div>
+        <div class="card"><h3>Hands</h3><p>The writing hand and the hand holding the sheet are on the paper. Resting hands go on the desk where the source had them near it, within 85 % of the band's arm; where the desk is out of that reach for most of a clip they rest on the thigh instead. Each hand's height comes from its own mesh; the elbow swings to the lowest position that keeps the forearm out of the desk, and hands are kept out of the thighs.</p></div>
         <div class="card"><h3>Lean</h3><p>Where a target is beyond about 90 % of the arm, the spine leans forward (sideways to the bag) within a per-band limit. The head turns back what it should not follow, so glances, clock checks and whispers look where the source looks.</p></div>
-        <div class="card"><h3>Feet</h3><p>Young teens, older teens and adults plant both feet flat at one spot per rig, the same in every seated clip, so cross-fades do not slide them; IdleCalm no longer lifts a heel. Children's legs hang relaxed, the foot 14° toe-down, 8–25 cm above the floor.</p></div>
+        <div class="card"><h3>Feet</h3><p>Young teens, older teens and adults plant both feet flat at one spot per rig, the same in every seated clip, so cross-fades do not slide them; IdleCalm no longer lifts a heel. Children's legs hang relaxed, the foot 14° toe-down; the soles hang 10–20 cm above the floor (a little more than the 10–15 cm aimed for).</p></div>
         <div class="card"><h3>Standing and walking</h3><p>Standing and PresentDocument plant both feet flat for the whole clip. The walk keeps its stride, and the lowest shoe vertex is put on the floor every frame.</p></div>
       </div>
     </div>
@@ -546,6 +554,7 @@ section { display: grid; gap: 20px; }
     <div class="posetable" role="table" aria-label="Animation checks">
       <div role="row"><span role="columnheader">Check</span><span role="columnheader">Result</span><span role="columnheader">Failing motions</span></div>
       <div role="row"><span class="p">arm_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">arm_in_thigh_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">arm_in_torso_mm</span><span class="c">9 clips fail</span><span class="d">Fidget, ThinkingHard</span></div>
       <div role="row"><span class="p">bag_wrist_xy</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">bag_wrist_z</span><span class="c">pass</span><span class="d"></span></div>
@@ -567,6 +576,7 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">standing_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">standing_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">thigh_into_seat_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">timing_shift_frames</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">walk_lowest_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_elbow_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_hand_off_paper</span><span class="c">pass</span><span class="d"></span></div>
@@ -575,10 +585,10 @@ section { display: grid; gap: 20px; }
     <div class="sub"><h3>Rough edges</h3><ul class="limits">
       <li><b>The game's paper is out of reach.</b> The clips write on a paper 8–13 cm closer than where the game puts it; the game must move it per band, or the hand writes on the desk short of the sheet.</li>
       <li><b>Everyone leans well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. Children's heads come close to the desk.</li>
-      <li><b>Children's resting hands are at the desk edge</b> with nearly straight arms: from the seat they cannot reach further without leaning.</li>
+      <li><b>Resting hands often go to the lap.</b> From the upright idle poses most students cannot rest a hand on the desk with a bent elbow, so those hands rest on the thighs, often fingers down with the wrist a little raised.</li>
       <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
       <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
-      <li><b>Fidget fails its checks</b> (it is not used by the game): with the feet planted, its leg swing lifts the hips 2–4 cm off the seat and a forearm crosses into the torso. The adult man's ThinkingHardMirror has a forearm 0.6 mm past the torso limit where the jaw rests on the hand.</li>
+      <li><b>Fidget fails its checks</b> (it is not used by the game): with the feet planted, its leg swing lifts the hips 2–4 cm off the seat and a forearm crosses into the torso. The adult man's ThinkingHardMirror has a forearm 0.5 mm past the torso limit where the jaw rests on the hand.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
       <li><b>Not in the game yet.</b> Loading the clips, the missing head-aim transforms, the bone names and the paper offset are the Unity phase.</li>
     </ul></div>
