@@ -144,7 +144,7 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted"><a href="#new-students">New age-banded students on the student-characters branch</a> (phase 1, not in the game yet) are in the first section, and <a href="#animation">their animation</a> (phase 2) in the second.</p>
+    <p class="muted"><a href="#new-students">New age-banded students on the student-characters branch</a> (phase 1, not in the game yet) are in the first section, and <a href="#animation">their animation</a> (phase 2) in the second, followed by an <a href="#desk-distance">open decision on desk distance</a>.</p>
   </header>
 
   <section id="new-students">
@@ -597,6 +597,39 @@ section { display: grid; gap: 20px; }
       <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top. The adult man's ThinkingHardMirror has a forearm 0.5 mm past the torso limit where the jaw rests on the hand.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
       <li><b>Not in the game yet.</b> Loading the clips, the missing head-aim transforms, the bone names and the paper offset are the Unity phase.</li>
+    </ul></div>
+  </section>
+
+  <section id="desk-distance">
+    <div class="section-head">
+      <span class="eyebrow">student-characters branch · proposal · not in the game yet</span>
+      <h2>Open decision: desk distance and writing posture</h2>
+      <p class="muted">In the game today the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out, rendered on the same students and the same frame of Writing: A is what the Animation section above ships, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig. Nothing here is in the game; it needs a decision.</p>
+    </div>
+    <div class="posetable" role="table" aria-label="Desk distance options">
+      <div role="row"><span role="columnheader">Option</span><span role="columnheader">Posture · checks</span><span role="columnheader">Unity impact</span></div>
+      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged</span><span class="c">Every band leans well over the desk, children's faces close to the paper (the source Writing clip is itself hunched). 337 of 352 clips pass; the failures are clips the game doesn't use and one 0.5 mm miss.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
+      <div role="row"><span class="p">B · desk 16–24 cm closer (child 24, young teen 20, older teen 18, adult 16), paper at its original spot</span><span class="c">Bent elbows (at most 114–118°) and 0–14° extra lean, but the hunch of the source clip remains. Not tuned: 18 of 32 Writing and IdleCalm clips pass; the rest are 3–12 mm forearm, chest and back contacts and one 4.8 cm seat gap, the same tuning A needed.</span><span class="d">RoomLayout.DeskOffsetZ becomes a per-room value (it is one global -0.8 today, read by RoomDresser, ClassroomView's navmesh, RoomFootprints, RoomWalks and RoomLayout). Rooms that mix bands take one value. Supervisor aisles get wider. The desk's near strip enters the students' tap capsules (radius 0.34 at the seat) by up to about 9 cm.</span></div>
+      <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing</span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) pass; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
+    </div>
+    <div class="sub"><h3>A, B and C2 side by side</h3><p class="muted">Each image: A on top, B in the middle, C2 at the bottom; child, young teen, older teen, adult from left to right; Writing at frame 100.</p>
+      <div class="figs">
+        <figure><img src="img/desk/ABC2_Writing_m_side.jpg" alt="Writing, men, side view: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Men, side.</b></figcaption></figure>
+        <figure><img src="img/desk/ABC2_Writing_f_side.jpg" alt="Writing, women, side view: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Women, side.</b></figcaption></figure>
+        <figure><img src="img/desk/ABC2_Writing_m_game.jpg" alt="Writing, men, game camera: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Men, game camera.</b></figcaption></figure>
+        <figure><img src="img/desk/ABC2_Writing_f_game.jpg" alt="Writing, women, game camera: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Women, game camera.</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>C2 in motion</h3><p class="muted">The whole authored Writing clip from the side: men above, women below. The writing motion is small loops of the wrist, a slow drift across the line and pen lifts, with breathing and small head movements.</p>
+      <figure class="solo"><video src="vid/desk/c2_side_writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="C2 Writing from the side, every band" style="width:100%;border-radius:8px"></video></figure>
+    </div>
+    <div class="sub"><h3>Honest read</h3><ul class="limits">
+      <li><b>C2 is clearly the most natural</b> from the side and at the game camera: upright students with bowed heads, both hands on a centred sheet. A and B read as slumping over the desk; moving the desk alone (B) fixes the arms but not the posture, because the hunch is in the source clip.</li>
+      <li><b>Children still bend their necks a lot</b> in C2, and the child girl's elbow closes to about 90°.</li>
+      <li><b>The women's forearms angle down to the paper</b> rather than lying flat, with the elbows a little high.</li>
+      <li><b>The motion is sine waves only.</b> On a phone it reads as calm and almost still; up close it may look mechanical, since nothing varies from loop to loop.</li>
+      <li><b>The mitten hand rests on its knuckles</b>, pitched down, rather than holding a pen.</li>
+      <li><b>Only Writing is authored.</b> WritingLoop and Erasing would need the same treatment, and every other seated clip would need re-baking for the new desk distance.</li>
     </ul></div>
   </section>
 
