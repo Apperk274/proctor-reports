@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-18", "author": "Apperk274", "slug": "student-characters", "change": "Tightened the wording of the room, hand and ID-photo notes in the new students' sections."},
   {"date": "2026-11-18", "author": "Apperk274", "slug": "student-characters", "change": "The new students are now shown as they are in the game on the branch (classrooms, writers, door and ID photos, contact sheets, hair colours, facial hair and poses from Unity), with new In the game and Known limits sections."},
   {"date": "2026-11-16", "author": "Apperk274", "slug": "student-characters", "change": "Desk distance is decided (A now: the paper moves 8–11 cm per band, the room unchanged; C2 later as polish), and the animation counts now say 329 of 352 clips pass and name the 23 that fail."},
   {"date": "2026-11-16", "author": "ardakabadayi", "slug": "wardrobe-packs", "change": "Re-captured Settings › Exam names after the phone-pass fixes: the open options now have the same gap as the rows around them."},
