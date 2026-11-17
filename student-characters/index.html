@@ -144,95 +144,109 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted"><a href="#new-students">New age-banded students on the student-characters branch</a> (phase 1, not in the game yet) are in the first section, and <a href="#animation">their animation</a> (phase 2) in the second, followed by <a href="#desk-distance">the decision on desk distance</a>.</p>
+    <p class="muted">The new age-banded students on the student-characters branch come first: <a href="#new-students">how they look in the game</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">the desk-distance decision</a> and <a href="#known-limits">their known limits</a>. The sections after that describe the students <code>main</code> ships today.</p>
   </header>
 
   <section id="new-students">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · phase 1 · not in the game yet</span>
+      <span class="eyebrow">student-characters branch · in the game on this branch</span>
       <h2>New students: four age bands</h2>
-      <p class="muted">The students below this section are what <code>main</code> ships today. This section is the new
-        art on the <code>student-characters</code> branch: students built from the proctor's Quaternius kit in four age
-        bands (child, young teen, older teen, adult), rebuilt low-poly for the phone. Phase 1 is bodies, heads, hair and
-        clothes, shown in static frames of the game's own clips posed at render time; the clips baked onto every band
-        (phase 2) are in <a href="#animation">Animation</a> below, and the game side comes next.
-        Every render is from the build scripts in <code>ArtSource/Characters/Students/</code>.</p>
+      <p class="muted">Students built from the proctor's Quaternius kit in four age bands (child, young teen, older
+        teen, adult), one body per band and sex, rebuilt low-poly for the phone. On the <code>student-characters</code>
+        branch they are the students in the game. Everything in this section is captured in Unity, in the game's own
+        rooms, at the door and in the StudentReview scene, except the band lineups beside the proctor and the hair
+        comparison, which come from the build scripts in <code>ArtSource/Characters/Students/</code>. The students
+        further down this page, from <a href="#classroom">The students in the classroom</a> on, are what
+        <code>main</code> ships today.</p>
     </div>
     <div class="stats">
       <div class="stat"><span class="big">1,937–2,990</span><span>triangles per dressed student, every combination (ceiling 3,000)</span></div>
-      <div class="stat"><span class="big">1</span><span>material per student: a palette texture</span></div>
+      <div class="stat"><span class="big">1</span><span>draw call per student: one skinned mesh, one material, a per-student palette</span></div>
+      <div class="stat"><span class="big">8</span><span>student prefabs: four bands, two sexes; adults also slim or heavy</span></div>
       <div class="stat"><span class="big">24</span><span>bones: the kit skeleton without its 38 finger bones</span></div>
-      <div class="stat"><span class="big">15/15</span><span>automated checks passing</span></div>
     </div>
-    <div class="sub"><h3>Each band beside the proctor</h3><p class="muted">The proctor (left, 1.85 m with hair) beside four men and four women of the band, in the band's own clothes. Target heights to the top of the skull: child 1.33 m, young teen 1.55 m, older teen 1.72 / 1.63 m, adult 1.80 / 1.675 m.</p>
+    <div class="sub"><h3>In the classroom, at the game camera</h3><p class="muted">Play mode at the phone's reference
+      size (1080 × 2340), the overview camera framing each room, mid-exam. Each room seats a full cohort drawn from the
+      school's own age range.</p>
+      <div class="figs">
+        <figure><img src="img/new/game-room-maple.jpg" alt="Maple Elementary from the game camera, four children in uniform writing" loading="lazy"><figcaption><b>Maple Elementary</b> (7–10): four children aged 9–10, all in the white and blue uniform.</figcaption></figure>
+        <figure><img src="img/new/game-room-cityhigh.jpg" alt="City High from the game camera, eight teens writing" loading="lazy"><figcaption><b>City High</b> (14–18): eight aged 14–18, four older teen boys, two older teen girls and two young teen boys.</figcaption></figure>
+        <figure><img src="img/new/game-room-kingsley.jpg" alt="Kingsley Academy from the game camera, nine students writing" loading="lazy"><figcaption><b>Kingsley Academy</b> (11–18): nine aged 11–18, six older teens and three young teens.</figcaption></figure>
+        <figure><img src="img/new/game-room-eastgate.jpg" alt="Eastgate Evening College from the game camera, six adults writing" loading="lazy"><figcaption><b>Eastgate Evening College</b> (20–60): six adults aged 22–54, one over 45.</figcaption></figure>
+        <figure><img src="img/new/game-room-national.jpg" alt="National Exam Centre from the game camera, eleven adults writing, several with grey or white hair" loading="lazy"><figcaption><b>National Exam Centre</b> (20–60): eleven adults aged 21–58, five over 45, several grey or white.</figcaption></figure>
+      </div>
+      <p class="muted">From the game camera the band reads from size: head-to-body ratio, height at the same desk and the
+        white and blue uniform make Maple clearly children, and the room's desks and chairs keep their own colours.
+        Young and older teens differ by height and shoulder width rather than faces, which are a few pixels across
+        here. Grey and white hair carry the older people at Eastgate and National.</p>
+    </div>
+    <div class="sub"><h3>Writing at the desk, close</h3><p class="muted">The same Play-mode rooms from a closer camera,
+      students who have been writing for over a second. The paper sits where the game now places it for the
+      writer's band, and the writing hand is on it.</p>
+      <div class="figs">
+        <figure><img src="img/new/writer-child-f.jpg" alt="A Maple girl writing" loading="lazy"><figcaption><b>Child, girl</b>, Maple.</figcaption></figure>
+        <figure><img src="img/new/writer-child-m.jpg" alt="A Maple boy writing" loading="lazy"><figcaption><b>Child, boy</b>, Maple.</figcaption></figure>
+        <figure><img src="img/new/writer-young-f.jpg" alt="A young teen girl writing at Kingsley" loading="lazy"><figcaption><b>Young teen, girl</b>, Kingsley.</figcaption></figure>
+        <figure><img src="img/new/writer-young-m.jpg" alt="A young teen boy writing at Kingsley" loading="lazy"><figcaption><b>Young teen, boy</b>, Kingsley.</figcaption></figure>
+        <figure><img src="img/new/writer-teen-f.jpg" alt="An older teen girl writing at City High" loading="lazy"><figcaption><b>Older teen, girl</b>, City High.</figcaption></figure>
+        <figure><img src="img/new/writer-teen-m.jpg" alt="An older teen boy writing at Kingsley" loading="lazy"><figcaption><b>Older teen, boy</b>, Kingsley.</figcaption></figure>
+        <figure><img src="img/new/writer-adult-f.jpg" alt="A white-haired woman writing at National" loading="lazy"><figcaption><b>Adult, woman</b>, National, white hair.</figcaption></figure>
+        <figure><img src="img/new/writer-adult-m.jpg" alt="A man with glasses writing at Eastgate" loading="lazy"><figcaption><b>Adult, man</b>, Eastgate.</figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>At the door and on the ID</h3><p class="muted">Admission in Play mode: the live door close-up
+      (left of each pair) and the ID photo on the document (right), for the same person. Both are framed on the
+      student's own eyes and head, so a child and an adult fill them the same way. The photo is a flat-lit headshot
+      of who the document says they are; hair can differ, since a photo is older than today's haircut.</p>
+      <div class="figs">
+        <figure><img src="img/new/door-child.jpg" alt="An eight-year-old boy at the door and on his ID photo" loading="lazy"><figcaption><b>Child, 8</b>, Maple, in the uniform.</figcaption></figure>
+        <figure><img src="img/new/door-young.jpg" alt="An eleven-year-old boy at the door and on his ID photo" loading="lazy"><figcaption><b>Young teen, 11</b>, Riverside.</figcaption></figure>
+        <figure><img src="img/new/door-teen-stubble.jpg" alt="A seventeen-year-old with stubble at the door and on his ID photo" loading="lazy"><figcaption><b>Older teen, 17, with stubble</b>, Brightpath.</figcaption></figure>
+        <figure><img src="img/new/door-moustache.jpg" alt="A 44-year-old man with a moustache at the door and on his ID photo" loading="lazy"><figcaption><b>Adult, 44, moustache</b>, National.</figcaption></figure>
+        <figure><img src="img/new/door-beard.jpg" alt="A 51-year-old man with a beard and glasses at the door and on his ID photo" loading="lazy"><figcaption><b>Adult, 51, beard and glasses</b>, National.</figcaption></figure>
+        <figure><img src="img/new/door-grey.jpg" alt="A 59-year-old woman with grey hair at the door and on her ID photo" loading="lazy"><figcaption><b>Adult, 59, grey hair</b>, National.</figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>Hair colours</h3><p class="muted">Black, brown, fair and auburn at every age; grey and white
+      only from 45, when about six in ten are greying. Brown is an ash brown, retuned so it no longer reads as auburn.
+      An adult man's swept hair, front and back, at 30 and at 52.</p>
+      <figure><img src="img/new/hair-colours.jpg" alt="Hair colours on an adult man at 30 and at 52, front and back" loading="lazy"><figcaption>Top: age 30. Bottom: age 52, where grey and white join the palette.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>Facial hair</h3><p class="muted">Men only. Stubble from 16 (about one in four older teen
+      boys); stubble, moustache or beard for adults. Each kind is built from the face's own facets, per face shape.</p>
+      <figure><img src="img/new/facial-hair.jpg" alt="No facial hair, stubble, moustache and beard on an adult man at 30 and at 52" loading="lazy"><figcaption>None, stubble, moustache, beard; front and three-quarter, at 30 and at 52.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>Every look, per band and sex</h3><p class="muted">The StudentReview scene's contact sheets, one
+      heads and one bodies sheet per band and sex. Heads: face, hairstyle, hairstyle with glasses, hair colour, facial
+      hair and eye colour. Bodies: skin tone, outfit (children wear only the Maple uniform) and top colour, front and
+      back. Open a sheet for full size.</p>
+      <div class="figs small">
+        <figure><a href="img/new/sheets/child_m_heads.jpg"><img src="img/new/sheets/child_m_heads.jpg" alt="Child, male, heads contact sheet" loading="lazy"></a><figcaption><b>Child, male, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/child_m_bodies.jpg"><img src="img/new/sheets/child_m_bodies.jpg" alt="Child, male, bodies contact sheet" loading="lazy"></a><figcaption><b>Child, male, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/child_f_heads.jpg"><img src="img/new/sheets/child_f_heads.jpg" alt="Child, female, heads contact sheet" loading="lazy"></a><figcaption><b>Child, female, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/child_f_bodies.jpg"><img src="img/new/sheets/child_f_bodies.jpg" alt="Child, female, bodies contact sheet" loading="lazy"></a><figcaption><b>Child, female, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/young_m_heads.jpg"><img src="img/new/sheets/young_m_heads.jpg" alt="Young teen, male, heads contact sheet" loading="lazy"></a><figcaption><b>Young teen, male, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/young_m_bodies.jpg"><img src="img/new/sheets/young_m_bodies.jpg" alt="Young teen, male, bodies contact sheet" loading="lazy"></a><figcaption><b>Young teen, male, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/young_f_heads.jpg"><img src="img/new/sheets/young_f_heads.jpg" alt="Young teen, female, heads contact sheet" loading="lazy"></a><figcaption><b>Young teen, female, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/young_f_bodies.jpg"><img src="img/new/sheets/young_f_bodies.jpg" alt="Young teen, female, bodies contact sheet" loading="lazy"></a><figcaption><b>Young teen, female, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/teen_m_heads.jpg"><img src="img/new/sheets/teen_m_heads.jpg" alt="Older teen, male, heads contact sheet" loading="lazy"></a><figcaption><b>Older teen, male, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/teen_m_bodies.jpg"><img src="img/new/sheets/teen_m_bodies.jpg" alt="Older teen, male, bodies contact sheet" loading="lazy"></a><figcaption><b>Older teen, male, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/teen_f_heads.jpg"><img src="img/new/sheets/teen_f_heads.jpg" alt="Older teen, female, heads contact sheet" loading="lazy"></a><figcaption><b>Older teen, female, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/teen_f_bodies.jpg"><img src="img/new/sheets/teen_f_bodies.jpg" alt="Older teen, female, bodies contact sheet" loading="lazy"></a><figcaption><b>Older teen, female, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/adult_m_heads.jpg"><img src="img/new/sheets/adult_m_heads.jpg" alt="Adult, male, heads contact sheet" loading="lazy"></a><figcaption><b>Adult, male, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/adult_m_bodies.jpg"><img src="img/new/sheets/adult_m_bodies.jpg" alt="Adult, male, bodies contact sheet" loading="lazy"></a><figcaption><b>Adult, male, bodies</b></figcaption></figure>
+        <figure><a href="img/new/sheets/adult_f_heads.jpg"><img src="img/new/sheets/adult_f_heads.jpg" alt="Adult, female, heads contact sheet" loading="lazy"></a><figcaption><b>Adult, female, heads</b></figcaption></figure>
+        <figure><a href="img/new/sheets/adult_f_bodies.jpg"><img src="img/new/sheets/adult_f_bodies.jpg" alt="Adult, female, bodies contact sheet" loading="lazy"></a><figcaption><b>Adult, female, bodies</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>Each band beside the proctor</h3><p class="muted">The proctor (left, 1.85 m with hair) beside four men and four women of the band, in the band's own clothes. Target heights to the top of the skull: child 1.33 m, young teen 1.55 m, older teen 1.72 / 1.63 m, adult 1.80 / 1.675 m. Renders from the build scripts.</p>
 <figure><img src="img/new/lineup-child.jpg" alt="Child, 7–10 lineup beside the proctor" loading="lazy"><figcaption><b>Child, 7–10.</b> Front and three-quarter.</figcaption></figure>
 <figure><img src="img/new/lineup-young.jpg" alt="Young teen, 11–14 lineup beside the proctor" loading="lazy"><figcaption><b>Young teen, 11–14.</b> Front and three-quarter.</figcaption></figure>
 <figure><img src="img/new/lineup-teen.jpg" alt="Older teen, 15–18 lineup beside the proctor" loading="lazy"><figcaption><b>Older teen, 15–18.</b> Front and three-quarter.</figcaption></figure>
 <figure><img src="img/new/lineup-adult.jpg" alt="Adult, 19+ lineup beside the proctor" loading="lazy"><figcaption><b>Adult, 19+.</b> Front and three-quarter.</figcaption></figure>
     </div>
-    <div class="sub"><h3>At the door</h3><p class="muted">Head and shoulders, front and three-quarter, as the admission close-up sees them. One student per row pair wears glasses; the last adult row is the older-looking look (grey or white hair, heavier build, glasses, moustache).</p>
-<figure><img src="img/new/door-child.jpg" alt="Child, 7–10 at the door" loading="lazy"><figcaption><b>Child, 7–10.</b> My read: 8 to 10, occasionally 11. Faces are blended towards the Round face, the jaw is widened near the chin instead of narrowed, and with the kit's real fringes the children read as primary school. The heaviest brows and the glasses rows push a few towards 10–11.</figcaption></figure>
-<figure><img src="img/new/door-young.jpg" alt="Young teen, 11–14 at the door" loading="lazy"><figcaption><b>Young teen, 11–14.</b> My read: 12 to 14. A milder version of the child shape (30 % towards Round) on a 1.55 m body; distinct from children by height and a longer face, close to the older teens at the door.</figcaption></figure>
-<figure><img src="img/new/door-teen.jpg" alt="Older teen, 15–18 at the door" loading="lazy"><figcaption><b>Older teen, 15–18.</b> My read: 15 to 19. Separated from young adults mostly by height (1.72 / 1.63 m), a slimmer build and a trace of softening.</figcaption></figure>
-<figure><img src="img/new/door-adult.jpg" alt="Adult, 19+ at the door" loading="lazy"><figcaption><b>Adult, 19+.</b> My read: 20s to 40s, and 50s or older for the last row (grey or white hair, heavier build, glasses, moustache). The beard row shows the beard's edge at the jaw.</figcaption></figure>
-    </div>
-    <div class="sub"><h3>Faces close up</h3><p class="muted">Tight door crops per band, light and dark skin, without glasses.</p>
-<figure><img src="img/new/face-close-child.jpg" alt="Child, 7–10 faces close up" loading="lazy"><figcaption><b>Child, 7–10.</b></figcaption></figure>
-<figure><img src="img/new/face-close-young.jpg" alt="Young teen, 11–14 faces close up" loading="lazy"><figcaption><b>Young teen, 11–14.</b></figcaption></figure>
-<figure><img src="img/new/face-close-teen.jpg" alt="Older teen, 15–18 faces close up" loading="lazy"><figcaption><b>Older teen, 15–18.</b></figcaption></figure>
-<figure><img src="img/new/face-close-adult.jpg" alt="Adult, 19+ faces close up" loading="lazy"><figcaption><b>Adult, 19+.</b></figcaption></figure>
-    </div>
-    <div class="sub"><h3>In the classroom</h3><p class="muted">Twelve students seated at the shared desk (0.745 m) and seat (0.475 m), a static frame of the Writing clip with the hands placed on the desk, from the game's overview angle and closer. Ages are drawn from each school's range; Eastgate and National include older-looking people from 45.</p><div class="figs">
-<figure><img src="img/new/room-maple.jpg" alt="Maple Elementary classroom" loading="lazy"><figcaption><b>Maple Elementary</b> (7–10): 12 child.</figcaption></figure>
-<figure><img src="img/new/room-riverside.jpg" alt="Riverside Middle classroom" loading="lazy"><figcaption><b>Riverside Middle</b> (11–14): 12 young.</figcaption></figure>
-<figure><img src="img/new/room-standard.jpg" alt="City High classroom" loading="lazy"><figcaption><b>City High</b> (14–18): 12 teen.</figcaption></figure>
-<figure><img src="img/new/room-elite.jpg" alt="Kingsley Academy classroom" loading="lazy"><figcaption><b>Kingsley Academy</b> (11–18): 5 young, 7 teen.</figcaption></figure>
-<figure><img src="img/new/room-brightpath.jpg" alt="Brightpath Prep classroom" loading="lazy"><figcaption><b>Brightpath Prep</b> (16–19): 9 teen, 3 adult.</figcaption></figure>
-<figure><img src="img/new/room-state-university.jpg" alt="State University classroom" loading="lazy"><figcaption><b>State University</b> (18–24): 3 teen, 9 adult.</figcaption></figure>
-<figure><img src="img/new/room-vocational.jpg" alt="Eastgate Evening College classroom" loading="lazy"><figcaption><b>Eastgate Evening College</b> (20–60): 12 adult.</figcaption></figure>
-<figure><img src="img/new/room-national.jpg" alt="National Exam Centre classroom" loading="lazy"><figcaption><b>National Exam Centre</b> (20–60): 12 adult.</figcaption></figure>
-</div><div class="figs">
-<figure><img src="img/new/room-maple-zoom.jpg" alt="Maple Elementary classroom, closer" loading="lazy"><figcaption>Maple Elementary, closer.</figcaption></figure>
-<figure><img src="img/new/room-riverside-zoom.jpg" alt="Riverside Middle classroom, closer" loading="lazy"><figcaption>Riverside Middle, closer.</figcaption></figure>
-<figure><img src="img/new/room-standard-zoom.jpg" alt="City High classroom, closer" loading="lazy"><figcaption>City High, closer.</figcaption></figure>
-<figure><img src="img/new/room-elite-zoom.jpg" alt="Kingsley Academy classroom, closer" loading="lazy"><figcaption>Kingsley Academy, closer.</figcaption></figure>
-<figure><img src="img/new/room-brightpath-zoom.jpg" alt="Brightpath Prep classroom, closer" loading="lazy"><figcaption>Brightpath Prep, closer.</figcaption></figure>
-<figure><img src="img/new/room-state-university-zoom.jpg" alt="State University classroom, closer" loading="lazy"><figcaption>State University, closer.</figcaption></figure>
-<figure><img src="img/new/room-vocational-zoom.jpg" alt="Eastgate Evening College classroom, closer" loading="lazy"><figcaption>Eastgate Evening College, closer.</figcaption></figure>
-<figure><img src="img/new/room-national-zoom.jpg" alt="National Exam Centre classroom, closer" loading="lazy"><figcaption>National Exam Centre, closer.</figcaption></figure>
-</div>
-<figure><img src="img/new/room-maple-zoom.jpg" alt="Maple room, closer" loading="lazy"><figcaption><b>Maple, closer.</b> Children in the uniform from the overview camera's angle.</figcaption></figure>
-<p class="muted">From the game camera the tops of the heads now show the kit's lock structure (partings, fringes, spikes, buns) instead of smooth caps, and the band reads from size: head-to-body ratio, height at the same desk and the white and blue uniform make a Maple room clearly children. Riverside and City High differ by height and shoulder width rather than faces, which are a few pixels across here. Grey and white hair carry the older-looking people at Eastgate and National.</p></div>
-    <div class="sub"><h3>Faces</h3><p class="muted">Four faces per sex in every band (the proctor's presets on the kit head, reshaped per band), front and three-quarter, with a neutral haircut.</p>
-<figure><img src="img/new/faces-child.jpg" alt="Child, 7–10 faces" loading="lazy"><figcaption><b>Child, 7–10.</b> Men: Classic, Broad, Long, Round. Women: Classic, Heart, Square, Round.</figcaption></figure>
-<figure><img src="img/new/faces-young.jpg" alt="Young teen, 11–14 faces" loading="lazy"><figcaption><b>Young teen, 11–14.</b> Men: Classic, Broad, Long, Round. Women: Classic, Heart, Square, Round.</figcaption></figure>
-<figure><img src="img/new/faces-teen.jpg" alt="Older teen, 15–18 faces" loading="lazy"><figcaption><b>Older teen, 15–18.</b> Men: Classic, Broad, Long, Round. Women: Classic, Heart, Square, Round.</figcaption></figure>
-<figure><img src="img/new/faces-adult.jpg" alt="Adult, 19+ faces" loading="lazy"><figcaption><b>Adult, 19+.</b> Men: Classic, Broad, Long, Round. Women: Classic, Heart, Square, Round.</figcaption></figure>
-    </div>
     <div class="sub"><h3>Hair: the kit’s locks, kept</h3><p class="muted">Each pair is the proctor’s kit hair on the kit face (left) beside the student version (right), at three-quarter and from the classroom camera’s angle above. The student hair is the kit’s own locks with every face that cannot be seen from any direction removed, coplanar faces merged only as far as the budget needs, and a back side added only where a lock’s inside shows.</p>
 <figure><img src="img/new/hair-compare.jpg" alt="Kit hair beside student hair" loading="lazy"><figcaption>Men top row, women bottom row: kit then student, each at three-quarter and from above. Triangles kit → student: short 1500 → 868; cropped 140 → 298; swept 1404 → 850; spiky 1400 → 882; shaggy 1188 → 719; bob 1500 → 550; long 1500 → 652; bun 246 → 376; tied-back 1146 → 576; pixie 1399 → 564.</figcaption></figure>
-    </div>
-    <div class="sub"><h3>Hairstyles</h3><p class="muted">Five per sex, the same styles in every band, reshaped with the head: men short, cropped, swept, spiky, shaggy; women bob, long, bun, tied back, pixie. Three-quarter front and back.</p>
-<figure><img src="img/new/hair-child.jpg" alt="Child, 7–10 hairstyles" loading="lazy"><figcaption><b>Child, 7–10.</b></figcaption></figure>
-<figure><img src="img/new/hair-young.jpg" alt="Young teen, 11–14 hairstyles" loading="lazy"><figcaption><b>Young teen, 11–14.</b></figcaption></figure>
-<figure><img src="img/new/hair-teen.jpg" alt="Older teen, 15–18 hairstyles" loading="lazy"><figcaption><b>Older teen, 15–18.</b></figcaption></figure>
-<figure><img src="img/new/hair-adult.jpg" alt="Adult, 19+ hairstyles" loading="lazy"><figcaption><b>Adult, 19+.</b></figcaption></figure>
-    </div>
-    <div class="sub"><h3>Outfits</h3><p class="muted">Six casual outfits per sex for teens and adults, front and back: men tee and jeans, hoodie and jeans, long sleeve and chinos, polo and chinos, sweater and jeans, shirt and trousers; women tee and jeans, hoodie and jeans, long sleeve and trousers, cardigan and jeans, sweater and trousers, tee and skirt. Children wear only the uniform.</p>
-<figure><img src="img/new/outfits-young.jpg" alt="Young teen, 11–14 outfits" loading="lazy"><figcaption><b>Young teen, 11–14.</b></figcaption></figure>
-<figure><img src="img/new/outfits-teen.jpg" alt="Older teen, 15–18 outfits" loading="lazy"><figcaption><b>Older teen, 15–18.</b></figcaption></figure>
-<figure><img src="img/new/outfits-adult.jpg" alt="Adult, 19+ outfits" loading="lazy"><figcaption><b>Adult, 19+.</b></figcaption></figure>
-    </div>
-    <div class="sub"><h3>The Maple uniform</h3><p class="muted">Every child, and nobody else: a white or light-blue polo with navy trousers, or for girls a navy skirt with white knee socks.</p>
-<figure><img src="img/new/uniform.jpg" alt="Maple uniform, front and back" loading="lazy"><figcaption>Boys: white or blue polo, navy trousers. Girls: white or blue polo with navy skirt or trousers.</figcaption></figure>
-<figure><img src="img/new/outfits-child.jpg" alt="Every child uniform variant" loading="lazy"><figcaption>Every uniform variant, front and back.</figcaption></figure>
-    </div>
-    <div class="sub"><h3>Facial hair and older-looking adults</h3><p class="muted">Stubble from 16; moustache and beard for adults. Grey and white hair, a heavier build and more glasses only for adults 45+.</p><div class="figs">
-<figure><img src="img/new/facial-hair.jpg" alt="Facial hair" loading="lazy"><figcaption>Older teen stubble; adult stubble, moustache and beard, black and grey.</figcaption></figure>
-<figure><img src="img/new/older.jpg" alt="Older-looking adults" loading="lazy"><figcaption>Four older-looking adults (heavy build at 0.55, grey or white hair) beside two slim-build adults.</figcaption></figure>
-</div></div>
-    <div class="sub"><h3>Seated at the shared desk</h3><p class="muted">One man and one woman per band. Small bodies sit on the same 0.475 m seat and reach up to the same desk. Young teens and older plant their feet flat on the floor; children’s feet hang just above it, relaxed. The baked desk-contact clips are in <a href="#animation">Animation</a> below.</p>
-<figure><img src="img/new/seated.jpg" alt="Seated students per band" loading="lazy"><figcaption>Top: child, young teen, older teen, adult (men and women alternating).</figcaption></figure>
     </div>
     <div class="sub"><h3>Triangles per student</h3><div class="posetable"><div><span>band</span><span>min–max</span><span>notes</span></div><div><span class="p">Child, 7–10, men</span><span class="c">2,058–2,898</span><span class="d">80 combinations; heaviest: face_m_01, spiky hair, uniform white trousers, glasses</span></div><div><span class="p">Child, 7–10, women</span><span class="c">2,373–2,872</span><span class="d">160 combinations; heaviest: face_f_01, long hair, uniform white trousers, glasses</span></div><div><span class="p">Young teen, 11–14, men</span><span class="c">1,937–2,901</span><span class="d">240 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses</span></div><div><span class="p">Young teen, 11–14, women</span><span class="c">2,228–2,855</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Older teen, 15–18, men</span><span class="c">1,958–2,983</span><span class="d">480 combinations; heaviest: face_m_01, short hair, polo chinos, glasses, stubble</span></div><div><span class="p">Older teen, 15–18, women</span><span class="c">2,233–2,852</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Adult, 19+, men</span><span class="c">1,958–2,990</span><span class="d">960 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses, stubble</span></div><div><span class="p">Adult, 19+, women</span><span class="c">2,209–2,841</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div></div>
 <p class="muted">Adult parts: face 448 (man) / 633 (woman, the kit's face with a closed skull), eyes 28, brows 80, hair 298–882, tops 346–534, arms 252–348, trousers 246, shoes 196, glasses 220, beard 72.</p></div>
@@ -258,8 +272,37 @@ section { display: grid; gap: 20px; }
           shapes.</p></div>
       </div>
     </div>
-    <div class="sub"><h3>Rough edges</h3><ul class="limits"><li><b>Hair is the kit's, hairline gaps included.</b> Where a lock's edge lies on the skin at the temples (pixie, tied back, long) a thin skin-coloured crack can show between locks at three-quarter view; nothing pokes through or above any style (the hair-cover check), and the forehead may show between fringe strands by design.</li><li><b>The budget is tight for men:</b> up to 2,990 triangles (an adult man with spiky hair, a polo, glasses and stubble); women reach 2,872.</li><li><b>IdleCalm's weight shift raises one heel 9–17° in the source clip itself.</b> Standing straight from the clip is flat (within 2.4°); the review renders level the idle feet with IK, which the game will need as foot IK or a corrected clip.</li><li><b>The beard is a front patch.</b> At three-quarter view skin shows between the beard and the hair along the jaw.</li><li><b>Mitten hands are simple.</b> A flat paddle with a thumb, fine from the game camera, plain at the door.</li><li><b>Glasses are octagonal and the arms stand off wide child heads.</b> Every glasses check passes, but the frame shape is basic.</li><li><b>Skirts stretch between the legs when walking</b> (edges up to 6–9 times their length). Standing and seated are fine; a skirt solution belongs with animation in phase 2.</li><li><b>Seated renders place the hands on the desk and the feet on the floor by IK</b>; phase 2 replaces that with real desk-contact clips. Children's feet hang 10–15 cm above the floor from the 0.475 m seat.</li><li><b>Each band has its own rig</b> with different bone lengths; clips must play as rotations (with the hips height scaled), which is phase 2's job.</li></ul></div>
+    <div class="sub"><h3>Rough edges</h3><ul class="limits"><li><b>Hair is the kit's, hairline gaps included.</b> Where a lock's edge lies on the skin at the temples (pixie, tied back, long) a thin skin-coloured crack can show between locks at three-quarter view; nothing pokes through or above any style (the hair-cover check), and the forehead may show between fringe strands by design.</li><li><b>The budget is tight for men:</b> up to 2,990 triangles (an adult man with spiky hair, a polo, glasses and stubble); women reach 2,872.</li><li><b>The beard is a front patch.</b> At three-quarter view skin shows between the beard and the hair along the jaw.</li><li><b>Glasses are octagonal and the arms stand off wide child heads.</b> Every glasses check passes, but the frame shape is basic.</li><li><b>Skirts stretch between the legs when walking</b> (edges up to 6–9 times their length).</li></ul></div>
   </section>
+
+  <section id="in-the-game">
+    <div class="section-head">
+      <span class="eyebrow">student-characters branch · live</span>
+      <h2>In the game</h2>
+      <p class="muted">What the new students already do in the game on this branch.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Age bands per school</h3><p>A student's age comes from their school and stays fixed, and the
+        body is that age's band: Maple 7–10 (children, all in the uniform), Riverside 11–14, City High 14–18, Kingsley
+        11–18, Brightpath 16–19, State University 18–24, Eastgate and National 20–60. Bands: child 7–10, young teen
+        11–14, older teen 15–18, adult 19+. Grey or white hair, a heavier build and more glasses only from 45.</p></div>
+      <div class="card"><h3>One draw call per student</h3><p>Each student is one skinned mesh merged from their parts,
+        on one URP Lit material, with the colours in a per-student 16 × 16 palette set through a property block.
+        Counted in the five rooms above: every student's body is one renderer with one material, in the colour pass
+        and in the shadows; a prop in the hand (one tissue at Eastgate) adds its own.</p></div>
+      <div class="card"><h3>The paper placed per band</h3><p>Each exam paper moves towards its writer by band: 8 cm
+        for children, 11 cm for young teens, 9 cm for older teens, 8 cm for adults (option A in
+        <a href="#desk-distance">desk distance</a>). The room, desks and chairs stay where they were. In the writers
+        measured in the rooms above, the writing hand is on the sheet.</p></div>
+      <div class="card"><h3>Photo and door framing per body</h3><p>The ID photo and the door close-up are framed on the
+        student's own eyes and head height rather than on one fixed body, so children, teens and adults sit the same
+        way in both frames.</p></div>
+      <div class="card"><h3>Clips per band</h3><p>Every prefab plays its own band's baked clips under the names the
+        game already uses. The prefab builder measures each body's hold, release and settle times from those clips;
+        letting go of a held gesture fades over 1.0–1.4 s.</p></div>
+    </div>
+  </section>
+
 
 
 
@@ -268,20 +311,35 @@ section { display: grid; gap: 20px; }
 
   <section id="animation">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · phase 2 · not in the game yet</span>
+      <span class="eyebrow">student-characters branch · in the game on this branch</span>
       <h2>Animation: the game's clips on every band</h2>
       <p class="muted">The game's 44 student clips (23 motions, 21 with a mirror), baked onto the man and woman of every
         band with the seat, desk, paper, bag and floor contact built in, so there is no runtime IK. Everything the bake
         uses is data in the repo (the furniture is the game's own prefabs and placements), and a rebuild reproduces the
         same clips. The rigs differ in bone length, so each band and sex has its own clips: one animation file per rig,
         with the clip names the game already uses. Videos show every band at the shared desk from the game camera:
-        child, young teen, older teen, adult from left to right, men above, women below.</p>
+        child, young teen, older teen, adult from left to right, men above, women below. The Unity captures of the same clips on the game's prefabs come first.</p>
     </div>
     <div class="stats">
       <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
-      <div class="stat"><span class="big">329/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
+      <div class="stat"><span class="big">330/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
       <div class="stat"><span class="big">0</span><span>runtime IK: the contact is in the clips</span></div>
-      <div class="stat"><span class="big">8–11 cm</span><span>closer paper, by band, than the game places it (see below)</span></div>
+      <div class="stat"><span class="big">8–11 cm</span><span>closer paper, by band, than its old spot; the game places it there now</span></div>
+    </div>
+    <div class="sub"><h3>Poses in the game</h3><p class="muted">The clips as the game plays them, on the Unity prefabs at the
+      classroom's own desk and chair, with the paper at each band's spot. The pose sheet is one student per band; the
+      watch glance is the reworked CheckWatch, the wrist raised in front of the chest with the elbow bent and the head
+      turned down to it.</p>
+      <figure><img src="img/anim/pose-sheet.jpg" alt="Writing, the fidget tap on the paper, the watch glance, the held phone and the raised hand for a child girl, a young teen boy, an older teen woman and an adult man" loading="lazy"><figcaption><b>Writing, the fidget tap, the watch glance, the held phone and the raised hand,</b> one student per band. The raised hand of the young teen and the older teen is the StudentReview frame.</figcaption></figure>
+      <div class="figs">
+        <figure><img src="img/anim/lineup-game.jpg" alt="Twelve students in City High's tablet room from the game camera: two children, two young teens, two older teens and six adults, most writing, one with a raised hand, one fidgeting, one checking the clock, one idle and one holding a phone" loading="lazy"><figcaption><b>The 12-seat lineup at the game camera</b> (City High, tablet framing), in the room's own furniture: two children and two young teens in the front row, older teens and adults behind them, the oldest two at the back right, grey and white. Most write; one raises a hand, one fidgets, one checks the clock, one idles and one holds a phone.</figcaption></figure>
+        <figure><img src="img/anim/poses.jpg" alt="Nine poses for every band and sex, three-quarter front and side" loading="lazy"><figcaption><b>Every band and sex in nine poses</b>, three-quarter front and side: Idle, Writing, HandRaised, ReachBag, HoldItem, CheckWatch, ThinkingHard, Standing and Walking. <a href="img/anim/poses.jpg">Full size</a>.</figcaption></figure>
+      </div>
+      <div class="figs">
+        <figure><img src="img/anim/checkwatch.jpg" alt="The watch glance on all eight bodies" loading="lazy"><figcaption><b>Watch glance</b> on every body: still for about three seconds once raised.</figcaption></figure>
+        <figure><img src="img/anim/fidget-tap.jpg" alt="The fidget tap on the paper's near edge on all eight bodies" loading="lazy"><figcaption><b>Fidget tap</b> on every body, at the moment the fingers meet the paper's near edge.</figcaption></figure>
+        <figure><img src="img/anim/held-phone.jpg" alt="The held phone over the shoulder on all eight bodies" loading="lazy"><figcaption><b>Held phone</b> on every body, from over the shoulder: the screen faces the eyes.</figcaption></figure>
+      </div>
     </div>
     <div class="sub"><h3>Four bands, Writing and HandRaised</h3><p class="muted">The same frame of each clip on child, young teen, older teen and adult, from the game camera and from the side. Writing at frame 100; HandRaised at its held peak.</p>
       <div class="figs">
@@ -302,8 +360,8 @@ section { display: grid; gap: 20px; }
         <figure><video src="vid/anim/side_HandRaised.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HandRaised from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>HandRaised</b></figcaption></figure>
       </div>
     </div>
-    <div class="sub"><h3>The paper is out of reach where the game puts it</h3><p class="muted">The exam paper sits in the middle of the desk, its near edge 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 8 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which leaves its near edge 1.5–6 cm onto the desk. Children are baked to Maple Elementary's shorter desk (0.85 deep, its edge 4.7 cm further away), the others to the full desk. The renders show the paper and desk that way. The game has to move the paper by the same amount when this ships; left where it is, the writing hand lands on the desk short of the sheet. Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
-    <div class="sub"><h3>Every motion</h3><p class="muted">Each video is the whole clip at 15 fps. The key-frame sheet (link under each video) is three moments rendered with lighting, men left and women right. Mirrors are the plain clip reflected, so they are not shown.</p>
+    <div class="sub"><h3>The paper moves towards the writer</h3><p class="muted">At its old spot in the middle of the desk the exam paper's near edge is 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 8 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which leaves its near edge 1.5–6 cm onto the desk. Children are baked to Maple Elementary's shorter desk (0.85 deep, its edge 4.7 cm further away), the others to the full desk. The renders show the paper and desk that way. The game now places the paper by the same amount per band (see <a href="#in-the-game">In the game</a>). Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
+    <div class="sub"><h3>Every motion</h3><p class="muted">Each video is the whole clip at 15 fps. The key-frame sheet (link under each video) is three moments rendered with lighting, men left and women right. Mirrors are the plain clip reflected, so they are not shown. The videos are Blender renders of the bake from before the arm-continuity pass, which smoothed arm rotations from frame to frame, so arms can differ slightly from the game; HoldItem, CheckWatch and ThinkingHard, whose clips were reworked, show Unity stills of today's clips instead.</p>
     <div class="mgrid">
       <article class="mclip">
         <video src="vid/anim/Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
@@ -360,21 +418,19 @@ section { display: grid; gap: 20px; }
         </div>
       </article>
       <article class="mclip">
-        <video src="vid/anim/HoldItem.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HoldItem, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <img src="img/anim/held-phone.jpg" alt="The held phone on all eight bodies, over the shoulder" loading="lazy" style="border-radius:0">
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">HoldItem</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>4.00 s</span><span>loops</span><span>mirror: HoldItemMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">One hand up holding the item, the other on the desk or the lap.</div>
-          <a href="img/anim/sheet_HoldItem.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+          <div style="font-size:0.9rem;color:var(--muted)">One hand up holding the item with the screen to the eyes, the other on the desk or the lap. Unity stills, every body.</div>
         </div>
       </article>
       <article class="mclip">
-        <video src="vid/anim/CheckWatch.mp4" autoplay muted loop playsinline preload="metadata" aria-label="CheckWatch, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <img src="img/anim/checkwatch.jpg" alt="The watch glance on all eight bodies" loading="lazy" style="border-radius:0">
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">CheckWatch</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>4.50 s</span><span>plays to its end</span><span>mirror: CheckWatchMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The resting hand on the desk; the watch arm comes up from it.</div>
-          <a href="img/anim/sheet_CheckWatch.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+          <div style="font-size:0.9rem;color:var(--muted)">The watch wrist comes up in front of the chest, elbow bent about 100°, the back of the wrist turned to the eyes and the head turned down to it; held still for about 3 s. Unity stills, every body.</div>
         </div>
       </article>
       <article class="mclip">
@@ -387,12 +443,11 @@ section { display: grid; gap: 20px; }
         </div>
       </article>
       <article class="mclip">
-        <video src="vid/anim/ThinkingHard.mp4" autoplay muted loop playsinline preload="metadata" aria-label="ThinkingHard, every band, men above women" style="aspect-ratio:6/5;object-fit:contain"></video>
+        <img src="img/anim/fidget-tap.jpg" alt="The fidget tap on the paper on all eight bodies" loading="lazy" style="border-radius:0">
         <div class="meta">
-          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">ThinkingHard</span><span class="tag limit">1 fail</span></div>
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">ThinkingHard</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>6.00 s</span><span>loops</span><span>mirror: ThinkingHardMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Jaw on one hand, the other on the desk.</div>
-          <a href="img/anim/sheet_ThinkingHard.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
+          <div style="font-size:0.9rem;color:var(--muted)">Jaw on one hand; the other taps the paper's near edge. Unity stills at the tap, every body.</div>
         </div>
       </article>
       <article class="mclip">
@@ -556,7 +611,7 @@ section { display: grid; gap: 20px; }
       <div role="row"><span role="columnheader">Check</span><span role="columnheader">Result</span><span role="columnheader">Failing motions</span></div>
       <div role="row"><span class="p">arm_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">arm_in_thigh_mm</span><span class="c">pass</span><span class="d"></span></div>
-      <div role="row"><span class="p">arm_in_torso_mm</span><span class="c">9 clips fail</span><span class="d">Fidget, ThinkingHard</span></div>
+      <div role="row"><span class="p">arm_in_torso_mm</span><span class="c">8 clips fail</span><span class="d">Fidget</span></div>
       <div role="row"><span class="p">bag_wrist_xy</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">bag_wrist_z</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">body_chair_back_mm</span><span class="c">pass</span><span class="d"></span></div>
@@ -568,9 +623,11 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">head_into_desk_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">knee_clearance_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">leg_desk_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">local_step_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">loop_seam_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">loop_seam_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">mirror_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">quat_sign_flips</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">seat_gap_mm</span><span class="c">6 clips fail</span><span class="d">Fidget</span></div>
       <div role="row"><span class="p">seated_sole_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">seated_sole_mm</span><span class="c">2 clips fail</span><span class="d">Fidget</span></div>
@@ -581,36 +638,37 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">standing_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">thigh_into_seat_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">timing_shift_frames</span><span class="c">pass</span><span class="d"></span></div>
-      <div role="row"><span class="p">top_furniture_mm</span><span class="c">1 clips fail</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">top_furniture_mm</span><span class="c">1 clip fails</span><span class="d">Fidget</span></div>
       <div role="row"><span class="p">top_into_back_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">walk_lowest_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">wrist_jerk_cm</span><span class="c">pass</span><span class="d"></span></div>
+      <div role="row"><span class="p">wrist_step_cm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_elbow_deg</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_hand_off_paper</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">writing_hand_paper_gap_mm</span><span class="c">pass</span><span class="d"></span></div>
     </div></div>
     <div class="sub"><h3>Rough edges</h3><ul class="limits">
-      <li><b>The game's paper is out of reach.</b> The clips write on a paper 8–11 cm closer than where the game puts it; the game must move it per band, or the hand writes on the desk short of the sheet (option A, <a href="#desk-distance">decided below</a>).</li>
+      <li><b>Going straight from writing into the watch glance</b> can move the wrist 3.2–5.2 cm in one frame; no test covers that entry yet.</li>
       <li><b>Everyone leans well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. Children's heads come close to the desk.</li>
       <li><b>Resting hands often go to the lap.</b> From the upright idle poses most students cannot rest a hand on the desk with a bent elbow, so those hands rest on the thighs, often fingers down with the wrist a little raised.</li>
       <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
       <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
-      <li><b>329 of 352 clips pass every check.</b> The 23 that fail: Fidget and FidgetMirror on every rig except the child boy's (14), Thinking on every rig (8), and the adult man's ThinkingHardMirror (1).</li>
-      <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top. The adult man's ThinkingHardMirror has a forearm 0.5 mm past the torso limit where the jaw rests on the hand.</li>
+      <li><b>330 of 352 clips pass every check.</b> The 22 that fail: Fidget and FidgetMirror on every rig except the child boy's (14) and Thinking on every rig (8).</li>
+      <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
-      <li><b>Not in the game yet.</b> Loading the clips, the missing head-aim transforms, the bone names and the paper offset are the Unity phase.</li>
     </ul></div>
   </section>
 
   <section id="desk-distance">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · decided · not in the game yet</span>
+      <span class="eyebrow">student-characters branch · decided · A in the game on this branch</span>
       <h2>Decided: desk distance and writing posture</h2>
       <p class="muted">In the game today the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out, rendered on the same students and the same frame of Writing: A is what the Animation section above ships, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
-      <p><b>Decision: A now, C2 later.</b> The Unity phase ships A: the exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. C2 follows later as a polish pass. B is not taken. The comparison below is kept as the record of the choice.</p>
+      <p><b>Decision: A now, C2 later.</b> This branch ships A: the exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. C2 follows later as a polish pass. B is not taken. The comparison below is kept as the record of the choice.</p>
     </div>
     <div class="posetable" role="table" aria-label="Desk distance options">
       <div role="row"><span role="columnheader">Option</span><span role="columnheader">Posture · checks</span><span role="columnheader">Unity impact</span></div>
-      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>chosen, now</b></span><span class="c">Every band leans well over the desk, children's faces close to the paper (the source Writing clip is itself hunched). 329 of 352 clips pass; the 23 failures are Fidget and Thinking, which the game doesn't use, and the adult man's ThinkingHardMirror, 0.5 mm past the torso limit.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
+      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>chosen, now</b></span><span class="c">Every band leans well over the desk, children's faces close to the paper (the source Writing clip is itself hunched). 330 of 352 clips pass; the 22 failures are Fidget and Thinking, which the game doesn't use.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
       <div role="row"><span class="p">B · desk 16–24 cm closer (child 24, young teen 20, older teen 18, adult 16), paper at its original spot · not taken</span><span class="c">Bent elbows (at most 114–118°) and 0–14° extra lean, but the hunch of the source clip remains. Not tuned: 18 of 32 Writing and IdleCalm clips pass; the rest are 3–12 mm forearm, chest and back contacts and one 4.8 cm seat gap, the same tuning A needed.</span><span class="d">RoomLayout.DeskOffsetZ becomes a per-room value (it is one global -0.8 today, read by RoomDresser, ClassroomView's navmesh, RoomFootprints, RoomWalks and RoomLayout). Rooms that mix bands take one value. Supervisor aisles get wider. The desk's near strip enters the students' tap capsules (radius 0.34 at the seat) by up to about 9 cm.</span></div>
       <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing · <b>later, as a polish pass</b></span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) pass; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
     </div>
@@ -634,6 +692,29 @@ section { display: grid; gap: 20px; }
       <li><b>Only Writing is authored.</b> WritingLoop and Erasing would need the same treatment, and every other seated clip would need re-baking for the new desk distance.</li>
     </ul></div>
   </section>
+
+  <section id="known-limits">
+    <div class="section-head">
+      <span class="eyebrow">student-characters branch · open</span>
+      <h2>Known limits of the new students</h2>
+      <p class="muted">What still looks wrong or rough today. The older students' limits are further down, in
+        <a href="#limits">Known limitations</a>.</p>
+    </div>
+    <ul class="limits">
+      <li><b>Children fold deep over the desk to write.</b> The writing posture is the source clip's hunch with the
+        paper moved closer (option A); on a child it folds far over the desk. The upright authored posture (C2) is
+        planned as a later polish pass.</li>
+      <li><b>A seated skirt floats up to 3.5 cm above the seat.</b></li>
+      <li><b>Mitten hands.</b> A flat paddle with a thumb: fine from the game camera, plain at the door and in the
+        close shots above, where a hand holds the pen, the phone or the watch.</li>
+      <li><b>ID photos show smaller heads than the old body did.</b> Framed on each student's own eyes and head, the
+        new students' heads take up less of the photo.</li>
+      <li><b>The teen girls' bun has no knot from behind.</b> From the back it reads as short hair.</li>
+      <li><b>Glasses temples poke past the hair at the back</b> on short styles (bun, tied back, pixie, cropped).</li>
+      <li><b>The teen girls' bob shows a dark wedge at the parting.</b></li>
+    </ul>
+  </section>
+
 
   <section id="classroom">
     <div class="section-head">
