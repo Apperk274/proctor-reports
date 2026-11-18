@@ -123,14 +123,15 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · students and their animations</span>
     <h1>Student Characters</h1>
-    <p class="lede">The classroom is now filled with real students instead of block figures. Each student is one shared body,
-      male or female, dressed from who they are and what they wore today: hair, skin, eyes, glasses and a top. They write,
-      read, glance, whisper, reach, raise a hand, hold things up, think, stretch and walk, with clips fitted to the game's
-      own desk and chair. About one in ten is left-handed and does everything the other way round. Every image and video
-      below is from this project.</p>
+    <p class="lede">The game's students are built from the proctor's kit in four age bands, child to adult, with one body
+      per band and sex, dressed from who they are and what they wore today: hair, skin, eyes, glasses, facial hair and
+      clothes. They write, read, glance, whisper, reach, raise a hand, hold things up, think, stretch and walk, with clips
+      baked per band onto the game's own desk and chair. About one in ten is left-handed and does everything the other way
+      round. They replaced an earlier set of students, which the second half of this page keeps for the record. Every image
+      and video below is from this project.</p>
     <div class="ledger" aria-label="Meshy credits">
       <div><span class="num" style="font-size:1.6rem;font-weight:500">642</span>
-        <span class="muted"> Meshy credits left of 1000 · 358 spent</span></div>
+        <span class="muted"> Meshy credits left of 1000 · 358 spent, all on the previous students and their clips, which today's clips are baked from</span></div>
       <div class="bar" role="img" aria-label="Of 1000 credits: 20 on a Meshy body, 5 on rigging, 9 on library animations, 214 on custom motions, 50 on hair, 60 on reach and thinking attempts, 642 left">
         <span style="width:2%;background:var(--bad)"></span><span style="width:0.5%;background:var(--warn)"></span><span style="width:0.9%;background:var(--accent)"></span><span style="width:21.4%;background:var(--good)"></span><span style="width:5%;background:var(--muted)"></span><span style="width:6%;background:var(--ink)"></span>
       </div>
@@ -144,20 +145,19 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted">The new age-banded students on the student-characters branch come first: <a href="#new-students">how they look in the game</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">the desk-distance decision</a> and <a href="#known-limits">their known limits</a>. The sections after that describe the students <code>main</code> ships today.</p>
+    <p class="muted">The game's current students come first: <a href="#new-students">how they look in the game</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">the desk-distance decision</a> and <a href="#known-limits">their known limits</a>. The sections after that, from <a href="#classroom">the previous students in the classroom</a> on, describe the students they replaced.</p>
   </header>
 
   <section id="new-students">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · in the game on this branch</span>
-      <h2>New students: four age bands</h2>
+      <span class="eyebrow">current students · in the game</span>
+      <h2>Students: four age bands</h2>
       <p class="muted">Students built from the proctor's Quaternius kit in four age bands (child, young teen, older
-        teen, adult), one body per band and sex, rebuilt low-poly for the phone. On the <code>student-characters</code>
-        branch they are the students in the game. Everything in this section is captured in Unity, in the game's own
-        rooms, at the door and in the StudentReview scene, except the band lineups beside the proctor and the hair
-        comparison, which come from the build scripts in <code>ArtSource/Characters/Students/</code>. The students
-        further down this page, from <a href="#classroom">The students in the classroom</a> on, are what
-        <code>main</code> ships today.</p>
+        teen, adult), one body per band and sex, rebuilt low-poly for the phone. They are the students in the game.
+        Everything in this section is captured in Unity, in the game's own rooms, at the door and in the StudentReview
+        scene, except the band lineups beside the proctor and the hair comparison, which come from the build scripts in
+        <code>ArtSource/Characters/Students/</code>. The students further down this page, from
+        <a href="#classroom">The previous students in the classroom</a> on, are the ones these replaced.</p>
     </div>
     <div class="stats">
       <div class="stat"><span class="big">1,937–2,990</span><span>triangles per dressed student, every combination (ceiling 3,000)</span></div>
@@ -196,7 +196,7 @@ section { display: grid; gap: 20px; }
     </div>
     <div class="sub"><h3>At the door and on the ID</h3><p class="muted">Admission in Play mode: the live door close-up
       (left of each pair) and the ID photo on the document (right), for the same person. Both are framed on the
-      student's own face, chin to the top of the skull, so the face fills the frame as the old body's did and a
+      student's own face, chin to the top of the skull, so the face fills the frame as the previous students' body did and a
       child fills it as an adult does; the tallest hairstyles may reach the top edge. The photo is a flat-lit headshot
       of who the document says they are; hair can differ, since a photo is older than today's haircut.</p>
       <div class="figs">
@@ -263,7 +263,7 @@ section { display: grid; gap: 20px; }
         <div class="card"><h3>Clothes</h3><p>Torso and sleeve radii are smoothed around and along the body so the planes read as deliberate rather than as the kit garment's folds; polos and shirts have a raised placket; short-sleeve hems are weighted like the arm under them, which ended the arm showing under the sleeve; shoes have a flat sole slab, a heel and a lower toe box.</p></div>
         <div class="card"><h3>One material</h3><p>Every face's UVs point at its role's cell in a 16 × 16 palette. The game
           builds a palette per student from their traits and sets it in a property block on one URP Lit material, instead
-          of tinting each role submesh as today.</p></div>
+          of tinting each role submesh as the previous students did.</p></div>
         <div class="card"><h3>Proctor fixes kept</h3><p>Neck and sleeve closures, sleeve settling over the check poses,
           the proctor's build field for slim and heavy adults, glasses arms laid outside the skin, stable caps, collars
           with a real back side, sleeve hems weighted like the arm under them.</p></div>
@@ -279,9 +279,9 @@ section { display: grid; gap: 20px; }
 
   <section id="in-the-game">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · live</span>
+      <span class="eyebrow">current students · live</span>
       <h2>In the game</h2>
-      <p class="muted">What the new students already do in the game on this branch.</p>
+      <p class="muted">What the students do in the game.</p>
     </div>
     <div class="traits">
       <div class="card"><h3>Age bands per school</h3><p>A student's age comes from their school and stays fixed, and the
@@ -298,7 +298,7 @@ section { display: grid; gap: 20px; }
         measured in the rooms above (45 across five rooms and four runs), the writing hand is on the sheet.</p></div>
       <div class="card"><h3>Photo and door framing per body</h3><p>The ID photo and the door close-up are framed on the
         student's own face rather than on the tallest hair: each body's chin and bare skull top, measured over its
-        four faces, are zoomed to fill the frame as the old body's head did, with the head set a little low to leave
+        four faces, are zoomed to fill the frame as the previous students' head did, with the head set a little low to leave
         room for ordinary hairstyles. Children, teens and adults fill both frames the same way.</p></div>
       <div class="card"><h3>Clips per band</h3><p>Every prefab plays its own band's baked clips under the names the
         game already uses. The prefab builder measures each body's hold, release and settle times from those clips;
@@ -314,7 +314,7 @@ section { display: grid; gap: 20px; }
 
   <section id="animation">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · in the game on this branch</span>
+      <span class="eyebrow">current students · in the game</span>
       <h2>Animation: the game's clips on every band</h2>
       <p class="muted">The game's 44 student clips (23 motions, 21 with a mirror), baked onto the man and woman of every
         band with the seat, desk, paper, bag and floor contact built in, so there is no runtime IK. Everything the bake
@@ -664,10 +664,10 @@ section { display: grid; gap: 20px; }
 
   <section id="desk-distance">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · decided · A in the game on this branch</span>
+      <span class="eyebrow">current students · decided · A in the game</span>
       <h2>Decided: desk distance and writing posture</h2>
-      <p class="muted">In the game today the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out, rendered on the same students and the same frame of Writing: A is what the Animation section above ships, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
-      <p><b>Decision: A now, C2 later.</b> This branch ships A: the exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. C2 follows later as a polish pass. B is not taken. The comparison below is kept as the record of the choice.</p>
+      <p class="muted">At its original spot the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out, rendered on the same students and the same frame of Writing: A is what the Animation section above ships, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
+      <p><b>Decision: A now, C2 later.</b> The game ships A: the exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. C2 follows later as a polish pass. B is not taken. The comparison below is kept as the record of the choice.</p>
     </div>
     <div class="posetable" role="table" aria-label="Desk distance options">
       <div role="row"><span role="columnheader">Option</span><span role="columnheader">Posture · checks</span><span role="columnheader">Unity impact</span></div>
@@ -698,10 +698,10 @@ section { display: grid; gap: 20px; }
 
   <section id="known-limits">
     <div class="section-head">
-      <span class="eyebrow">student-characters branch · open</span>
-      <h2>Known limits of the new students</h2>
-      <p class="muted">What still looks wrong or rough today. The older students' limits are further down, in
-        <a href="#limits">Known limitations</a>.</p>
+      <span class="eyebrow">current students · open</span>
+      <h2>Known limits of the students</h2>
+      <p class="muted">What still looks wrong or rough today. The previous students' limits are further down, in
+        <a href="#limits">Known limitations of the previous students</a>.</p>
     </div>
     <ul class="limits">
       <li><b>Children fold deep over the desk to write.</b> The writing posture is the source clip's hunch with the
@@ -720,9 +720,12 @@ section { display: grid; gap: 20px; }
 
   <section id="classroom">
     <div class="section-head">
-      <h2>The students in the classroom</h2>
-      <p class="muted">The game spawns the skinned students in its own Classroom scene. What a student does is still decided
-        only by what the player could see; the body shows it with a clip. These frames are from Play mode.</p>
+      <span class="eyebrow">previous students · replaced by the age-banded students</span>
+      <h2>The previous students in the classroom</h2>
+      <p class="muted">Before the age-banded students above, the game spawned these skinned students in its Classroom
+        scene; they had replaced the block placeholders. What a student does was then, as now, decided only by what the
+        player could see, and the body showed it with a clip. These frames are from Play mode at the time. This section and
+        the ones after it are kept as the record of those students.</p>
     </div>
     <figure><img src="img/final/final_room_game.png" alt="The classroom from above, six students at desks doing different things" loading="lazy">
       <figcaption>The overview camera, mid-exam.</figcaption></figure>
@@ -737,9 +740,10 @@ section { display: grid; gap: 20px; }
 
   <section id="who">
     <div class="section-head">
-      <h2>Who a student is</h2>
-      <p class="muted">A student's look comes in two parts. The person in the seat is always the person the admission card
-        describes.</p>
+      <span class="eyebrow">previous students</span>
+      <h2>Previous students: who a student was</h2>
+      <p class="muted">A previous student's look came in two parts. The person in the seat was always the person the
+        admission card described.</p>
     </div>
     <div class="traits">
       <div class="card"><h3>Who they are</h3>
@@ -755,10 +759,10 @@ section { display: grid; gap: 20px; }
 
     <div class="sub">
       <h3>Women and men, one skeleton</h3>
-      <p class="muted">Gender picks the body, the first name (eight male and eight female first names) and the hairstyles:
-        short, cropped and curly for men; wavy, long and tied-back for women. The female body is the male one reshaped
+      <p class="muted">Gender picked the body, the first name (eight male and eight female first names) and the hairstyles:
+        short, cropped and curly for men; wavy, long and tied-back for women. The female body was the male one reshaped
         (chest, waist, hips, shoulders, neck, jaw) on the same joints, so every animation, hairstyle and pair of glasses
-        works on both. Both are the same height, so both fit the chair and desk.</p>
+        worked on both. Both were the same height, so both fitted the chair and desk.</p>
       <figure><img src="img/lineup_gender.png" alt="Six women and six men seated at desks, animated" loading="lazy">
         <figcaption>Six women and six men, alternating seats, in Play mode.</figcaption></figure>
       <figure><img src="img/lineup_gender_close.png" alt="Closer view of the mixed front rows" loading="lazy">
@@ -775,8 +779,8 @@ section { display: grid; gap: 20px; }
 
     <div class="sub">
       <h3>Six hairstyles</h3>
-      <p class="muted">Five from Meshy. Tied-back is the cropped cap with a ponytail built in Blender. Hair is cut clear of
-        the eyes, because eye colour is checked at the door.</p>
+      <p class="muted">Five from Meshy. Tied-back was the cropped cap with a ponytail built in Blender. Hair was cut clear
+        of the eyes, because eye colour is checked at the door.</p>
       <div class="figs small">
         <figure><img src="img/hair2_short_side.png" alt="Short hair" loading="lazy"><figcaption>short</figcaption></figure>
         <figure><img src="img/hair2_cropped_side.png" alt="Cropped hair" loading="lazy"><figcaption>cropped</figcaption></figure>
@@ -789,9 +793,9 @@ section { display: grid; gap: 20px; }
 
     <div class="sub">
       <h3>Left-handed students</h3>
-      <p class="muted">Left-handers write, erase, hold things, check a watch, raise a hand, stretch, think, stand, walk and
-        hold out a document on the other side. Gestures aimed at a place (a neighbour, a bag, the clock) still turn toward
-        that place, whichever hand the student uses.</p>
+      <p class="muted">Left-handers wrote, erased, held things, checked a watch, raised a hand, stretched, thought, stood,
+        walked and held out a document on the other side. Gestures aimed at a place (a neighbour, a bag, the clock) still
+        turned toward that place, whichever hand the student used.</p>
       <figure class="solo"><img src="img/game/lefty_writing_close.png" alt="Four students writing, two of them left-handed" loading="lazy">
         <figcaption>Writing. Kaan (front left) and the red-haired student (back right) are left-handed and play the mirrored
           clip; the other two are right-handed.</figcaption></figure>
@@ -800,11 +804,12 @@ section { display: grid; gap: 20px; }
 
   <section id="wardrobe">
     <div class="section-head">
-      <h2>Wardrobe: three tops on both bodies</h2>
+      <span class="eyebrow">previous students</span>
+      <h2>Previous students' wardrobe: three tops on both bodies</h2>
       <p class="muted">Short-sleeve t-shirt, long-sleeve t-shirt and a hoodie with a real hood lying on the back, a rolled
-        rim, a kangaroo pocket and drawstrings. Each top is cut from its body's own torso and stands off the skin by
+        rim, a kangaroo pocket and drawstrings. Each top was cut from its body's own torso and stood off the skin by
         1.2, 1.8 or 2.6 cm. Front, side, back and from above (roughly the supervisor's angle), in the rest pose. The colours
-        here are two palette entries; in the game the colour changes with what the student wore that day.</p>
+        here are two palette entries; in the game the colour changed with what the student wore that day.</p>
     </div>
     <div id="wardrobeRows" style="display:grid;gap:22px"></div>
     <div class="group-head" style="margin-top:6px"><h3>Hoodie, seated and leaning</h3><span class="pose">writing pose</span></div>
@@ -816,10 +821,12 @@ section { display: grid; gap: 20px; }
 
   <section id="motions">
     <div class="section-head">
-      <h2>What students do</h2>
-      <p class="muted">Every pose the game asks for, and the clips that show it. Handed clips have a mirror for left-handers;
-        aimed clips have a mirror so they can turn either way. When a held gesture ends, the clip's own wind-down plays while
-        the next pose fades in, so hands come down instead of snapping.</p>
+      <span class="eyebrow">previous students</span>
+      <h2>What the previous students did</h2>
+      <p class="muted">Every pose the game asks for, and the clips that showed it on the previous students. These clips are
+        the sources the current students' clips are baked from. Handed clips have a mirror for left-handers; aimed clips
+        have a mirror so they can turn either way. When a held gesture ended, the clip's own wind-down played while the next
+        pose faded in, so hands came down instead of snapping.</p>
     </div>
 
     <div class="posetable" role="table" aria-label="Game poses and their clips">
@@ -845,24 +852,26 @@ section { display: grid; gap: 20px; }
 
   <section id="built">
     <div class="section-head">
-      <h2>How it's built</h2>
+      <span class="eyebrow">previous students</span>
+      <h2>How the previous students were built</h2>
       <p class="muted">One body built by a Blender script and rigged by Meshy's auto-rig, in a male and a female shape on the
-        same skeleton, with hair, glasses and tops as swappable parts on that skeleton, tinted per student. The motions are
+        same skeleton, with hair, glasses and tops as swappable parts on that skeleton, tinted per student. The motions were
         Meshy text-to-motion clips seated on the game's chair and pinned to the real desk in Blender, plus clips made by hand
-        there: 44 in all, including the mirrors for left-handers and the hand-made whisperer and listener. The game drives the body through the existing pose
+        there: 44 in all, including the mirrors for left-handers and the hand-made whisperer and listener. The game drove the body through the existing pose
         contract: each pose maps to a clip, changes fade smoothly, held gestures wind down with their own motion, and the
-        game's own clock drives it all, so it stays deterministic and testable.</p>
+        game's own clock drives it all, so it stays deterministic and testable. The current students use the same contract.</p>
     </div>
   </section>
 
   <section id="quality">
     <div class="section-head">
-      <h2>Quality</h2>
+      <span class="eyebrow">previous students</span>
+      <h2>Quality when the previous students shipped</h2>
     </div>
     <div class="stats">
-      <div class="stat"><span class="big">1,819</span><span>EditMode tests passing, none failing (197 skipped by design)</span></div>
-      <div class="stat"><span class="big">41/41</span><span>PlayMode tests passing</span></div>
-      <div class="stat"><span class="big">4.8 min</span><span>for the PlayMode suite</span></div>
+      <div class="stat"><span class="big">1,819</span><span>EditMode tests passing, none failing (197 skipped by design), at the time</span></div>
+      <div class="stat"><span class="big">41/41</span><span>PlayMode tests passing, at the time</span></div>
+      <div class="stat"><span class="big">4.8 min</span><span>for the PlayMode suite, at the time</span></div>
     </div>
     <p class="muted">Before the doors open, students no longer flicker in and out of the room: two systems were hiding and
       showing them every frame, and each now restores only what it hid.</p>
@@ -870,7 +879,9 @@ section { display: grid; gap: 20px; }
 
   <section id="limits">
     <div class="section-head">
-      <h2>Known limitations</h2>
+      <span class="eyebrow">previous students</span>
+      <h2>Known limitations of the previous students</h2>
+      <p class="muted">As they stood when the age-banded students replaced them.</p>
     </div>
     <ul class="limits">
       <li><b>Neighbours sit 3 m apart,</b> so a whispering pair lean and turn to each other but stay well apart; from the
