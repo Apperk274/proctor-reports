@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classroom Props</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --warn: #a8661a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --warn: #e0a24f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --warn: #e0a24f; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.figs.small { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+.status { justify-self: start; font-family: var(--mono); font-size: 0.8rem; color: var(--warn); border: 1px solid var(--warn);
+  padding: 2px 8px; border-radius: 4px; }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.sub { display: grid; gap: 12px; margin-top: 8px; }
+
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: 1rem; font-weight: 700; }
+.card p { font-size: 0.95rem; color: var(--muted); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · room dressing</span>
+    <h1>Classroom Props</h1>
+    <span class="status">In review · PR #17, not merged yet</span>
+    <p class="lede">Five low-poly props replace primitive placeholders in the exam rooms: a wall clock, a backpack,
+      bookcases, a water cooler and a snake plant. Each was made with Meshy text-to-3D, then cleaned up and recoloured in
+      Blender to the game's palette. Six more were made and not used. The captures are from Play mode on the branch, at
+      the phone size (1080 × 2340), and from the prop pipeline's own renders.</p>
+  </header>
+
+  <section id="props">
+    <div class="section-head">
+      <span class="eyebrow">in the branch</span>
+      <h2>The five props</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="big">5</span><span>props in the rooms, replacing boxes and discs or adding dressing</span></div>
+      <div class="stat"><span class="big">187–680</span><span>triangles per prop</span></div>
+      <div class="stat"><span class="big">1</span><span>shared material: URP Lit on a 16 × 16 palette, point filter, no mipmaps, like the students</span></div>
+      <div class="stat"><span class="big">6</span><span>generated props not used</span></div>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Wall clock</h3><p>A dark rim, a white face and hands. It replaces the cream disc, which was
+        hard to see from the game camera. It hangs where the old clock did.</p></div>
+      <div class="card"><h3>Backpack</h3><p>Replaces the two-cube bag beside the desk. It is 0.32 m tall, so the baked
+        ReachBag hand still closes on its top loop.</p></div>
+      <div class="card"><h3>Bookcases</h3><p>Replace the brown bookshelf boxes. Three 1.0 m bookcases stand side by side
+        in the Middle classroom, below its side windows; two 1.9 m ones stand in the Panelled classroom. Each pair or row
+        touches, with no gap.</p></div>
+      <div class="card"><h3>Water cooler</h3><p>Replaces the box in the Office.</p></div>
+      <div class="card"><h3>Snake plant</h3><p>New dressing in the free back-right corner of the Middle and Panelled
+        classrooms, past the bookcases. It has its own footprint, so students' walks keep clear of it.</p></div>
+    </div>
+    <div class="sub"><h3>Old and new, side by side</h3>
+      <figure><img src="img/close-room.jpg" alt="A room render: the old clock disc beside the new clock, the old cooler box beside the new cooler, the new snake plant, and the old bookshelf box beside the new bookcase" loading="lazy"><figcaption><b>Room dressing.</b> Old clock disc and new clock; old cooler box and new cooler; the new snake plant; old bookshelf box and new bookcase.</figcaption></figure>
+      <figure><img src="img/close-props.jpg" alt="Desk props: the old two-cube bag beside the new backpack, then old and new phones, old and new tissue boxes, and a water bottle" loading="lazy"><figcaption><b>Desk props.</b> The old bag (left) and the new backpack. The phone, tissue box and water bottle to the right were made too but are not used (see <a href="#not-used">Not used</a>).</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="rooms">
+    <div class="section-head">
+      <span class="eyebrow">play mode · phone</span>
+      <h2>In the rooms</h2>
+      <p class="muted">Each pair is the same room at the same exam time before the props (left) and now (right), at the game camera on
+        a phone; the students differ between the two runs. The props are small from here; the close-ups below show them in the game.</p>
+    </div>
+    <div class="figs">
+      <figure><a href="img/phone-riverside.jpg"><img src="img/phone-riverside.jpg" alt="Riverside Middle School before and now: the new clock top right, the bookcases and plant at the right wall, backpacks by the desks" loading="lazy"></a><figcaption><b>Riverside Middle School</b> (the Middle classroom). The clock top right, the bookcases and plant along the right wall, backpacks beside the desks.</figcaption></figure>
+      <figure><a href="img/phone-elite.jpg"><img src="img/phone-elite.jpg" alt="Kingsley Academy before and now: the new clock top right, tall bookcases and the plant in the back-right corner, backpacks by the desks" loading="lazy"></a><figcaption><b>Kingsley Academy</b> (the Panelled classroom). The clock top right, the 1.9 m bookcases and plant in the back-right corner, backpacks beside the desks.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>Close up in the game</h3>
+      <div class="figs">
+        <figure><img src="img/riverside-phone-wall.jpg" alt="Three light wood bookcases side by side below a window in the Middle classroom" loading="lazy"><figcaption><b>Riverside, Middle classroom.</b> Three 1.0 m bookcases, pushed back to the wall, below every window sill.</figcaption></figure>
+        <figure><img src="img/elite-phone-corner.jpg" alt="Two tall bookcases and a snake plant in the corner of the Panelled classroom, the clock above" loading="lazy"><figcaption><b>Kingsley, Panelled classroom.</b> Two 1.9 m bookcases with the snake plant beside them and the clock above.</figcaption></figure>
+      </div>
+      <div class="figs small">
+        <figure><img src="img/in-game-riverside-bag.jpg" alt="A brown backpack on the floor beside a desk" loading="lazy"><figcaption><b>Backpack</b> beside a desk.</figcaption></figure>
+        <figure><img src="img/in-game-elite-clock.jpg" alt="The wall clock with a dark rim and white face" loading="lazy"><figcaption><b>Wall clock.</b></figcaption></figure>
+        <figure><img src="img/in-game-brightpath-alcove.jpg" alt="A water cooler in the Office alcove" loading="lazy"><figcaption><b>Water cooler</b> in the Office (Brightpath Prep Centre).</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="not-used">
+    <div class="section-head">
+      <span class="eyebrow">generated, not in the game</span>
+      <h2>Not used</h2>
+    </div>
+    <ul class="limits">
+      <li><b>Phone.</b> No better than the phone the game already has.</li>
+      <li><b>Tissue box.</b> Too small in the hand to matter.</li>
+      <li><b>Water bottle.</b> It would need a drinking behaviour first.</li>
+      <li><b>Messenger bag, leafy plant and pencil case.</b> Crumpled, faceted surfaces that read as generated rather than
+        as low-poly art.</li>
+    </ul>
+    <figure><img src="img/close-rejected.jpg" alt="The rejected messenger bag, leafy plant and pencil case, each with crumpled faceting" loading="lazy"><figcaption><b>Rejected:</b> messenger bag, leafy plant and pencil case.</figcaption></figure>
+  </section>
+
+  <section id="built">
+    <div class="section-head">
+      <span class="eyebrow">pipeline</span>
+      <h2>How they are built</h2>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Blender clean-up</h3><p>A script scales and centres each model, decimates it, recolours every
+        face to a cell of the shared palette, exports it and copies the game's props into the project. Holes are closed
+        and back faces culled.</p></div>
+      <div class="card"><h3>Prefabs</h3><p>An editor builder makes the prefabs on the one palette material. Running it again
+        changes nothing. The clock and bag prefabs keep their old GUIDs, so scenes and the catalog still point at them.
+        If the new bookcase or cooler prefab is missing, the room falls back to the old box.</p></div>
+      <div class="card"><h3>Clear of the windows</h3><p>A new test builds every room shape at phone and tablet size and
+        fails if a bookcase, bookshelf, cooler or plant meets a window. It caught the first Middle classroom bookcases
+        (a 1.5 m pair) reaching into a window in the phone room.</p></div>
+    </div>
+  </section>
+
+  <section id="look-at">
+    <div class="section-head">
+      <span class="eyebrow">open in review</span>
+      <h2>Please look at</h2>
+    </div>
+    <ul class="limits">
+      <li><b>Kingsley's bookcases are light wood</b>, where the old box was dark brown.</li>
+      <li><b>The Middle classroom's shelves are 1.0 m tall</b> (the old box was 1.2 m), to stay below the side windows.</li>
+      <li><b>The clock sits where the old one did.</b> In classrooms it is partly under the timer bar at the top of the
+        screen, and in the National hall it is behind the basketball backboard.</li>
+      <li><b>A few stray white triangles</b> show inside each bookcase near the bottom left, from the palette recolour.</li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>

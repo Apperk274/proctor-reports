@@ -111,6 +111,8 @@ section { display: grid; gap: 20px; }
 .limits li { color: var(--muted); }
 .limits b { color: var(--ink); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+.status { justify-self: start; font-family: var(--mono); font-size: 0.8rem; color: var(--warn); border: 1px solid var(--warn);
+  padding: 2px 8px; border-radius: 4px; }
 .back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
 .back:hover { text-decoration: underline; }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -123,6 +125,7 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · students and their animations</span>
     <h1>Student Characters</h1>
+    <span class="status">Hands, tops, chests, upright child writing and the new glance: in review · PR #18, not merged yet</span>
     <p class="lede">The game's students are built from the proctor's kit in four age bands, child to adult, with one body
       per band and sex, dressed from who they are and what they wore today: hair, skin, eyes, glasses, facial hair and
       clothes. They write, read, glance, whisper, reach, raise a hand, hold things up, think, stretch and walk, with clips
@@ -131,7 +134,7 @@ section { display: grid; gap: 20px; }
       and video below is from this project.</p>
     <div class="ledger" aria-label="Meshy credits">
       <div><span class="num" style="font-size:1.6rem;font-weight:500">642</span>
-        <span class="muted"> Meshy credits left of 1000 · 358 spent, all on the previous students and their clips, which today's clips are baked from</span></div>
+        <span class="muted"> Meshy credits left of 1000 after the previous students · 358 spent on them and their clips, which most of today's clips are baked from. The three newer motion sources (the children's writing and the glance) are not counted here.</span></div>
       <div class="bar" role="img" aria-label="Of 1000 credits: 20 on a Meshy body, 5 on rigging, 9 on library animations, 214 on custom motions, 50 on hair, 60 on reach and thinking attempts, 642 left">
         <span style="width:2%;background:var(--bad)"></span><span style="width:0.5%;background:var(--warn)"></span><span style="width:0.9%;background:var(--accent)"></span><span style="width:21.4%;background:var(--good)"></span><span style="width:5%;background:var(--muted)"></span><span style="width:6%;background:var(--ink)"></span>
       </div>
@@ -145,7 +148,7 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted">The game's current students come first: <a href="#new-students">how they look in the game</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">the desk-distance decision</a> and <a href="#known-limits">their known limits</a>. The sections after that, from <a href="#classroom">the previous students in the classroom</a> on, describe the students they replaced.</p>
+    <p class="muted">The game's current students come first: <a href="#new-students">how they look in the game</a>, <a href="#hands-clothes">their hands, tops and chests</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">desk distance and writing posture</a> and <a href="#known-limits">their known limits</a>. The sections after that, from <a href="#classroom">the previous students in the classroom</a> on, describe the students they replaced.</p>
   </header>
 
   <section id="new-students">
@@ -155,9 +158,11 @@ section { display: grid; gap: 20px; }
       <p class="muted">Students built from the proctor's Quaternius kit in four age bands (child, young teen, older
         teen, adult), one body per band and sex, rebuilt low-poly for the phone. They are the students in the game.
         Everything in this section is captured in Unity, in the game's own rooms, at the door and in the StudentReview
-        scene, except the band lineups beside the proctor and the hair comparison, which come from the build scripts in
-        <code>ArtSource/Characters/Students/</code>. The students further down this page, from
-        <a href="#classroom">The previous students in the classroom</a> on, are the ones these replaced.</p>
+        scene, except the band lineups beside the proctor, the hair comparison and the hands, tops and chests, which come
+        from the build scripts in <code>ArtSource/Characters/Students/</code>. The Unity captures were taken before the
+        hands, tops and women's chests were rebuilt, so they still show the old paddle hands and the earlier tops; the lineups and
+        <a href="#hands-clothes">Hands, tops and chests</a> show the current meshes. The students further down this
+        page, from <a href="#classroom">The previous students in the classroom</a> on, are the ones these replaced.</p>
     </div>
     <div class="stats">
       <div class="stat"><span class="big">1,937–2,990</span><span>triangles per dressed student, every combination (ceiling 3,000)</span></div>
@@ -247,20 +252,41 @@ section { display: grid; gap: 20px; }
 <figure><img src="img/new/lineup-teen.jpg" alt="Older teen, 15–18 lineup beside the proctor" loading="lazy"><figcaption><b>Older teen, 15–18.</b> Front and three-quarter.</figcaption></figure>
 <figure><img src="img/new/lineup-adult.jpg" alt="Adult, 19+ lineup beside the proctor" loading="lazy"><figcaption><b>Adult, 19+.</b> Front and three-quarter.</figcaption></figure>
     </div>
+    <div class="sub" id="hands-clothes"><h3>Hands, tops and chests</h3><p class="muted">Renders from the
+      exported meshes on the baked clips: the students as they were merged (before) beside the current ones (now).</p>
+      <figure><a href="img/fix/hands.jpg"><img src="img/fix/hands.jpg" alt="Hands before and now on an adult man and a child girl, standing, writing and from the game camera, beside the proctor's hand" loading="lazy"></a><figcaption><b>Hands.</b> Standing, writing and from the game camera, before and now, then the proctor's hand. Adult man above, child girl below.</figcaption></figure>
+      <p class="muted">The hand used to be a thumb and a flat paddle on a pinched wrist. It is now a mitten with a
+        palm: it sits on the kit hand's real knuckles, with a flattened palm and the thumb rooted on the palm side, at
+        0.8 of the kit hand's size. The fingers stay one block; there are still no finger bones.</p>
+      <figure><a href="img/fix/tee-back.jpg"><img src="img/fix/tee-back.jpg" alt="The tee from the side on an older teen boy and an adult man, standing and writing, before and now" loading="lazy"></a><figcaption><b>The tee's back fin.</b> Older teen and adult man, standing and writing, before (top) and now (bottom).</figcaption></figure>
+      <p class="muted">Tops no longer bulge. A missed shoulder column used to copy the shoulder tip, which stood a fin of
+        37–52 mm off the tee's back; it now sits halfway between the armpit and the neckline, and the fin is gone. Tops
+        are fitted to the garment's main piece only, so collars, ties, hoods and drawstrings no longer push the chest
+        or back out: polo and shirt fronts are 1–2 cm flatter.</p>
+      <figure><a href="img/fix/bust.jpg"><img src="img/fix/bust.jpg" alt="The tee from the side on a girl or woman of every band, before and now" loading="lazy"></a><figcaption><b>Women's chests</b>, standing, side view. Child, young teen, older teen and adult, before (top) and now (bottom).</figcaption></figure>
+      <figure><a href="img/fix/bust-tops.jpg"><img src="img/fix/bust-tops.jpg" alt="Older teen and adult women from the side in a long sleeve top, a sweater, a cardigan and a tee, each with a bust and an underside" loading="lazy"></a><figcaption><b>Every top, now.</b> Older teen (top) and adult women in a long sleeve top, a sweater, a cardigan and a tee, side view at rest.</figcaption></figure>
+      <p class="muted">Every women's top now has a bust with an underside, placed from the kit woman's own top: a full
+        one for older teens and adults, a small one for young teens and none for child girls, who stay flat. Long
+        sleeves, sweaters and cardigans get the same apex and underside as the tee, and the bust no longer pushes the
+        waist out. Women's tops are 32 triangles heavier for the row under the bust.</p>
+    </div>
     <div class="sub"><h3>Hair: the kit’s locks, kept</h3><p class="muted">Each pair is the proctor’s kit hair on the kit face (left) beside the student version (right), at three-quarter and from the classroom camera’s angle above. The student hair is the kit’s own locks with every face that cannot be seen from any direction removed, coplanar faces merged only as far as the budget needs, and a back side added only where a lock’s inside shows.</p>
 <figure><img src="img/new/hair-compare.jpg" alt="Kit hair beside student hair" loading="lazy"><figcaption>Two styles to a row, the five men's first, then the five women's: kit then student, each at three-quarter and from above. Triangles kit → student: short 1500 → 868; cropped 140 → 298; swept 1404 → 850; spiky 1400 → 882; shaggy 1188 → 719; bob 1500 → 551; long 1500 → 652; bun 246 → 376; tied-back 1146 → 576; pixie 1399 → 565.</figcaption></figure>
     </div>
-    <div class="sub"><h3>Triangles per student</h3><div class="posetable"><div><span>band</span><span>min–max</span><span>notes</span></div><div><span class="p">Child, 7–10, men</span><span class="c">2,058–2,898</span><span class="d">80 combinations; heaviest: face_m_01, spiky hair, uniform white trousers, glasses</span></div><div><span class="p">Child, 7–10, women</span><span class="c">2,373–2,872</span><span class="d">160 combinations; heaviest: face_f_01, long hair, uniform white trousers, glasses</span></div><div><span class="p">Young teen, 11–14, men</span><span class="c">1,937–2,901</span><span class="d">240 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses</span></div><div><span class="p">Young teen, 11–14, women</span><span class="c">2,228–2,855</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Older teen, 15–18, men</span><span class="c">1,958–2,983</span><span class="d">480 combinations; heaviest: face_m_01, short hair, polo chinos, glasses, stubble</span></div><div><span class="p">Older teen, 15–18, women</span><span class="c">2,233–2,852</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Adult, 19+, men</span><span class="c">1,958–2,990</span><span class="d">960 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses, stubble</span></div><div><span class="p">Adult, 19+, women</span><span class="c">2,209–2,841</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div></div>
-<p class="muted">Adult parts: face 448 (man) / 633 (woman, the kit's face with a closed skull), eyes 28, brows 80, hair 298–882, tops 346–534, arms 252–348, trousers 246, shoes 196, glasses 220, beard 72.</p></div>
+    <div class="sub"><h3>Triangles per student</h3><div class="posetable"><div><span>band</span><span>min–max</span><span>notes</span></div><div><span class="p">Child, 7–10, men</span><span class="c">2,058–2,866</span><span class="d">80 combinations; heaviest: face_m_01, spiky hair, uniform white trousers, glasses</span></div><div><span class="p">Child, 7–10, women</span><span class="c">2,405–2,872</span><span class="d">160 combinations; heaviest: face_f_01, long hair, uniform white trousers, glasses</span></div><div><span class="p">Young teen, 11–14, men</span><span class="c">1,937–2,869</span><span class="d">240 combinations; heaviest: face_m_01, spiky hair, polo chinos, glasses</span></div><div><span class="p">Young teen, 11–14, women</span><span class="c">2,260–2,855</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Older teen, 15–18, men</span><span class="c">1,958–2,947</span><span class="d">480 combinations; heaviest: face_m_01, short hair, polo chinos, glasses, stubble</span></div><div><span class="p">Older teen, 15–18, women</span><span class="c">2,265–2,852</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div><div><span class="p">Adult, 19+, men</span><span class="c">1,958–2,990</span><span class="d">960 combinations; heaviest: face_m_03, spiky hair, polo chinos, glasses, moustache</span></div><div><span class="p">Adult, 19+, women</span><span class="c">2,241–2,841</span><span class="d">240 combinations; heaviest: face_f_01, long hair, hoodie jeans, glasses</span></div></div>
+<p class="muted">Adult parts: face 448 (man) / 633 (woman, the kit's face with a closed skull), eyes 28, brows 80, hair 298–882, tops 346–534 (men) / 378–566 (women), arms 252–348, trousers 246, shoes 196, glasses 188, stubble, moustache or beard 68–104.</p></div>
     <div class="sub"><h3>Checks</h3><p class="muted">Ported from the proctor pipeline and run on the exported files, in 12 poses from the game's student clips retargeted onto each band, and the three builds for adults.</p><div class="posetable"><div><span>check</span><span>result</span><span>what it asks</span></div><div><span class="p">budget</span><span class="c">pass</span><span class="d">every wearable combination at or under 3,000 triangles</span></div><div><span class="p">materials</span><span class="c">pass</span><span class="d">one material per part and per student; every face inside one palette cell</span></div><div><span class="p">skeleton</span><span class="c">pass</span><span class="d">the same 24-bone fingerless rig in every band and sex</span></div><div><span class="p">age rules</span><span class="c">pass</span><span class="d">no facial hair under 16 or on women, stubble only for 16–18, grey or white only for adults 45+, uniform for every child and nobody else, no make-up, no mohawks</span></div><div><span class="p">seams</span><span class="c">pass</span><span class="d">no cracks and no gaps between pieces of a part</span></div><div><span class="p">build shapes</span><span class="c">pass</span><span class="d">adult bodies, tops and trousers carry slim and heavy shapes; baked bands carry none</span></div><div><span class="p">waistbands</span><span class="c">pass</span><span class="d">every top hangs at least 15 mm over every trouser and skirt top, in every build</span></div><div><span class="p">mouths</span><span class="c">pass</span><span class="d">stubble and beard openings sit on the mouth and are mouth-sized</span></div><div><span class="p">glasses</span><span class="c">pass</span><span class="d">bridge resting on the nose (0–4 mm), frame clear of all four faces, arms outside the skin and resting over the ear</span></div><div><span class="p">feet</span><span class="c">pass</span><span class="d">shoes and leg skin never weighted across legs or torn in a pose</span></div><div><span class="p">openings</span><span class="c">pass</span><span class="d">neck and sleeve closures stay on the skin in the 12 poses</span></div><div><span class="p">poke</span><span class="c">pass</span><span class="d">arm skin never more than 1 mm outside a sleeve in the 12 poses</span></div><div><span class="p">see through</span><span class="c">pass</span><span class="d">no ray into a neckline, sleeve or hem finds only culled back faces, in 5 poses and 3 builds</span></div><div><span class="p">feet ground</span><span class="c">pass</span><span class="d">standing and idle: both soles within 5 mm of the floor and within 10° of flat; seated: planted feet flat (10°), children's hanging feet relaxed (25°)</span></div><div><span class="p">hair cover</span><span class="c">pass</span><span class="d">every hairstyle on every face of every band, rays from above, both sides, behind, the classroom camera and front-top: no skull, ear or scalp skin shows inside the hair</span></div></div></div>
     <div class="sub"><h3>How it is built</h3>
       <div class="traits">
         <div class="card"><h3>No decimation</h3><p>Every low part is built by script on a fixed topology and fitted to the
           kit by rays: tops from one template (16-column torso, yoke, 8-sided sleeves), trousers from a pelvis that splits
-          into two legs, mitten hands, shoes, glasses and beards. The kit gives shape and skin weights, not triangles.</p></div>
+          into two legs, hands, shoes, glasses and beards. The kit gives shape and skin weights, not triangles.</p></div>
+        <div class="card"><h3>Hands</h3><p>A mitten laid on the kit hand's real knuckles: a flattened palm ring, then
+          knuckle and finger rings sized by rays against the kit hand, with the thumb rooted on the palm side. The whole
+          hand is 0.8 of the kit's size. It hangs from the wrist bone; the rig has no finger bones.</p></div>
         <div class="card"><h3>Child heads</h3><p>The kit head reshaped, not new topology. Child faces are first blended 55 % towards the Round face; then one smooth field over face, eyes and hair compresses the lower face to 80 % (the eyes sit lower in the head), grows the cranium 4.5 % and the eyes 32 %, shrinks the nose to 45 %, widens the jaw near the chin, fills the cheeks and pulls the chin back, and smoothing softens the jaw and cheekbones. Neck bone 0.6, head 0.93 of an adult's on a 1.33 m body. Ratios from MakeHuman children measured in MPFB.</p></div>
         <div class="card"><h3>Hair</h3><p>The kit's own locks: every face no camera can see (240 directions, the faces as occluders) is removed, coplanar faces are merged only as far as the budget needs, and lock insides that can show get a back side. The scalp under every style is hair-coloured. After each band's head is reshaped, skull skin that would reach a lock is pulled under it, and any skin still showing inside the hair from above, the sides, behind or the classroom camera is covered by a hair-coloured patch; the build repeats the hair-cover check's own test until it finds nothing.</p></div>
-        <div class="card"><h3>Clothes</h3><p>Torso and sleeve radii are smoothed around and along the body so the planes read as deliberate rather than as the kit garment's folds; polos and shirts have a raised placket; short-sleeve hems are weighted like the arm under them, which ended the arm showing under the sleeve; shoes have a flat sole slab, a heel and a lower toe box.</p></div>
+        <div class="card"><h3>Clothes</h3><p>Tops are fitted to the kit garment's main piece only, so its collar, tie, hood or drawstrings do not push the chest or back out. Women's tops take their front rows from the kit woman's own top, with a row under the bust, baked per band (none for children). Torso and sleeve radii are smoothed around and along the body so the planes read as deliberate rather than as the kit garment's folds; polos and shirts have a raised placket; short-sleeve hems are weighted like the arm under them, which ended the arm showing under the sleeve; shoes have a flat sole slab, a heel and a lower toe box.</p></div>
         <div class="card"><h3>One material</h3><p>Every face's UVs point at its role's cell in a 16 × 16 palette. The game
           builds a palette per student from their traits and sets it in a property block on one URP Lit material, instead
           of tinting each role submesh as the previous students did.</p></div>
@@ -274,7 +300,7 @@ section { display: grid; gap: 20px; }
           shapes.</p></div>
       </div>
     </div>
-    <div class="sub"><h3>Rough edges</h3><ul class="limits"><li><b>Hair is the kit's, hairline gaps included.</b> Where a lock's edge lies on the skin at the temples (pixie, tied back, long) a thin skin-coloured crack can show between locks at three-quarter view; nothing pokes through or above any style (the hair-cover check), and the forehead may show between fringe strands by design.</li><li><b>The budget is tight for men:</b> up to 2,990 triangles (an adult man with spiky hair, a polo, glasses and stubble); women reach 2,872.</li><li><b>The beard is a front patch.</b> At three-quarter view skin shows between the beard and the hair along the jaw.</li><li><b>Glasses are octagonal and the arms stand off wide child heads.</b> Every glasses check passes, but the frame shape is basic.</li><li><b>Skirts stretch between the legs when walking</b> (edges up to 6–9 times their length).</li></ul></div>
+    <div class="sub"><h3>Rough edges</h3><ul class="limits"><li><b>Hair is the kit's, hairline gaps included.</b> Where a lock's edge lies on the skin at the temples (pixie, tied back, long) a thin skin-coloured crack can show between locks at three-quarter view; nothing pokes through or above any style (the hair-cover check), and the forehead may show between fringe strands by design.</li><li><b>The budget is tight for men:</b> up to 2,990 triangles (an adult man with spiky hair, a polo, glasses and a moustache); women reach 2,872.</li><li><b>The beard is a front patch.</b> At three-quarter view skin shows between the beard and the hair along the jaw.</li><li><b>Glasses are octagonal and the arms stand off wide child heads.</b> Every glasses check passes, but the frame shape is basic.</li><li><b>Skirts stretch between the legs when walking</b> (edges up to 6–9 times their length).</li></ul></div>
   </section>
 
   <section id="in-the-game">
@@ -302,7 +328,7 @@ section { display: grid; gap: 20px; }
         room for ordinary hairstyles. Children, teens and adults fill both frames the same way.</p></div>
       <div class="card"><h3>Clips per band</h3><p>Every prefab plays its own band's baked clips under the names the
         game already uses. The prefab builder measures each body's hold, release and settle times from those clips;
-        letting go of a held gesture fades over 1.0–1.4 s.</p></div>
+        letting go of a held gesture fades over 1.0–1.6 s.</p></div>
     </div>
   </section>
 
@@ -320,8 +346,12 @@ section { display: grid; gap: 20px; }
         band with the seat, desk, paper, bag and floor contact built in, so there is no runtime IK. Everything the bake
         uses is data in the repo (the furniture is the game's own prefabs and placements), and a rebuild reproduces the
         same clips. The rigs differ in bone length, so each band and sex has its own clips: one animation file per rig,
-        with the clip names the game already uses. Videos show every band at the shared desk from the game camera:
-        child, young teen, older teen, adult from left to right, men above, women below. The Unity captures of the same clips on the game's prefabs come first.</p>
+        with the clip names the game already uses. Most clips are baked from the previous students' clips. Three take a
+        newer source made with Meshy text-to-motion: the child band's Writing and WritingLoop, both written sitting
+        upright, and every band's GlanceNeighbour. Videos show every band at the shared desk from the game camera:
+        child, young teen, older teen, adult from left to right, men above, women below. They and the comparison
+        stills are rendered from the current meshes and clips. The Unity captures of the clips on the game's prefabs
+        come first; they were taken before the hands and tops were rebuilt and before the children's upright writing.</p>
     </div>
     <div class="stats">
       <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
@@ -358,12 +388,16 @@ section { display: grid; gap: 20px; }
     </div>
     <div class="sub"><h3>From the side</h3><p class="muted">The whole clip from the side, so desk, seat, lap and floor contact can be judged: child, young teen, older teen, adult from left to right, men above, women below.</p>
       <div class="figs">
-        <figure><video src="vid/anim/side_Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>Writing</b></figcaption></figure>
+        <figure><video src="vid/anim/side_Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>Writing.</b> Children sit upright and lean from the hips; the others lean over the desk.</figcaption></figure>
+        <figure><video src="vid/anim/side_WritingLoop.mp4" autoplay muted loop playsinline preload="metadata" aria-label="WritingLoop from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>WritingLoop.</b> The same for the second writing clip.</figcaption></figure>
         <figure><video src="vid/anim/side_IdleCalm.mp4" autoplay muted loop playsinline preload="metadata" aria-label="IdleCalm from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>IdleCalm</b></figcaption></figure>
         <figure><video src="vid/anim/side_HandRaised.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HandRaised from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>HandRaised</b></figcaption></figure>
       </div>
     </div>
-    <div class="sub"><h3>The paper moves towards the writer</h3><p class="muted">At its old spot in the middle of the desk the exam paper's near edge is 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 8 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which leaves its near edge 1.5–6 cm onto the desk. Children are baked to Maple Elementary's shorter desk (0.85 deep, its edge 4.7 cm further away), the others to the full desk. The renders show the paper and desk that way. The game now places the paper by the same amount per band (see <a href="#in-the-game">In the game</a>). Even with the closer paper every band leans well over the desk to write, as the source clips already did.</p></div>
+    <div class="sub"><h3>The paper moves towards the writer</h3><p class="muted">At its old spot in the middle of the desk the exam paper's near edge is 0.63 m in front of the seat point, and the desk's near edge is 0.49 m away. A child's shoulder-to-wrist is 0.31 m and an adult man's 0.41 m, so writing on that spot means a locked straight arm or lying on the desk. The clips write on a paper moved towards the student by band: 8 cm for children, 11 cm for young teens, 9 cm for older teens and 8 cm for adults, which leaves its near edge 1.5–6 cm onto the desk. Children are baked to Maple Elementary's shorter desk (0.85 deep, its edge 4.7 cm further away), the others to the full desk. The renders show the paper and desk that way. The game now places the paper by the same amount per band (see <a href="#in-the-game">In the game</a>). Even with the closer paper, teens and adults lean well over the desk to write, as their source clips already did. Children write from their own upright sources (see <a href="#desk-distance">Desk distance and writing posture</a>).</p></div>
+    <div class="sub"><h3>GlanceNeighbour at the game camera</h3><p class="muted">The glance has its own source clip: sitting upright with both hands on the desk, the student turns only the head to look down at the desk beside them, holds the look, then turns back; the mirror looks the other way. The hands stay on the desk, placed relative to where the source's hands rest. Three frames of the clip, men above and women below, child to adult from left to right in each. <a href="vid/anim/GlanceNeighbour.mp4">The whole clip</a> is under Every motion below.</p>
+      <figure><a href="img/fix/glance-frames.jpg"><img src="img/fix/glance-frames.jpg" alt="GlanceNeighbour at the game camera on every band, men above and women below, at the start, while looking and while holding the look" loading="lazy"></a><figcaption><b>Start, looking, holding the look.</b></figcaption></figure>
+    </div>
     <div class="sub"><h3>Every motion</h3><p class="muted">Each video is the whole clip at 15 fps, a Blender render of the exported clips the game imports. The key-frame sheet (link under each video) is three moments rendered with lighting, men left and women right. Mirrors are the plain clip reflected, so they are not shown. HoldItem, CheckWatch and ThinkingHard show Unity stills of every body instead, because the held phone, the wristwatch and the tap on the paper are too small to read from this camera. Fidget and Thinking are not used by the game and fail their checks; they are shown for the record.</p>
     <div class="mgrid">
       <article class="mclip">
@@ -371,7 +405,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Writing</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>7.97 s</span><span>loops</span><span>mirror: WritingMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The writing hand on the band's paper spot, the other hand holding the sheet; forearms come down to the desk edge.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The writing hand on the band's paper spot, the other hand holding the sheet; forearms come down to the desk edge. Children write from an upright source: they sit 3.5 cm further forward, lean from the hips with a straight back and bow the head.</div>
           <a href="img/anim/sheet_Writing.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -380,7 +414,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WritingLoop</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>9.97 s</span><span>loops</span><span>mirror: WritingLoopMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults, 54° for children).</div>
+          <div style="font-size:0.9rem;color:var(--muted)">For teens and adults the source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults). Children write it from their own upright source, as in Writing.</div>
           <a href="img/anim/sheet_WritingLoop.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -467,7 +501,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">GlanceNeighbour</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>3.97 s</span><span>loops</span><span>mirror: GlanceNeighbourMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The head keeps the source's direction; hands stay on the desk or the lap.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Its own source clip: only the head turns, down to the desk beside the student, and back; the hands stay on the desk, placed relative to where the source's hands rest.</div>
           <a href="img/anim/sheet_GlanceNeighbour.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -605,6 +639,8 @@ section { display: grid; gap: 20px; }
         <div class="card"><h3>Seat</h3><p>Children sit 16.5 cm forward of the seat point, adults 10 cm, so they can reach the desk. The trouser mesh is measured every second frame and the body raised or lowered until it rests on the seat; a thigh may press at most about 2 cm into the seat's front edge.</p></div>
         <div class="card"><h3>Hands</h3><p>The writing hand and the hand holding the sheet are on the paper. Resting hands go on the desk where the source had them near it, within 85 % of the band's arm; where the desk is out of that reach for most of a clip they rest on the thigh instead. Each hand's height comes from its own mesh; the elbow swings to the lowest position that keeps the forearm out of the desk, and hands are kept out of the thighs.</p></div>
         <div class="card"><h3>Lean</h3><p>Where a target is beyond about 90 % of the arm, the spine leans forward (sideways to the bag) within a per-band limit. The head turns back what it should not follow, so glances, clock checks and whispers look where the source looks.</p></div>
+        <div class="card"><h3>Children's writing</h3><p>Writing and WritingLoop for children bake from upright source clips. The child sits 3.5 cm further forward, leans up to 36° from the hips with the back straight, the head bowed and the forearms forward to the paper's near edge; a last pass keeps the arms out of the desk.</p></div>
+        <div class="card"><h3>Letting go of a held clip</h3><p>The game lets go of ReachBag or HandRaised by playing its wind-down while it fades into the next pose, blending each bone the shortest way round. Where an upper arm would pass the opposite of its writing rotation in that fade, the bake replaces that stretch of the arm with a smooth turn between clear frames, so the blend cannot flip it round the other way.</p></div>
         <div class="card"><h3>Feet</h3><p>Young teens, older teens and adults plant both feet flat at one spot per rig, the same in every seated clip, so cross-fades do not slide them; IdleCalm no longer lifts a heel. Children's legs hang relaxed, the foot 14° toe-down; the soles hang 10–20 cm above the floor (a little more than the 10–15 cm aimed for).</p></div>
         <div class="card"><h3>Standing and walking</h3><p>Standing and PresentDocument plant both feet flat for the whole clip. The walk keeps its stride, and the lowest shoe vertex is put on the floor every frame.</p></div>
       </div>
@@ -641,7 +677,7 @@ section { display: grid; gap: 20px; }
       <div role="row"><span class="p">standing_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">thigh_into_seat_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">timing_shift_frames</span><span class="c">pass</span><span class="d"></span></div>
-      <div role="row"><span class="p">top_furniture_mm</span><span class="c">1 clip fails</span><span class="d">Fidget</span></div>
+      <div role="row"><span class="p">top_furniture_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">top_into_back_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">walk_lowest_sole_mm</span><span class="c">pass</span><span class="d"></span></div>
       <div role="row"><span class="p">wrist_jerk_cm</span><span class="c">pass</span><span class="d"></span></div>
@@ -652,10 +688,11 @@ section { display: grid; gap: 20px; }
     </div></div>
     <div class="sub"><h3>Rough edges</h3><ul class="limits">
       <li><b>Going straight from writing into the watch glance</b> can move the wrist 3.2–5.2 cm in one frame; no test covers that entry yet.</li>
-      <li><b>Everyone leans well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. Children's heads come close to the desk.</li>
+      <li><b>Teens and adults lean well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. <b>Children write upright</b> from their own sources, the head 6–11 cm above the desk (it came within 1 cm before), but their writing elbows open to 130–146° and from the side the child girl's arms read stretched forward.</li>
       <li><b>Resting hands often go to the lap.</b> From the upright idle poses most students cannot rest a hand on the desk with a bent elbow, so those hands rest on the thighs, often fingers down with the wrist a little raised.</li>
       <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
       <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
+      <li><b>Letting go of a reach into writing</b>, replayed as the game plays it into Writing and WritingLoop at 16 loop phases, moves a wrist at most 6.0 cm in a frame on every rig, checked across all 100 per-student varieties. The older-teen boy's ReachBagMirror, which jumped 21.9 cm, now moves about 4 cm, fixed in the bake. The child girl's mirrored reach, and her raised hand into WritingLoop, would swing the arm the long way round (51–59 cm a frame on a straight release, 26 cm for the raised hand), so the game lets her go through Idle first (1.0 s) and then into writing (0.55 s): under 4 cm a frame, and back to writing about 0.25 s later than before. The detour holds through one-frame pose flickers, and standing up cancels it.</li>
       <li><b>330 of 352 clips pass every check.</b> The 22 that fail: Fidget and FidgetMirror on every rig except the child boy's (14) and Thinking on every rig (8).</li>
       <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
@@ -664,18 +701,21 @@ section { display: grid; gap: 20px; }
 
   <section id="desk-distance">
     <div class="section-head">
-      <span class="eyebrow">current students · decided · A in the game</span>
-      <h2>Decided: desk distance and writing posture</h2>
-      <p class="muted">At its original spot the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out, rendered on the same students and the same frame of Writing: A is what the Animation section above ships, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
-      <p><b>Decision: A now, C2 later.</b> The game ships A: the exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. C2 follows later as a polish pass. B is not taken. The comparison below is kept as the record of the choice.</p>
+      <span class="eyebrow">current students · A in the game · children upright</span>
+      <h2>Desk distance and writing posture</h2>
+      <p class="muted">At its original spot the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out were rendered on the same students and the same frame of Writing: A moves the paper, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
+      <p><b>In the game: A, with upright children.</b> The exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. Children no longer write with the hunched source clip: their Writing and WritingLoop bake from new upright source clips at the same desk distance. Teens and adults write as in A: upright writing is for children only for now, and C2 for teens and adults is not planned. B and C2 are not in the game; the comparison below is kept as the record of the choice and was rendered on the earlier meshes.</p>
+    </div>
+    <div class="sub"><h3>Children: before and now</h3><p class="muted">Writing at frame 100, from the side, on the child girl and boy. Before: the hunched source clip with the paper moved closer (A). Now: the upright source. The child sits 3.5 cm further forward, leans up to 36° from the hips with a straight back and bows the head; the head stays 6–11 cm above the desk, where it came within 1 cm before.</p>
+      <figure><img src="img/fix/child-writing.jpg" alt="A child girl and boy writing from the side, before folded over the desk and now upright" loading="lazy"><figcaption><b>Girl and boy, before and now.</b> The whole clip on every band is in <a href="#animation">From the side</a>.</figcaption></figure>
     </div>
     <div class="posetable" role="table" aria-label="Desk distance options">
       <div role="row"><span role="columnheader">Option</span><span role="columnheader">Posture · checks</span><span role="columnheader">Unity impact</span></div>
-      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>chosen, now</b></span><span class="c">Every band leans well over the desk, children's faces close to the paper (the source Writing clip is itself hunched). 330 of 352 clips pass; the 22 failures are Fidget and Thinking, which the game doesn't use.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
+      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>in the game</b></span><span class="c">Teens and adults lean well over the desk (their source Writing clip is itself hunched); children now write upright from their own sources. 330 of 352 clips pass; the 22 failures are Fidget and Thinking, which the game doesn't use.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
       <div role="row"><span class="p">B · desk 16–24 cm closer (child 24, young teen 20, older teen 18, adult 16), paper at its original spot · not taken</span><span class="c">Bent elbows (at most 114–118°) and 0–14° extra lean, but the hunch of the source clip remains. Not tuned: 18 of 32 Writing and IdleCalm clips pass; the rest are 3–12 mm forearm, chest and back contacts and one 4.8 cm seat gap, the same tuning A needed.</span><span class="d">RoomLayout.DeskOffsetZ becomes a per-room value (it is one global -0.8 today, read by RoomDresser, ClassroomView's navmesh, RoomFootprints, RoomWalks and RoomLayout). Rooms that mix bands take one value. Supervisor aisles get wider. The desk's near strip enters the students' tap capsules (radius 0.34 at the seat) by up to about 9 cm.</span></div>
-      <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing · <b>later, as a polish pass</b></span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) pass; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
+      <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing · not planned for now</span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) passed; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
     </div>
-    <div class="sub"><h3>A, B and C2 side by side</h3><p class="muted">Each image: A on top, B in the middle, C2 at the bottom; child, young teen, older teen, adult from left to right; Writing at frame 100.</p>
+    <div class="sub"><h3>A, B and C2 side by side</h3><p class="muted">Each image: A on top, B in the middle, C2 at the bottom; child, young teen, older teen, adult from left to right; Writing at frame 100. Rendered for the decision, on the earlier meshes and with the children's earlier hunched writing in A.</p>
       <div class="figs">
         <figure><img src="img/desk/ABC2_Writing_m_side.jpg" alt="Writing, men, side view: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Men, side.</b></figcaption></figure>
         <figure><img src="img/desk/ABC2_Writing_f_side.jpg" alt="Writing, women, side view: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Women, side.</b></figcaption></figure>
@@ -683,16 +723,10 @@ section { display: grid; gap: 20px; }
         <figure><img src="img/desk/ABC2_Writing_f_game.jpg" alt="Writing, women, game camera: A, B and C2 from top to bottom" loading="lazy"><figcaption><b>Women, game camera.</b></figcaption></figure>
       </div>
     </div>
-    <div class="sub"><h3>C2 in motion</h3><p class="muted">The whole authored Writing clip from the side: men above, women below. The writing motion is small loops of the wrist, a slow drift across the line and pen lifts, with breathing and small head movements.</p>
-      <figure class="solo"><video src="vid/desk/c2_side_writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="C2 Writing from the side, every band" style="width:100%;border-radius:8px"></video></figure>
-    </div>
     <div class="sub"><h3>Honest read</h3><ul class="limits">
-      <li><b>C2 is clearly the most natural</b> from the side and at the game camera: upright students with bowed heads, both hands on a centred sheet. A and B read as slumping over the desk; moving the desk alone (B) fixes the arms but not the posture, because the hunch is in the source clip.</li>
-      <li><b>Children still bend their necks a lot</b> in C2, and the child girl's elbow closes to about 90°.</li>
-      <li><b>The women's forearms angle down to the paper</b> rather than lying flat, with the elbows a little high.</li>
-      <li><b>The motion is sine waves only.</b> On a phone it reads as calm and almost still; up close it may look mechanical, since nothing varies from loop to loop.</li>
-      <li><b>The mitten hand rests on its knuckles</b>, pitched down, rather than holding a pen.</li>
-      <li><b>Only Writing is authored.</b> WritingLoop and Erasing would need the same treatment, and every other seated clip would need re-baking for the new desk distance.</li>
+      <li><b>C2 read as the most natural</b> from the side and at the game camera: upright students with bowed heads, both hands on a centred sheet. A and B read as slumping over the desk; moving the desk alone (B) fixes the arms but not the posture, because the hunch is in the source clip.</li>
+      <li><b>The children's upright writing keeps the desk where it is</b>, so their elbows open to 130–146° to reach the paper, where C2's bent to 89–126°; from the side the child girl's arms read stretched forward.</li>
+      <li><b>C2's authored motion was sine waves only</b>, and only Writing was authored. WritingLoop and Erasing would need the same treatment, and every other seated clip would need re-baking for a new desk distance.</li>
     </ul></div>
   </section>
 
@@ -704,12 +738,14 @@ section { display: grid; gap: 20px; }
         <a href="#limits">Known limitations of the previous students</a>.</p>
     </div>
     <ul class="limits">
-      <li><b>Children fold deep over the desk to write.</b> The writing posture is the source clip's hunch with the
-        paper moved closer (option A); on a child it folds far over the desk. The upright authored posture (C2) is
-        planned as a later polish pass.</li>
+      <li><b>Teens and adults hunch over the desk to write.</b> Their writing is the source clip's hunch with the paper
+        moved closer (option A). Upright writing is for children only for now.</li>
+      <li><b>Children reach for the paper with straight-ish arms.</b> Their writing elbows open to 130–146°, and from
+        the side the child girl's arms read stretched forward.</li>
+      <li><b>A few releases still step 4–6 cm a frame</b> when a reach or a raised hand lets go into writing (the child boy and the young teen girl), as before; the child girl goes through Idle first, so she is back to writing about 0.25 s later.</li>
       <li><b>A seated skirt floats up to 3.5 cm above the seat.</b></li>
-      <li><b>Mitten hands.</b> A flat paddle with a thumb: fine from the game camera, plain at the door and in the
-        close shots above, where a hand writes, taps, holds the phone or wears the watch.</li>
+      <li><b>Hands have no fingers.</b> A mitten with a palm and a thumb on a fingerless rig: it reads as a hand from
+        the game camera and at the door; up close the fingers are one block.</li>
       <li><b>The teen girls' bun has no knot from behind.</b> From the back it reads as short hair.</li>
       <li><b>Glasses temples poke past the hair at the back</b> on short styles (bun, tied back, pixie, cropped).</li>
       <li><b>The teen girls' bob shows a dark wedge at the parting.</b></li>

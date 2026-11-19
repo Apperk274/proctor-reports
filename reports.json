@@ -121,6 +121,12 @@
       "summary": "The eight schools' exam rooms on a phone and two tablets, with desk counts by rating and how room size sets pace and difficulty."
     },
     {
+      "slug": "classroom-props",
+      "title": "Classroom Props",
+      "category": "classroom",
+      "summary": "Five low-poly props replacing placeholder boxes in the exam rooms: wall clock, backpack, bookcases, water cooler and snake plant, plus the six not used. In review."
+    },
+    {
       "slug": "student-characters",
       "title": "Student Characters",
       "category": "classroom",
