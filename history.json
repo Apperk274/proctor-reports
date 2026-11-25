@@ -1,4 +1,7 @@
 [
+  {"date": "2026-11-25", "author": "ardakabadayi", "slug": "performance", "change": "Added students and memory on the Galaxy A15: 45 fps held at admission, a 98 ms first door card, and about 577 MB mid-exam on a normal build."},
+  {"date": "2026-11-25", "author": "ardakabadayi", "slug": "classroom-door", "change": "Students now come down beside their chair and step in from the side instead of walking through its back, with before and after views and a phone shot."},
+  {"date": "2026-11-25", "author": "ardakabadayi", "slug": "admission-photo", "change": "Replaced Coming and going: the card shows Approaching until its person arrives, and the line and counter move with the card, with phone shots and a clip."},
   {"date": "2026-11-19", "author": "Apperk274", "slug": "classroom-props", "change": "Added the Classroom Props report: five Meshy-made props in the rooms, before and now on a phone, close-ups, and the props that were not used."},
   {"date": "2026-11-19", "author": "Apperk274", "slug": "student-characters", "change": "Brought the students to the rebuilt hands, flatter tops and women's chests, the children's upright writing, the new glance and smooth reach releases (in review as PR #18), with re-rendered lineups, videos and stills."},
   {"date": "2026-11-19", "author": "Apperk274", "slug": "student-characters", "change": "Reworded the page for the merge: the age-banded students are now the game's students, and the earlier sections are retitled as the previous students they replaced."},

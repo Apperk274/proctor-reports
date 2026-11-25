@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Phone Performance</title>
-<meta name="description" content="Frame rate and freezes on a Galaxy A15: why exams juddered at 63-70 fps and froze for half a second, and the fixes, measured before and after on the phone.">
+<meta name="description" content="Frame rate, freezes and memory on a Galaxy A15: why exams juddered and froze, the steady 45 fps, and how much memory the game uses in a normal build.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -76,13 +76,55 @@ ul.list b { color: var(--ink); font-weight: 600; }
 <div class="wrap">
   <header>
     <a class="back" href="../">← All reports</a>
-    <span class="eyebrow">Exam Supervisor Simulator · performance · merged in main eed4d45 (before: main eacf212)</span>
+    <span class="eyebrow">Exam Supervisor Simulator · performance · main 2111488 (frame-rate fixes from eed4d45)</span>
     <h1>Performance on the Galaxy A15</h1>
     <p class="lede">Frame rate and freezes measured in the app on a Galaxy A15 5G (SM-S156V, Android 16, 1080 × 2340,
       90 Hz panel, Mali-G57 on Vulkan). The probe splits every frame into main thread, render thread and GPU
       time. The judder was GPU load, not a frame-rate setting. The half-second freezes came from saving the career.
-      All numbers are from development builds on that phone, before and after the fixes.</p>
+      Frame-rate and freeze numbers are from development builds on that phone. Memory is measured on a normal
+      (non-development) build, because a development build uses about 200 MB more.</p>
   </header>
+
+  <section id="memory">
+    <div class="section-head">
+      <h2>Students and memory</h2>
+      <p class="muted">Main <code>2111488</code>, with the student loading of PR #20 and the memory pass of PR #21, on the
+        same phone, the same save and the same path through the game.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="big">45 fps</span><p>Held through admission and the exam. Before PR #20 the governor stepped down to 30 at admission and stayed there. 45 is the intended rate on the A15.</p></div>
+      <div class="card"><span class="big">~577 MB</span><p>Total memory (PSS) mid-exam on a normal build, down from about 595 MB. The earlier ~780–800 MB figure was a development build.</p></div>
+      <div class="card"><span class="big">98 ms</span><p>The first card at the door, down from 774 ms. The photo booth and the close-up are now prepared while the exam loads.</p></div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Point in the game</th><th>Main before PR #21</th><th>Main now</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><td>Title</td><td class="num">445 MB</td><td class="num">420 MB</td><td class="num">−25 MB</td></tr>
+        <tr><td>Hub</td><td class="num">540 MB</td><td class="num">520 MB</td><td class="num">−20 MB</td></tr>
+        <tr><td>After admission</td><td class="num">600 MB</td><td class="num">577 MB</td><td class="num">−23 MB</td></tr>
+        <tr><td>Mid-exam</td><td class="num">595 MB</td><td class="num">577 MB</td><td class="num">−18 MB</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">Total PSS on a normal build, two runs of each; the runs agree within about 10 MB. Both columns already
+      include PR #20. Frame rate held 45 fps in every run.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Change</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><b>PR #20</b> · Student bodies load per age band and sex, and the ones the exam does not need are let go</td><td>About 35–40 MB less of Unity's native memory, with no growth from exam to exam</td></tr>
+        <tr><td><b>PR #20</b> · Hidden students keep their clocks running but are not posed while a screen covers the room</td><td>The hub's main-thread time no longer doubles once a class has arrived; the room looks the same when uncovered</td></tr>
+        <tr><td><b>PR #20</b> · The door's photo booth and close-up are prepared during the exam's load</td><td>First admission card 774 → 98 ms, the same picture</td></tr>
+        <tr><td><b>PR #21</b> · The old fallback student loads only if a band's student is missing</td><td>About 12 MB</td></tr>
+        <tr><td><b>PR #21</b> · Room flags load one per room, when it hangs one</td><td>About 11 MB</td></tr>
+        <tr><td><b>PR #21</b> · The door photo booth's scratch textures are released when the door closes</td><td>About 5 MB</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="list">
+      <li><b>No visible change.</b> The same assets, only loaded later and released. 228 editor captures compared before
+        and after.</li>
+      <li><b>Possible next steps, not done:</b> loading wardrobe items one by one (about 30 MB), lighter student
+        animations (12–16 MB), and the managed heap growing during an exam (10–30 MB).</li>
+    </ul>
+  </section>
 
   <section>
     <div class="section-head">
@@ -134,7 +176,7 @@ ul.list b { color: var(--ink); font-weight: 600; }
       <li><b>The first launch after an install</b> had a one-off 3.1 s + 1.8 s start. Later launches took 0.75 s + 0.32 s, as before.</li>
       <li><b>Visual pass:</b> the launcher icon, title, hub, the Store's shop tiles with the check mark, and the Wardrobe preview (Man and Woman, then the Store closed) all look right.</li>
       <li><b>Logcat:</b> no crashes, no ANRs, no managed exceptions, and no render or render-pass errors. Every process kill was a test-script force-stop. The only Unity warnings were the dev-build player-connection socket message and one "Failed to create agent because there is no valid NavMesh" at each launch, before the first room is built.</li>
-      <li><b>Release build:</b> not measured. Development builds have extra checks on the main thread, so a release build's freezes should be the same or shorter. That's an expectation, not a measurement.</li>
+      <li><b>Normal build:</b> freezes not measured. Development builds have extra checks on the main thread, so a normal build's freezes should be the same or shorter. That's an expectation, not a measurement. Memory on a normal build is <a href="#memory">above</a>.</li>
     </ul>
   </section>
 

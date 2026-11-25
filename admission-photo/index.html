@@ -139,7 +139,7 @@ figcaption b { color: var(--ink); font-weight: 600; }
           cannot render, where the card falls back to words.</li>
         <li><b>Document photo.</b> Head and shoulders, dead on, an even frontal light, a pale backdrop. The sitter always
           wears the same grey top, so clothing never enters the comparison. Rendered once per face and cached.</li>
-        <li><b>At the door.</b> A live camera that never moves. It is placed once from the spot where the room walks each
+        <li><b>In person.</b> A live camera that never moves. It is placed once from the spot where the room walks each
           student to be checked, at standing eye height, a little in front of them and 26° to the side the room's sun lights.
           It does not follow anyone. The person being checked fills the right of the frame. The open door at the back of the
           room is behind them, so the walk in and the way out show behind and beside them.</li>
@@ -149,20 +149,45 @@ figcaption b { color: var(--ink); font-weight: 600; }
     </div>
   </section>
 
-  <section>
+  <section id="waiting">
     <div class="section-head">
       <h2>Coming and going</h2>
-      <p class="muted">Four frames from the live picture after a decision, camera untouched. Captured with the game slowed
-        to a quarter speed so the walk shows in four frames; at full speed the change-over takes about a second.</p>
+      <p class="muted">The card and the person now move together. Until the card's person reaches the desk, the
+        "In person" picture shows "Approaching…" instead of a live picture of an empty spot. The next person steps up
+        only when the stamped card leaves, and the n / total counter changes with the new card. Checked on a Galaxy A15
+        and in the editor, in Dark and Light and at Large text.</p>
     </div>
-    <div class="seq">
-      <figure><img src="img/seq_admit.jpg" width="1316" height="400" alt="Four frames: a student at the door, then walking past the camera to a seat, the next student walking up, then standing at the door">
-        <figcaption><b>Admitted.</b> The student at the door walks past the camera toward the seats while the next one in
-          the queue walks up and stops at the same spot.</figcaption></figure>
-      <figure><img src="img/seq_reject.jpg" width="1316" height="400" alt="Four frames: a student at the door, then the next student walking up while the rejected one walks away to the back door, then the new student at the door with the rejected one leaving behind them">
-        <figcaption><b>Rejected.</b> The rejected student turns and walks back out through the door at the back of the room,
-          passing behind the next student as they arrive.</figcaption></figure>
+    <div class="verdicts">
+      <div class="card"><span class="tag glance">waits</span><h3>Approaching…</h3>
+        <p>A themed placeholder in the "In person" slot while the person walks up, in all seven languages. On arrival it
+          fades to the live close-up, which stays live while the stamped card is on screen.</p></div>
+      <div class="card"><span class="tag glance">together</span><h3>The line moves with the card</h3>
+        <p>While a decided person's stamped card is on screen the desk is still theirs. The next person steps up, and the
+          line shuffles forward, only when the next card fills. The decided person still leaves at once.</p></div>
+      <div class="card"><span class="tag glance">together</span><h3>The counter</h3>
+        <p>"Admission 2 / 7" changes when the card it counts appears, not at the tap before it.</p></div>
     </div>
+    <div class="figs">
+      <figure><img src="img/wait_walking_in.jpg" width="540" height="1170" alt="The admission screen in the editor: the first student is walking in through the door and the In person slot shows Approaching">
+        <figcaption><b>Walking in.</b> The first student of the exam is still at the door. The card shows their ID; the
+          "In person" slot says "Approaching…".</figcaption></figure>
+      <figure><img src="img/wait_at_the_desk.jpg" width="540" height="1170" alt="The same admission screen a moment later: the student is at the desk and the In person slot shows his live close-up">
+        <figcaption><b>At the desk.</b> The same card once he has arrived: the live close-up beside the ID photo.</figcaption></figure>
+      <figure><img src="img/wait_phone_arrived.jpg" width="540" height="1170" alt="The admission screen on the phone with the live close-up of the student at the desk">
+        <figcaption><b>On the phone.</b> Galaxy A15, the first card after the person reached the desk.</figcaption></figure>
+    </div>
+    <figure><img src="img/wait_phone_approaching.png" width="2160" height="780" alt="Six phone frames of the first card of an exam: students walk in through the door and along the line while the In person slot says Approaching each time">
+      <figcaption><b>The first card, on the phone.</b> Left to right: the cohort walks in through the door and forms the
+        line; the card waits with "Approaching…" until its person is at the desk.</figcaption></figure>
+    <figure><img src="img/wait_phone_turnaway.png" width="2400" height="650" alt="Eight phone frames: a card stamped Turned away, then the next card at 2 of 7 while the turned-away student leaves and the next student walks up to the desk">
+      <figcaption><b>After a turn-away, on the phone.</b> The stamp shows on the first card at 1 / 7. When it leaves, the
+        counter reads 2 / 7 together with the new card, and the next person walks up from the line while the turned-away
+        one walks out of the door at the back.</figcaption></figure>
+    <figure>
+      <video src="vid/admission-phone.mp4" controls muted playsinline preload="metadata" style="width:100%;max-width:420px;border-radius:8px;display:block"></video>
+      <figcaption><b>The door on the phone, as a clip.</b> Galaxy A15, recorded from the screen: the first card waiting
+        for its person, a turn-away, and admissions.</figcaption>
+    </figure>
   </section>
 
   <section id="queue">
@@ -198,12 +223,13 @@ figcaption b { color: var(--ink); font-weight: 600; }
       <img src="img/queue_step.jpg" width="1092" height="972" alt="Four frames of the room after a rejection: the rejected student walking up the left of the aisle while the head of the line walks down the right; the rejected student going through the door; a student from the corridor coming in through the doorway; the same student joining the end of the line">
       <figcaption><b>Moving up.</b> After a rejection, slowed down. The rejected student walks up the left of the aisle and out
         through the door. The head of the line walks down the right of the aisle to be checked, and the others move up one
-        place. Once the doorway is clear, the student waiting in the corridor comes in and joins the end of the line.</figcaption>
+        place. Once the doorway is clear, the student waiting in the corridor comes in and joins the end of the line. The
+        head of the line sets off when the stamped card leaves, so they arrive with their own card.</figcaption>
     </figure>
     <div class="figs">
       <figure>
-        <img src="img/queue_closeup.jpg" width="320" height="400" alt="The At the door picture: a student in a red hoodie in front of the open door, with the last student in line visible beside their head">
-        <figcaption><b>At the door.</b> The open doorway is right behind the person being checked. With a full room, the last
+        <img src="img/queue_closeup.jpg" width="320" height="400" alt="The In person picture: a student in a red hoodie in front of the open door, with the last student in line visible beside their head">
+        <figcaption><b>In person.</b> The open doorway is right behind the person being checked. With a full room, the last
           student in line shows beside their head. The rest of the line is off the right edge of this still camera.</figcaption>
       </figure>
       <figure>
@@ -211,7 +237,7 @@ figcaption b { color: var(--ink); font-weight: 600; }
         <figcaption><b>During the exam.</b> The door is closed again and reads as a door. It opens only to let a removed student out: see <a href="../classroom-door/">Classroom Door</a>.</figcaption>
       </figure>
       <figure>
-        <img src="img/queue_screen.jpg" width="540" height="1170" alt="The full admission screen with six students: the comparison card with the document photo and the At the door picture">
+        <img src="img/queue_screen.jpg" width="540" height="1170" alt="The full admission screen with six students: the comparison card with the document photo and the In person picture">
         <figcaption>The same moment as the player sees it, shown at half size.</figcaption>
       </figure>
     </div>
@@ -294,7 +320,9 @@ figcaption b { color: var(--ink); font-weight: 600; }
       <li><b>Light against medium skin.</b> It is the smallest step in the skin palette. The steps could be evened out, which
         also changes how everyone looks in the room, or it could stay as the hard case. A device playtest should decide.</li>
       <li><b>Cost on the phone.</b> The live picture renders the room a second time while the door is open, at 320×400 with
-        no shadows or post-processing. That has not been measured on the Galaxy A15 yet.</li>
+        no shadows or post-processing. On the Galaxy A15 the door holds 45 fps, the photo booth is prepared while the exam
+        loads (first card 98 ms instead of 774 ms), and its scratch textures are released when the door closes: see
+        <a href="../performance/#memory">Phone Performance</a>.</li>
       <li><b>Faces in the background.</b> With a full room, the last student in line shows beside the head of the one being
         checked, smaller and further back, and a rejected student can be seen leaving through the door behind them. That is
         the intent, but a playtest should confirm nobody compares the photo with the wrong face.</li>
