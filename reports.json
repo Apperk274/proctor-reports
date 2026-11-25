@@ -197,6 +197,12 @@
       "title": "Proctor Character",
       "category": "look-and-feel",
       "summary": "The proctor on the Quaternius base: man and woman with face, brow, hair and colour presets, whole-body builds, three clips, and all 42 wardrobe items on both bodies."
+    },
+    {
+      "slug": "release-audit",
+      "title": "Release Audit",
+      "category": "development",
+      "summary": "The pre-release audit of nine features: 62 findings, 57 fixed across six PRs, the owner's product decisions, a green release gate on a phone, and what is still open."
     }
   ],
   "redirects": [

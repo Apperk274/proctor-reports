@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Release Audit</title>
+<meta name="description" content="The pre-release audit of Pencils Down: nine features checked read-only, what was found, what was fixed in which PR, the owner's product decisions, the release gate and what is still open before launch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3; --surface: #ffffff; --ink: #152024; --muted: #56666c; --line: #d3dcdf;
+  --accent: #0f766e; --accent-soft: #d6efec;
+  --high: #b3412f; --high-soft: #f7dfda; --med: #a8661a; --med-soft: #f6e8d3;
+  --low: #3b6fb6; --low-soft: #dde8f6; --pol: #56666c; --pol-soft: #e6ebed;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38;
+    --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16;
+    --low: #7fa9e8; --low-soft: #1b2a40; --pol: #94a5ab; --pol-soft: #233034; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38;
+  --high: #f08a76; --high-soft: #3a1f1a; --med: #e0a24f; --med-soft: #382a16;
+  --low: #7fa9e8; --low-soft: #1b2a40; --pol: #94a5ab; --pol-soft: #233034; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 44px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.82em; background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+section { display: grid; gap: 18px; min-width: 0; }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { font-size: 0.9rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; text-decoration: none; }
+nav.toc a:hover { border-color: var(--accent); }
+nav.toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.stat b { font-family: var(--display); font-size: 1.9rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat span { font-size: 0.9rem; color: var(--muted); }
+.sev { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.sev-high { background: var(--high-soft); color: var(--high); }
+.sev-med { background: var(--med-soft); color: var(--med); }
+.sev-low { background: var(--low-soft); color: var(--low); }
+.sev-pol { background: var(--pol-soft); color: var(--pol); }
+.status { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.st-fixed { background: var(--accent-soft); color: var(--accent); }
+.st-kept { background: var(--pol-soft); color: var(--pol); }
+.st-open { background: var(--high-soft); color: var(--high); }
+.st-later { background: var(--med-soft); color: var(--med); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.card p, .card li { font-size: 0.95rem; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.card .k { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.summary { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; }
+.summary p, .summary li { font-size: 0.97rem; }
+.summary ul, .plain { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--high); border-radius: 12px; padding: 16px; display: grid; gap: 10px; }
+.finding[data-sev="med"] { border-left-color: var(--med); }
+.fhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.num { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.fbody { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.ftext { display: grid; gap: 8px; }
+.ftext p { font-size: 0.97rem; }
+.now { border-top: 1px solid var(--line); padding-top: 8px; }
+.pics { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 300px; }
+.pics figure { margin: 0; display: grid; gap: 4px; }
+.pics img { width: 120px; height: auto; border-radius: 8px; border: 1px solid var(--line); display: block; }
+.pics figcaption { font-size: 0.72rem; font-family: var(--mono); color: var(--muted); max-width: 120px; }
+.pics a:focus-visible, .shots a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+@media (max-width: 680px) { .fbody { grid-template-columns: 1fr; } .pics { justify-content: flex-start; max-width: none; } .pics img { width: 100px; } }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.id { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; color: var(--muted); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td .sev, td .status { display: inline-block; }
+.group { display: grid; gap: 10px; }
+.group h3 { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.group h3 .pr { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+.shots figure { margin: 0; display: grid; gap: 6px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.shots img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.shots figcaption { font-size: 0.85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · Pencils Down · pre-release audit</span>
+    <h1>Release Audit</h1>
+    <p class="lede">Before launch, nine features of the game were each checked by one agent, read-only. Every finding was typed as a bug,
+      a product decision or polish, and the owner decided before anything was changed. This page shows what the audit found,
+      what was fixed and in which PR, the owner's decisions, the release gate that checked all the fixes together, and what is still open.</p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#numbers">Headline numbers</a>
+      <a href="#method">How it worked</a>
+      <a href="#serious">Serious findings</a>
+      <a href="#fixed">All fixes</a>
+      <a href="#decisions">Product decisions</a>
+      <a href="#gate">Release gate</a>
+      <a href="#open">Still open</a>
+    </nav>
+  </header>
+
+  <section class="summary">
+    <h2>Summary</h2>
+    <p><b>57 of 62 findings are fixed or changed as decided.</b> Three were kept as they are by the owner's decision, the tablet layout
+      comes after launch, and one safe-area question is unverified. The four high findings (the exam clock drift, Back closing the app,
+      bought coins lost on Replace, and review cards that always said "No finding") are fixed and checked.</p>
+    <ul>
+      <li><b>Six fix groups, six PRs (#23–#28), plus a release-gate PR (#29)</b> that ran the full test suite on the combined fixes and fixed the two failures it found.</li>
+      <li><b>Full suite green:</b> EditMode 4315 passed, 0 failed; PlayMode 115 passed, 0 failed; 3 of 3 screen captures.</li>
+      <li><b>Checked on a Galaxy A15:</b> Back after Home, a mid-exam resume at the same clock, the sliders, the store without the Regional pack, the new Handbook rows and a steady 45 fps.</li>
+      <li><b>Still open before launch:</b> the 13 store products in both consoles, native-speaker checks, the website privacy wording and an iOS revenue check.</li>
+    </ul>
+  </section>
+
+  <section id="numbers">
+    <h2>Headline numbers</h2>
+    <p class="muted">What the audit ran before anything was fixed. No crashes or exceptions in any of it.</p>
+    <div class="stats">
+      <div class="stat"><b>~7.8M</b><span>simulation steps, 0 exceptions, deterministic</span></div>
+      <div class="stat"><b>16,000</b><span>exams of story events, coin effects exact</span></div>
+      <div class="stat"><b>48k</b><span>admission documents, 0 rule violations</span></div>
+      <div class="stat"><b>495</b><span>historic saves migrated cleanly</span></div>
+      <div class="stat"><b>1,750</b><span>save round-trips</span></div>
+      <div class="stat"><b>3,962</b><span>store item sheets, 0 text overflows</span></div>
+      <div class="stat"><b>7 / 7</b><span>languages complete: 1,328 keys each</span></div>
+      <div class="stat"><b>0</b><span>text overflows across 7 languages</span></div>
+    </div>
+    <p class="muted">Also: 78 wardrobe items with 0 coin-rule violations; careful bot players finish 89–91% of exams "Good"; the careful career's
+      median to the top stays at 58 exams; 16 exams across all school bands release their room assets with no T-poses.</p>
+  </section>
+
+  <section id="method">
+    <h2>How the audit worked</h2>
+    <p>One agent per feature read the code and ran probes, headless simulations and tests, without changing anything. Each finding got an ID
+      (<code>SIM-1</code>, <code>PAY-4</code> …), a severity and a type:</p>
+    <ul class="plain">
+      <li><b>Bug:</b> the game does something it shouldn't. Fixed.</li>
+      <li><b>Decision:</b> a product call (scoring, pricing, wording). Put to the owner with a recommendation.</li>
+      <li><b>Polish:</b> works, but could look or read better.</li>
+    </ul>
+    <p>Two documentation findings were fixed along with the code. The owner answered the whole list at once on 25 November 2026: fix every clear
+      bug and apply the recommendation on every decision. Questions that came up while fixing were asked again before the change.</p>
+    <div class="cards">
+      <div class="card"><span class="k">SIM · 7 findings</span><h3>Exam simulation</h3><p>Clock, perception, students' behaviour, actions, scoring.</p></div>
+      <div class="card"><span class="k">ADM · 8</span><h3>Admission</h3><p>The door: ID checks, chips, consequences and their text.</p></div>
+      <div class="card"><span class="k">EVT · 6</span><h3>Story events</h3><p>Cards between exams: reviews, complaints, blackmail, coin effects.</p></div>
+      <div class="card"><span class="k">CAR · 6</span><h3>Career</h3><p>Promotions, stays, schools, warnings, the Handbook.</p></div>
+      <div class="card"><span class="k">ECO · 5</span><h3>Coins, store and wardrobe</h3><p>Prices, buying, wearing, the item sheets.</p></div>
+      <div class="card"><span class="k">PAY · 10</span><h3>Real-money purchases and privacy</h3><p>Store products, offline behaviour, analytics, the privacy text.</p></div>
+      <div class="card"><span class="k">SAV · 6</span><h3>Saves and settings</h3><p>Migration, crash safety, save cost, settings.</p></div>
+      <div class="card"><span class="k">ROOM · 7</span><h3>The 3D classroom</h3><p>Sounds, bags, flags, frame rate, framing.</p></div>
+      <div class="card"><span class="k">UI · 11</span><h3>Screens and a phone playthrough</h3><p>Every screen in 7 languages, and a run on a Galaxy A15.</p></div>
+    </div>
+    <p class="muted">66 IDs in all; 4 are the same problem seen by two agents (SIM-5 = ROOM-7, SIM-6 = UI-10, EVT-5 = SAV-4, SIM-4 = ADM-4), which leaves 62.</p>
+  </section>
+
+  <section id="serious">
+    <h2>The serious findings</h2>
+    <div class="finding">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">SIM-1</span><h3>The exam clock drifted with total play time</h3><span class="status st-fixed">Fixed · #25</span></div>
+      <div class="ftext">
+        <p><b>Found.</b> The game's clock was one floating-point number that never reset and ran on every screen. As it grew, float precision changed
+          the exam's length: 148 s after 10 hours of play, 160 s at 42–83 h, 120 s at 167–306 h. At about 583 hours the clock stopped advancing
+          and the exam never ended.</p>
+        <p class="now"><b>Now.</b> The clock runs only during an exam and starts from zero at each one. A 150 s exam is exactly 1,500 steps at every play time
+          tested, from 0 to 611 hours. Saves moved to version 12; a save written mid-exam on the old clock is moved onto its exam's own clock when it loads
+          and keeps the time it had left.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">UI-1</span><h3>Back closed the app after a resume</h3><span class="status st-fixed">Fixed · #23</span></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>Found.</b> On the phone, after Home and back into the game, Back closed the app, even mid-exam, and the exam rewound. The cause is in Unity's
+            Android player: each pause unregisters its Back callback, Home pauses twice, and the resume never registers it again, so Android's default
+            handler finishes the app.</p>
+          <p class="now"><b>Now.</b> A workaround: on focus and resume the game switches Unity's "Back leaves app" setting on and off, which makes Unity
+            register the callback again. On the A15, Back mid-exam pauses on a fresh launch, after Home and after Recents. Back on the hub still exits.</p>
+        </div>
+        <div class="pics"><figure><a href="img/back-after-home.jpg"><img src="img/back-after-home.jpg" alt="Exam paused screen after Back, following Home and a return to the app" loading="lazy"></a><figcaption>Back after Home: paused</figcaption></figure></div>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">SAV-1</span><h3>Bought coins lost on Replace</h3><span class="status st-fixed">Fixed · #23</span></div>
+      <div class="ftext">
+        <p><b>Found.</b> Starting a new career from the title screen and choosing Replace on a saved career that hadn't been loaded discarded that career's
+          unspent bought coins.</p>
+        <p class="now"><b>Now.</b> Replace reads the old career and carries its unspent bought coins into the new one, as abandoning a loaded career already did.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="fhead"><span class="sev sev-high">high</span><span class="num">EVT-1</span><h3>Every board review said "No finding"</h3><span class="status st-fixed">Fixed · #24</span></div>
+      <div class="ftext">
+        <p><b>Found.</b> A board review card was titled "No finding" with a neutral body even when the review went against the player (−10 and probation):
+          the result was only worked out after the tap.</p>
+        <p class="now"><b>Now.</b> The card is worded from the finding the review will publish, using the same case record and rule, with new bodies for
+          supported and against in 7 languages. A test plays real careers and checks the headline before and after each tap.</p>
+      </div>
+    </div>
+    <div class="finding" data-sev="med">
+      <div class="fhead"><span class="sev sev-med">medium</span><span class="num">ADM-1 · EVT-2</span><h3>The wrong person was named</h3><span class="status st-fixed">Fixed · #24</span></div>
+      <div class="fbody">
+        <div class="ftext">
+          <p><b>Found.</b> Candidate ids restart each exam. A name-mismatch audit, a review card or a "review closed" row looked the id up in the current
+            room, so it named whoever held that id in the next exam. Separately, people turned away were named with masculine forms in French,
+            Portuguese and Russian, and an entry complaint said "you let X into the exam" about someone turned away.</p>
+          <p class="now"><b>Now.</b> Names come from the exam the event happened in. The door record keeps the person's name and profile when they leave,
+            so gender and name stay right, and the card says "you turned X away".</p>
+        </div>
+        <div class="pics"><figure><a href="img/complaint-card.jpg"><img src="img/complaint-card.jpg" alt="Complaint card naming the person turned away, with a minus 7 reputation chip" loading="lazy"></a><figcaption>right person, standing shown</figcaption></figure></div>
+      </div>
+    </div>
+    <div class="finding" data-sev="med">
+      <div class="fhead"><span class="sev sev-med">medium</span><span class="num">EVT-3</span><h3>Hidden standing changes</h3><span class="status st-fixed">Fixed · #24, #28</span></div>
+      <div class="ftext">
+        <p><b>Found.</b> Cards with only a Continue button changed reputation without showing it: a complaint (−10 and probation), warning and request complaints,
+          reviews (−10 / +3), corruption exposure (−12), a debt notice (−2), and the good ones too (commendation +2, restraint noted +1, favour returned +3).</p>
+        <p class="now"><b>Now.</b> Each of these cards shows its reputation chip, computed by the same code that applies it, and a "Probation" chip when the tap
+          opens probation (hidden when the player is already on probation). By the owner's decision, three cards still keep their cost hidden: the witness's
+          "Admit mistake", blackmail "Report it" and the manager meeting's "Explain".</p>
+      </div>
+    </div>
+    <div class="finding" data-sev="med">
+      <div class="fhead"><span class="sev sev-med">medium</span><span class="num">SIM-2</span><h3>A phone seen in the last second counted as ignored</h3><span class="status st-fixed">Fixed · #25</span></div>
+      <div class="ftext">
+        <p><b>Found.</b> A phone glimpsed in the last second before the bell counted as "knowingly ignored": a Poor exam and −3 reputation. It was the only
+          cause of Poor for careful bot players.</p>
+        <p class="now"><b>Now.</b> A sighting less than 3 s before the bell counts as missed. Careful bots get no Poor from a late sighting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="fixed">
+    <h2>All fixes, by group</h2>
+    <p class="muted">The fixes went out in six groups, two at a time (one per Unity worktree). Each group branched from the latest main, ran the tests for
+      what it touched, and was reviewed and merged as its own PR.</p>
+
+    <div class="group">
+      <h3>G1 · Exam core <span class="pr">PR #25</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">SIM-1</td><td><span class="sev sev-high">high</span></td><td>Exam clock drifted with total play time; froze at ~583 h.</td><td>Per-exam clock from zero; save v12 migrates mid-exam saves.</td></tr>
+          <tr><td class="id">SIM-2</td><td><span class="sev sev-med">med</span></td><td>Phone seen in the last ~1 s counted as knowingly ignored.</td><td>3 s reaction rule before the bell.</td></tr>
+          <tr><td class="id">SIM-4 · ADM-4</td><td><span class="sev sev-med">med</span></td><td>An empty room ran the full 150 s; empty from the start scored Good.</td><td>The bell rings early ("Nobody left to supervise"). Scoring: see the decisions.</td></tr>
+          <tr><td class="id">SIM-3</td><td><span class="sev sev-low">low</span></td><td>A student could copy from a removed neighbour.</td><td>The copy breaks off, or never starts.</td></tr>
+          <tr><td class="id">SIM-5 · ROOM-7</td><td><span class="sev sev-low">low</span></td><td>Remove and Confiscate accepted a student who was away.</td><td>Refused, like Warn, Talk and Inspect.</td></tr>
+          <tr><td class="id">SIM-6 · UI-10</td><td><span class="sev sev-low">low</span></td><td>Exam evaluation ignored the running config in three places.</td><td>The config is passed everywhere.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="group">
+      <h3>G2 · Lifecycle, Back and saves <span class="pr">PR #23</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">UI-1</td><td><span class="sev sev-high">high</span></td><td>Back closed the app after Home or Recents (Unity player bug).</td><td>Back callback re-registered on focus and resume.</td></tr>
+          <tr><td class="id">SAV-1</td><td><span class="sev sev-high">high</span></td><td>Replace lost an unloaded career's bought coins.</td><td>Carried into the new career.</td></tr>
+          <tr><td class="id">UI-2</td><td><span class="sev sev-med">med</span></td><td>The exam clock kept running behind the "Resume exam" hub.</td><td>The hub holds the exam.</td></tr>
+          <tr><td class="id">UI-5</td><td><span class="sev sev-med">med</span></td><td>Mid-exam progress was never saved: a force-close undid a bad exam.</td><td>A running exam is saved on background, focus loss and quit (B3).</td></tr>
+          <tr><td class="id">SAV-2</td><td><span class="sev sev-med">med</span></td><td>Volume sliders couldn't be dragged.</td><td>They play live and save when the finger lifts.</td></tr>
+          <tr><td class="id">SAV-3</td><td><span class="sev sev-med">med</span></td><td>Each save re-parsed the whole career: 31.6 MB at 60 exams, ~9 saves per exam.</td><td>Byte compare: 1.9 MB, 6–8 ms; 5.8 saves per exam (B4).</td></tr>
+          <tr><td class="id">UI-3</td><td><span class="sev sev-low">low</span></td><td>Back with an item sheet open closed the whole Shop.</td><td>Back closes the sheet first.</td></tr>
+          <tr><td class="id">UI-4</td><td><span class="sev sev-low">low</span></td><td>Back during "Time's up" quit the app.</td><td>Does nothing.</td></tr>
+          <tr><td class="id">UI-11</td><td><span class="sev sev-low">low</span></td><td>Back on the Resume hub opened "Exam paused".</td><td>Behaves as Back on the hub.</td></tr>
+          <tr><td class="id">SAV-5</td><td><span class="sev sev-low">low</span></td><td>A broken save could load with empty sections and skip the backup.</td><td>Falls back to the backup.</td></tr>
+          <tr><td class="id">SAV-6</td><td><span class="sev sev-pol">polish</span></td><td>No flush to disk before the save swap.</td><td>Flushed first.</td></tr>
+          <tr><td class="id">ECO-1</td><td><span class="sev sev-low">low</span></td><td>Missing cosmetic lists in a save crashed later.</td><td>Load as empty.</td></tr>
+          <tr><td class="id">ECO-2</td><td><span class="sev sev-low">low</span></td><td>An unowned item stayed worn after a load.</td><td>Taken off on load.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="group">
+      <h3>G3 · Event and admission text <span class="pr">PR #24</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">EVT-1</td><td><span class="sev sev-high">high</span></td><td>Every board review card said "No finding".</td><td>Worded from the finding it will publish.</td></tr>
+          <tr><td class="id">ADM-1 · EVT-2</td><td><span class="sev sev-med">med</span></td><td>Audits and reviews named the person with that id in the next exam.</td><td>Names from the source exam.</td></tr>
+          <tr><td class="id">ADM-2</td><td><span class="sev sev-med">med</span></td><td>Complaints from people turned away were always masculine (fr, pt-BR, ru).</td><td>Gender kept on the door record.</td></tr>
+          <tr><td class="id">ADM-3</td><td><span class="sev sev-med">med</span></td><td>"Mostly: a complaint about who you admitted" also for people turned away.</td><td>Reworded in 7 languages.</td></tr>
+          <tr><td class="id">EVT-3</td><td><span class="sev sev-med">med</span></td><td>Standing changes on Continue-only cards weren't shown.</td><td>Reputation chip from the same code that applies it.</td></tr>
+          <tr><td class="id">EVT-5 · SAV-4</td><td><span class="sev sev-med">med</span></td><td>A reload rewrote an impostor's photo gender, removing the mismatch cue.</td><td>Only photos saved without a gender are restored.</td></tr>
+          <tr><td class="id">CAR-2</td><td><span class="sev sev-low">low</span></td><td>The result card's "Mostly …" reason was missing for exam outcomes.</td><td>Matched by prefix.</td></tr>
+          <tr><td class="id">ADM-6</td><td><span class="sev sev-pol">polish</span></td><td>A name-mismatch complaint used the misprinted ID name.</td><td>The person's own name.</td></tr>
+          <tr><td class="id">ADM-7</td><td><span class="sev sev-low">low</span></td><td>"Approaching…" could be skipped on a new career's first door.</td><td>The arrival guard resets.</td></tr>
+          <tr><td class="id">EVT-6</td><td><span class="sev sev-pol">polish</span></td><td>French "de Ayşe"; long event bodies in 4 languages.</td><td>"d'Ayşe"; every card fits at Large.</td></tr>
+          <tr><td class="id">EVT-4</td><td><span class="sev sev-low">low</span></td><td>Blackmail demand counted bought coins it can't be paid with.</td><td>Earned coins only (B11).</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="group">
+      <h3>G4 · Store, payments and privacy <span class="pr">PR #26</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">PAY-1</td><td><span class="sev sev-med">med</span></td><td>Starting offline left the store dead all session.</td><td>Retries on resume and on opening the store (5 s doubling to 2 min); Restore waits up to 15 s.</td></tr>
+          <tr><td class="id">PAY-4</td><td><span class="sev sev-med">med</span></td><td>Privacy text called the data "anonymous".</td><td>"Tied to a random app ID, no name, no ads", 7 languages (B5).</td></tr>
+          <tr><td class="id">PAY-3</td><td><span class="sev sev-med">doc</span></td><td>Release checklist listed six products and hand pricing.</td><td>Lists the 13 products with types and prices.</td></tr>
+          <tr><td class="id">PAY-8</td><td><span class="sev sev-low">low</span></td><td>The Regional pack was never sold publicly.</td><td>Dropped: 13 products (B6).</td></tr>
+          <tr><td class="id">PAY-5</td><td><span class="sev sev-low">low</span></td><td>Coin-pack value tags rounded to nearest, against the doc.</td><td>Round down (+15% Medium); doc agrees (B7).</td></tr>
+          <tr><td class="id">PAY-6</td><td><span class="sev sev-low">low</span></td><td>Revenue possibly counted twice in analytics.</td><td>Our event carries no price (B8).</td></tr>
+          <tr><td class="id">PAY-2</td><td><span class="sev sev-low">low</span></td><td>"Pending · N coins" could stick after the coins landed.</td><td>Cleared on career load.</td></tr>
+          <tr><td class="id">PAY-7</td><td><span class="sev sev-low">low</span></td><td>An old career was marked adopted even if the save failed.</td><td>Only after the save succeeds.</td></tr>
+          <tr><td class="id">PAY-10</td><td><span class="sev sev-pol">polish</span></td><td>A declined Ask to Buy stayed "Pending" all session.</td><td>Dropped when the store no longer holds it.</td></tr>
+          <tr><td class="id">ECO-3</td><td><span class="sev sev-pol">polish</span></td><td>"· trying on" lingered after Buy.</td><td>Shows owned with Wear; buying still doesn't equip (B12).</td></tr>
+          <tr><td class="id">ECO-4</td><td><span class="sev sev-low">low</span></td><td>No overflow clamp on the coin balance.</td><td>Saturates.</td></tr>
+          <tr><td class="id">ECO-5</td><td><span class="sev sev-pol">polish</span></td><td>Unaffordable Wardrobe tiles showed "N short" without the price.</td><td>Price and shortfall, like the Shop.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="group">
+      <h3>G5 · Career <span class="pr">PR #27</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">CAR-1</td><td><span class="sev sev-med">med</span></td><td>Riverside → Brightpath kept the stay clock: the money route was faster.</td><td>Any move restarts the stay; Brightpath's stay is 16 (B2).</td></tr>
+          <tr><td class="id">CAR-3</td><td><span class="sev sev-low">low</span></td><td>A declined promotion came back every 2 exams (28 times in 60).</td><td>After 2, 4, 8, then every 16 exams (B9).</td></tr>
+          <tr><td class="id">CAR-6</td><td><span class="sev sev-low">low</span></td><td>Tutorial complaints sent a few beginners to the final warning.</td><td>A quarter of the cost in the 3 tutorial exams (B10).</td></tr>
+          <tr><td class="id">CAR-4</td><td><span class="sev sev-pol">polish</span></td><td>After dismissal, "Start new career" landed on the title; the look could be lost.</td><td>Opens the look creator; the career is saved at once.</td></tr>
+          <tr><td class="id">CAR-5</td><td><span class="sev sev-pol">polish</span></td><td>The Handbook lacked stays, crests and the final warning.</td><td>"Moving up", "School crests", "Final warning" in 7 languages.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">Measured: the careful median to the top stays 58 exams; the money route's earliest top school moves from 46 to 58; beginner final warnings by exam 8 drop from 6 to 0 and beginner dismissals from 2 to 0.</p>
+    </div>
+
+    <div class="group">
+      <h3>G6 · Room and presentation polish <span class="pr">PR #28</span></h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Severity</th><th>Was</th><th>Now</th></tr></thead>
+        <tbody>
+          <tr><td class="id">ROOM-1</td><td><span class="sev sev-low">low</span></td><td>A room sound could be skipped, or replayed after a load.</td><td>Tracked by time; a loaded exam is heard from now on.</td></tr>
+          <tr><td class="id">ROOM-2</td><td><span class="sev sev-pol">polish</span></td><td>A moved student's bag stayed at the old desk.</td><td>The bag follows.</td></tr>
+          <tr><td class="id">ROOM-3</td><td><span class="sev sev-pol">polish</span></td><td>The phone buzz looped behind Settings, Store and Ledger.</td><td>Paused while the room is covered.</td></tr>
+          <tr><td class="id">ROOM-4</td><td><span class="sev sev-pol">polish</span></td><td>Flag textures were never freed.</td><td>Freed when the flag changes.</td></tr>
+          <tr><td class="id">ROOM-5</td><td><span class="sev sev-low">low</span></td><td>A resume could step the frame rate down for the session.</td><td>Resume is excused like a loading frame.</td></tr>
+          <tr><td class="id">UI-7</td><td><span class="sev sev-pol">polish</span></td><td>Hub tile titles misaligned when one wrapped.</td><td>Facts share one height.</td></tr>
+          <tr><td class="id">UI-8</td><td><span class="sev sev-pol">polish</span></td><td>The exam number wrapped alone onto a line.</td><td>No-break space.</td></tr>
+          <tr><td class="id">UI-9</td><td><span class="sev sev-pol">polish</span></td><td>Theme leftovers; the inspection row cut "Confiscate".</td><td>Theme roles; the row spans the screen.</td></tr>
+          <tr><td class="id">ADM-8</td><td><span class="sev sev-low">doc</span></td><td>Two design docs out of date.</td><td>Updated.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">The same PR carried the three follow-up decisions: empty-room scoring, grounds while a student is away, and the probation chip.</p>
+    </div>
+
+    <div class="group">
+      <h3>Not changed</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>ID</th><th>Finding</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="id">PAY-9</td><td>Refunds and chargebacks aren't revoked.</td><td><span class="status st-kept">kept, owner's call</span></td></tr>
+          <tr><td class="id">SIM-7</td><td>Seizing a permitted sheet can still be "Well handled"; the cost is a later complaint.</td><td><span class="status st-kept">kept, owner's call</span></td></tr>
+          <tr><td class="id">ADM-5</td><td>Rule-based Turkish name typos; a curated list would rename people in existing careers.</td><td><span class="status st-kept">kept, owner's call</span></td></tr>
+          <tr><td class="id">UI-6</td><td>Tablets (4:3) get a cramped layout.</td><td><span class="status st-later">after launch</span></td></tr>
+          <tr><td class="id">ROOM-6</td><td>Camera HUD margins are fixed fractions, not the real safe area.</td><td><span class="status st-open">unverified</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section id="decisions">
+    <h2>The owner's product decisions</h2>
+    <p class="muted">These are product calls, not bugs. They are the intended behaviour now and are not reopened in later audits.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Topic</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr><td class="id">B1</td><td>Empty room</td><td>The bell rings early when nobody is left. The exam scores normally, so rightful removals can be "Well handled"; it is an "Empty room" (no Good or Mixed reputation, salary still paid) only when nobody was ever seated.</td></tr>
+        <tr><td class="id">B2</td><td>Riverside → Brightpath shortcut</td><td>Brightpath's stay is 16 exams, and any move to another school restarts the stay (Kingsley → State included). The money route is no longer faster.</td></tr>
+        <tr><td class="id">B3</td><td>Mid-exam progress</td><td>Saved when the app goes to the background, so a force-close no longer undoes an exam.</td></tr>
+        <tr><td class="id">B4</td><td>Save cost</td><td>Lighter verification of each save; fewer saves during admission.</td></tr>
+        <tr><td class="id">B5</td><td>Privacy text</td><td>No longer calls the data "anonymous"; reworded in all 7 languages.</td></tr>
+        <tr><td class="id">B6</td><td>Regional pack</td><td>Dropped before launch: 13 store products, not 14.</td></tr>
+        <tr><td class="id">B7</td><td>Coin-pack value tags</td><td>Kept, rounded down; the design doc updated.</td></tr>
+        <tr><td class="id">B8</td><td>Revenue double count</td><td>Our own purchase event carries no price; Firebase's automatic event is the only revenue count.</td></tr>
+        <tr><td class="id">B9</td><td>Declined promotion</td><td>The wait grows after each decline: 2, 4, 8, then 16 exams.</td></tr>
+        <tr><td class="id">B10</td><td>Beginner complaints</td><td>Complaints about the 3 tutorial exams cost 25% (rounded up, at least 1).</td></tr>
+        <tr><td class="id">B11</td><td>Blackmail demand</td><td>A share of earned coins only.</td></tr>
+        <tr><td class="id">B12</td><td>Buy in the Wardrobe</td><td>Buying still doesn't equip; the lingering "trying on" label goes.</td></tr>
+        <tr><td class="id">B13</td><td>Tablet layout</td><td>After launch.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Answers given while fixing</h3>
+    <div class="cards">
+      <div class="card"><h3>Empty room</h3><p>Scores normally unless nobody was ever seated (everyone turned away at the door).</p></div>
+      <div class="card"><h3>Grounds while away</h3><p>Grounds for removal pause while the student is on a bathroom trip, so removing them on return is still evidenced.</p></div>
+      <div class="card"><h3>Probation chip</h3><p>A card whose tap opens probation shows a "Probation" chip beside the reputation chip.</p></div>
+      <div class="card"><h3>Brightpath and stays</h3><p>Brightpath's stay is 16; any move restarts the stay.</p></div>
+      <div class="card"><h3>Tutorial complaints</h3><p>Cost 25% in the first three exams.</p></div>
+      <div class="card"><h3>Behaviour on load</h3><p>Loading a mid-exam save ends students' in-progress behaviour episodes. Kept.</p></div>
+    </div>
+    <h3>Kept as is</h3>
+    <ul class="plain">
+      <li>Refunds and chargebacks are not revoked.</li>
+      <li>Seizing a permitted sheet can still be "Well handled".</li>
+      <li>The rule-based Turkish name typos.</li>
+      <li>Three cards keep their cost hidden: the witness's "Admit mistake", blackmail "Report it" and the manager meeting's "Explain".</li>
+    </ul>
+  </section>
+
+  <section id="gate">
+    <h2>Release gate</h2>
+    <p>After the six PRs were merged, the whole suite ran on the combined main in batchmode with graphics (PR #29). It found two failures, both fixed
+      in that PR: the store's retry backoff read Unity's real clock instead of the game's UI clock, and the design guide's file list missed a new file.
+      Nothing was flaky.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Suite</th><th class="num">Total</th><th class="num">Passed</th><th class="num">Failed</th><th class="num">Skipped</th></tr></thead>
+      <tbody>
+        <tr><td>EditMode</td><td class="num">4563</td><td class="num">4315</td><td class="num">0</td><td class="num">247</td></tr>
+        <tr><td>PlayMode</td><td class="num">235</td><td class="num">115</td><td class="num">0</td><td class="num">120</td></tr>
+        <tr><td>Screen captures</td><td class="num">3</td><td class="num">3</td><td class="num">0</td><td class="num">0</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">Skipped tests are explicit probes and capture runs that only run on request. Before the audit fixes, main had EditMode 4221 and PlayMode 105 passing.</p>
+
+    <h3>On a Galaxy A15</h3>
+    <ul class="plain">
+      <li><b>Back after Home:</b> mid-exam, Home, back to the game, Back: the exam pauses instead of the app closing.</li>
+      <li><b>Mid-exam resume:</b> Home, force-stop, relaunch, Continue: "Resume exam 13, already under way", at the clock it had when the app left (2:02 a moment before Home, 1:59 after resuming).</li>
+      <li><b>Sliders:</b> the volume sliders drag.</li>
+      <li><b>Store:</b> no Regional pack; coin packs with their value tags; Restore at the foot.</li>
+      <li><b>Handbook:</b> the new rows, including the final warning.</li>
+      <li><b>Frame rate:</b> a steady 45 fps.</li>
+    </ul>
+    <div class="shots">
+      <figure><a href="img/back-after-home.jpg"><img src="img/back-after-home.jpg" alt="Exam paused screen with Resume and the volume sliders" loading="lazy"></a><figcaption>Back after Home: the exam pauses.</figcaption></figure>
+      <figure><a href="img/clock-before-kill.jpg"><img src="img/clock-before-kill.jpg" alt="Exam room with the clock at 2:02" loading="lazy"></a><figcaption>Mid-exam at 2:02, just before Home and force-stop.</figcaption></figure>
+      <figure><a href="img/resume-hub.jpg"><img src="img/resume-hub.jpg" alt="Hub with a Resume exam 13, already under way button" loading="lazy"></a><figcaption>After relaunch: Resume exam 13, the clock held.</figcaption></figure>
+      <figure><a href="img/resumed-clock.jpg"><img src="img/resumed-clock.jpg" alt="Exam room with the clock at 1:59" loading="lazy"></a><figcaption>Resumed at 1:59, the same room.</figcaption></figure>
+      <figure><a href="img/result-mostly.jpg"><img src="img/result-mostly.jpg" alt="Result card: Exam complete, Well handled, Reputation +1, Mostly how the last exam went" loading="lazy"></a><figcaption>The "Mostly …" reason is back on the result card.</figcaption></figure>
+      <figure><a href="img/complaint-card.jpg"><img src="img/complaint-card.jpg" alt="Complaint card: you turned Elif Aydın away, minus 7 reputation" loading="lazy"></a><figcaption>"You turned X away", the right name, and the cost shown.</figcaption></figure>
+      <figure><a href="img/store-coins.jpg"><img src="img/store-coins.jpg" alt="Shop Coins tab: Small, Medium with +15%, Large with Best value" loading="lazy"></a><figcaption>Coin packs: +15% rounded down.</figcaption></figure>
+      <figure><a href="img/store-packs.jpg"><img src="img/store-packs.jpg" alt="Shop Packs tab: Style, Supporter, Türkiye and United States packs" loading="lazy"></a><figcaption>Packs: Style, Supporter, then the countries.</figcaption></figure>
+      <figure><a href="img/store-packs-bottom.jpg"><img src="img/store-packs-bottom.jpg" alt="Bottom of the Packs tab: Brazil, Russia, Japan, then Restore purchases" loading="lazy"></a><figcaption>The end of Packs: no Regional pack.</figcaption></figure>
+      <figure><a href="img/handbook-final-warning.jpg"><img src="img/handbook-final-warning.jpg" alt="Handbook with the Final warning row open" loading="lazy"></a><figcaption>Handbook: the new Final warning row.</figcaption></figure>
+    </div>
+    <p class="muted">A development build ("(dev)" prices are test-store placeholders). The phone's own save was backed up first and restored afterwards; no save data is on this page.</p>
+  </section>
+
+  <section id="open">
+    <h2>Still open before launch</h2>
+    <h3>The 13 store products</h3>
+    <p>These need to exist, with the same ids, in Google Play Console and App Store Connect (bundle <code>com.proctorsim.examsupervisor</code>), with automatic local pricing everywhere, Türkiye included.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product id</th><th>What</th><th>Type</th><th class="num">USD</th></tr></thead>
+      <tbody>
+        <tr><td><code>cosmetic_pack_style</code></td><td>Supervisor Style Pack</td><td>Non-consumable</td><td class="num">$1.99</td></tr>
+        <tr><td><code>supporter_pack</code></td><td>Supporter Pack</td><td>Non-consumable</td><td class="num">$4.99</td></tr>
+        <tr><td><code>country_pack_tr</code></td><td>Türkiye Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_us</code></td><td>United States Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_uk</code></td><td>United Kingdom Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_es</code></td><td>Spain Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_fr</code></td><td>France Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_br</code></td><td>Brazil Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_ru</code></td><td>Russia Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>country_pack_jp</code></td><td>Japan Pack</td><td>Non-consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>coins_small</code></td><td>300 coins</td><td>Consumable</td><td class="num">$0.99</td></tr>
+        <tr><td><code>coins_medium</code></td><td>1,050 coins</td><td>Consumable</td><td class="num">$2.99</td></tr>
+        <tr><td><code>coins_large</code></td><td>2,000 coins</td><td>Consumable</td><td class="num">$4.99</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Other items</h3>
+    <div class="cards">
+      <div class="card"><span class="status st-open">before launch</span><h3>Native-speaker checks</h3><p>The new and reworded text in all 7 languages: review findings, "turned away" lines, the privacy wording, the empty-room text and the Handbook rows.</p></div>
+      <div class="card"><span class="status st-open">before launch</span><h3>Website privacy wording</h3><p>The privacy policy on pencilsdowngame.com still needs the in-game wording: tied to a random app ID, no name, no ads. Waiting for the owner's OK.</p></div>
+      <div class="card"><span class="status st-open">before launch</span><h3>iOS revenue in Analytics</h3><p>With our own event carrying no price, Firebase's automatic purchase event must log iOS revenue. Unverified: check with a sandbox purchase.</p></div>
+      <div class="card"><span class="status st-later">after launch</span><h3>Tablet layout</h3><p>On 4:3 tablets the hub picture is a strip and screens feel cramped (B13).</p></div>
+      <div class="card"><span class="status st-open">unverified</span><h3>Camera safe area</h3><p>The room camera's HUD margins are fixed fractions, not the device's real safe area (ROOM-6). Not seen to cause a problem.</p></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

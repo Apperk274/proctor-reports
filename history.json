@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-25", "author": "ardakabadayi", "slug": "release-audit", "change": "Added the Release Audit report: nine features audited, what was fixed in PRs #23 to #29, the owner's decisions, the release gate and what is open before launch."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "performance", "change": "Added students and memory on the Galaxy A15: 45 fps held at admission, a 98 ms first door card, and about 577 MB mid-exam on a normal build."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "classroom-door", "change": "Students now come down beside their chair and step in from the side instead of walking through its back, with before and after views and a phone shot."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "admission-photo", "change": "Replaced Coming and going: the card shows Approaching until its person arrives, and the line and counter move with the card, with phone shots and a clip."},
