@@ -87,16 +87,15 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · overnight summary · 25–26 November 2026</span>
     <h1>Overnight Art, 26 November</h1>
-    <p class="lede">What happened overnight on the student, proctor and classroom art. Two pull requests are merged.
-      Five more are open and waiting for review. Each has a short list of what to look at.</p>
+    <p class="lede">What happened overnight on the student, proctor and classroom art. All seven pull requests are
+      merged into main and in the game. Each has a short list of what to look at.</p>
     <div class="stats">
-      <div class="stat"><span class="big">2</span><span>merged into main: #17 and #18</span></div>
-      <div class="stat"><span class="big">5</span><span>open for review: #30 to #34</span></div>
+      <div class="stat"><span class="big">7</span><span>merged into main: #17, #18 and #30 to #34</span></div>
       <div class="stat"><span class="big">19</span><span>new room props across all eight schools</span></div>
-      <div class="stat"><span class="big">328/328</span><span>student animation checks passing with #33</span></div>
+      <div class="stat"><span class="big">392/392</span><span>student animation checks passing on main, with #31 and #33 combined</span></div>
     </div>
-    <p class="muted"><a href="#merged">Merged</a> · <a href="#open">Open for review</a> · <a href="#quality">Quality</a> ·
-      <a href="#meshy">Made with Meshy</a> · <a href="#merge-plan">Merge plan</a> · <a href="#follow-ups">Follow-ups</a>.
+    <p class="muted"><a href="#merged">Merged</a> · <a href="#quality">Quality</a> ·
+      <a href="#meshy">Made with Meshy</a> · <a href="#follow-ups">Follow-ups</a>.
       The full detail is in <a href="../student-characters/">Student Characters</a>,
       <a href="../classroom-props/">Classroom Props</a> and <a href="../proctor-character/">Proctor Character</a>.</p>
   </header>
@@ -105,8 +104,15 @@ section { display: grid; gap: 20px; }
     <div class="section-head">
       <span class="eyebrow">in main</span>
       <h2>Merged</h2>
-      <p class="muted">Both were updated with main and passed the full test suites. The only failures were ones main
-        itself has.</p>
+      <p class="muted">Each was updated with main before it merged. #17 and #18 passed the full test suites; the only
+        failures were ones main itself has. #30 to #34 ran scoped tests (see <a href="#quality">Quality</a>).</p>
+    </div>
+
+    <div class="pr">
+      <div class="pr-head"><h3>#17 The first five props</h3><span class="status merged">merged</span></div>
+      <p class="muted">A wall clock, a backpack, bookcases, a water cooler and a snake plant replace placeholder boxes and
+        discs.</p>
+      <figure><a href="img/first-five.jpg"><img src="img/first-five.jpg" alt="A room render with the old placeholder disc, cooler box and bookshelf box beside the new clock, cooler, bookcase and plant" loading="lazy"></a><figcaption>Old placeholders beside the new clock, cooler, bookcase and plant.</figcaption></figure>
     </div>
 
     <div class="pr">
@@ -125,22 +131,8 @@ section { display: grid; gap: 20px; }
       </div>
     </div>
 
-    <div class="pr">
-      <div class="pr-head"><h3>#17 The first five props</h3><span class="status merged">merged</span></div>
-      <p class="muted">A wall clock, a backpack, bookcases, a water cooler and a snake plant replace placeholder boxes and
-        discs.</p>
-      <figure><a href="img/first-five.jpg"><img src="img/first-five.jpg" alt="A room render with the old placeholder disc, cooler box and bookshelf box beside the new clock, cooler, bookcase and plant" loading="lazy"></a><figcaption>Old placeholders beside the new clock, cooler, bookcase and plant.</figcaption></figure>
-    </div>
-  </section>
-
-  <section id="open">
-    <div class="section-head">
-      <span class="eyebrow">waiting for review</span>
-      <h2>Open for review</h2>
-    </div>
-
     <div class="pr" id="pr30">
-      <div class="pr-head"><h3>#30 Room props for every school</h3><span class="status">in review</span></div>
+      <div class="pr-head"><h3>#30 Room props for every school</h3><span class="status merged">merged</span></div>
       <p class="muted">19 hard-surface props across all eight schools.</p>
       <ul class="limits">
         <li><b>Every school:</b> a fire extinguisher.</li>
@@ -162,7 +154,7 @@ section { display: grid; gap: 20px; }
     </div>
 
     <div class="pr" id="pr31">
-      <div class="pr-head"><h3>#31 Drinking, walk variety, queue waiting</h3><span class="status">in review</span></div>
+      <div class="pr-head"><h3>#31 Drinking, walk variety, queue waiting</h3><span class="status merged">merged</span></div>
       <ul class="limits">
         <li><b>Students drink from a water bottle.</b> The game's drinking signal had no animation before.</li>
         <li><b>Each student walks in one of three styles:</b> the old walk, hurried or relaxed.</li>
@@ -177,7 +169,7 @@ section { display: grid; gap: 20px; }
     </div>
 
     <div class="pr" id="pr32">
-      <div class="pr-head"><h3>#32 Proctor wardrobe</h3><span class="status">in review</span></div>
+      <div class="pr-head"><h3>#32 Proctor wardrobe</h3><span class="status merged">merged</span></div>
       <ul class="limits">
         <li><b>The woman proctor's 17 wardrobe tops</b> now curve under the bust.</li>
         <li><b>The proctor's hair</b> uses the corrected ash brown.</li>
@@ -188,10 +180,12 @@ section { display: grid; gap: 20px; }
     </div>
 
     <div class="pr" id="pr33">
-      <div class="pr-head"><h3>#33 Upright writing for every age band</h3><span class="status">in review</span></div>
+      <div class="pr-head"><h3>#33 Upright writing for every age band</h3><span class="status merged">merged</span></div>
       <ul class="limits">
         <li><b>Teens and adults write with a straight back</b> instead of hunching over the desk.</li>
-        <li><b>24 unused clips that failed their checks are removed,</b> so all 328 animation checks pass.</li>
+        <li><b>24 unused clips are removed:</b> Fidget, FidgetMirror and Thinking on every rig. 22 of them failed their checks.</li>
+        <li><b>Combined with #31's drinking, walks and queue look,</b> main has 49 clips per rig, and all 392 pass the
+          animation checks.</li>
       </ul>
       <div class="figs">
         <figure><a href="img/upright-m.jpg"><img src="img/upright-m.jpg" alt="Boys and men writing from the side, before hunched and now upright" loading="lazy"></a><figcaption><b>Men, side.</b> Before (left), now (right). Columns: child, young teen, older teen, adult.</figcaption></figure>
@@ -201,7 +195,7 @@ section { display: grid; gap: 20px; }
     </div>
 
     <div class="pr" id="pr34">
-      <div class="pr-head"><h3>#34 Proctor action gestures</h3><span class="status">in review · built on #32</span></div>
+      <div class="pr-head"><h3>#34 Proctor action gestures</h3><span class="status merged">merged</span></div>
       <ul class="limits">
         <li><b>Each of the six actions has its own gesture:</b> observe, talk, warn, inspect, confiscate and remove.
           Before, they all used one frozen pose.</li>
@@ -230,7 +224,7 @@ section { display: grid; gap: 20px; }
       <li><b>Tapping an action again snapped the proctor</b> to its default pose.</li>
       <li><b>The wardrobe refit put the bust</b> on the wrong part of the polo and the jackets.</li>
     </ul>
-    <p class="muted">#30 to #34 ran scoped tests only. Each runs the full suites before merging.</p>
+    <p class="muted">#30 to #34 ran scoped tests only.</p>
   </section>
 
   <section id="meshy">
@@ -245,19 +239,6 @@ section { display: grid; gap: 20px; }
       <li><b>Seated idle clips,</b> kept in the library but not used in the game. Idle only shows for moments in an
         exam.</li>
       <li><b>The six proctor gestures.</b></li>
-    </ul>
-  </section>
-
-  <section id="merge-plan">
-    <div class="section-head">
-      <span class="eyebrow">next</span>
-      <h2>Merge plan</h2>
-    </div>
-    <ul class="limits">
-      <li><b>#32 before #34.</b> #34 is built on it.</li>
-      <li><b>#31 and #33 both regenerate the student animation files.</b> Whichever merges second needs a rebake.</li>
-      <li><b>Main has moved since</b> (for example, a language review). Each PR gets main merged in and the full suites
-        before merging.</li>
     </ul>
   </section>
 
