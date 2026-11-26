@@ -1,4 +1,5 @@
 [
+  {"date": "2026-11-26", "author": "Apperk274", "slug": "proctor-character", "change": "The heaviest dressed woman now counts 9,996 triangles, with the merged bust fit."},
   {"date": "2026-11-26", "author": "Apperk274", "slug": "overnight-art-2026-11-26", "change": "PRs #30 to #34 are merged, so all seven PRs now show as merged and the merge plan is gone."},
   {"date": "2026-11-26", "author": "Apperk274", "slug": "classroom-props", "change": "The nineteen room props for every school are merged and in the game (PR #30)."},
   {"date": "2026-11-26", "author": "Apperk274", "slug": "student-characters", "change": "Drinking, walks, queue waiting and upright writing for every band are merged (PRs #31 and #33), with 392 of 392 clips passing."},
