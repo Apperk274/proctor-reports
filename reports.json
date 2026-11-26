@@ -31,6 +31,12 @@
   ],
   "reports": [
     {
+      "slug": "overnight-art-2026-11-26",
+      "title": "Overnight Art, 26 November",
+      "category": "classroom",
+      "summary": "The overnight student, proctor and classroom art work: two PRs merged, five open with what to look at, reviews, Meshy use, the merge plan and follow-ups."
+    },
+    {
       "slug": "student-base-comparison",
       "title": "Student Base Comparison",
       "category": "look-and-feel",

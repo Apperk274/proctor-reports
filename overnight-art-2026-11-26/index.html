@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overnight Art, 26 November</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef2f3;
+  --surface: #ffffff;
+  --ink: #152024;
+  --muted: #56666c;
+  --line: #d3dcdf;
+  --accent: #0f766e;
+  --accent-soft: #d6efec;
+  --warn: #a8661a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+    --accent: #3fb8ae; --accent-soft: #163b38; --warn: #e0a24f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1416; --surface: #162023; --ink: #e4ecee; --muted: #94a5ab; --line: #28353a;
+  --accent: #3fb8ae; --accent-soft: #163b38; --warn: #e0a24f; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 56px; margin: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+figcaption { font-size: 0.9rem; color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+
+header { padding-block: 40px 0; display: grid; gap: 16px; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+.status { justify-self: start; font-family: var(--mono); font-size: 0.8rem; color: var(--warn); border: 1px solid var(--warn);
+  padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+.status.merged { color: var(--accent); border-color: var(--accent); }
+
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+.sub { display: grid; gap: 12px; margin-top: 8px; }
+.pr { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+.pr-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+.pr-head h3 { font-size: 1.2rem; font-weight: 700; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat span:last-child { color: var(--muted); font-size: 0.9rem; }
+
+.limits { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.limits li { color: var(--muted); }
+.limits b { color: var(--ink); font-weight: 600; }
+.look { border-left: 3px solid var(--warn); padding: 4px 0 4px 12px; }
+.look b { color: var(--warn); }
+.back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
+.back:hover { text-decoration: underline; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← All reports</a>
+    <span class="eyebrow">Exam Supervisor Simulator · overnight summary · 25–26 November 2026</span>
+    <h1>Overnight Art, 26 November</h1>
+    <p class="lede">What happened overnight on the student, proctor and classroom art. Two pull requests are merged.
+      Five more are open and waiting for review. Each has a short list of what to look at.</p>
+    <div class="stats">
+      <div class="stat"><span class="big">2</span><span>merged into main: #17 and #18</span></div>
+      <div class="stat"><span class="big">5</span><span>open for review: #30 to #34</span></div>
+      <div class="stat"><span class="big">19</span><span>new room props across all eight schools</span></div>
+      <div class="stat"><span class="big">328/328</span><span>student animation checks passing with #33</span></div>
+    </div>
+    <p class="muted"><a href="#merged">Merged</a> · <a href="#open">Open for review</a> · <a href="#quality">Quality</a> ·
+      <a href="#meshy">Made with Meshy</a> · <a href="#merge-plan">Merge plan</a> · <a href="#follow-ups">Follow-ups</a>.
+      The full detail is in <a href="../student-characters/">Student Characters</a>,
+      <a href="../classroom-props/">Classroom Props</a> and <a href="../proctor-character/">Proctor Character</a>.</p>
+  </header>
+
+  <section id="merged">
+    <div class="section-head">
+      <span class="eyebrow">in main</span>
+      <h2>Merged</h2>
+      <p class="muted">Both were updated with main and passed the full test suites. The only failures were ones main
+        itself has.</p>
+    </div>
+
+    <div class="pr">
+      <div class="pr-head"><h3>#18 Student art fixes</h3><span class="status merged">merged</span></div>
+      <ul class="limits">
+        <li><b>Hands have a palm</b> and a thumb.</li>
+        <li><b>Shirt bulges are gone</b> from the tops.</li>
+        <li><b>Women's chests curve under the bust.</b></li>
+        <li><b>Children write upright.</b></li>
+        <li><b>Arm pops on releasing the bag are fixed.</b> The child girl releases through Idle.</li>
+      </ul>
+      <figure><a href="img/hands.jpg"><img src="img/hands.jpg" alt="Hands before as blocks and now with a palm and thumb, standing, writing and from the game camera, on an adult man and a child girl" loading="lazy"></a><figcaption><b>Hands</b>, before and now: adult man above, child girl below.</figcaption></figure>
+      <div class="figs">
+        <figure><a href="img/student-chests.jpg"><img src="img/student-chests.jpg" alt="Women's chests from the side for four age bands, before and now" loading="lazy"></a><figcaption><b>Women's chests</b>, child to adult, before (top) and now (bottom).</figcaption></figure>
+        <figure><a href="img/child-writing.jpg"><img src="img/child-writing.jpg" alt="A child girl and boy writing from the side, before folded over the desk and now upright" loading="lazy"></a><figcaption><b>Children writing</b>, before and now.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="pr">
+      <div class="pr-head"><h3>#17 The first five props</h3><span class="status merged">merged</span></div>
+      <p class="muted">A wall clock, a backpack, bookcases, a water cooler and a snake plant replace placeholder boxes and
+        discs.</p>
+      <figure><a href="img/first-five.jpg"><img src="img/first-five.jpg" alt="A room render with the old placeholder disc, cooler box and bookshelf box beside the new clock, cooler, bookcase and plant" loading="lazy"></a><figcaption>Old placeholders beside the new clock, cooler, bookcase and plant.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="open">
+    <div class="section-head">
+      <span class="eyebrow">waiting for review</span>
+      <h2>Open for review</h2>
+    </div>
+
+    <div class="pr" id="pr30">
+      <div class="pr-head"><h3>#30 Room props for every school</h3><span class="status">in review</span></div>
+      <p class="muted">19 hard-surface props across all eight schools.</p>
+      <ul class="limits">
+        <li><b>Every school:</b> a fire extinguisher.</li>
+        <li><b>Maple:</b> cubbies, a kids' bookshelf, a toy chest and an easel.</li>
+        <li><b>Riverside:</b> radiators and recycling bins.</li>
+        <li><b>Eastgate:</b> pendant lamps and a coat stand.</li>
+        <li><b>City High:</b> locker banks, radiators and bins.</li>
+        <li><b>Brightpath:</b> filing cabinets and bins.</li>
+        <li><b>Kingsley:</b> a trophy cabinet, the crest and radiators.</li>
+        <li><b>University:</b> exam boxes, a lectern and radiators.</li>
+        <li><b>National:</b> a hoop, wall bars, gym mats and a gym bench.</li>
+      </ul>
+      <p class="muted">It also fixes four placements that were already wrong: Kingsley's crest over the door, Riverside's
+        posters over the windows, City High's lockers in a window, and Eastgate's lamps that never appeared. The proctor
+        now walks around furniture. A test keeps the lane beside the door queue open.</p>
+      <figure><a href="img/schools-a.jpg"><img src="img/schools-a.jpg" alt="Phone captures of Maple, Riverside, Eastgate and City High with their new props" loading="lazy"></a><figcaption>Maple, Riverside, Eastgate, City High, at the game camera on a phone.</figcaption></figure>
+      <figure><a href="img/schools-b.jpg"><img src="img/schools-b.jpg" alt="Phone captures of Brightpath, Kingsley, University and the National hall with their new props" loading="lazy"></a><figcaption>Brightpath, Kingsley, University, National.</figcaption></figure>
+      <p class="look"><b>Look at:</b> the University lectern. Only a corner of it shows, at the bottom left.</p>
+    </div>
+
+    <div class="pr" id="pr31">
+      <div class="pr-head"><h3>#31 Drinking, walk variety, queue waiting</h3><span class="status">in review</span></div>
+      <ul class="limits">
+        <li><b>Students drink from a water bottle.</b> The game's drinking signal had no animation before.</li>
+        <li><b>Each student walks in one of three styles:</b> the old walk, hurried or relaxed.</li>
+        <li><b>Students in the door queue look around</b> while they wait.</li>
+        <li><b>A bug fix:</b> every Meshy clip's hip movement was flipped and enlarged. It is not now.</li>
+      </ul>
+      <div class="figs">
+        <figure><a href="img/drink.jpg"><img src="img/drink.jpg" alt="Three seated students lifting a water bottle and tipping it up at the lips, from the game camera and from the side" loading="lazy"></a><figcaption><b>Drinking</b>, from the game camera (top) and the side (bottom).</figcaption></figure>
+        <figure><a href="img/walks.jpg"><img src="img/walks.jpg" alt="An adult man walking in three styles: the old walk, hurried and relaxed" loading="lazy"></a><figcaption><b>Walks:</b> the old walk, hurried, relaxed.</figcaption></figure>
+      </div>
+      <p class="look"><b>Look at:</b> the bottle appears in the hand as it lifts, rather than being picked up.</p>
+    </div>
+
+    <div class="pr" id="pr32">
+      <div class="pr-head"><h3>#32 Proctor wardrobe</h3><span class="status">in review</span></div>
+      <ul class="limits">
+        <li><b>The woman proctor's 17 wardrobe tops</b> now curve under the bust.</li>
+        <li><b>The proctor's hair</b> uses the corrected ash brown.</li>
+      </ul>
+      <figure><a href="img/proctor-tops.jpg"><img src="img/proctor-tops.jpg" alt="Nine of the woman proctor's tops from the side, before above and now below each" loading="lazy"></a><figcaption>Nine tops from the side. Each top: before (above), now (below).</figcaption></figure>
+      <p class="look"><b>Look at:</b> a straight crease under the bust on the low-poly tops. The US flag print folds along
+        it.</p>
+    </div>
+
+    <div class="pr" id="pr33">
+      <div class="pr-head"><h3>#33 Upright writing for every age band</h3><span class="status">in review</span></div>
+      <ul class="limits">
+        <li><b>Teens and adults write with a straight back</b> instead of hunching over the desk.</li>
+        <li><b>24 unused clips that failed their checks are removed,</b> so all 328 animation checks pass.</li>
+      </ul>
+      <div class="figs">
+        <figure><a href="img/upright-m.jpg"><img src="img/upright-m.jpg" alt="Boys and men writing from the side, before hunched and now upright" loading="lazy"></a><figcaption><b>Men, side.</b> Before (left), now (right). Columns: child, young teen, older teen, adult.</figcaption></figure>
+        <figure><a href="img/upright-f.jpg"><img src="img/upright-f.jpg" alt="Girls and women writing from the side, before hunched and now upright" loading="lazy"></a><figcaption><b>Women, side.</b> Before (left), now (right).</figcaption></figure>
+      </div>
+      <p class="look"><b>Look at:</b> the women's forearms. They reach forward long and fairly straight.</p>
+    </div>
+
+    <div class="pr" id="pr34">
+      <div class="pr-head"><h3>#34 Proctor action gestures</h3><span class="status">in review · built on #32</span></div>
+      <ul class="limits">
+        <li><b>Each of the six actions has its own gesture:</b> observe, talk, warn, inspect, confiscate and remove.
+          Before, they all used one frozen pose.</li>
+        <li><b>The proctor turns to face the student.</b></li>
+        <li><b>The wardrobe is refitted</b> so skin doesn't show through the sleeves.</li>
+      </ul>
+      <figure><a href="img/gestures.jpg"><img src="img/gestures.jpg" alt="The man and woman proctor beside a seated student, six actions in rows, four moments each" loading="lazy"></a><figcaption>Man (left) and woman (right) in Play mode. Rows: observe, talk, warn, inspect, confiscate, remove.</figcaption></figure>
+      <ul class="limits look">
+        <li><b>Look at:</b> Remove often points off-screen in the zoomed camera.</li>
+        <li><b>Look at:</b> Warn has no pointing finger yet.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="quality">
+    <div class="section-head">
+      <span class="eyebrow">reviews and tests</span>
+      <h2>Quality</h2>
+      <p class="muted">Every PR had at least one independent code review. The real problems were fixed before it opened.
+        Notable catches:</p>
+    </div>
+    <ul class="limits">
+      <li><b>Furniture closed the walking lane</b> beside the door queue.</li>
+      <li><b>A water bottle sank into the desk.</b></li>
+      <li><b>A pose flicker cancelled the child girl's pop fix.</b></li>
+      <li><b>Tapping an action again snapped the proctor</b> to its default pose.</li>
+      <li><b>The wardrobe refit put the bust</b> on the wrong part of the polo and the jackets.</li>
+    </ul>
+    <p class="muted">#30 to #34 ran scoped tests only. Each runs the full suites before merging.</p>
+  </section>
+
+  <section id="meshy">
+    <div class="section-head">
+      <span class="eyebrow">generated</span>
+      <h2>Made with Meshy</h2>
+    </div>
+    <ul class="limits">
+      <li><b>Room props, in three rounds.</b> Rejected for a crumpled, generated look: printer, round and square bins,
+        chair stack, abacus, messenger bag, leafy plant, pencil case. Not placed: projector cart, rolling whiteboard.</li>
+      <li><b>Student motion clips:</b> drinking, walks and queue waiting.</li>
+      <li><b>Seated idle clips,</b> kept in the library but not used in the game. Idle only shows for moments in an
+        exam.</li>
+      <li><b>The six proctor gestures.</b></li>
+    </ul>
+  </section>
+
+  <section id="merge-plan">
+    <div class="section-head">
+      <span class="eyebrow">next</span>
+      <h2>Merge plan</h2>
+    </div>
+    <ul class="limits">
+      <li><b>#32 before #34.</b> #34 is built on it.</li>
+      <li><b>#31 and #33 both regenerate the student animation files.</b> Whichever merges second needs a rebake.</li>
+      <li><b>Main has moved since</b> (for example, a language review). Each PR gets main merged in and the full suites
+        before merging.</li>
+    </ul>
+  </section>
+
+  <section id="follow-ups">
+    <div class="section-head">
+      <span class="eyebrow">open</span>
+      <h2>Follow-ups</h2>
+    </div>
+    <ul class="limits">
+      <li><b>The items to look at</b> in each PR above.</li>
+      <li><b>A phone memory check</b> for the new props.</li>
+      <li><b><code>HubNavigationSceneTests</code> fails on main itself.</b> It does not come from this work.</li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>
