@@ -104,8 +104,8 @@ section { display: grid; gap: 20px; }
     <div class="section-head">
       <span class="eyebrow">in main</span>
       <h2>Merged</h2>
-      <p class="muted">Each was updated with main before it merged. #17 and #18 passed the full test suites; the only
-        failures were ones main itself has. #30 to #34 ran scoped tests (see <a href="#quality">Quality</a>).</p>
+      <p class="muted">All seven were updated with main and passed the full test suites before merging. The only
+        failures were ones main itself has (see <a href="#quality">Quality</a>).</p>
     </div>
 
     <div class="pr">
@@ -224,7 +224,11 @@ section { display: grid; gap: 20px; }
       <li><b>Tapping an action again snapped the proctor</b> to its default pose.</li>
       <li><b>The wardrobe refit put the bust</b> on the wrong part of the polo and the jackets.</li>
     </ul>
-    <p class="muted">#30 to #34 ran scoped tests only.</p>
+    <p class="muted">#30 to #34 ran scoped tests during review. Each then had main merged in and ran the full suites
+      before merging: full EditMode, the graphics subset (AdmissionPhoto, AdmissionPrewarm, PortraitFraming) and full
+      PlayMode. The only failures were ones main already has: 10 admission tests that fail without graphics and pass
+      with it, and <code style="overflow-wrap:anywhere">HubNavigationSceneTests.EveryTileOpensItsScreenAndTheCrossReturnsToTheHub</code> in PlayMode.
+      The student animation checks pass 392 of 392 on main.</p>
   </section>
 
   <section id="meshy">
