@@ -130,6 +130,7 @@ section { display: grid; gap: 20px; }
     <div class="tags-row">
       <span class="status merged">Hands, tops, chests, upright child writing and the new glance: merged · PR #18</span>
       <span class="status">Drinking, walk variety and queue waiting: in review · PR #31</span>
+      <span class="status">Upright writing for teens and adults: in review · PR #33</span>
     </div>
     <p class="lede">The game's students are built from the proctor's kit in four age bands, child to adult, with one body
       per band and sex, dressed from who they are and what they wore today: hair, skin, eyes, glasses, facial hair and
@@ -360,7 +361,7 @@ section { display: grid; gap: 20px; }
     </div>
     <div class="stats">
       <div class="stat"><span class="big">352</span><span>baked clips: 44 per rig, 8 rigs</span></div>
-      <div class="stat"><span class="big">330/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame</span></div>
+      <div class="stat"><span class="big">330/352</span><span>clips passing every check, re-imported on the band's meshes, every 2nd frame; 328/328 with PR #33 (in review), which drops the unused Fidget and Thinking</span></div>
       <div class="stat"><span class="big">0</span><span>runtime IK: the contact is in the clips</span></div>
       <div class="stat"><span class="big">8–11 cm</span><span>closer paper, by band, than its old spot; the game places it there now</span></div>
     </div>
@@ -393,7 +394,7 @@ section { display: grid; gap: 20px; }
     </div>
     <div class="sub"><h3>From the side</h3><p class="muted">The whole clip from the side, so desk, seat, lap and floor contact can be judged: child, young teen, older teen, adult from left to right, men above, women below.</p>
       <div class="figs">
-        <figure><video src="vid/anim/side_Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>Writing.</b> Children sit upright and lean from the hips; the others lean over the desk.</figcaption></figure>
+        <figure><video src="vid/anim/side_Writing.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Writing from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>Writing.</b> Children sit upright and lean from the hips; here the others still lean over the desk. With PR #33 (in review) every band writes upright: see <a href="#upright-all">Teens and adults upright</a>.</figcaption></figure>
         <figure><video src="vid/anim/side_WritingLoop.mp4" autoplay muted loop playsinline preload="metadata" aria-label="WritingLoop from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>WritingLoop.</b> The same for the second writing clip.</figcaption></figure>
         <figure><video src="vid/anim/side_IdleCalm.mp4" autoplay muted loop playsinline preload="metadata" aria-label="IdleCalm from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>IdleCalm</b></figcaption></figure>
         <figure><video src="vid/anim/side_HandRaised.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HandRaised from the side, every band" style="width:100%;border-radius:8px"></video><figcaption><b>HandRaised</b></figcaption></figure>
@@ -410,7 +411,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Writing</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>7.97 s</span><span>loops</span><span>mirror: WritingMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">The writing hand on the band's paper spot, the other hand holding the sheet; forearms come down to the desk edge. Children write from an upright source: they sit 3.5 cm further forward, lean from the hips with a straight back and bow the head.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">The writing hand on the band's paper spot, the other hand holding the sheet; forearms come down to the desk edge. Children write from an upright source: they sit 3.5 cm further forward, lean from the hips with a straight back and bow the head. With PR #33 (in review) young teens, older teens and adults write upright too.</div>
           <a href="img/anim/sheet_Writing.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -419,7 +420,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">WritingLoop</span><span class="tag" style="color:var(--good);border:1px solid var(--good)">checks pass</span></div>
           <div class="facts2"><span>9.97 s</span><span>loops</span><span>mirror: WritingLoopMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">For teens and adults the source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults). Children write it from their own upright source, as in Writing.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">For teens and adults the source sits upright, so this one leans the most to reach the paper (up to 40° extra for adults). Children write it from their own upright source, as in Writing. With PR #33 (in review) every band does.</div>
           <a href="img/anim/sheet_WritingLoop.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -560,7 +561,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Fidget</span><span class="tag limit">14 fail</span></div>
           <div class="facts2"><span>5.97 s</span><span>not used</span><span>mirror: FidgetMirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Not used by the game. Fails its checks on every rig except the child boy's, as does FidgetMirror: the leg swing lifts the hips off the seat and a forearm crosses into the torso (see below).</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Not used by the game, and dropped in PR #33 (in review). Fails its checks on every rig except the child boy's, as does FidgetMirror: the leg swing lifts the hips off the seat and a forearm crosses into the torso (see below).</div>
           <a href="img/anim/sheet_Fidget.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -578,7 +579,7 @@ section { display: grid; gap: 20px; }
         <div class="meta">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-weight:600">Thinking</span><span class="tag limit">8 fail</span></div>
           <div class="facts2"><span>5.97 s</span><span>not used</span><span>no mirror</span></div>
-          <div style="font-size:0.9rem;color:var(--muted)">Not used by the game. Fails its checks on every rig: near the end the face sinks into the desk top. No mirror in the source.</div>
+          <div style="font-size:0.9rem;color:var(--muted)">Not used by the game, and dropped in PR #33 (in review). Fails its checks on every rig: near the end the face sinks into the desk top. No mirror in the source.</div>
           <a href="img/anim/sheet_Thinking.jpg" style="font-size:0.85rem">Key frames (men left, women right)</a>
         </div>
       </article>
@@ -644,7 +645,7 @@ section { display: grid; gap: 20px; }
         <div class="card"><h3>Seat</h3><p>Children sit 16.5 cm forward of the seat point, adults 10 cm, so they can reach the desk. The trouser mesh is measured every second frame and the body raised or lowered until it rests on the seat; a thigh may press at most about 2 cm into the seat's front edge.</p></div>
         <div class="card"><h3>Hands</h3><p>The writing hand and the hand holding the sheet are on the paper. Resting hands go on the desk where the source had them near it, within 85 % of the band's arm; where the desk is out of that reach for most of a clip they rest on the thigh instead. Each hand's height comes from its own mesh; the elbow swings to the lowest position that keeps the forearm out of the desk, and hands are kept out of the thighs.</p></div>
         <div class="card"><h3>Lean</h3><p>Where a target is beyond about 90 % of the arm, the spine leans forward (sideways to the bag) within a per-band limit. The head turns back what it should not follow, so glances, clock checks and whispers look where the source looks.</p></div>
-        <div class="card"><h3>Children's writing</h3><p>Writing and WritingLoop for children bake from upright source clips. The child sits 3.5 cm further forward, leans up to 36° from the hips with the back straight, the head bowed and the forearms forward to the paper's near edge; a last pass keeps the arms out of the desk.</p></div>
+        <div class="card"><h3>Children's writing</h3><p>Writing and WritingLoop for children bake from upright source clips. The child sits 3.5 cm further forward, leans up to 36° from the hips with the back straight, the head bowed and the forearms forward to the paper's near edge; a last pass keeps the arms out of the desk. With PR #33 (in review) young teens, older teens and adults write the same way; older teens and adults write 3–4 cm further onto the paper.</p></div>
         <div class="card"><h3>Letting go of a held clip</h3><p>The game lets go of ReachBag or HandRaised by playing its wind-down while it fades into the next pose, blending each bone the shortest way round. Where an upper arm would pass the opposite of its writing rotation in that fade, the bake replaces that stretch of the arm with a smooth turn between clear frames, so the blend cannot flip it round the other way.</p></div>
         <div class="card"><h3>Feet</h3><p>Young teens, older teens and adults plant both feet flat at one spot per rig, the same in every seated clip, so cross-fades do not slide them; IdleCalm no longer lifts a heel. Children's legs hang relaxed, the foot 14° toe-down; the soles hang 10–20 cm above the floor (a little more than the 10–15 cm aimed for).</p></div>
         <div class="card"><h3>Standing and walking</h3><p>Standing and PresentDocument plant both feet flat for the whole clip. The walk keeps its stride, and the lowest shoe vertex is put on the floor every frame.</p></div>
@@ -693,13 +694,13 @@ section { display: grid; gap: 20px; }
     </div></div>
     <div class="sub"><h3>Rough edges</h3><ul class="limits">
       <li><b>Going straight from writing into the watch glance</b> can move the wrist 3.2–5.2 cm in one frame; no test covers that entry yet.</li>
-      <li><b>Teens and adults lean well over the desk to write</b>, as the source clips already did; WritingLoop's source sits upright, so it leans the most. <b>Children write upright</b> from their own sources, the head 6–11 cm above the desk (it came within 1 cm before), but their writing elbows open to 130–146° and from the side the child girl's arms read stretched forward.</li>
+      <li><b>Every band writes upright</b> with PR #33 (in review): teens and adults lean 8–30° from the hips, where they leaned 22–36° over the desk before, and the head stays at least 12 cm above it. <b>Children write upright</b> from their own sources, the head 6–11 cm above the desk (it came within 1 cm before), but their writing elbows open to 130–146° and from the side the child girl's arms read stretched forward.</li>
       <li><b>Resting hands often go to the lap.</b> From the upright idle poses most students cannot rest a hand on the desk with a bent elbow, so those hands rest on the thighs, often fingers down with the wrist a little raised.</li>
       <li><b>Young teens plant their feet</b> at the cost of the thigh pressing up to 1.4 cm into the seat's front edge, because their knees are lower than the seat.</li>
       <li><b>ReachBag leans far sideways</b>, as its source does, to bring the wrist below 0.45 m at the bag.</li>
       <li><b>Letting go of a reach into writing</b>, replayed as the game plays it into Writing and WritingLoop at 16 loop phases, moves a wrist at most 6.0 cm in a frame on every rig, checked across all 100 per-student varieties. The older-teen boy's ReachBagMirror, which jumped 21.9 cm, now moves about 4 cm, fixed in the bake. The child girl's mirrored reach, and her raised hand into WritingLoop, would swing the arm the long way round (51–59 cm a frame on a straight release, 26 cm for the raised hand), so the game lets her go through Idle first (1.0 s) and then into writing (0.55 s): under 4 cm a frame, and back to writing about 0.25 s later than before. The detour holds through one-frame pose flickers, and standing up cancels it.</li>
-      <li><b>330 of 352 clips pass every check.</b> The 22 that fail: Fidget and FidgetMirror on every rig except the child boy's (14) and Thinking on every rig (8).</li>
-      <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top.</li>
+      <li><b>Every check passes on all 328 clips</b> with PR #33 (in review), which drops the unused Fidget, FidgetMirror and Thinking. Without it, 330 of 352 pass: the 22 that fail are Fidget and FidgetMirror on every rig except the child boy's (14) and Thinking on every rig (8).</li>
+      <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game; PR #33 drops both): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
     </ul></div>
   </section>
@@ -732,19 +733,27 @@ section { display: grid; gap: 20px; }
 
   <section id="desk-distance">
     <div class="section-head">
-      <span class="eyebrow">current students · A in the game · children upright</span>
+      <span class="eyebrow">current students · A in the game · every band upright</span>
       <h2>Desk distance and writing posture</h2>
       <p class="muted">At its original spot the exam paper's near edge is 0.63 m in front of the seat point (the desk is 0.8 m ahead), farther than any band can write without hunching over the desk. Three ways out were rendered on the same students and the same frame of Writing: A moves the paper, B moves the desk closer, C2 moves it closer still and replaces the source's hunched Writing pose with an upright one authored on the student rig.</p>
-      <p><b>In the game: A, with upright children.</b> The exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. Children no longer write with the hunched source clip: their Writing and WritingLoop bake from new upright source clips at the same desk distance. Teens and adults write as in A: upright writing is for children only for now, and C2 for teens and adults is not planned. B and C2 are not in the game; the comparison below is kept as the record of the choice and was rendered on the earlier meshes.</p>
+      <p><b>In the game: A, with upright children.</b> The exam paper moves 8–11 cm towards the student, by band, and the room, chair and desk stay where they are. Children no longer write with the hunched source clip: their Writing and WritingLoop bake from new upright source clips at the same desk distance. <span class="tag limit">in review · PR #33</span> Young teens, older teens and adults now write upright like the children, also at A's desk distance: a straight back hinged at the hips and the head bowed over the paper; older teens and adults write 3–4 cm further onto the paper. Their measured lean is 8–30°, where it was 22–36° over the desk, and the head stays at least 12 cm above the desk. B and C2 are not in the game; the comparison below is kept as the record of the choice and was rendered on the earlier meshes.</p>
     </div>
     <div class="sub"><h3>Children: before and now</h3><p class="muted">Writing at frame 100, from the side, on the child girl and boy. Before: the hunched source clip with the paper moved closer (A). Now: the upright source. The child sits 3.5 cm further forward, leans up to 36° from the hips with a straight back and bows the head; the head stays 6–11 cm above the desk, where it came within 1 cm before.</p>
       <figure><img src="img/fix/child-writing.jpg" alt="A child girl and boy writing from the side, before folded over the desk and now upright" loading="lazy"><figcaption><b>Girl and boy, before and now.</b> The whole clip on every band is in <a href="#animation">From the side</a>.</figcaption></figure>
     </div>
+    <div class="sub" id="upright-all"><h3>Teens and adults upright <span class="tag limit">in review · PR #33</span></h3><p class="muted">Writing from the side and from the game camera, before (left half) and now (right half). In each half the columns are child, young teen, older teen and adult, and the rows are three moments of the clip; the children were already upright. Every animation check passes on all 328 clips, with the unused Fidget and Thinking clips dropped. Girls’ and women’s forearms reach forward long and fairly straight.</p>
+      <div class="figs">
+        <figure><a href="img/fix/upright-side-m.jpg"><img src="img/fix/upright-side-m.jpg" alt="Boys and men writing from the side, before leaning over the desk and now upright with the head bowed" loading="lazy"></a><figcaption><b>Men, side.</b> Before (left), now (right).</figcaption></figure>
+        <figure><a href="img/fix/upright-side-f.jpg"><img src="img/fix/upright-side-f.jpg" alt="Girls and women writing from the side, before leaning over the desk and now upright with the forearms reaching forward" loading="lazy"></a><figcaption><b>Women, side.</b> Before (left), now (right).</figcaption></figure>
+        <figure><a href="img/fix/upright-game-m.jpg"><img src="img/fix/upright-game-m.jpg" alt="Boys and men writing at the game camera, before and now" loading="lazy"></a><figcaption><b>Men, game camera.</b> Before (left), now (right).</figcaption></figure>
+        <figure><a href="img/fix/upright-game-f.jpg"><img src="img/fix/upright-game-f.jpg" alt="Girls and women writing at the game camera, before and now" loading="lazy"></a><figcaption><b>Women, game camera.</b> Before (left), now (right).</figcaption></figure>
+      </div>
+    </div>
     <div class="posetable" role="table" aria-label="Desk distance options">
       <div role="row"><span role="columnheader">Option</span><span role="columnheader">Posture · checks</span><span role="columnheader">Unity impact</span></div>
-      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>in the game</b></span><span class="c">Teens and adults lean well over the desk (their source Writing clip is itself hunched); children now write upright from their own sources. 330 of 352 clips pass; the 22 failures are Fidget and Thinking, which the game doesn't use.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
+      <div role="row"><span class="p">A · paper moved 8–11 cm towards the student, chair and desk unchanged · <b>in the game</b></span><span class="c">Children write upright from their own sources; with PR #33 (in review) teens and adults do too, and all 328 clips pass once the unused Fidget and Thinking are dropped. Without it, teens and adults lean over the desk and 330 of 352 clips pass.</span><span class="d">Move the exam paper per band in RoomDresser. No layout change.</span></div>
       <div role="row"><span class="p">B · desk 16–24 cm closer (child 24, young teen 20, older teen 18, adult 16), paper at its original spot · not taken</span><span class="c">Bent elbows (at most 114–118°) and 0–14° extra lean, but the hunch of the source clip remains. Not tuned: 18 of 32 Writing and IdleCalm clips pass; the rest are 3–12 mm forearm, chest and back contacts and one 4.8 cm seat gap, the same tuning A needed.</span><span class="d">RoomLayout.DeskOffsetZ becomes a per-room value (it is one global -0.8 today, read by RoomDresser, ClassroomView's navmesh, RoomFootprints, RoomWalks and RoomLayout). Rooms that mix bands take one value. Supervisor aisles get wider. The desk's near strip enters the students' tap capsules (radius 0.34 at the seat) by up to about 9 cm.</span></div>
-      <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing · not planned for now</span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) passed; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
+      <div role="row"><span class="p">C2 · desk 26–34 cm closer (child 34, young teen 30, older teen 28, adult 26) plus an authored upright Writing · not taken: every band writes upright at A's desk distance instead</span><span class="c">Upright back against the seat, 13° spine lean, head bowed 34°, elbows 89–126°, forearms down to the desk, hands on the original paper. All 16 Writing clips (every band and sex, with mirrors) passed; seam 0.</span><span class="d">As B, with DeskOffsetZ between -0.46 and -0.54. For children and young teens the chair's and desk's footprints overlap by up to 2 cm (the seat front slides under the desk edge; no collision, 0.475 against 0.695). Tap-capsule overlap and aisle widening are larger than B's.</span></div>
     </div>
     <div class="sub"><h3>A, B and C2 side by side</h3><p class="muted">Each image: A on top, B in the middle, C2 at the bottom; child, young teen, older teen, adult from left to right; Writing at frame 100. Rendered for the decision, on the earlier meshes and with the children's earlier hunched writing in A.</p>
       <div class="figs">
@@ -769,8 +778,8 @@ section { display: grid; gap: 20px; }
         <a href="#limits">Known limitations of the previous students</a>.</p>
     </div>
     <ul class="limits">
-      <li><b>Teens and adults hunch over the desk to write.</b> Their writing is the source clip's hunch with the paper
-        moved closer (option A). Upright writing is for children only for now.</li>
+      <li><b>Girls’ and women’s forearms reach forward long and fairly straight</b> when they write upright (PR #33,
+        in review).</li>
       <li><b>Children reach for the paper with straight-ish arms.</b> Their writing elbows open to 130–146°, and from
         the side the child girl's arms read stretched forward.</li>
       <li><b>A few releases still step 4–6 cm a frame</b> when a reach or a raised hand lets go into writing (the child boy and the young teen girl), as before; the child girl goes through Idle first, so she is back to writing about 0.25 s later.</li>
