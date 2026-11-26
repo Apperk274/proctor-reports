@@ -57,6 +57,9 @@ header { padding-block: 40px 0; display: grid; gap: 16px; }
 .lede { color: var(--muted); font-size: 1.1rem; }
 .status { justify-self: start; font-family: var(--mono); font-size: 0.8rem; color: var(--warn); border: 1px solid var(--warn);
   padding: 2px 8px; border-radius: 4px; }
+.status.merged { color: var(--accent); border-color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.figs.wide { grid-template-columns: 1fr; }
 
 section { display: grid; gap: 20px; }
 .section-head { display: grid; gap: 6px; }
@@ -87,23 +90,31 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · room dressing</span>
     <h1>Classroom Props</h1>
-    <span class="status">In review · PR #17, not merged yet</span>
-    <p class="lede">Five low-poly props replace primitive placeholders in the exam rooms: a wall clock, a backpack,
-      bookcases, a water cooler and a snake plant. Each was made with Meshy text-to-3D, then cleaned up and recoloured in
-      Blender to the game's palette. Six more were made and not used. The captures are from Play mode on the branch, at
-      the phone size (1080 × 2340), and from the prop pipeline's own renders.</p>
+    <div class="tags">
+      <span class="status merged">The first five props: merged · PR #17</span>
+      <span class="status">Room props for every school: in review · PR #30</span>
+    </div>
+    <p class="lede">Low-poly props dress the exam rooms. Five are in the game: a wall clock, a backpack, bookcases, a
+      water cooler and a snake plant, replacing primitive placeholders. Nineteen more, in review, give every one of the
+      eight schools its own furniture, from a toy chest at Maple to a basketball hoop and gym mats at the National hall,
+      and the supervisor now walks around it. Each prop was made with Meshy text-to-3D, then cleaned up and recoloured in
+      Blender to the game's palette. The captures are from Play mode at the phone size (1080 × 2340) and the tablet size
+      (1620 × 2160), and from the prop pipeline's own renders.</p>
+    <p class="muted"><a href="#props">The first five</a> · <a href="#schools">Every school (in review)</a> ·
+      <a href="#rooms">The first five in the rooms</a> · <a href="#not-used">Not used</a> · <a href="#built">How they are
+      built</a> · <a href="#look-at">Please look at</a></p>
   </header>
 
   <section id="props">
     <div class="section-head">
-      <span class="eyebrow">in the branch</span>
-      <h2>The five props</h2>
+      <span class="eyebrow">in the game · PR #17</span>
+      <h2>The first five</h2>
     </div>
     <div class="stats">
-      <div class="stat"><span class="big">5</span><span>props in the rooms, replacing boxes and discs or adding dressing</span></div>
-      <div class="stat"><span class="big">187–680</span><span>triangles per prop</span></div>
+      <div class="stat"><span class="big">5 + 19</span><span>props: five in the game, nineteen more in review for every school</span></div>
+      <div class="stat"><span class="big">187–680</span><span>triangles per prop of the first five; the trophy cabinet in review has 799</span></div>
       <div class="stat"><span class="big">1</span><span>shared material: URP Lit on a 16 × 16 palette, point filter, no mipmaps, like the students</span></div>
-      <div class="stat"><span class="big">6</span><span>generated props not used</span></div>
+      <div class="stat"><span class="big">13</span><span>generated props not used</span></div>
     </div>
     <div class="traits">
       <div class="card"><h3>Wall clock</h3><p>A dark rim, a white face and hands. It replaces the cream disc, which was
@@ -123,11 +134,77 @@ section { display: grid; gap: 20px; }
     </div>
   </section>
 
+  <section id="schools">
+    <div class="section-head">
+      <span class="eyebrow">in review · PR #30</span>
+      <h2>Every school</h2>
+      <p class="muted">Nineteen more props, so that each of the eight schools reads as its own place. A fire extinguisher
+        hangs on the wall in every room; the rest belong to one or a few schools.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Maple Primary</h3><p>Cubbies with coloured bins under a window; a low kids&rsquo; bookshelf, a toy chest and a
+        blank easel on the front wall.</p></div>
+      <div class="card"><h3>Riverside Middle School</h3><p>Radiators under the windows and three recycling bins.</p></div>
+      <div class="card"><h3>Eastgate</h3><p>Pendant lamps over the side aisles and a coat stand in the corner.</p></div>
+      <div class="card"><h3>City High</h3><p>Two banks of lockers, radiators and recycling bins.</p></div>
+      <div class="card"><h3>Brightpath Prep Centre</h3><p>Filing cabinets and recycling bins in the Office.</p></div>
+      <div class="card"><h3>Kingsley Academy</h3><p>A trophy cabinet beside the bookcases, the school crest over the
+        door wall and radiators.</p></div>
+      <div class="card"><h3>University</h3><p>Stacked exam-paper boxes at the front, a lectern and radiators.</p></div>
+      <div class="card"><h3>National exam hall</h3><p>A basketball hoop, wall bars, a stack of gym mats and a gym bench.</p></div>
+    </div>
+    <div class="sub"><h3>Every room at the game camera, phone</h3>
+      <p class="muted">Play mode at 1080 × 2340. Many props sit at the walls and read small from here; the close-ups below
+        show them nearer.</p>
+      <figure><a href="img/phone-schools-a.jpg"><img src="img/phone-schools-a.jpg" alt="Four phone captures: Maple with the bookshelf, toy chest and easel; Riverside with recycling bins; Eastgate with four pendant lamps and a coat stand; City High with recycling bins" loading="lazy"></a><figcaption><b>Maple, Riverside, Eastgate, City High.</b></figcaption></figure>
+      <figure><a href="img/phone-schools-b.jpg"><img src="img/phone-schools-b.jpg" alt="Four phone captures: Brightpath with recycling bins; Kingsley with bookcases and the trophy cabinet; University with exam boxes at the front; the National hall with the hoop and gym mats" loading="lazy"></a><figcaption><b>Brightpath, Kingsley, University, National.</b> University's lectern stands at the front left; in this framing only a corner of it shows, at the bottom left.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>Tablet</h3>
+      <p class="muted">Play mode at 1620 × 2160, the same order.</p>
+      <figure><a href="img/tablet-schools-a.jpg"><img src="img/tablet-schools-a.jpg" alt="Four tablet captures: Maple, Riverside, Eastgate and City High, with a bank of lockers on City High's right wall" loading="lazy"></a><figcaption><b>Maple, Riverside, Eastgate, City High.</b> City High's lockers stand on the right wall.</figcaption></figure>
+      <figure><a href="img/tablet-schools-b.jpg"><img src="img/tablet-schools-b.jpg" alt="Four tablet captures: Brightpath, Kingsley, University and the National hall with wall bars and gym mats" loading="lazy"></a><figcaption><b>Brightpath, Kingsley, University, National.</b></figcaption></figure>
+    </div>
+    <div class="sub"><h3>Close up</h3>
+      <p class="muted">Renders of the rooms from the room builder, with stand-in students, and Play-mode captures of Eastgate.</p>
+      <div class="figs">
+        <figure><img src="img/close-maple.jpg" alt="Maple's front wall: a low bookshelf with books, a red toy chest and a blank easel beside the extinguisher" loading="lazy"><figcaption><b>Maple.</b> Kids' bookshelf, toy chest, easel.</figcaption></figure>
+        <figure><img src="img/close-maple-cubbies.jpg" alt="Maple's cubbies with green, blue, red, yellow and green bins under a window" loading="lazy"><figcaption><b>Maple.</b> Cubbies under a window.</figcaption></figure>
+        <figure><img src="img/close-cityhigh.jpg" alt="City High: two banks of blue lockers between windows, recycling bins and an extinguisher" loading="lazy"><figcaption><b>City High.</b> Lockers between the windows, recycling bins.</figcaption></figure>
+      </div>
+      <div class="figs">
+        <figure><img src="img/close-kingsley.jpg" alt="Kingsley: bookcases and a trophy cabinet in the corner, and the green crest centred over the notice board by the door" loading="lazy"><figcaption><b>Kingsley.</b> The trophy cabinet beside the bookcases; the crest on the door wall.</figcaption></figure>
+        <figure><img src="img/close-national.jpg" alt="The National hall: the basketball hoop, red gym mats in the corner, a gym bench and wall bars along the side wall" loading="lazy"><figcaption><b>National.</b> Hoop, gym mats, gym bench, wall bars.</figcaption></figure>
+      </div>
+      <figure><img src="img/eastgate-lamps.jpg" alt="Eastgate at three exam times: four pendant lamps over the side aisles and a coat stand by the back wall" loading="lazy"><figcaption><b>Eastgate</b> in Play mode: the pendant lamps over the side aisles and the coat stand.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>The props</h3>
+      <p class="muted">Renders from the prop pipeline. The labels on the first sheet give the triangles and the size in metres.</p>
+      <div class="figs">
+        <figure><a href="img/catalogue-a.jpg"><img src="img/catalogue-a.jpg" alt="Sixteen props: lockers, cubbies, hoop, wall bars, gym mats, gym bench, filing cabinet, printer, radiator, trophy cabinet, crest, lectern, pendant lamp, coat stand, extinguisher and waste bin" loading="lazy"></a><figcaption><b>Room props.</b> The printer and the waste bin are not used (see <a href="#not-used">Not used</a>).</figcaption></figure>
+        <figure><a href="img/catalogue-b.jpg"><img src="img/catalogue-b.jpg" alt="Six props from four sides: kids' bookshelf, toy chest, easel, exam boxes, projector cart and rolling whiteboard" loading="lazy"></a><figcaption><b>Kids' bookshelf, toy chest, easel and exam boxes</b>, front, three-quarter, top and back. The projector cart and the rolling whiteboard are not used.</figcaption></figure>
+      </div>
+    </div>
+    <div class="sub"><h3>Placements fixed</h3>
+      <ul class="limits">
+        <li><b>Kingsley's crest</b> overlapped the door frame; it now hangs clear of it.</li>
+        <li><b>Riverside's posters</b> covered the windows; they are moved off them.</li>
+        <li><b>City High's lockers</b> reached into a window; they now stand between the windows.</li>
+        <li><b>Eastgate's lamps</b> were placed in the room's layout but never built; they are now.</li>
+      </ul>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>The supervisor walks around furniture</h3><p>Walking to a student, the supervisor's path now
+        goes around the props instead of through them.</p></div>
+      <div class="card"><h3>A clear lane by the door</h3><p>A new test fails if any furniture stands in the walking lane
+        beside the queue at the door.</p></div>
+    </div>
+  </section>
+
   <section id="rooms">
     <div class="section-head">
-      <span class="eyebrow">play mode · phone</span>
-      <h2>In the rooms</h2>
-      <p class="muted">Each pair is the same room at the same exam time before the props (left) and now (right), at the game camera on
+      <span class="eyebrow">play mode · phone · PR #17</span>
+      <h2>The first five in the rooms</h2>
+      <p class="muted">Each pair is the same room at the same exam time before the props (left) and with the first five (right), at the game camera on
         a phone; the students differ between the two runs. The props are small from here; the close-ups below show them in the game.</p>
     </div>
     <div class="figs">
@@ -155,11 +232,15 @@ section { display: grid; gap: 20px; }
     <ul class="limits">
       <li><b>Phone.</b> No better than the phone the game already has.</li>
       <li><b>Tissue box.</b> Too small in the hand to matter.</li>
-      <li><b>Water bottle.</b> It would need a drinking behaviour first.</li>
+      <li><b>Water bottle.</b> Not used as a room prop. In review (PR #31), students who drink lift a bottle of their own (see
+        <a href="../student-characters/#drink-walk-queue">Student Characters</a>).</li>
       <li><b>Messenger bag, leafy plant and pencil case.</b> Crumpled, faceted surfaces that read as generated rather than
         as low-poly art.</li>
+      <li><b>Printer, round and square waste bins, chair stack and abacus</b> (made for PR #30). The same crumpled,
+        generated look.</li>
+      <li><b>Projector cart and rolling whiteboard</b> (made for PR #30). No room had a spot where they would be seen.</li>
     </ul>
-    <figure><img src="img/close-rejected.jpg" alt="The rejected messenger bag, leafy plant and pencil case, each with crumpled faceting" loading="lazy"><figcaption><b>Rejected:</b> messenger bag, leafy plant and pencil case.</figcaption></figure>
+    <figure><img src="img/close-rejected.jpg" alt="The rejected messenger bag, leafy plant and pencil case, each with crumpled faceting" loading="lazy"><figcaption><b>Rejected:</b> messenger bag, leafy plant and pencil case. The printer, waste bin, projector cart and rolling whiteboard are in <a href="#schools">The props</a>.</figcaption></figure>
   </section>
 
   <section id="built">
@@ -182,10 +263,12 @@ section { display: grid; gap: 20px; }
 
   <section id="look-at">
     <div class="section-head">
-      <span class="eyebrow">open in review</span>
+      <span class="eyebrow">open</span>
       <h2>Please look at</h2>
     </div>
     <ul class="limits">
+      <li><b>University's lectern is hidden in gameplay framing.</b> Only a corner of it shows, at the bottom left of
+        the screen (PR #30).</li>
       <li><b>Kingsley's bookcases are light wood</b>, where the old box was dark brown.</li>
       <li><b>The Middle classroom's shelves are 1.0 m tall</b> (the old box was 1.2 m), to stay below the side windows.</li>
       <li><b>The clock sits where the old one did.</b> In classrooms it is partly under the timer bar at the top of the

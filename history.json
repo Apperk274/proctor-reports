@@ -1,4 +1,7 @@
 [
+  {"date": "2026-11-26", "author": "Apperk274", "slug": "classroom-props", "change": "The first five props are merged; added the nineteen room props in review for every school, the fixed placements, the supervisor walking around furniture and the new rejects."},
+  {"date": "2026-11-26", "author": "Apperk274", "slug": "student-characters", "change": "PR #18 is merged; added drinking from a bottle, three walks and looking around in the door queue, in review."},
+  {"date": "2026-11-26", "author": "Apperk274", "slug": "proctor-character", "change": "Added the under-bust fit of the woman's tops and the ash-brown hair, in review, and the proctor's own gesture for each action, PR pending."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "release-audit", "change": "Added the Release Audit report: nine features audited, what was fixed in PRs #23 to #29, the owner's decisions, the release gate and what is open before launch."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "performance", "change": "Added students and memory on the Galaxy A15: 45 fps held at admission, a 98 ms first door card, and about 577 MB mid-exam on a normal build."},
   {"date": "2026-11-25", "author": "ardakabadayi", "slug": "classroom-door", "change": "Students now come down beside their chair and step in from the side instead of walking through its back, with before and after views and a phone shot."},

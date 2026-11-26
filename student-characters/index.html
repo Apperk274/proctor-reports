@@ -113,6 +113,8 @@ section { display: grid; gap: 20px; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
 .status { justify-self: start; font-family: var(--mono); font-size: 0.8rem; color: var(--warn); border: 1px solid var(--warn);
   padding: 2px 8px; border-radius: 4px; }
+.status.merged { color: var(--good); border-color: var(--good); }
+.tags-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .back { justify-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-radius: 3px; }
 .back:hover { text-decoration: underline; }
 .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -125,7 +127,10 @@ section { display: grid; gap: 20px; }
     <a class="back" href="../">← All reports</a>
     <span class="eyebrow">Exam Supervisor Simulator · students and their animations</span>
     <h1>Student Characters</h1>
-    <span class="status">Hands, tops, chests, upright child writing and the new glance: in review · PR #18, not merged yet</span>
+    <div class="tags-row">
+      <span class="status merged">Hands, tops, chests, upright child writing and the new glance: merged · PR #18</span>
+      <span class="status">Drinking, walk variety and queue waiting: in review · PR #31</span>
+    </div>
     <p class="lede">The game's students are built from the proctor's kit in four age bands, child to adult, with one body
       per band and sex, dressed from who they are and what they wore today: hair, skin, eyes, glasses, facial hair and
       clothes. They write, read, glance, whisper, reach, raise a hand, hold things up, think, stretch and walk, with clips
@@ -148,7 +153,7 @@ section { display: grid; gap: 20px; }
         <span><i style="background:var(--line)"></i>642 · left</span>
       </div>
     </div>
-    <p class="muted">The game's current students come first: <a href="#new-students">how they look in the game</a>, <a href="#hands-clothes">their hands, tops and chests</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#desk-distance">desk distance and writing posture</a> and <a href="#known-limits">their known limits</a>. The sections after that, from <a href="#classroom">the previous students in the classroom</a> on, describe the students they replaced.</p>
+    <p class="muted">The game's current students come first: <a href="#new-students">how they look in the game</a>, <a href="#hands-clothes">their hands, tops and chests</a>, <a href="#in-the-game">what is live</a>, <a href="#animation">their animation</a>, <a href="#drink-walk-queue">drinking, walks and the door queue</a>, <a href="#desk-distance">desk distance and writing posture</a> and <a href="#known-limits">their known limits</a>. The sections after that, from <a href="#classroom">the previous students in the classroom</a> on, describe the students they replaced.</p>
   </header>
 
   <section id="new-students">
@@ -696,6 +701,32 @@ section { display: grid; gap: 20px; }
       <li><b>330 of 352 clips pass every check.</b> The 22 that fail: Fidget and FidgetMirror on every rig except the child boy's (14) and Thinking on every rig (8).</li>
       <li><b>Fidget and Thinking fail their checks</b> (neither is used by the game): Fidget's leg swing lifts the hips 2–4 cm off the seat with the feet planted, a forearm crosses into the torso and the back leans into the chair; Thinking ends with the face up to 2.4 cm inside the desk top.</li>
       <li><b>Planted feet everywhere</b>: IdleCalm's lifted heel and Fidget's swinging feet are gone for teens and adults.</li>
+    </ul></div>
+  </section>
+
+  <section id="drink-walk-queue">
+    <div class="section-head">
+      <span class="eyebrow">current students · in review · PR #31</span>
+      <h2>Drinking, walk variety and waiting at the door</h2>
+      <p class="muted">Three motions that make the room less uniform. The images are the game's students: Play-mode
+        captures for drinking, renders from the game camera for the walks and the queue.</p>
+    </div>
+    <div class="traits">
+      <div class="card"><h3>Drinking from a bottle</h3><p>A student who drinks lifts a water bottle and tips it up at the
+        lips, then lowers it. Before, the drinking signal showed the plain idle pose.</p></div>
+      <div class="card"><h3>Three walks</h3><p>Each student walks with one of three gaits: the walk the game had, a hurried
+        one and a relaxed one.</p></div>
+      <div class="card"><h3>Waiting in the door queue</h3><p>Students waiting at the door alternate between standing and
+        looking around.</p></div>
+    </div>
+    <figure><a href="img/motion/drink.jpg"><img src="img/motion/drink.jpg" alt="Three seated students drinking from a water bottle, seven frames each, from the game camera above and from the side below: reach down, lift, tip the bottle up at the lips, lower" loading="lazy"></a><figcaption><b>Drinking</b>, three students in Play mode: from the game camera (top three rows) and from the side (bottom three rows), seven frames from the reach to lowering the bottle.</figcaption></figure>
+    <div class="figs">
+      <figure><a href="img/motion/walks.jpg"><img src="img/motion/walks.jpg" alt="An adult man walking towards the camera, six frames per gait: the current walk, a hurried walk leaning forward, and a relaxed walk" loading="lazy"></a><figcaption><b>The three walks</b> on an adult man at the game camera: the walk the game had (top), hurried (middle) and relaxed (bottom).</figcaption></figure>
+      <figure><a href="img/motion/queue-wait.jpg"><img src="img/motion/queue-wait.jpg" alt="Four standing students, eight frames each, turning their heads to look around and back" loading="lazy"></a><figcaption><b>Looking around in the queue</b>, two men and two women at the game camera, eight frames.</figcaption></figure>
+    </div>
+    <div class="sub"><h3>Left out</h3><ul class="limits">
+      <li><b>Folded arms and hands in pockets</b> as queue waits: the arms went into the body.</li>
+      <li><b>A worried walk and a look-around walk</b>: not kept.</li>
     </ul></div>
   </section>
 

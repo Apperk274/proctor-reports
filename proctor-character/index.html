@@ -119,7 +119,7 @@ td code { white-space: nowrap; }
     <nav class="toc" aria-label="Sections">
       <a href="#bases">Bases</a><a href="#builds">Builds</a><a href="#room">In the room</a>
       <a href="#preview">Wardrobe preview</a><a href="#faces">Faces</a><a href="#hair">Hair and colours</a>
-      <a href="#parts">Parts</a><a href="#clips">Clips</a><a href="#tint">Tinting</a><a href="#wardrobe">Wardrobe</a>
+      <a href="#parts">Parts</a><a href="#clips">Clips</a><a href="#gestures">Action gestures</a><a href="#tint">Tinting</a><a href="#wardrobe">Wardrobe</a>
       <a href="#fit">Fit details</a><a href="#items">Every item</a><a href="#checks">Checks</a><a href="#tris">Triangles</a>
       <a href="#problems">Open problems</a><a href="#method">Method and licence</a>
     </nav>
@@ -265,7 +265,7 @@ td code { white-space: nowrap; }
         <span class="eyebrow">skin</span>
         <span class="sw" style="background:#F0C8A8" title="light"></span><span class="sw" style="background:#D9A57B" title="medium"></span><span class="sw" style="background:#A87450" title="tan"></span><span class="sw" style="background:#6E4A33" title="dark"></span>
         <span class="eyebrow">hair</span>
-        <span class="sw" style="background:#141316" title="black"></span><span class="sw" style="background:#6B4328" title="brown"></span><span class="sw" style="background:#C4A062" title="fair"></span><span class="sw" style="background:#8E3B22" title="auburn"></span><span class="sw" style="background:#9A9894" title="grey"></span>
+        <span class="sw" style="background:#141316" title="black"></span><span class="sw" style="background:#62503F" title="ash brown"></span><span class="sw" style="background:#C4A062" title="fair"></span><span class="sw" style="background:#8E3B22" title="auburn"></span><span class="sw" style="background:#9A9894" title="grey"></span>
         <span class="eyebrow">eyes</span>
         <span class="sw" style="background:#4A2E1A" title="brown"></span><span class="sw" style="background:#7A5C2E" title="hazel"></span><span class="sw" style="background:#3E6B3A" title="green"></span><span class="sw" style="background:#3B6EA8" title="blue"></span>
       </div>
@@ -277,6 +277,10 @@ td code { white-space: nowrap; }
         styles fitted to her skull.</figcaption></figure>
     <figure><img src="img/colours.jpg" alt="Eight heads showing each skin tone with different hair and eye colours" loading="lazy">
       <figcaption>Each skin tone with a hair and eye colour: man (top), woman (bottom).</figcaption></figure>
+    <p class="muted"><span class="tag warn">in review · PR #32</span> <b>Ash-brown hair.</b> The brown in the palette
+      above is ash brown (#62503F). The proctor's model files still carried an older, auburn-looking brown in their hair,
+      brow and stubble materials; PR #32 writes the ash brown into them, and nothing else in the model changes. The grids
+      above were rendered with the older brown.</p>
   </section>
 
   <section id="parts">
@@ -327,6 +331,22 @@ td code { white-space: nowrap; }
     <figure><img src="img/clip-f-Standing.jpg" alt="Six frames of the woman's Standing clip" loading="lazy"><figcaption>Woman, Standing.</figcaption></figure>
     <figure><img src="img/clip-f-Walking.jpg" alt="Six frames of the woman's Walking clip" loading="lazy"><figcaption>Woman, Walking.</figcaption></figure>
     <figure><img src="img/clip-f-PresentDocument.jpg" alt="Six frames of the woman's PresentDocument clip" loading="lazy"><figcaption>Woman, PresentDocument.</figcaption></figure>
+  </section>
+
+  <section id="gestures">
+    <div class="section-head">
+      <h2>Action gestures <span class="tag warn">PR pending</span></h2>
+      <p class="muted">When the player acts on a student, the proctor turns to face the student and plays that action's
+        own gesture: observe, talk, warn, inspect, confiscate and remove. Before, every action showed the same frozen
+        reach.</p>
+    </div>
+    <figure><a href="img/gestures-game.jpg"><img src="img/gestures-game.jpg" alt="The man (left) and the woman (right) beside a seated student in Play mode, six actions in rows, four moments each" loading="lazy"></a>
+      <figcaption>In Play mode, at the game's zoomed camera: the man (left) and the woman (right). Rows: observe, talk,
+        warn, inspect, confiscate, remove. Columns: 0.15, 0.6, 1.2 and 2 s into the action. Remove's raised arm is often
+        out of the frame at this camera.</figcaption></figure>
+    <figure><a href="img/gestures-render-m.jpg"><img src="img/gestures-render-m.jpg" alt="Renders of the man at a desk with a stand-in student: the old frozen reach, then the six action gestures, eight frames each" loading="lazy"></a>
+      <figcaption>Renders of the man with a stand-in student, eight frames each. Rows: the old frozen reach, then observe,
+        talk, warn, inspect, confiscate, remove.</figcaption></figure>
   </section>
 
   <section id="tint">
@@ -543,6 +563,21 @@ td code { white-space: nowrap; }
           Two-sided: the brims still show from below. The seam check finds no crack or open gap in any hat, top, pair of
           glasses or trouser cut, on either body, in any build.</p></div>
     </div>
+    <div class="sub" id="bust">
+      <h3>Under the bust <span class="tag warn">in review · PR #32</span></h3>
+      <p class="muted">The woman's wardrobe tops were fitted as one wall from the collar to the waist, with no curve under
+        the bust. All 17 women's tops now follow it: 5 cm below the apex the front recedes about 2 cm (1.8–2.05 cm), where
+        it receded 0.3 cm at most before (the issued top recedes 4.1 cm). Buttons, plackets, ties, lapels and pockets keep
+        their height above the fabric. Each top gains 144 triangles. On the low-poly tops (tee, long sleeve, sweater, polo
+        and the flag tees) the under-bust reads as a straight crease across the chest, and the US flag print folds along
+        it.</p>
+    </div>
+    <figure><a href="img/bust-tops.jpg"><img src="img/bust-tops.jpg" alt="Nine women's tops from the side, each before above and now below: the tops now curve in under the bust" loading="lazy"></a>
+      <figcaption>The woman from the side in the rest pose, nine tops: mustard tee, navy shirt, hoodie, polo, shirt and
+        tie, then sweater, cardigan, tweed jacket, US flag tee. Each top: before (above), now (below).</figcaption></figure>
+    <figure><img src="img/bust-blazer.jpg" alt="The blazer before and now, from the side and three-quarter, at rest and standing" loading="lazy">
+      <figcaption>The blazer: before (top row), now (bottom row). Columns: rest pose from the side and three-quarter,
+        standing from the side and three-quarter.</figcaption></figure>
   </section>
 
   <section id="items">
@@ -679,12 +714,15 @@ td code { white-space: nowrap; }
   <section id="problems">
     <div class="section-head"><h2>Open problems</h2></div>
     <ul class="limits">
+      <li><b>A straight crease under the bust</b> on the woman's low-poly tops with the PR #32 fit (see
+        <a href="#bust">Under the bust</a>).</li>
+      <li><b>Remove's gesture leaves the frame</b> at the game's zoomed camera (see <a href="#gestures">Action gestures</a>).</li>
       <li><b>The sweater's rib band</b> shows a thin dark line along it at the back.</li>
       <li><b>The polo's collar edge</b> lets a few pixels show through when seen from below.</li>
       <li><b>From directly above</b>, the glasses' arms show along the sides of the hair; the geometry is correct.</li>
       <li><b>A thin dark line under the woman's short-sleeve hems</b> in Unity is ambient occlusion (SSAO), not a hole.</li>
       <li><b>About 10.1k triangles</b> for the heaviest dressed figure (man: cardigan, bucket hat, beard; the woman
-        9,852), over the 8k target and not yet measured on the Galaxy A15.</li>
+        9,852), over the 8k target (the woman 9,996 with the PR #32 bust fit) and not yet measured on the Galaxy A15.</li>
       <li><b>Slim and average are close.</b> Heavy reads at a glance; slim is a subtle step down from average.</li>
       <li><b>The woman's sneakers</b> keep the kit's tall ankle, which shows as a sock-like band between the shoe and the
         hem; it stops inside the trousers.</li>
